@@ -1,0 +1,8 @@
+*.py[co]
+__pycache__
+*-checkpoint.ipynb
+*.vscode
+bin/*.pstats
+bin/*.png
+log
+secret.py
