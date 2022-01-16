@@ -18,6 +18,8 @@
 - 支持方便部署成API服务
 
 # 目录结构
+
+```
 .
 |-- Bi：笔
 |   |-- CBiConfig.py：笔配置
@@ -97,6 +99,7 @@
 |-- backtest.py：回测类
 |-- README.md：本文档
 `-- monitor.py：买卖点信号计算
+```
 
 ## 基本使用方法
 ### demo
