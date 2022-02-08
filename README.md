@@ -4,10 +4,11 @@
 本框架支持：
 - 计算缠论基本元素，包括分形，笔，线段，中枢，买卖点
     - 部分元素支持继承基类，根据自己的逻辑开发，如笔，线段，买卖点
+    - 支持大级别特征，如线段中枢，线段的分段等
 - 支持多级别联立计算
     - 支持区间套计算买卖点
 - 支持计算当前买卖点
-- 支持配置MACD， 均线等计算指标
+- 支持配置MACD， 均线，布林线等计算指标
     - 亦支持配置多个不同的指标参与计算，如换手率，交易量等
 - 支持自定义策略开仓，平仓，及回测
 - 支持读取不同数据源数据
@@ -18,7 +19,6 @@
 - 支持方便部署成API服务
 
 # 目录结构
-
 ```
 .
 |-- Bi：笔
@@ -40,6 +40,10 @@
 |   |-- db_util.py：数据库操作类
 |   `-- func_util.py：通用函数
 |-- dataSrc：数据接口
+|   |-- snapshot：获取实时股价接口api
+|   |   |-- ak_snapshot.py：akshare接口，支持a股，etf，港股，美股
+|   |   |-- futu_snapshot.py：富途接口，支持a股，港股，美股
+|   |   `-- sina_snapshot.py：新浪接口，支持a股，etf，港股，美股
 |   |-- CommonStockAPI.py：数据接口通用父类
 |   |-- BaoStockApi.py：实现获取baostock数据
 |   |-- CustomDataDemo.py：自定义数据类demo（实现获取本地文件数据）
@@ -47,11 +51,13 @@
 |   `-- FutuApi.py：获取富途数据接口
 |-- KLine：K线
 |   |-- CKline_List.py：K线列表类
-|   |-- CKLine.py：单根K线类（klc）/合并K线类（klu）
+|   |-- CKLine.py：单根K线类（klu）
+|   |-- CKLine_Uniy.py：合并K线类（klc）
 |   `-- CTradeInfo.py：K线指标类（换手率，成交量，成交额等）
 |-- Math：计算
 |   |-- MACD.py：MACD计算类
 |   |-- Mean.py：均线计算类
+|   |-- BOLL.py：布林线计算类
 |   `-- OutlinerDetection.py：离群点计算类
 |-- model：模型
 |   |-- CommModel.py：通用模型父类
@@ -61,13 +67,13 @@
 |   |-- plotDriver.py：画图驱动器（基于python matplotlib）
 |   `-- plot_meta.py：画图元数据（可对接所有画图引擎的元数据）
 |-- Seg：线段
-|   |-- CEigenList.py：特征线段列表类
+|   |-- CEigenFX.py：特征线段分形类
 |   |-- CEigen.py：特征线段
 |   |-- CSegConfig.py：线段配置类
 |   |-- CSegListComm.py：线段列表通用父类
 |   |-- CSegListDef.py：基于线段破坏定义的线段计算类
-|   |-- CSegListDYH.py：基于都夜话1+1终结的线段计算类
-|   |-- CSegListEigen.py：基于特征线段计算的线段计算类
+|   |-- CSegListDYH.py：基于都业华1+1终结的线段计算类
+|   |-- CSegListChan.py：基于特征线段计算的线段计算类
 |   `-- CSeg.py：线段类
 |-- stragety：策略
 |   |-- CStragety.py：通用策略类
@@ -105,7 +111,7 @@
 ### demo
 ```python
 from chan import CChan
-from common.CEnum import DATA_SRC, KL_TYPE
+from common.CEnum import DATA_SRC, KL_TYPE, AUTYPE
 from plot.plotDriver import CPlot_driver
 from plot.animatePlotDriver import CAnimate_driver
 from ChanConfig import CChanConfig
@@ -115,7 +121,8 @@ chan = CChan(
     end_time="2021-08-10",
     data_src=DATA_SRC.BAO_STOCK,
     lv_list=[KL_TYPE.K_DAY, KL_TYPE.K_30M],
-    config=CChanConfig({})
+    config=CChanConfig({}),
+    autype=AUTYPE.QFQ,
 )
 
 plot_driver = CPlot_driver(
@@ -177,11 +184,6 @@ plot_driver = CPlot_driver(
 ### CChanConfig 配置
 该参数主要用于配置计算，支持配置参数如下：
 - 缠论计算相关：
-    - zs_mode：中枢模式
-        - bi: 笔中枢（默认）
-        - kline: 3K线重叠部分（一般用于最小级别）
-        - trend：走势中枢，由3个次级别走势重叠部分构成
-        - auto: 最小级别用`kline`， 其余级别用`trend`
     - zs_combine：是否进行中枢合并，默认为True
     - zs_combine_mode： 中枢合并模式
         - zs：两中枢区间有重叠才合并（默认）
@@ -189,6 +191,8 @@ plot_driver = CPlot_driver(
     - bi_strict：只用严格笔，默认为Ture
     - mean_metrics：均线计算周期，数组，默认为空[]
         - 例子：[5,20]
+    - trend_metrics：计算上下轨道线周期（即T天内最高/低价格），数组，默认为空[]
+    - boll_n：计算布林线，如果需要，则设置布林线参数N，整数，默认为None，不计算。
     - triger_step：是否回放逐步返回，默认为False
         - 用于逐步回放绘图时使用，此时CChan会变成一个生成器，没读取一根新K线就会计算一次当前所有指标，并把自身返回给CAnimate_driver绘图
     - skip_step：triger_step为True时有效，跳过前面N步不返回，默认为0
@@ -196,10 +200,9 @@ plot_driver = CPlot_driver(
         - chan：利用特征序列来计算（默认）
         - 1+1：都业华版本1+1终结算法
         - break：线段破坏定义来计算线段
-    - sure_seg_update_end：已确定的线段，如果下一线段未形成前突破改线段尾部极值，是否更新该线段，默认为True；
-    - kl_data_check：是否需要检验K线数据，检查项包括时间线是否有乱序，大小级别K线是否有不一致；默认为True
-    - max_kl_misalgin_cnt：在次级别找不到K线最大条数，默认为2，`kl_data_check`为True时生效
-    - max_kl_inconsistent_cnt：父&子级别K线时间不一致最大条数，默认为5，`kl_data_check`为True时生效
+    - kl_data_check：是否需要检验K线数据，检查项包括时间线是否有乱序，大小级别K线是否有缺失；默认为True
+    - max_kl_misalgin_cnt：在次级别找不到K线最大条数，默认为2（次级别数据有缺失），`kl_data_check`为True时生效
+    - max_kl_inconsistent_cnt：天K线以下（包括）子级别和父级别日期不一致最大允许条数（往往是父级别数据有缺失），默认为5，`kl_data_check`为True时生效
     - print_warming：打印K线不一致的明细，默认为True
     - auto_skip_illegal_sub_lv：如果获取次级别数据失败，自动删除该级别（比如指数数据一般不提供分钟线），默认为False
 - 模型：
@@ -253,14 +256,13 @@ plot_driver = CPlot_driver(
 demo配置为:
 ```
 config = CChanConfig({
-    "zs_mode": "bi",
     "zs_combine": True,
     "zs_combine_mode": "zs",
     "bi_strict": True,
     "mean_metrics": [],
     "triger_step": False,
     "skip_step": 0,
-    "seg_algo": "break",
+    "seg_algo": "chan",
     "divergence_rate": 0.9,
     "min_zs_cnt": 1,
     "max_bs2_rate": 0.618,
@@ -280,14 +282,19 @@ config = CChanConfig({
 
 ### plot_config配置
 CPlot_driver和CAnimate_driver参数，用于控制绘制哪些元素
+
 - plot_kline：画K线，默认为False
 - plot_kline_combine：画合并K线，默认为False
 - plot_bi：画笔，默认为False
 - plot_seg：画线段，默认为False
+- plot_segseg：画线段分段，默认为False
 - plot_eigen：画特征序列（一般调试用），默认为False
 - plot_zs：画中枢，默认为False
+- plot_segzs：画线段中枢，默认为False
 - plot_macd：画MACD图（图片下方额外开一幅图），默认为False
 - plot_mean：画均线，默认为False
+- plot_channel：画上下轨道，默认为False
+- plot_boll：画布林线，默认为False
 - plot_bsp：画理论买卖点，默认为False
 - plot_cbsp：画自定义策略买卖点位置，默认为False
 - plot_extrainfo：绘制配置的额外信息（在另一根y轴上），默认为False
@@ -320,6 +327,7 @@ bsp（buy sell point）和cbsp（custom buy sell point）是有差异的，前�
     - rugd：红涨绿跌，默认为True
 - ckl：合并K线相关
     - width：宽度，默认为0.4
+    - plot_single_kl：合并K线只包含一根k线是否需要画框，默认为True
 - bi：笔
     - emph_type：需要突出的笔的类别，默认为[]，可选值包括：
         - BI_TYPE.STRICT
@@ -351,10 +359,8 @@ bsp（buy sell point）和cbsp（custom buy sell point）是有差异的，前�
 - eigen：特征序列（`CChanConfig`中`seg_algo`设置为`chan`时有效）
     - color_top：顶分型颜色，默认为'r'
     - color_bottom：底分型颜色，默认为'b'
-    - color_up：上升分形颜色，默认为'green'
-    - color_down：下降分形颜色，默认为'pink'
     - aplha：透明度，默认为0.5
-    - only_peak：只画顶底分型，默认为True
+    - only_peak：只画顶底分型第二元素，默认为False
 
 ![](./image/eigen.png)
 
@@ -362,9 +368,31 @@ bsp（buy sell point）和cbsp（custom buy sell point）是有差异的，前�
     - color：颜色，默认为'k'
     - linewidth：宽度，最小为2，默认值为2
     - sub_linewidth：子中枢宽度（在开启中枢合并情况下），默认值为0.5
+
+- segseg:线段分段
+    - width:宽度，默认为7
+    - color：颜色，默认为'brown'
+
+- segzs：线段中枢
+    - color：颜色，默认为'red'
+    - linewidth：宽度，最小为2，默认值为10
+    - sub_linewidth：子中枢宽度（在开启中枢合并情况下），默认值为4
+
+![](./image/seg_zs.png)
+
 - macd：MACD
     - width：红绿柱宽度，默认为0.4
 - mean：均线，无可配置项
+- channel：上下轨道
+    - T：T天内的上下轨道，必须在`CChanConfig.trend_metrics`中出现，如果为None，则为`CChanConfig.trend_metrics`的最大值
+    - top_color：上轨道颜色，默认为'r'
+    - bottom_color：下轨道颜色，默认为'b'
+    - linewidth：轨道线宽度，默认为5
+    - linestyle：轨道线类型，默认为'solid'
+- boll：布林线（必须先配置`boll_n`）
+    - mid_color：中轨线颜色，默认为"black"
+    - up_color：上轨线颜色，默认为"blue"
+    - down_color：下轨线颜色，默认为"purple"
 - bsp：买卖点
     - buy_color：买点颜色，默认为'r'
     - sell_color：买点颜色，默认为'g'
@@ -379,6 +407,8 @@ bsp（buy sell point）和cbsp（custom buy sell point）是有差异的，前�
     - arrow_l：箭头占图总高度(即figure_h)比例，默认为0.3
     - arrow_h：箭头头部占箭头长度比例，默认为0.1
     - arrow_w：箭头宽度，默认为1
+    - plot_cover：绘制策略平仓的点，默认为True
+    - adjust_text：cbsp描述文本是否需要自动调整位置防止重叠，默认为False（配置后将不会重新拉伸纵轴，可能出现文本被挤到绘图框外的情况，如果cbsp数量不多，建议配置）
 - extrainfo：
     - info：绘制内容
         - volume：成交量（默认）

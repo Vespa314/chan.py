@@ -26,6 +26,7 @@ class KLINE_DIR(Enum):
     UP = auto()
     DOWN = auto()
     COMBINE = auto()
+    INCLUDED = auto()
 
 
 class FX_TYPE(Enum):
@@ -50,8 +51,13 @@ class BI_TYPE(Enum):
     TIAOKONG_VALUE = auto()
 
 
-class ZS_MODE(Enum):
-    KLINE_ZS = auto()
-    BI_ZS = auto()
-    TREND_ZS = auto()
-    AUTO_ZS = auto()
+class AUTYPE(Enum):
+    QFQ = auto()
+    HFQ = auto()
+    NONE = auto()
+
+
+class TREND_TYPE(Enum):
+    MEAN = "mean"
+    MAX = "max"
+    MIN = "min"

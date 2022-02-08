@@ -1,8 +1,14 @@
 from .CEnum import KL_TYPE, BI_DIR
+from common.ChanException import CChanException, ErrCode
+from KLine.CKline_Unit import KLine_Unit
 
 
 def kltype_lt_day(_type):
     return _type in [KL_TYPE.K_1M, KL_TYPE.K_5M, KL_TYPE.K_15M, KL_TYPE.K_30M, KL_TYPE.K_60M]
+
+
+def kltype_lte_day(_type):
+    return _type in [KL_TYPE.K_1M, KL_TYPE.K_5M, KL_TYPE.K_15M, KL_TYPE.K_30M, KL_TYPE.K_60M, KL_TYPE.K_DAY]
 
 
 def check_kltype_order(type_list: list):
@@ -45,3 +51,21 @@ def str2float(s):
         return float(s)
     except ValueError:
         return 0.0
+
+
+def parse_extrainfo_kl(extrainfo_kl, lv_list):
+    if extrainfo_kl is None:
+        return None
+    if type(extrainfo_kl) == list:
+        if len(lv_list) != 1:
+            raise CChanException("extrainfo_kl can't be a list in multi levels", ErrCode.EXTRA_KLU_ERR)
+        return {lv_list[0]: extrainfo_kl}
+    for kl_type, data in extrainfo_kl.items():
+        if kl_type not in lv_list:
+            raise CChanException(f"extrainfo_kl keys {kl_type} is not in lv_list={lv_list}", ErrCode.EXTRA_KLU_ERR)
+        if type(data) != list:
+            raise CChanException(f"extrainfo_kl values must be as list but not {type(data)}", ErrCode.EXTRA_KLU_ERR)
+        for idx, klu in enumerate(data):
+            if type(klu) != KLine_Unit:
+                raise CChanException(f"extrainfo_kl[{kl_type}][{idx}]'s type must be KLine_Unit, but not {type(klu)}", ErrCode.EXTRA_KLU_ERR)
+    return extrainfo_kl
