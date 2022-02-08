@@ -1,5 +1,3 @@
-| 有些代码比较乱，还没整理完，规范后测试通过了逐步发上来。
-
 # 缠论框架使用文档
 本框架支持：
 - 计算缠论基本元素，包括分形，笔，线段，中枢，买卖点
@@ -143,7 +141,7 @@ plot_driver = CPlot_driver(
 - 单幅图使用CPlot_driver
 - 如果需要看回放动画，则使用CAnimate_driver
 
-![](./image/demo.png)
+<img src="./image/demo.png" />
 
 其中涉及到的参数，CChanConfig，plot_config，plot_para见下文介绍。
 
@@ -300,10 +298,10 @@ CPlot_driver和CAnimate_driver参数，用于控制绘制哪些元素
 - plot_extrainfo：绘制配置的额外信息（在另一根y轴上），默认为False
 
 均线 & MACD：
-![](./image/mean_macd.png)
+<img src="./image/mean_macd.png" />
 
 买卖点：
-![](./image/bsp_demo.png)
+<img src="./image/bsp_demo.png" />
 
 #### bsp，cbsp区别
 bsp（buy sell point）和cbsp（custom buy sell point）是有差异的，前者是根据走势和定义可以计算出来过去各个买卖点的位置，而cbsp必须通过实现CChanConfig中的stragety_cls参数，实现一个策略类，该策略类在每根新K线出现时判断当下是否是新的买卖点。
@@ -311,7 +309,7 @@ bsp（buy sell point）和cbsp（custom buy sell point）是有差异的，前�
 即一个是基于历史的绝对正确的，一个是基于当下，不一定正确的。
 
 比如下图，表示带`！`且是虚线标示的买卖点就是cbsp，实线不带`!`的是bsp。
-![](./image/cbsp_demo.png)
+<img src="./image/cbsp_demo.png" />
 
 ### plot_para配置
 用于具体画图细节控制，具有两级，比如一级是figure，二级是w，那么配置figure_w=xxx即可。
@@ -347,7 +345,7 @@ bsp（buy sell point）和cbsp（custom buy sell point）是有差异的，前�
     - facecolor：如果sub_lv_cnt非空，那么本级别需要标示出次级别对应的本级别范围，该范围颜色为facecolor，默认为'green'
     - alpha：facecolor的透明度，默认为0.1
 
-![](./image/sub_lv_cnt_demo.png)
+<img src="./image/sub_lv_cnt_demo.png" />
 
 - seg:线段
     - width:宽度，默认为5
@@ -362,7 +360,7 @@ bsp（buy sell point）和cbsp（custom buy sell point）是有差异的，前�
     - aplha：透明度，默认为0.5
     - only_peak：只画顶底分型第二元素，默认为False
 
-![](./image/eigen.png)
+<img src="./image/eigen.png" />
 
 - zs：中枢
     - color：颜色，默认为'k'
@@ -378,7 +376,7 @@ bsp（buy sell point）和cbsp（custom buy sell point）是有差异的，前�
     - linewidth：宽度，最小为2，默认值为10
     - sub_linewidth：子中枢宽度（在开启中枢合并情况下），默认值为4
 
-![](./image/seg_zs.png)
+<img src="./image/seg_zs.png" />
 
 - macd：MACD
     - width：红绿柱宽度，默认为0.4
@@ -416,7 +414,7 @@ bsp（buy sell point）和cbsp（custom buy sell point）是有差异的，前�
         - turnover_rate：换手率
     - color：颜色，默认为'b'
 
-![](./image/extrainfo.png)
+<img src="./image/extrainfo.png" />
 
 ## 自定义开发
 ### 数据元解析器
