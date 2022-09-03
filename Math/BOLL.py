@@ -24,5 +24,5 @@ class BollModel:
         if len(self.arr) > self.N:
             self.arr = self.arr[-self.N:]
         ma = sum(self.arr)/len(self.arr)
-        theta = math.sqrt(sum([(x-ma)**2 for x in self.arr])/len(self.arr))
+        theta = math.sqrt(sum((x-ma)**2 for x in self.arr) / len(self.arr))
         return BOLL_Metric(ma, theta)

@@ -2,7 +2,8 @@
 __pycache__
 *-checkpoint.ipynb
 *.vscode
-bin/*.pstats
-bin/*.png
-log
-secret.py
+*.log
+*.db
+config.yaml
+OpenConfig.yaml
+gotify_push.py

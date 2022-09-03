@@ -1,0 +1,48 @@
+Data:
+  offline_data_path: xxx
+  model_path: xxx
+  log_path: xxx
+  stock_info_path: xxx
+  pickle_data_path: xxx
+  send_offline_data_update_info: True
+
+DB:
+  TYPE: sqlite  # mysql / sqlite
+  HOST: 127.0.0.1
+  PORT: 3306
+  USER: xxx
+  PASSWD: xxx
+  DATABASE: xxx
+
+  SQLITE_PATH: xxx/xxx/xxx.db
+
+  TABLE: xxx
+
+Futu:
+  PASSWORD_MD5: xxx
+  HOST: 127.0.0.1
+  PORT: 11111
+  RSA_PATH: ""
+  ENV: SIMULATE
+
+Trade:
+  log_file: xxx
+  trade_model_path: xxx
+  area: cn,hk,us
+  open_price_tolerance: 0.01  # relative
+  open_score_tolerance: 0.03  # absolute
+  chan_begin_date: 2015-01-01
+  latest_ipo_date: 2021-01-01
+
+Notion:
+  cn_id: xxx
+  hk_id: xxx
+  us_id: xxx
+  token: xxx
+
+Model:
+  model_tag: bsp_label-scale
+  model_type: normal  # normal/area/bs_type
+
+Chan:
+  debug: false
