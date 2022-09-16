@@ -702,7 +702,7 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
     - only_segbsp: False  只标示出来同时是线段买卖点的 cbsp
     - show_profit: True  显示收益率（需要开启 `CChanConfig` 中 `cal_cover`）
 
-<img src="./Image/chan.py_image_13.png" />
+<img src="./Image/plot_cbsp.png" />
 
 - segseg:  线段的线段
     - width: 7  宽度
