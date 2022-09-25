@@ -1261,7 +1261,7 @@ print(plot_driver.Upload2COS())
 ```
 
 交易引擎已内嵌实现了该调用：
-<img src="./Image/open_send_msg.png" />
+<img src="./Image/open_send_msg.png" width="200" />
 
 ### Notion
 如果在`config.yaml`中配置了Notion相关的信息，例行脚本中会调用`Script/Notion/DB_sync_Notion.py`将已开仓过的股票的操作数据同步至Notion制定的表中；并且会把开仓图片嵌入对应的页面中；
