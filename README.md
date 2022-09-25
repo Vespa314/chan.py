@@ -56,7 +56,10 @@
         - [外部接口](#外部接口)
       - [模型接入](#模型接入)
       - [Automl](#automl)
-  - [其他优化](#其他优化)
+  - [其他](#其他)
+    - [COS](#cos)
+    - [Notion](#notion)
+  - [其他不值一提的优化](#其他不值一提的优化)
   - [碎碎念](#碎碎念)
 
 ## 功能介绍
@@ -213,6 +216,10 @@
 │       ├── 📄 query_marketvalue.py: 计算股票市值分位数
 │       └── 📄 run_market_value_query.sh 调度脚本
 ├── 📁 Plot: 画图类
+│   ├── 📁 CosApi: COS文件上传类
+│   │   ├── 📄 minio_api.py: minio上传接口
+│   │   ├── 📄 tencent_cos_api.py: 腾讯云cos上传接口
+│   │   └── 📄 cos_config.py: 读取项目配置里面的cos配置参数
 │   ├── 📄 AnimatePlotDriver.py: 动画画图类
 │   ├── 📄 PlotDriver.py: matplotlib画图引擎
 │   └── 📄 PlotMeta.py: 图元数据
@@ -244,6 +251,14 @@
 ├── 📁 Script: 脚本汇总
 │   ├── 📁 cprofile_analysis: 性能分析
 │   │   └── 📄 cprofile_analysis.sh 性能分析脚本
+│   ├── 📁 Notion: Notion数据表同步脚本
+│   │   ├── 📁 notion: Notion API
+│   │   │   ├── 📄 notion_api.py: Notion统一API接口
+│   │   │   ├── 📄 block_driver.py: Notion块操作类
+│   │   │   ├── 📄 prop_driver.py.py: Notion数据表属性操作类
+│   │   │   ├── 📄 text.py: Notion 富文本操作类
+│   │   │   └── 📄 notion_config.py: notion读取配置文件里面的参数
+│   │   └── 📄 DB_sync_Notion.py 交易数据库同步Notion脚本
 │   ├── 📄 InitDB.py: 数据库初始化
 │   ├── 📄 Install.sh 安装本框架脚本
 │   ├── 📄 requirements.txt: pip requirements文件
@@ -308,6 +323,25 @@ Model:  # 模型配置，可自定义
 
 Chan:
   debug: false  # 是否开启debug模式
+
+Notion:  # Notion同步配置
+    cn_id: xxx
+    hk_id: xxx
+    us_id: xxx
+    token: xxx
+
+COS:  # COS上传图片配置
+  cos_type: xxx  # tencent/minio
+  tencent_cos:
+    secretid: xxx
+    secretkey: xxx
+    region: ap-xxx
+    bucket: chan-xxx
+  minio:
+    endpoint: xxxx.com
+    access_key: xxx
+    secret_key: xxx
+    bucket: xxx
 ```
 
 ### 自行开发必要工具类
@@ -463,7 +497,7 @@ else:  # 绘制动画
 
 运行后，可通过 `CChan[KL_TYPE]` 的 bi_list，seg_list，bs_point_lst，cbsp_stragety 等属性获得笔，线段，bsp，cbsp 信息；
 
->  如果只有一个级别，可以省去 KL_TYPE，直接使用 `CChan.bi_list` 这种调用方法
+>  如果只有一个级别，可以省去 KL_TYPE，直接使用 `CChan[0].bi_list` 这种调用方法
 
 ### CChanConfig 配置
 该参数主要用于配置计算逻辑，通过字典初始化 `CChanConfig` 即可，支持配置参数如下：
@@ -836,6 +870,7 @@ create table if not exists {table_name}(
     quota int default 0,  --- 提交订单时
     open_date datetime(6),  --- 开仓信号突破时
     open_order_id varchar(32),  --- 提交订单时
+    open_image_url varchar(64),--- 开仓信号突破时
     peak_price_after_open float, --- 更新peak_price时
 
     cover_avg_price float, -- 平仓成交时
@@ -884,6 +919,7 @@ create table if not exists {table_name}(
     - 轮询间隔
     - 是否需要微调未成交订单
     - 是否实时推送成交订单，未成交订单状态
+- 各种关键信息的推送
 
 ### 典型流程
 一个典型的交易流程（即本框架 `Trade/Script` 下实现的）包括以下步骤：
@@ -1152,7 +1188,9 @@ class CXGB_DataSet(CDataSet):
 ##### 外部接口
 实现了上面两个类之后：
 - 调用 `CModelGenerator.trainProcess()` 即可实现对买卖类型，不同地区股票不同买卖类型，不同买卖点进行训练生成模型和评估结果；
-<img src="./Image/chan.py_image_13.png" />
+
+<img src="./Image/summary_b_us_test.png" />
+
 - 调用 `CModelGenerator.PredictProcess()` 即可实现对回测特征文件全部或部分进行预测
 - 调用 `CModelGenerator.predictAllProcess()` 即可用所有模型对回测特征文件进行打分，并生成所需要的分数，特征文件，可以直接对接到本框架提供的 automl 方法中；
 
@@ -1196,7 +1234,41 @@ class CCommModel:
 
 对于 `para_automl.py` 的返回结果（包含所有探索过的配置和结果），可以借助 `parse_automl_result.py` 生成线上交易引擎可以直接使用的配置 yaml；
 
-## 其他优化
+## 其他
+### COS
+交易引擎在开仓时会推送股票，止损点，价格，分数之类的信息；为了方便在推送时附带上缠论绘制的图片，所以需要一个可以上传图片的地方，所以本项目实现了两个基于cos的上传接口，即项目中`Plot/CosApi`下的实现；
+
+首选需要在`config.yaml`中配置上COS相关的信息（设计账号密码，桶名称之类的），自己开发使用时，可以直接调用`CPlotDriver.Upload2COS(path=None)`实现自动上传并获得url；
+
+```python
+chan = CChan(
+        code=code,
+        begin_time=begin_time,
+        end_time=end_time,
+        data_src=data_src,
+        lv_list=lv_list,
+        config=config,
+        autype=AUTYPE.QFQ,
+        extra_kl=None,
+    )
+
+plot_driver = CPlotDriver(
+    chan,
+    plot_config=plot_config,
+    plot_para=plot_para,
+)
+print(plot_driver.Upload2COS())
+```
+
+交易引擎已内嵌实现了该调用：
+<img src="./Image/open_send_msg.png" />
+
+### Notion
+如果在`config.yaml`中配置了Notion相关的信息，例行脚本中会调用`Script/Notion/DB_sync_Notion.py`将已开仓过的股票的操作数据同步至Notion制定的表中；并且会把开仓图片嵌入对应的页面中；
+
+<img src="./Image/notion_table.png" />
+
+## 其他不值一提的优化
 除去上面所说的，还有很多细节的东西没有展开讲，比如
 - 交易系统频率如何控制
 - 离线数据更新复权时处理逻辑

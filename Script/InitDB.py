@@ -37,6 +37,7 @@ create table if not exists {table_name}(
     quota int default 0,
     open_date timestamp,
     open_order_id TEXT,
+    open_image_url TEXT,
     peak_price_after_open float,
     cover_avg_price float,
     cover_quota int default 0,
@@ -79,6 +80,7 @@ create table if not exists {table_name}(
     quota int default 0,  --- 提交订单时
     open_date datetime(6),  --- 开仓信号突破时
     open_order_id varchar(32),  --- 提交订单时
+    open_image_url varchar(64),--- 开仓信号突破时
     peak_price_after_open float, --- 更新peak_price时
 
     cover_avg_price float, -- 平仓成交时

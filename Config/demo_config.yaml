@@ -33,6 +33,8 @@ Trade:
   open_score_tolerance: 0.03  # absolute
   chan_begin_date: 2015-01-01
   latest_ipo_date: 2021-01-01
+  touch_sl_cnt: 1
+  touch_sw_cnt: 1
 
 Notion:
   cn_id: xxx
@@ -41,8 +43,21 @@ Notion:
   token: xxx
 
 Model:
-  model_tag: bsp_label-scale
-  model_type: normal  # normal/area/bs_type
+  model_tag: label-scale  # 开仓/后验如果没配置才取这个值
+  model_type: bs_type  # normal/area/bs_type, 开仓/后验时不起作用
 
 Chan:
   debug: false
+
+COS:
+  cos_type: xxx  # tencent/minio
+  tencent_cos:
+    secretid: xxx
+    secretkey: xxx
+    region: ap-xxx
+    bucket: chan-xxx
+  minio:
+    endpoint: xxxx.com
+    access_key: xxx
+    secret_key: xxx
+    bucket: xxx
