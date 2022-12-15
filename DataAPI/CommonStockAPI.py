@@ -1,16 +1,10 @@
 import abc
+from typing import Iterable
+
+from KLine.KLine_Unit import CKLine_Unit
 
 
 class CCommonStockApi:
-    FIELD_TIME = "time_key"
-    FIELD_OPEN = "open"
-    FIELD_HIGH = "high"
-    FIELD_LOW = "low"
-    FIELD_CLOSE = "close"
-    FIELD_VOLUME = "volume"  # 成交量
-    FIELD_TURNOVER = "turnover"  # 成交额
-    FIELD_TURNRATE = "turnover_rate"  # 换手率
-
     def __init__(self, code, k_type, begin_date, end_date, autype):
         self.code = code
         self.name = None
@@ -22,7 +16,7 @@ class CCommonStockApi:
         self.SetBasciInfo()
 
     @abc.abstractmethod
-    def get_kl_data(self):
+    def get_kl_data(self) -> Iterable[CKLine_Unit]:
         pass
 
     @abc.abstractmethod
@@ -38,6 +32,3 @@ class CCommonStockApi:
     @abc.abstractmethod
     def do_close(cls):
         pass
-
-
-TRADE_INFO_LST = [CCommonStockApi.FIELD_VOLUME, CCommonStockApi.FIELD_TURNOVER, CCommonStockApi.FIELD_TURNRATE]

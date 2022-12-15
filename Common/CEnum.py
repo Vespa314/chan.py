@@ -1,12 +1,9 @@
 from enum import Enum, auto
+from typing import Literal
 
 
 class DATA_SRC(Enum):
-    FUTU = auto()
     BAO_STOCK = auto()
-    TU_SHARE = auto()
-    LOCAL_FILE = auto()
-    AK_SHARE = auto()
 
 
 class KL_TYPE(Enum):
@@ -52,6 +49,39 @@ class BI_TYPE(Enum):
     TIAOKONG_VALUE = auto()
 
 
+BSP_MAIN_TYPE = Literal['1', '2', '3']
+
+
+class BSP_TYPE(Enum):
+    T1 = '1'
+    T1P = '1p'
+    T2 = '2'
+    T2S = '2s'
+    T3A = '3a'  # 中枢在1类后面
+    T3B = '3b'  # 中枢在1类前面
+
+    T1Q = '1-Q'
+    T1PQ = '1p-Q'
+    T2Q = '2-Q'
+    T2SQ = '2s-Q'
+    T3AQ = '3a-Q'  # 中枢在1类后面
+    T3BQ = '3b-Q'  # 中枢在1类前面
+
+    def main_type(self) -> BSP_MAIN_TYPE:
+        return self.value[0]
+
+    def to_qjt(self) -> 'BSP_TYPE':
+        _d = {
+            '1': BSP_TYPE.T1Q,
+            '1p': BSP_TYPE.T1PQ,
+            '2': BSP_TYPE.T2Q,
+            '2s': BSP_TYPE.T2SQ,
+            '3a': BSP_TYPE.T3AQ,
+            '3b': BSP_TYPE.T3BQ,
+        }
+        return _d[self.value]
+
+
 class AUTYPE(Enum):
     QFQ = auto()
     HFQ = auto()
@@ -92,3 +122,17 @@ class MACD_ALGO(Enum):
     VOLUMN_AVG = auto()
     AMOUNT_AVG = auto()
     TURNRATE_AVG = auto()
+
+
+class DATA_FIELD:
+    FIELD_TIME = "time_key"
+    FIELD_OPEN = "open"
+    FIELD_HIGH = "high"
+    FIELD_LOW = "low"
+    FIELD_CLOSE = "close"
+    FIELD_VOLUME = "volume"  # 成交量
+    FIELD_TURNOVER = "turnover"  # 成交额
+    FIELD_TURNRATE = "turnover_rate"  # 换手率
+
+
+TRADE_INFO_LST = [DATA_FIELD.FIELD_VOLUME, DATA_FIELD.FIELD_TURNOVER, DATA_FIELD.FIELD_TURNRATE]

@@ -11,6 +11,13 @@
              ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═╝        ╚═╝
 ```
 
+
+**特别说明**：当前公开部分代码暂时只包含基本的静态计算能力，暂未包含策略类，特征，模型，automl框架，交易引擎对接等；
+
+因为对应的特征和产出的模型，策略正在进行实盘测试，故完整版暂时只对极少数一起研究的朋友开放；
+
+完整代码18000行左右，公开版约4000行；下面README对应的是完整版；
+
 ---
 # 缠论框架使用文档
 - [缠论框架使用文档](#缠论框架使用文档)
@@ -19,7 +26,7 @@
     - [2. 策略买卖点开发](#2-策略买卖点开发)
     - [3. 策略对接机器学习框架](#3-策略对接机器学习框架)
     - [4. 线上交易](#4-线上交易)
-  - [目录结构 & 文件说明](#目录结构--文件说明)
+  - [目录结构 \& 文件说明](#目录结构--文件说明)
   - [安装方法](#安装方法)
     - [配置文件介绍](#配置文件介绍)
     - [自行开发必要工具类](#自行开发必要工具类)
@@ -31,8 +38,8 @@
       - [精确设置配置](#精确设置配置)
       - [CChanConfig 配置 Demo](#cchanconfig-配置-demo)
     - [画图配置](#画图配置)
-      - [plot_config](#plot_config)
-      - [plot_para](#plot_para)
+      - [plot\_config](#plot_config)
+      - [plot\_para](#plot_para)
   - [模型](#模型)
   - [特征](#特征)
     - [默认特征情况](#默认特征情况)
@@ -59,8 +66,14 @@
   - [其他](#其他)
     - [COS](#cos)
     - [Notion](#notion)
+    - [试题功能](#试题功能)
   - [其他不值一提的优化](#其他不值一提的优化)
   - [碎碎念](#碎碎念)
+    - [12月15日补充](#12月15日补充)
+      - [实验仓位](#实验仓位)
+      - [港股](#港股)
+      - [美股](#美股)
+  - [Star history](#star-history)
 
 ## 功能介绍
 本框架从使用深度上来讲，分四种不同的级别：
@@ -91,7 +104,7 @@
 
 ### 3. 策略对接机器学习框架
 - 支持通过机器学习模型对买卖点进行打分
-    - 默认对买卖点提供 400+个特征
+    - 默认对买卖点提供 500+个特征
     - 提供机器学习开发框架，实现数据接入，模型训练预测，模型读写等接口即可上线
         - 默认提供XGB，LightGBM，MLP深度学习网络三种模型
     - 提供回测，评估框架
@@ -155,6 +168,7 @@
 │   ├── 📄 Stragety.py: 通用抽象策略父类
 │   ├── 📄 CustomStragety.py: demo策略1
 │   ├── 📄 SegBspStragety.py: demo策略2
+│   ├── 📄 ExamStragety.py: 生成买卖点判断试题的策略
 │   ├── 📄 CustomBSP.py: 自定义买卖点
 │   └── 📄 Signal.py: 信号类
 ├── 📁 DataAPI: 数据接口
@@ -165,11 +179,12 @@
 │   ├── 📄 FutuAPI.py: futu数据接口
 │   ├── 📄 OfflineDataAPI.py: 离线数据接口
 │   ├── 📄 MarketValueFilter.py: 股票市值过滤类
-│   └── 📁 snapshot: 实时股价数据接口（用于构造标准K线数据）
-│       ├── 📄 ak_snapshot.py: akshare接口，支持a股，etf，港股，美股
-│       ├── 📄 futu_snapshot.py: 富途接口，支持a股，港股，美股
-│       ├── 📄 pytdx_snapshot.py: pytdx，支持A股，ETF
-│       └── 📄 sina_api.py: 新浪接口，支持a股，etf，港股，美股
+│   └── 📁 SnapshotAPI: 实时股价数据接口
+│       ├── 📄 StockSnapshotAPI.py: 统一调用接口
+│       ├── 📄 AkShareSnapshot.py: akshare接口，支持a股，etf，港股，美股
+│       ├── 📄 FutuSnapshot.py: 富途接口，支持a股，港股，美股
+│       ├── 📄 PytdxSnapshot.py: pytdx，支持A股，ETF
+│       └── 📄 SinaSnapshot.py: 新浪接口，支持a股，etf，港股，美股
 ├── 📁 Math: 计算类
 │   ├── 📄 BOLL.py: 布林线计算类
 │   ├── 📄 MACD.py: MACD计算类
@@ -216,13 +231,13 @@
 │       ├── 📄 query_marketvalue.py: 计算股票市值分位数
 │       └── 📄 run_market_value_query.sh 调度脚本
 ├── 📁 Plot: 画图类
-│   ├── 📁 CosApi: COS文件上传类
-│   │   ├── 📄 minio_api.py: minio上传接口
-│   │   ├── 📄 tencent_cos_api.py: 腾讯云cos上传接口
-│   │   └── 📄 cos_config.py: 读取项目配置里面的cos配置参数
 │   ├── 📄 AnimatePlotDriver.py: 动画画图类
 │   ├── 📄 PlotDriver.py: matplotlib画图引擎
-│   └── 📄 PlotMeta.py: 图元数据
+│   ├── 📄 PlotMeta.py: 图元数据
+│   └── 📁 CosApi: COS文件上传类
+│       ├── 📄 minio_api.py: minio上传接口
+│       ├── 📄 tencent_cos_api.py: 腾讯云cos上传接口
+│       └── 📄 cos_config.py: 读取项目配置里面的cos配置参数
 ├── 📁 Trade: 交易引擎
 │   ├── 📄 db_util.py: 数据库操作类
 │   ├── 📄 FutuTradeEngine.py: futu交易引擎类
@@ -230,14 +245,8 @@
 │   ├── 📄 SqliteDB.py: SqliteDB数据库类
 │   ├── 📄 OpenQuotaGen.py: 开仓交易手数策略类（用于控制仓位）
 │   ├── 📄 TradeEngine.py: 交易引擎核心类
-│   ├── 📁 CommonStockPriceQueryApi: 实时股价数据接口（用于获取股价）
-│   │   ├── 📄 StockPriceQueryApi.py: 通用抽象父类
-│   │   ├── 📄 FutuSnapshot.py: futu
-│   │   ├── 📄 PytdxSnapshot.py: pytdx
-│   │   └── 📄 SinaSnapshot.py: sina
-│   ├── 📁 bin: 脚本
-│   │   └── 📄 monitor_run.sh 离线数据更新，信号计算调度脚本
 │   └── 📁 Script: 核心交易脚本
+│       ├── 📄 update_data_signal.sh: 离线数据更新，信号计算调度脚本
 │       ├── 📄 CheckOpenScore.py: 后验检查开仓是否准确
 │       ├── 📄 ClosePreErrorOpen.py: 修复错误开仓
 │       ├── 📄 MakeOpenTrade.py: 开仓
@@ -249,28 +258,34 @@
 │       ├── 📄 StaticsChanConfig.py: 缠论计算配置
 │       └── 📄 UpdatePeakPrice.py: 峰值股价更新（用于做动态止损）
 ├── 📁 Script: 脚本汇总
-│   ├── 📁 cprofile_analysis: 性能分析
-│   │   └── 📄 cprofile_analysis.sh 性能分析脚本
-│   ├── 📁 Notion: Notion数据表同步脚本
-│   │   ├── 📁 notion: Notion API
-│   │   │   ├── 📄 notion_api.py: Notion统一API接口
-│   │   │   ├── 📄 block_driver.py: Notion块操作类
-│   │   │   ├── 📄 prop_driver.py.py: Notion数据表属性操作类
-│   │   │   ├── 📄 text.py: Notion 富文本操作类
-│   │   │   └── 📄 notion_config.py: notion读取配置文件里面的参数
-│   │   └── 📄 DB_sync_Notion.py 交易数据库同步Notion脚本
 │   ├── 📄 InitDB.py: 数据库初始化
 │   ├── 📄 Install.sh 安装本框架脚本
 │   ├── 📄 requirements.txt: pip requirements文件
+│   ├── 📄 pip_upgrade.sh: pip更新股票数据相关的库
 │   ├── 📄 run_backtest.sh 运行回测计算
-│   └── 📄 run_train_pipeline.sh 运行回测，指定模型训练预测评估，校验，全pipeline脚本
+│   ├── 📄 run_train_pipeline.sh 运行回测，指定模型训练预测评估，校验，全pipeline脚本
+│   ├── 📁 cprofile_analysis: 性能分析
+│   │   └── 📄 cprofile_analysis.sh 性能分析脚本
+│   └── 📁 Notion: Notion数据表同步脚本
+│      ├── 📄 DB_sync_Notion.py 交易数据库同步Notion脚本
+│      └── 📁 notion: Notion API
+│          ├── 📄 notion_api.py: Notion统一API接口
+│          ├── 📄 block_driver.py: Notion块操作类
+│          ├── 📄 prop_driver.py.py: Notion数据表属性操作类
+│          ├── 📄 text.py: Notion 富文本操作类
+│          └── 📄 secret.py: notion读取配置文件里面的参数
 ├── 📄 main.py: demo main函数
 ├── 📄 Chan.py: 缠论主类
 ├── 📄 ChanConfig.py: 缠论配置
+├── 📄 ExamGenerator.py: 测试题生成API
+├── 📄 LICENSE
 └── 📄 README.md: 本文件
 ```
 
 ## 安装方法
+
+> 依赖最低版本为python3.11；由于本项目是高度计算密集型，鉴于python3.11发布且运算速度大幅提升，实测相比于python 3.8.5计算时间缩短约16%，故后续开发均基于python3.11；
+
 1. 配置 yaml 文件：`Config/config.yaml`
 2. 运行 `Script/Install.sh`，会执行：
     - 创建配置文件中的需要的路径
@@ -281,6 +296,9 @@
 ### 配置文件介绍
 配置文件所需填写内容如下：
 ```yaml
+Env:
+  python: /usr/bin/python3.11  # python命令
+
 Data:
   offline_data_path: xxx  # 离线数据存储位置
   model_path: xxx  # 模型数据存储位置
@@ -314,8 +332,15 @@ Trade:
   open_score_tolerance: 0.03  # 开仓后验允许分数误差，绝对值
   chan_begin_date: 2015-01-01  # 缠论计算开始K线日期
   latest_ipo_date: 2021-01-01  # 股票最晚上市时间（太近的话，K线数据不足，计算不准）
-  touch_sl_cnt: 1,  # 多少根分钟K线连续触达止损线才发起止损单
-  touch_sw_cnt: 1,  # 多少根分钟K线连续触达止盈线才发起止盈单
+  touch_sl_cnt: 1  # 多少根分钟K线连续触达止损线才发起止损单
+  touch_sw_cnt: 1  # 多少根分钟K线连续触达止盈线才发起止盈单
+  allow_break_sw_bound: True  # 止盈提单后如果没成交且价格跌破止盈价，是否允许调整下单价格低于止盈价
+  dynamic_sl_include_tody: False  # 动态止盈是否考虑当天峰值
+  DST: True  # True是夏令时，False是冬令时，影响美股交易时间
+  snapshot_eigine:  # 股价快照引擎，默认值为下面配置
+    us: sina
+    hk: futu
+    cn: futu
 
 Model:  # 模型配置，可自定义
   model_tag: bsp_label-scale  # 模型标签
@@ -365,10 +390,10 @@ def _log_trade(title, *msg):
 
 ## 缠论计算使用方法
 ### 特殊名词/变量名解释
-- klu：K Line Unit 的简称，表示单根 K 线
-- klc：K Line Combine 的简称，表示合并后的 K 线（不再有 open，close 价格属性）
+- klu：K Line Unit 的简称，表示单根K线
+- klc：K Line Combine 的简称，表示合并后的K线（不再有 open，close 价格属性）
 - bsp：Buy Sell Point 买卖点的简称，本项目中特指形态学中的买卖点，是根据走势和定义可以计算出来过去各个买卖点的位置，即一定正确的那一些；
-- cbsp：Custom Buy Sell Point 自定义买卖点的简称，由用户自己编写策略（通过实现 CChanConfig 中的 cbsp_stragety 参数）产生的交易点，该策略类在每根新 K 线出现时判断当下是否是新的买卖点（即仅有到当下为止的 K 线数据），一般而言，相较于 bsp 会延后，而且不一定正确；
+- cbsp：Custom Buy Sell Point 自定义买卖点的简称，由用户自己编写策略（通过实现 CChanConfig 中的 cbsp_stragety 参数）产生的交易点，该策略类在每根新K线出现时判断当下是否是新的买卖点（即仅有到当下为止的K线数据），一般而言，相较于 bsp 会延后，而且不一定正确；
 
 比如下图表述的就是 1，2，3 类 bsp：
 
@@ -489,7 +514,7 @@ else:  # 绘制动画
     - AUTYPE.HFQ
     - AUTYPE.NONE
 - config：`CChanConfig` 类，缠论元素计算参数配置，参见下文 `CChanConfig`
-- extra_kl：额外 K 线，常用于补充 `data_src` 的数据，比如离线 `data_src` 只有到昨天为止的数据，今天开仓需要加上今天实时获得的部分 K 线数据；默认为 None；
+- extra_kl：额外K线，常用于补充 `data_src` 的数据，比如离线 `data_src` 只有到昨天为止的数据，今天开仓需要加上今天实时获得的部分K线数据；默认为 None；
     - 如果是个列表：每个元素必须为描述 klu 的 `CKLine_Unit` 类；此时如果 `lv_list` 参数有多个级别，则会报错
     - 如果是个字典，key 是 `lv_list` 参数里面的每个级别，value 是数组，每个元素是 `CKLine_Unit` 类
 
@@ -502,35 +527,43 @@ else:  # 绘制动画
 ### CChanConfig 配置
 该参数主要用于配置计算逻辑，通过字典初始化 `CChanConfig` 即可，支持配置参数如下：
 - 缠论计算相关：
-    - zs_combine：是否进行中枢合并，默认为 True
-    - zs_combine_mode： 中枢合并模式，取值
-        - zs：两中枢区间有重叠才合并（默认）
-        - peak：两中枢有 K 线重叠就合并
-    - one_bi_zs：是否需要计算只有一笔的中枢（分析趋势时会用到），默认为 False
-    - bi_strict：只用严格笔，默认为 Ture
-    - bi_fx_check：检查笔顶底分形是否成立的方法
-        - strict：底分型的最低点必须比顶分型 3 元素最低点的最小值还低，顶分型反之。
-        - loss：底分型的最低点比顶分型中间元素低点还低，顶分型反之。
-        - half:(默认)对于上升笔，底分型的最低点比顶分型前两元素最低点还低，顶分型的最高点比底分型后两元素高点还高。下降笔反之。
+    - 中枢
+      - zs_combine：是否进行中枢合并，默认为 True
+      - zs_combine_mode： 中枢合并模式，取值
+          - zs：两中枢区间有重叠才合并（默认）
+          - peak：两中枢有K线重叠就合并
+      - one_bi_zs：是否需要计算只有一笔的中枢（分析趋势时会用到），默认为 False
+    - 笔
+      - bi_algo: 笔算法，默认为 normal
+        - normal: 按缠论笔定义来算
+        - fx: 顶底分形即成笔
+      - bi_strict：是否只用严格笔(bi_algo=normal时有效)，默认为 Ture
+      - gap_as_kl：缺口是否处理成一根K线，默认为 True
+      - bi_end_is_peak: 笔的尾部是否是整笔中最低/最高, 默认为 True
+      - bi_fx_check：检查笔顶底分形是否成立的方法
+          - strict：底分型的最低点必须比顶分型 3 元素最低点的最小值还低，顶分型反之。
+          - loss：底分型的最低点比顶分型中间元素低点还低，顶分型反之。
+          - half:(默认)对于上升笔，底分型的最低点比顶分型前两元素最低点还低，顶分型的最高点比底分型后两元素高点还高。下降笔反之。
+    - 线段
+      - seg_algo：线段计算方法
+          - chan：利用特征序列来计算（默认）
+          - 1+1：都业华版本 1+1 终结算法
+          - break：线段破坏定义来计算线段
+      - left_seg_method: 剩余那些不能归入确定线段的笔如何处理成段
+          - all：收集至最后一个方向正确的笔，成为一段
+          - peak：如果有个靠谱的新的极值，那么分成两段（默认）
     - mean_metrics：均线计算周期（用于生成特征及绘图时使用），默认为空[]
         - 例子：[5,20]
     - trend_metrics：计算上下轨道线周期，即 T 天内最高/低价格（用于生成特征及绘图时使用），默认为空[]
     - boll_n：布林线参数 N，整数，默认为 20（用于生成特征及绘图时使用）
     - triger_step：是否回放逐步返回，默认为 False
-        - 用于逐步回放绘图时使用，此时 CChan 会变成一个生成器，每读取一根新 K 线就会计算一次当前所有指标，返回当前帧指标状况；常用于返回给 CAnimateDriver 绘图
-    - skip_step：triger_step 为 True 时有效，指定跳过前面几根 K 线，默认为 0；
-    - seg_algo：线段计算方法
-        - chan：利用特征序列来计算（默认）
-        - 1+1：都业华版本 1+1 终结算法
-        - break：线段破坏定义来计算线段
-    - left_seg_method: 剩余那些不能归入确定线段的笔如何处理成段
-        - all：收集至最后一个方向正确的笔，成为一段
-        - peak：如果有个靠谱的新的极值，那么分成两段（默认）
-    - kl_data_check：是否需要检验 K 线数据，检查项包括时间线是否有乱序，大小级别 K 线是否有缺失；默认为 True
-    - max_kl_misalgin_cnt：在次级别找不到 K 线最大条数，默认为 2（次级别数据有缺失），`kl_data_check` 为 True 时生效
-    - max_kl_inconsistent_cnt：天 K 线以下（包括）子级别和父级别日期不一致最大允许条数（往往是父级别数据有缺失），默认为 5，`kl_data_check` 为 True 时生效
-    - print_warming：打印 K 线不一致的明细，默认为 True
-    - print_err_time：计算发生错误时打印因为什么时间的 K 线数据导致的，默认为 False
+        - 用于逐步回放绘图时使用，此时 CChan 会变成一个生成器，每读取一根新K线就会计算一次当前所有指标，返回当前帧指标状况；常用于返回给 CAnimateDriver 绘图
+    - skip_step：triger_step 为 True 时有效，指定跳过前面几根K线，默认为 0；
+    - kl_data_check：是否需要检验K线数据，检查项包括时间线是否有乱序，大小级别K线是否有缺失；默认为 True
+    - max_kl_misalgin_cnt：在次级别找不到K线最大条数，默认为 2（次级别数据有缺失），`kl_data_check` 为 True 时生效
+    - max_kl_inconsistent_cnt：天K线以下（包括）子级别和父级别日期不一致最大允许条数（往往是父级别数据有缺失），默认为 5，`kl_data_check` 为 True 时生效
+    - print_warming：打印K线不一致的明细，默认为 True
+    - print_err_time：计算发生错误时打印因为什么时间的K线数据导致的，默认为 False
     - auto_skip_illegal_sub_lv：如果获取次级别数据失败，自动删除该级别（比如指数数据一般不提供分钟线），默认为 False
 - 模型：
     - model：模型类，支持接入机器学习模型对买卖点打分，参见下文「模型」，默认为 None
@@ -539,36 +572,39 @@ else:  # 绘制动画
 - 离群点检测：（换手率，成交量等指标）
     - od_win_width：离群点检测窗口，默认为 100
     - od_mean_thred：离群点检测阈值，默认为 3.0
-    - od_max_zero_cnt：指标为 0 的 K 线最大值，超过回抛异常，默认为 None，表示不检测
+    - od_max_zero_cnt：指标为 0 的K线最大值，超过回抛异常，默认为 None，表示不检测
     - od_skip_zero：自动跳过指标为 0 的指标，（即不把 0 当做指标），默认为 True
 - 买卖点相关：
-    - divergence_rate：1 类买卖点背驰比例，即离开中枢的笔的 MACD 指标相对于进入中枢的笔，默认为 0.9
-    - min_zs_cnt：1 类买卖点至少要经历几个中枢，默认为 1
+    - divergence_rate：1类买卖点背驰比例，即离开中枢的笔的 MACD 指标相对于进入中枢的笔，默认为 0.9
+    - min_zs_cnt：1类买卖点至少要经历几个中枢，默认为 1
     - bsp1_only_multibi_zs: `min_zs_cnt` 计算的中枢至少 3 笔（少于 3 笔是因为开启了 `one_bi_zs` 参数），默认为 True；
-    - max_bs2_rate：2 类买卖点那一笔回撤最大比例，默认为 0.618
-        - 注：如果是 1.0，那么相当于允许回测到 1 类买卖点的位置
-    - bs1_peak：1 类买卖点位置是否必须是整个中枢最低点，默认为 True
+    - max_bs2_rate：2类买卖点那一笔回撤最大比例，默认为 0.618
+        - 注：如果是 1.0，那么相当于允许回测到1类买卖点的位置
+    - bs1_peak：1类买卖点位置是否必须是整个中枢最低点，默认为 True
     - macd_algo：MACD指标算法（可自定义）
         - peak：红绿柱最高点（绝对值），默认【线段买卖点不支持】
         - full_area：整根笔对应的MACD的面积【线段买卖点不支持】
         - area：整根笔对应的MACD的面积（只考虑相应红绿柱）【线段买卖点不支持】
         - slope：笔斜率
         - amp：笔的涨跌幅
-        - diff：首尾 K 线对应的MACD柱子高度的差值的绝对值
-        - amount：笔上所有 K 线成交额总和
-        - volumn：笔上所有 K 线成交量总和
-        - amount_avg：笔上 K 线平均成交额
-        - volumn_avg：笔上 K 线平均成交量
-        - turnrate_avg：笔上 K 线平均换手率
-    - bs_type：关注的买卖点类型，逗号分隔，默认"1,2,3,2s,1p"
-        - 1,2,3：分别表示 1，2，3 类买卖点
+        - diff：首尾K线对应的MACD柱子高度的差值的绝对值
+        - amount：笔上所有K线成交额总和
+        - volumn：笔上所有K线成交量总和
+        - amount_avg：笔上K线平均成交额
+        - volumn_avg：笔上K线平均成交量
+        - turnrate_avg：笔上K线平均换手率
+    - bs_type：关注的买卖点类型，逗号分隔，默认"1,1p,2,2s,3a,3b"
+        - 1,2：分别表示1，2，3类买卖点
         - 2s：类二买卖点
-        - 1p：盘整背驰 1 类买卖点
-    - "bsp2_follow_1"：2 类买卖点是否必须跟在 1 类买卖点后面（用于小转大时 1 类买卖点因为背驰度不足没生成），默认为 True
-    - "bsp3_follow_1"：3 类买卖点是否必须跟在 1 类买卖点后面（用于小转大时 1 类买卖点因为背驰度不足没生成），默认为 True
-    - "bsp3_peak"：3 类买卖点突破笔是不是必须突破中枢里面最高/最低的，默认为 False
-    - "bsp2s_follow_2": 类 2 买卖点是否必须跟在 2 类买卖点后面（2 类买卖点可能由于不满足 `max_bs2_rate` 最大回测比例条件没生成），默认为 False
-    - "strict_bsp3": 3 类买卖点对应的中枢必须紧挨着 1 类买卖点，默认为 False
+        - 1p：盘整背驰1类买卖点
+        - 3a：中枢出现在1类后面的3类买卖点（3-after）
+        - 3b：中枢出现在1类前面的3类买卖点（3-before）
+    - "bsp2_follow_1"：2类买卖点是否必须跟在1类买卖点后面（用于小转大时1类买卖点因为背驰度不足没生成），默认为 True
+    - "bsp3_follow_1"：3类买卖点是否必须跟在1类买卖点后面（用于小转大时1类买卖点因为背驰度不足没生成），默认为 True
+    - "bsp3_peak"：3类买卖点突破笔是不是必须突破中枢里面最高/最低的，默认为 False
+    - "bsp2s_follow_2": 类2买卖点是否必须跟在2类买卖点后面（2类买卖点可能由于不满足 `max_bs2_rate` 最大回测比例条件没生成），默认为 False
+    - "max_bsp2s_lv": 类2买卖点最大层级（距离2类买卖点的笔的距离/2），默认为None，不做限制
+    - "strict_bsp3":3类买卖点对应的中枢必须紧挨着1类买卖点，默认为 False
 - 自定义策略类相关（关于策略类详细介绍参见后文）：
     - cbsp_stragety：自定义策略类，默认为 None
         - 框架自带实现类别为 `CCustomStragety`/`CSegBspStragety`
@@ -577,17 +613,17 @@ else:  # 绘制动画
             - strict_open：严格开仓条件，即如果对一个买卖点当下无法找到合适的买卖时机却已经完成一笔了，就放弃。默认为 True。
             - use_qjt：使用区间套计算买卖点（多级别下才有效），默认为 True。
             - short_shelling：是否做空，默认为 True
-            - judge_on_close：根据 K 线收盘价来作为开/平仓指标，默认为 True（否则当天 K 线某一时刻突破了信号阈值即会交易）
+            - judge_on_close：根据K线收盘价来作为开/平仓指标，默认为 True（否则当天K线某一时刻突破了信号阈值即会交易）
             - max_sl_rate：最大止损阈值（如果策略计算出来的止损阈值超过此值，会被截断），默认为 None
             - max_profit_rate：最大止盈阈值（比如买点买了，卖点还没出现但收益已经超过该值），默认为 None
-    - only_judge_last：只计算最后一跟 K 线的买卖点类型/买卖点信号，默认为 False。
+    - only_judge_last：只计算最后一跟K线的买卖点类型/买卖点信号，默认为 False。
         - 开启后速度非常快，适合用于海量选股时使用，或者每天计算出现交易信号的股票时使用
     - cal_cover：是否计算平仓，默认为 True；（对做空同样生效）
     - cbsp_chek_active：cbsp 开仓是否需要满足交易活跃度指标，默认为 True，既不交易不活跃股票
     - print_inactive_reason：是否打印股票不活跃原因，默认为 False
-    - stock_no_active_day: 不活跃股票计算检测最近多少根 K 线，默认为 30
-    - stock_no_active_thred：`stock_no_active_day` 根 K 线内一字线超过阈值则定义为不活跃；（涨跌停除外），默认为 3
-    - stock_distinct_price_thred: `stock_no_active_day` 根 K 线内股价多样性低于多少则定义为不活跃，默认为 25
+    - stock_no_active_day: 不活跃股票计算检测最近多少根K线，默认为 30
+    - stock_no_active_thred：`stock_no_active_day` 根K线内一字线超过阈值则定义为不活跃；（涨跌停除外），默认为 3
+    - stock_distinct_price_thred: `stock_no_active_day` 根K线内股价多样性低于多少则定义为不活跃，默认为 25
 
 #### 精确设置配置
 `divergence_rate`,`min_zs_cnt`,`bsp1_only_multibi_zs`,`max_bs2_rate`,`macd_algo`,`bs1_peak`,`stragety_para`，`bs_type`，`bsp2_follow_1`，`bsp3_follow_1`，`bsp2s_follow_2`，`strict_bsp3`，`score_thred`，`bsp3_peak` 这几个指标可以分别对买卖点/线段买卖点各自设置：
@@ -612,7 +648,7 @@ config = CChanConfig({
     "max_bs2_rate": 0.618,
     "bs1_peak": True,
     "macd_algo": "peak",
-    "bs_type": '1,2,3,2s,1p',
+    "bs_type": '1,2,3a,3b,2s,1p',
     "cbsp_stragety": CCustomStragety,
     "only_judge_last": False,
     "stragety_para": {
@@ -627,8 +663,8 @@ config = CChanConfig({
 #### plot_config
 CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 
-- plot_kline：画 K 线，默认为 False
-- plot_kline_combine：画合并 K 线，默认为 False
+- plot_kline：画K线，默认为 False
+- plot_kline_combine：画合并K线，默认为 False
 - plot_bi：画笔，默认为 False
 - plot_seg：画线段，默认为 False
 - plot_eigen：画特征序列（一般调试用），默认为 False
@@ -644,6 +680,14 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 - plot_mean：画均线，默认为 False
 - plot_tradeinfo：绘制配置的额外信息（在另一根 y 轴上），默认为 False
 
+其中这个参数有几种写法：
+- 字典：比如`{"plot_bi": True, "plot_seg": True}`
+- 数组：比如`["plot_bi", "plot_seg"]`，即出现在数组中的为Tue
+- 字符串：比如`"plot_bi,plot_seg"`
+- 分级别填写：比如绘制两个级别日线和30分钟线，那么可以`{KL_TYPE.K_DAY: ${CONFIG}, KL_TYPE.K_30M: ${CONFIG}}`，其中`${CONFIG}`为上面三种写法之一；
+
+> 另外，前缀`plot_`是可以不填的
+
 #### plot_para
 用于具体画图细节控制，具有两级，每个配置都有二级参数，传入一个二级字典实现修改需要更改的参数；
 
@@ -652,10 +696,10 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
     - h:10  高度
     - macd_h: 0.3  MACD 图高度相对于 h 的比例
     - only_top_lv: False  是否只画最高级别
-    - x_range:0  最高级别绘制只画最后几根 K 线范围，为 0 表示全部
-    - x_bi_cnt:0  最高级别绘制只画最后几笔范围，为 0 表示全部
-    - x_seg_cnt:0  最高级别绘制只画最后几根线段范围，为 0 表示全部
-    - x_begin_date:0  最高级别绘制只画最后从指定日期开始的范围，为 0 表示全部
+    - x_range:0  最高级别绘制只画最后几根K线范围，为 0 表示不生效，绘制全部
+    - x_bi_cnt:0  最高级别绘制只画最后几笔范围，为 0 表示不生效，绘制全部
+    - x_seg_cnt:0  最高级别绘制只画最后几根线段范围，为 0 表示不生效，绘制全部
+    - x_begin_date:0  最高级别绘制只画最后从指定日期开始的范围, 格式为`YYYY/MM/DD`，为 0 表示不生效，绘制全部
     - grid：xy  绘制网格，x/y/xy/None 分别是只画横轴，纵轴，都画，不画
 
 <img src="./Image/chan.py_image_7.png" />
@@ -663,10 +707,10 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 - kl: k 线相关
     - width: 0.4  宽度
     - rugd: True  红涨绿跌
-    - plot_mode: 'kl'  绘制模式，kl 表示绘制 K 线，close/open/high/low 会将相应的数据连成线
-- klc: 合并 K 线相关
+    - plot_mode: 'kl'  绘制模式，kl 表示绘制K线，close/open/high/low 会将相应的数据连成线
+- klc: 合并K线相关
     - width: 0.4  宽度
-    - plot_single_kl: True  合并 K 线只包含一根 k 线是否需要画框
+    - plot_single_kl: True  合并K线只包含一根 k 线是否需要画框
 
 <img src="./Image/chan.py_image_8.png" />
 
@@ -783,7 +827,7 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 
 <img src="./Image/chan.py_image_17.png" />
 
-- tradeinfo: K 线指标
+- tradeinfo:K线指标
     - plot_curve: True  绘制指标
     - info: 'volume'  绘制内容，可选值包括
         - volume：成交量（默认）
@@ -927,7 +971,7 @@ create table if not exists {table_name}(
 - 计算信号
 - 检测信号是否突破
     - 如果突破：检测模型分数（如果配置了模型类的话）是否高于指定阈值，是则开仓
-- 对于开仓结果进行后验：比如对于天级别的交易，交易时当天 K 线肯定还没完成，所以需要在 K 线完成后重新检查是否突破和分数阈值
+- 对于开仓结果进行后验：比如对于天级别的交易，交易时当天K线肯定还没完成，所以需要在K线完成后重新检查是否突破和分数阈值
     - 如果后验校验没问题：持续更新股价，是否触达止损，止盈或者平仓买卖点产生
     - 如果后验有问题：下一个周期马上以最快的速度卖出，无论是否盈利
 
@@ -938,32 +982,60 @@ create table if not exists {table_name}(
 方法是实现一个类，继承自 `CCommonStockApi`，接受输入参数为 code, k_type, begin_date, end_date；
 并在该类里面实现两个方法：
 
-1. `get_kl_data(self)`：该方法为一个生成器，yield 返回每一根 K 线信息 `CKLine_Unit(idx, k_type, item_dict)`，其中 item 为：
+1. `get_kl_data(self)`：该方法为一个生成器，yield 返回每一根K线信息 `CKLine_Unit(idx, k_type, item_dict)`，其中 item 为：
 ```
 {
-    CCommonStockApi.FIELD_TIME: time,  # 必须是框架实现的CTime类
-    CCommonStockApi.FIELD_OPEN: float(_open),
-    CCommonStockApi.FIELD_CLOSE: float(_close),
-    CCommonStockApi.FIELD_LOW: float(_low),
-    CCommonStockApi.FIELD_HIGH: float(_high),
-    CCommonStockApi.FIELD_VOLUME: float(volume),
-    CCommonStockApi.FIELD_TURNOVER: float(amount),
-    CCommonStockApi.FIELD_TURNRATE: float(turn),
+    DATA_FIELD.FIELD_TIME: time,  # 必须是框架实现的CTime类
+    DATA_FIELD.FIELD_OPEN: float(_open),
+    DATA_FIELD.FIELD_CLOSE: float(_close),
+    DATA_FIELD.FIELD_LOW: float(_low),
+    DATA_FIELD.FIELD_HIGH: float(_high),
+    DATA_FIELD.FIELD_VOLUME: float(volume),
+    DATA_FIELD.FIELD_TURNOVER: float(amount),
+    DATA_FIELD.FIELD_TURNRATE: float(turn),
 }
 ```
 
 2. `SetBasciInfo()`：用于设置股票名字和其他需要用到的信息
 
 ### 实时数据接入
-当使用本框架用于实盘交易时，往往需要使用实时的 K 线数据，本框架已经实现了 akshare，futu，sina，pytdx 等几种实时数据类；如果要实现其他实时数据接入，仅需参考 `Trade/CommonStockPriceQueryApi/` 目录下相应脚本的实现即可；
+当使用本框架用于实盘交易时，往往需要使用实时的K线数据，本框架已经实现了 akshare，futu，sina，pytdx 等几种实时数据类；如果要实现其他实时数据接入，仅需参考 `DataAPI/SnapshotAPI/` 目录下相应脚本的实现即可；
 
-方法是实现一个类，由一个叫 query 的类方法，输入是代码列表 `code_list`，返回一个字典，key 是列表里面的 code，value 是包含 name,price,low,high,open,yesterdayClose 五个 key 的字典；
+方法是实现一个类，包含一个query的**类方法**：
+- 输入为：
+  - `code_list`: List[str],代码列表
+  - `return_klu`: bool，是否返回K线类
+- 返回值
+  - 一个字典，其中key就是输入`code_list`里面的各个code，各个value分别为：
+    - 如果return_klu==True，返回`CKLine_Unit`类
+    - 如果return_klu==False，返回字典`Dict[str, float]`，为是包含 name,price,low,high,open,yesterdayClose 五个 key 的字典，其中price,low,high必须有，其他选填
+  - 如果获取失败，对应股票的键值返回None
+
 ```python
 class CCustomSnapshot:
     @classmethod
-    def query(cls, code_list) -> Dict[str, Dict]:
+    def query(cls, code_list: List[str], return_klu: bool) -> Dict[str, Optional[CKLine_Unit | Dict[str, float]]]:
         ...
 ```
+
+然后再在`DataAPI/SnapshotAPI/StockSnapshotAPI.py`的`priceQuery`注册:
+
+```python
+def priceQuery(codelist: List[str], engine: str, return_klu: bool = False):
+    _class_dict = {
+        'sina': CSinaApi,
+        'futu': CFutuSnapshot,
+        'pytdx': CPytdxSnapshot,
+        'ak': CAKShareSnapshot,
+    }
+    if engine in _class_dict:
+        return _class_dict[engine].query(codelist, return_klu=return_klu)
+    else:
+        raise Exception(f"eigen={engine} not found")
+```
+
+最后在`config.yaml`中配置修改`snapshot_engine`信息即可；
+
 
 ### 笔模型
 笔模型由于比较简单，如果要增加自己的逻辑，建议在读懂代码情况下直接修改 `Bi/BiList.py` 和 `Bi/Bi.py` 即可；
@@ -979,7 +1051,7 @@ class CCustomSnapshot:
 - `CSegListComm.lst: List[CSeg]` 存储所有计算出来的线段，必须按顺序存储；
 - `CSegListComm.config: CSegConfig` 线段配置类，如果需要传入自己实现的配置参数，可通过这个类实现
 
-> 必须要说明一下的是，`CSegListComm` 提供了大量对还没确定 K 线计算虚线段的通用处理函数，这不仅是整个项目里面逻辑最复杂最难的部分，也是代码最难以维护的部分。。之前这个文件代码撸了好几天，里面加了大量的检测断言，验收标准是对全量 A 股港股美股 20000+股票计算不出错，当前已经完全不敢改这个文件了，但是由于已经例行运行了差不多 7 个月没出过任何错了，所以，应该问题不大。。
+> 必须要说明一下的是，`CSegListComm` 提供了大量对还没确定K线计算虚线段的通用处理函数，这不仅是整个项目里面逻辑最复杂最难的部分，也是代码最难以维护的部分。。之前这个文件代码撸了好几天，里面加了大量的检测断言，验收标准是对全量 A 股港股美股 20000+股票计算不出错，当前已经完全不敢改这个文件了，但是由于已经例行运行了差不多 7 个月没出过任何错了，所以，应该问题不大。。
 
 ### bsp 买卖点
 形态学买卖点如果需要开发自己设计的买卖点，可以参考 `BuySellPoint/BSPointList.py` 开发一个类，对外暴露以下方法：
@@ -997,7 +1069,7 @@ def cal(self, bi_list: CBiList, seg_list: CSegListComm) -> None:
 ### cbsp 买卖点策略
 本框架支持方便地开发用户自己买卖点策略，比如一买底分型确定时买入这种；
 
-实现方法也很简单，开发一个类继承自 `CStragety`，赋值给 `CChanConfig.cbsp_stragety` 即可；一旦设置，那么每新增一根 K 线都会调用该类的 `update` 函数来计算当下是否是买卖点，其中 `update` 函数会调用用户开发的 `try_open`(开仓)和 `try_close`（平仓）函数，接受的参数都是 CChan 类（包含所有级别的信息）和 lv（当前级别，`chan[lv]` 为当前级别信息）。
+实现方法也很简单，开发一个类继承自 `CStragety`，赋值给 `CChanConfig.cbsp_stragety` 即可；一旦设置，那么每新增一根K线都会调用该类的 `update` 函数来计算当下是否是买卖点，其中 `update` 函数会调用用户开发的 `try_open`(开仓)和 `try_close`（平仓）函数，接受的参数都是 CChan 类（包含所有级别的信息）和 lv（当前级别，`chan[lv]` 为当前级别信息）。
 
 > 之所以需要传入 CChan 和本级别 lv，是为了可以方便实现类似区间套的策略，计算本级别买卖点时接口可以通过 `chan[lv+1]` 拿到次级别的所有数据
 
@@ -1027,7 +1099,7 @@ class CCustomStragety(CStragety):
 - `bsp_signal(self, chan: CChan, lv: int)` -> List[CSignal]: 如果需要上线实盘交易时需要实现，返回当前数据哪些股票可能在第二天如果满足自定义的突破条件时就会变成真正的 cbsp，算出信号后框架会自动落库，第二天实盘交易时只会跟踪产生信号的股票；
 
 #### 区间套策略示例
-在 `CStragety` 这个框架下就很容易实现区间套的策略：因为 `CChan` 里面包含了所有级别的数据，所以利用 `chan[lv+1]` 就可以得到次级别的买卖点数据，而每根次级别 K 线也可以通过 `self.sup_kl` 获得其对应的父级别 klu 变量，所以区间套策略可以用下面 20 行左右代码实现：
+在 `CStragety` 这个框架下就很容易实现区间套的策略：因为 `CChan` 里面包含了所有级别的数据，所以利用 `chan[lv+1]` 就可以得到次级别的买卖点数据，而每根次级别K线也可以通过 `self.sup_kl` 获得其对应的父级别 klu 变量，所以区间套策略可以用下面 20 行左右代码实现：
 ```python
 def try_open(self, chan: CChan, lv) -> Optional[CCustomBSP]:
     data = chan[lv]
@@ -1038,7 +1110,7 @@ def try_open(self, chan: CChan, lv) -> Optional[CCustomBSP]:
 def cal_qjt_bsp(self, data: CKLine_List, sub_lv_data: CKLine_List) -> Optional[CCustomBSP]:
     last_klu = data[-1][-1]
     last_bsp_lst = data.bs_point_lst.getLastestBspList()
-    if last_bsp_lst is None:
+    if len(last_bsp_lst) == 0:
         return None
     last_bsp = last_bsp_lst[0]
     if last_bsp.klu.idx != last_klu.idx:  # 当前K线是父级别的买卖点
@@ -1096,7 +1168,7 @@ def predict(self, dataSet: CDataSet) -> List[float]:
     ...
 
 @abc.abstractmethod
-def create_date_set(self, feature_arr: List[List[float]]) -> CDataSet:
+def create_data_set(self, feature_arr: List[List[float]]) -> CDataSet:
     # 实现如何从描述N个样本M个特征的二维数组生成CDataSet
     ...
 ```
@@ -1141,7 +1213,7 @@ class CXGBTrainModelGenerator(CModelGenerator):
     def predict(self, dataSet: CDataSet) -> List[float]:
         return self.model_info.model.predict(dataSet.data)
 
-    def create_date_set(self, feature_arr: List[List[float]]) -> CDataSet:
+    def create_data_set(self, feature_arr: List[List[float]]) -> CDataSet:
         return CDataSet(xgb.DMatrix(feature_arr))
 ```
 
@@ -1261,12 +1333,49 @@ print(plot_driver.Upload2COS())
 ```
 
 交易引擎已内嵌实现了该调用：
+
 <img src="./Image/open_send_msg.png" width="200" />
 
 ### Notion
 如果在`config.yaml`中配置了Notion相关的信息，例行脚本中会调用`Script/Notion/DB_sync_Notion.py`将已开仓过的股票的操作数据同步至Notion制定的表中；并且会把开仓图片嵌入对应的页面中；
 
 <img src="./Image/notion_table.png" />
+
+### 试题功能
+此功能源于网上大家提到的一个问题：走势为什么往往是走出来之后才恍然大悟；
+
+所以基于此脑洞了一个功能，根据用户输入的条件（什么地区的股票，什么类型买卖点，买还是卖，背驰率等等等等），随机生成一道测试题；
+
+使用方法如下：
+```python
+from ExamGenerator import CQuestion
+
+config = {  # 即CChanConfig所使用的配置文件规则
+    "min_zs_cnt": 1,
+    "bs_type": '1,1p',
+}
+
+Q = CQuestion(area='cn', begin_time='2010-01-01', kl_type=KL_TYPE.K_DAY, _config=config)  # 试题引擎
+if Q.QuestionGenerator(is_buy=True):  # 尝试随机获取一只股票，生成符合条件的买卖点
+    Q.PlotTestFigure(kl_type_lst=None)  # 绘制题目，其中kl_type_lst默认为试题引擎的kl_type，也可以指定绘制多个级别
+else:
+    print("not cbsp found")
+
+# 给出判断后可以查看答案绘图：
+Q.PlotAnswerFigure()
+```
+
+其原理就是几行代码实现了个如果cbsp分形完成，就输出的策略（参见`CustomBuySellPoint/ExamStragety.py`）；
+
+绘制的题目效果如下：
+
+<img src="./Image/question_pic.png" />
+
+答案效果如下：
+
+<img src="./Image/answer_pic.png" />
+
+> 如果有自定义绘制开发需求，可以直接修改`ExamGenerator.py`文件，就三个函数。。。如果有人对这个感兴趣，回头可以做成一个APP/小程序/网页供大家玩耍。
 
 ## 其他不值一提的优化
 除去上面所说的，还有很多细节的东西没有展开讲，比如
@@ -1277,14 +1386,15 @@ print(plot_driver.Upload2COS())
 - 保证在线离线回测特征一致性校验原理
 - 如何保证交易流程调度顺序正确性
 - 交易脚本重启如何恢复现场
-- 检测大小级别 K 线数据不一致（比如次级别或者父级别少了数据，对应不上）
+- 检测大小级别K线数据不一致（比如次级别或者父级别少了数据，对应不上）
 - 如何量化 MACD 回抽零轴现象
 - ...等等等等，想到再补。。
 
 ## 碎碎念
 第一，我并不觉得缠论一定有用；
 第二，我并不觉得有办法证明缠论没用（没人能证明自己使用缠论的方法是对的）；
-第三，其实这个 chan.py 已经是第三版了。。
+第三，这可能实现的不是真正的缠论，只是我自己理解下的缠论（如果有和真正缠论理解相悖的，我也不一定会往那边靠拢）；
+第四，其实这个 chan.py 已经是第三版了。。
 
 这个框架的起因是因为对某只股票走势研究后发现了某种规律，然后来回捡了几波钱，然后就在想，能否把所有股票里面符合这种规律的通过编程找出来(看下面的文档也可以发现其实很多优化和设计思路都是朝着对海量股票进行计算筛选方向搞的)；既然需要编程，就需要某种量化手段；搜索了一番之后，发现缠论可能是找到的资料里面最接近可以编程实现那个规律的了（虽然并不完全符合）；
 
@@ -1298,18 +1408,18 @@ V2 就是最早发上 github 的这一版，这一版有个很严重的问题，
 
 于是乎，整整花了三四个月，几乎把所有文件都重构了一遍，支持全局配置项，提供安装脚本，统一汇总管理所有特征，开放各个模块自定义能力，一键完成整个 pipeline 部署和模型训练等等等等；
 
-整个项目回过头来看还是很有成就感的，由于个人原因，不太喜欢直接用太多外部的库，所以这个项目里面很多很基础的东西都是手动实现的，比如 MACD，布林线，趋势线，所有画图元素和逐帧动画，回测评估等；
+整个项目回过头来看还是很有成就感的，由于个人原因，不太喜欢直接用太多外部的库，所以这个项目里面很多很基础的东西都是手动实现的，比如 MACD，布林线，趋势线，所有画图元素和逐帧动画，回测评估, automl等；
 
-至今为止，总代码行 15500+行，下图是至今为止的开发时间热力图，显示花了 465 个小时，但估计总体应该超过 500 个小时了，因为花在 jupyterlab 上画图调试的时间无法算在里面；V3 的重构也差不多花了 117 个小时了；
+至今为止，总代码行 18000+行，下图是至今为止的开发时间热力图，显示花了 551 个小时，但估计总体应该超过 600 个小时了，因为花在 jupyterlab 上画图调试的时间无法算在里面；V3的重构也差不多花了200个小时了；
 
 <img src="./Image/chan_coding_time.png" />
 
-总共提了差不多 150 个 issue，900+次 commit：
+总共提了差不多175个 issue，1100+次commit：
 
 <img src="./Image/chan_issue_cnt.png" />
 <img src="./Image/chan_commit_cnt.png" />
 
-最近这两周一边上模拟盘跑（A 股美股港股全部股票都是候选股票，纯自动化，下图是接入自己的推送系统显示的消息），一边优化+修 bug，离最终形态大概已经完成了 95% 了，总体上使用体验符合预期；
+最近这两周一边上模拟盘跑（A 股美股港股全部股票都是候选股票，纯自动化，下图是接入自己的推送系统显示的消息），一边优化+修 bug，离最终形态大概已经完成了99%了，总体上使用体验符合预期；
 
 <img src="./Image/chan_gotify_info.png" width="500"/>
 
@@ -1319,4 +1429,40 @@ V2 就是最早发上 github 的这一版，这一版有个很严重的问题，
 
 <img src="./Image/chan_bilibili.png" width="300"/>
 
+
+### 12月15日补充
+10月14日开始进行了模拟盘&实盘同步运行，因为使用的是富途，所以跑的是美股和港股；
+
+
+#### 实验仓位
+没有专门的仓位控制策略，所以采用策略如下：
+```python
+class COpenQuotaGen:
+    @classmethod
+    def bench_price_func(cls, bench_price):
+        def f(price, lot_size) -> int:
+            quota = lot_size
+            while quota*price < bench_price:
+                quota += lot_size
+            return quota
+        return f
+```
+即买的手数为让开仓金额大于`bench_price`的最小值，模拟盘采用的是10000，实盘是2000；（富途评估收益率的分母是提供的总模拟金额100万，所以在仓位不高的情况下收益率显示总是很低；）
+
+全程两个月除了bug修复外，全程零工人干预；实验效果如下：
+
+#### 港股
+
+<img src="./Image/hk_sim_result.jpeg" width="300"/>
+
+#### 美股
+
+<img src="./Image/us_sim_result.jpeg" width="300"/>
+
+效果看起来还行，不过我并不太确定是大行情问题还是策略问题，所以还需要再观察观察；
+
 以上！
+
+## Star history
+
+![Star History Chart](https://api.star-history.com/svg?repos=Vespa314/chan.py&type=Date)

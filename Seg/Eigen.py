@@ -1,20 +1,20 @@
+from Bi.Bi import CBi
 from Combiner.KLine_Combiner import CKLine_Combiner
 from Common.CEnum import BI_DIR, FX_TYPE
 
 
-class CEigen(CKLine_Combiner):
+class CEigen(CKLine_Combiner[CBi]):
     def __init__(self, bi, _dir):
         super(CEigen, self).__init__(bi, _dir)
         self.gap = False
 
-    def update_fx(self, _pre, _next, exclude_included=False, allow_top_equal=None):
+    def update_fx(self, _pre: 'CEigen', _next: 'CEigen', exclude_included=False, allow_top_equal=None):
         super(CEigen, self).update_fx(_pre, _next, exclude_included, allow_top_equal)
         if (self.fx == FX_TYPE.TOP and _pre.high < self.low) or \
            (self.fx == FX_TYPE.BOTTOM and _pre.low > self.high):
             self.gap = True
 
     def __str__(self):
-        # return f"{self.lst[0].begin_klc.lst[0].time}~{self.lst[-1].end_klc.lst[-1].time} {self.low}->{self.high} gap={self.gap} fx={self.fx}"
         return f"{self.lst[0].idx}~{self.lst[-1].idx} gap={self.gap} fx={self.fx}"
 
     def GetPeakBiIdx(self):

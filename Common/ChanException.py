@@ -19,11 +19,12 @@ class ErrCode(IntEnum):
     ENV_CONF_ERR = 14
     UNKNOWN_DB_TYPE = 15
     FEATURE_ERROR = 16
+    CONFIG_ERROR = 17
     _CHAN_ERR_END = 99
 
     # Trade Error
     _TRADE_ERR_BEGIN = 100
-    RECORD_EXISTED = 101
+    SIGNAL_EXISTED = 101
     RECORD_NOT_EXIST = 102
     RECORD_ALREADY_OPENED = 103
     QUOTA_NOT_ENOUGH = 104
@@ -39,6 +40,7 @@ class ErrCode(IntEnum):
     RECORD_CLOSED = 114
     REQUEST_TRADING_DAYS_FAIL = 115
     COVER_ORDER_ID_NOT_UNIQUE = 116
+    SIGNAL_TRADED = 117
     _TRADE_ERR_END = 199
 
     # KL data Error
@@ -69,3 +71,17 @@ class CChanException(Exception):
 
     def is_chan_err(self):
         return ErrCode._CHAN_ERR_BEGIN < self.errcode < ErrCode._CHAN_ERR_END
+
+
+if __name__ == "__main__":
+    def foo():
+        raise CChanException("XXX", ErrCode.CONFIG_ERROR)
+
+    try:
+        foo()
+    except CChanException as e:
+        print(str(e.errcode))
+        # python3.8 结果为： ErrCode.CONFIG_ERROR
+        # python3.11 结果为：17
+
+        print(e.errcode.name, type(e.errcode.name))

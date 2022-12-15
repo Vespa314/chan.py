@@ -1,3 +1,6 @@
+from typing import List
+
+
 class CMACD_item:
     def __init__(self, fast_ema, slow_ema, DIF, DEA):
         self.fast_ema = fast_ema
@@ -9,12 +12,12 @@ class CMACD_item:
 
 class CMACD:
     def __init__(self, fastperiod=12, slowperiod=26, signalperiod=9):
-        self.macd_info = []
+        self.macd_info: List[CMACD_item] = []
         self.fastperiod = fastperiod
         self.slowperiod = slowperiod
         self.signalperiod = signalperiod
 
-    def add(self, value):
+    def add(self, value) -> CMACD_item:
         if not self.macd_info:
             self.macd_info.append(CMACD_item(fast_ema=value, slow_ema=value, DIF=0, DEA=0))
         else:
