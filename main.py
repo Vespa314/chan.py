@@ -66,6 +66,7 @@ if __name__ == "__main__":
             plot_config=plot_config,
             plot_para=plot_para,
         )
+        plot_driver.config.show()
     else:
         CAnimateDriver(
             chan,

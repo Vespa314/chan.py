@@ -124,7 +124,7 @@ class CChan:
             stockapi_cls.do_init()
             lv_klu_iter_lst = self.init_lv_klu_iter(stockapi_cls)
             self.klu_cache: List[Optional[CKLine_Unit]] = [None for _ in self.lv_list]
-            self.klu_last_t = [CTime(1970, 1, 1, 0, 0) for _ in self.lv_list]
+            self.klu_last_t = [CTime(1980, 1, 1, 0, 0) for _ in self.lv_list]
 
             yield from self.load_iterator(lv_idx=0, lv_klu_iter_lst=lv_klu_iter_lst, parent_klu=None, step=step)  # 计算入口
             if not step:  # 非回放模式全部算完之后才算一次中枢和线段
