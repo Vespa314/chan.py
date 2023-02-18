@@ -37,6 +37,7 @@ if __name__ == "__main__":
         "plot_channel": False,
         "plot_bsp": True,
         "plot_extrainfo": False,
+        "plot_demark": True,
     }
 
     plot_para = {

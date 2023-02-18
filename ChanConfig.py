@@ -6,6 +6,7 @@ from Common.CEnum import TREND_TYPE
 from Common.ChanException import CChanException, ErrCode
 from Common.func_util import _parse_inf
 from Math.BOLL import BollModel
+from Math.Demark import CDemarkEngine
 from Math.MACD import CMACD
 from Math.TrendModel import CTrendModel
 from Seg.SegConfig import CSegConfig
@@ -53,13 +54,14 @@ class CChanConfig:
         conf.check()
 
     def GetMetricModel(self):
-        res: List[Union[CMACD, CTrendModel, BollModel]] = [CMACD()]
+        res: List[Union[CMACD, CTrendModel, BollModel, CDemarkEngine]] = [CMACD()]
         res.extend(CTrendModel(TREND_TYPE.MEAN, mean_T) for mean_T in self.mean_metrics)
 
         for trend_T in self.trend_metrics:
             res.append(CTrendModel(TREND_TYPE.MAX, trend_T))
             res.append(CTrendModel(TREND_TYPE.MIN, trend_T))
         res.append(BollModel(self.boll_n))
+        res.append(CDemarkEngine())
         return res
 
     def set_bsp_config(self, conf):

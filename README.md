@@ -85,7 +85,7 @@
     - 支持父级别计算，如线段中枢，线段的分段，线段买卖点等
 - 支持多级别联立计算
     - 支持区间套计算买卖点
-- 支持配置MACD， 均线，布林线等计算指标
+- 支持配置MACD， 均线，布林线，Demark等计算指标
     - 亦支持配置多个不同的指标参与计算，如换手率，交易量等
 - 支持读取不同数据源数据
     - 对接 futu，akshare，baostock数据
@@ -159,6 +159,7 @@
 │   ├── 📄 func_util.py: 通用函数
 │   ├── 📄 send_msg_cmd.py: 消息推送
 │   ├── 📄 tools.py: 工具类
+│   ├── 📄 CommonThred.py: 线程类
 │   └── 📄 TradeUtil.py: 交易通用函数
 ├── 📁 Config: 配置
 │   ├── 📄 config.sh shell脚本读取配置
@@ -181,6 +182,7 @@
 │   ├── 📄 MarketValueFilter.py: 股票市值过滤类
 │   └── 📁 SnapshotAPI: 实时股价数据接口
 │       ├── 📄 StockSnapshotAPI.py: 统一调用接口
+│       ├── 📄 CommSnapshot.py: snapshot通用父类
 │       ├── 📄 AkShareSnapshot.py: akshare接口，支持a股，etf，港股，美股
 │       ├── 📄 FutuSnapshot.py: 富途接口，支持a股，港股，美股
 │       ├── 📄 PytdxSnapshot.py: pytdx，支持A股，ETF
@@ -188,6 +190,7 @@
 ├── 📁 Math: 计算类
 │   ├── 📄 BOLL.py: 布林线计算类
 │   ├── 📄 MACD.py: MACD计算类
+│   ├── 📄 Demark.py: Demark指标计算类
 │   ├── 📄 OutlinerDetection.py: 离群点计算类
 │   ├── 📄 TrendModel.py: 趋势类（支持均线，最大值，最小值）
 │   └── 📄 TrendLine.py: 趋势线
@@ -305,7 +308,9 @@ Data:
   log_path: xxx  # 日志存储位置
   stock_info_path: xxx  # 股票信息存储位置
   pickle_data_path: xxx  # 股票pickle文件存储位置（可不填）
+  automl_result_path: xxx  # automl结果输出路径
   send_offline_data_update_info: True  # 是否推送每日数据更新情况
+  send_kl_missing_msg: False # 是否推送K线丢失情况(下载的离线数据可能会缺失本来已有的K线)
 
 DB:
   TYPE: mysql  # 数据库类型，可选mysql / sqlite
@@ -337,6 +342,8 @@ Trade:
   allow_break_sw_bound: True  # 止盈提单后如果没成交且价格跌破止盈价，是否允许调整下单价格低于止盈价
   dynamic_sl_include_tody: False  # 动态止盈是否考虑当天峰值
   DST: True  # True是夏令时，False是冬令时，影响美股交易时间
+  open_thred_cnt: 10  # 开仓时计算缠论信息的线程数
+  trade_reconciliation_begin_t: '20220101'  # 交易一致性检测开始时间
   snapshot_eigine:  # 股价快照引擎，默认值为下面配置
     us: sina
     hk: futu
@@ -345,6 +352,12 @@ Trade:
 Model:  # 模型配置，可自定义
   model_tag: bsp_label-scale  # 模型标签
   model_type: normal:normal/area/bs_type  # 模型分数来源
+  backtest_begin_date: '2000-01-01'  # 回测数据开始时间
+  sample_set_split_date: '20220101'  # 训练集，测试集划分时间
+  automl_begin_t: '20220101'  # automl数据集开始时间，也就是predict_all的参数
+  automl_klu_end_date: '2022/12/31'  # automl K线开始时间
+  automl_begin_open_date: '2021/01/01'  # automl 最早允许开仓时间
+  automl_end_open_date: '2022/09/01'  # automl 最晚允许开仓时间
 
 Chan:
   debug: false  # 是否开启debug模式
@@ -679,6 +692,8 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 - plot_boll：画布林线，默认为 False
 - plot_mean：画均线，默认为 False
 - plot_tradeinfo：绘制配置的额外信息（在另一根 y 轴上），默认为 False
+- ploy_marker: 添加自定义文本标记
+- ploy_demark: 绘制Demark指标
 
 其中这个参数有几种写法：
 - 字典：比如`{"plot_bi": True, "plot_seg": True}`
@@ -716,8 +731,9 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 
 - bi：笔(虚线表示还没确定的笔)
     - color: 'black'  笔颜色
-    - show_num: False  笔中间表上序号
+    - show_num: False  笔中间标上序号
     - num_color: 'red'  序号颜色
+    - num_fontsize: 15  序号字体大小
     - sub_lv_cnt: None  次级别只画本级别的多少笔，None 即为全部；参考下图，sub_lv_cnt=6，即次级别绘制范围是本级别最后 6 笔；【注意：不可和 seg 的 sub_lv_cnt 同时设置】
     - facecolor: 'green'  如果 sub_lv_cnt 非空，那么本级别需要标示出次级别对应的本级别范围，该范围颜色为 facecolor
     - alpha: 0.1  facecolor 的透明度
@@ -738,6 +754,9 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
     - plot_trendline: False  绘制趋势线
     - trendline_color: 'r'  趋势线颜色
     - trendline_width: 3  # 趋势线宽度
+    - show_num: False  线段中间标上序号
+    - num_color: 'blue'  序号颜色
+    - num_fontsize: 30  序号字体大小
 
 <img src="./Image/chan.py_image_10.png" />
 <img src="./Image/chan_trendline.png" />
@@ -827,7 +846,7 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 
 <img src="./Image/chan.py_image_17.png" />
 
-- tradeinfo:K线指标
+- tradeinfo: K线指标
     - plot_curve: True  绘制指标
     - info: 'volume'  绘制内容，可选值包括
         - volume：成交量（默认）
@@ -843,6 +862,31 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
     - od_score_color: 'k'  离群值颜色
 
 <img src="./Image/chan.py_image_18.png" />
+
+- marker: 在指定日期K线上自定义文本标记
+    - markers: 文本描述，字典
+        - 键：CTime类或者YYYY/MM/DD字符串
+        - 值：元组，两种写法：
+            - (text, up/down, color)
+            - (text, up/down)：颜色为下面配置的`default_color`
+    - arrow_l: 箭头长度占y轴范围比例，默认为0.15
+    - arrow_h: 箭头头部长度，默认0.2
+    - arrow_w: 箭头头部宽度，默认1
+    - fontsize: 字体，默认14
+    - default_color: 默认颜色，默认为'b'
+
+<img src="./Image/marker.png" />
+
+- demark: 德马克/demark指标
+    - setup_color: setup序号颜色，默认为'b'
+    - countdown_color: countdown序号颜色，默认为'r'
+    - fontsize: 序号字体大小，默认为12
+    - min_setup: 序列最小setup(完成的序列setup最大值小于该值的不会在图上显示)，默认为9
+    - max_countdown_background：countdown阶段，且达到最大countdown（即默认的13）的序号突出显示的背景颜色，默认为'yellow'
+    - begin_line_color: setup真实起始位置线颜色，默认为'purple'
+    - begin_line_style: setup真实起始位置线类型，默认为虚线'dashed'
+
+<img src="./Image/demark.png" />
 
 ## 模型
 本框架可以通过机器学习方法来提高买卖点判断的准确率，在计算动力学买卖点 cbsp 时，会同时计算默认提供的数百个特征（一直持续增加中）和五种不同的标签；
@@ -1388,12 +1432,16 @@ Q.PlotAnswerFigure()
 - 交易脚本重启如何恢复现场
 - 检测大小级别K线数据不一致（比如次级别或者父级别少了数据，对应不上）
 - 如何量化 MACD 回抽零轴现象
+- 如何在非常短的时间内完成大量的股票的形态学计算后开仓
 - ...等等等等，想到再补。。
 
 ## 碎碎念
 第一，我并不觉得缠论一定有用；
+
 第二，我并不觉得有办法证明缠论没用（没人能证明自己使用缠论的方法是对的）；
+
 第三，这可能实现的不是真正的缠论，只是我自己理解下的缠论（如果有和真正缠论理解相悖的，我也不一定会往那边靠拢）；
+
 第四，其实这个 chan.py 已经是第三版了。。
 
 这个框架的起因是因为对某只股票走势研究后发现了某种规律，然后来回捡了几波钱，然后就在想，能否把所有股票里面符合这种规律的通过编程找出来(看下面的文档也可以发现其实很多优化和设计思路都是朝着对海量股票进行计算筛选方向搞的)；既然需要编程，就需要某种量化手段；搜索了一番之后，发现缠论可能是找到的资料里面最接近可以编程实现那个规律的了（虽然并不完全符合）；
@@ -1409,6 +1457,8 @@ V2 就是最早发上 github 的这一版，这一版有个很严重的问题，
 于是乎，整整花了三四个月，几乎把所有文件都重构了一遍，支持全局配置项，提供安装脚本，统一汇总管理所有特征，开放各个模块自定义能力，一键完成整个 pipeline 部署和模型训练等等等等；
 
 整个项目回过头来看还是很有成就感的，由于个人原因，不太喜欢直接用太多外部的库，所以这个项目里面很多很基础的东西都是手动实现的，比如 MACD，布林线，趋势线，所有画图元素和逐帧动画，回测评估, automl等；
+
+<img src="./Image/repository.jpg" />
 
 至今为止，总代码行 18000+行，下图是至今为止的开发时间热力图，显示花了 551 个小时，但估计总体应该超过 600 个小时了，因为花在 jupyterlab 上画图调试的时间无法算在里面；V3的重构也差不多花了200个小时了；
 

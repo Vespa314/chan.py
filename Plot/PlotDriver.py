@@ -9,6 +9,7 @@ from matplotlib.patches import Rectangle
 from Chan import CChan
 from Common.CEnum import BI_DIR, FX_TYPE, KL_TYPE, KLINE_DIR, TREND_TYPE
 from Common.ChanException import CChanException, ErrCode
+from Math.Demark import T_DEMARK_INDEX, CDemarkEngine
 
 from .PlotMeta import CBi_meta, CChanPlotMeta, CZS_meta
 
@@ -231,7 +232,7 @@ class CPlotDriver:
             return x_range
         return x_range
 
-    def DrawElement(self, plot_config: Dict[str, bool], meta, ax: Axes, lv, plot_para, ax_macd: Optional[Axes], x_limits):
+    def DrawElement(self, plot_config: Dict[str, bool], meta: CChanPlotMeta, ax: Axes, lv, plot_para, ax_macd: Optional[Axes], x_limits):
         if plot_config.get("plot_kline", False):
             self.draw_klu(meta, ax, **plot_para.get('kl', {}))
         if plot_config.get("plot_kline_combine", False):
@@ -261,6 +262,8 @@ class CPlotDriver:
             self.draw_bs_point(meta, ax, **plot_para.get('bsp', {}))
         if plot_config.get("plot_segbsp", False):
             self.draw_seg_bs_point(meta, ax, **plot_para.get('seg_bsp', {}))
+        if plot_config.get("plot_demark", False):
+            self.draw_demark(meta, ax, **plot_para.get('demark', {}))
 
     def ShowDrawFuncHelper(self):
         # 写README的时候显示所有画图函数的参数和默认值
@@ -333,6 +336,7 @@ class CPlotDriver:
         lv,
         color='black',
         show_num=False,
+        num_fontsize=15,
         num_color="red",
         sub_lv_cnt=None,
         facecolor='green',
@@ -347,7 +351,7 @@ class CPlotDriver:
                 continue
             plot_bi_element(bi, ax, color)
             if show_num and bi.begin_x >= x_begin:
-                ax.text((bi.begin_x+bi.end_x)/2, (bi.begin_y+bi.end_y)/2, f'{bi.idx}', fontsize=15, color=num_color)
+                ax.text((bi.begin_x+bi.end_x)/2, (bi.begin_y+bi.end_y)/2, f'{bi.idx}', fontsize=num_fontsize, color=num_color)
 
             if disp_end:
                 bi_text(bi_idx, ax, bi, end_fontsize, end_color)
@@ -616,6 +620,80 @@ class CPlotDriver:
                 arrow_len*arrow_dir + (closeAction.y-cbsp.y),
                 color=color,
             )
+
+    def draw_demark_begin_line(self, ax, begin_line_color, plot_begin_set: set, linestyle: str, demark_idx: T_DEMARK_INDEX):
+        if begin_line_color is not None and demark_idx['series'].TDST_peak is not None and id(demark_idx['series']) not in plot_begin_set:
+            if demark_idx['series'].countdown is not None:
+                end_idx = demark_idx['series'].countdown.kl_list[-1].idx
+            else:
+                end_idx = demark_idx['series'].kl_list[-1].idx
+            ax.plot(
+                [demark_idx['series'].kl_list[CDemarkEngine.SETUP_BIAS].idx, end_idx],
+                [demark_idx['series'].TDST_peak, demark_idx['series'].TDST_peak],
+                c=begin_line_color,
+                linestyle=linestyle
+            )
+            plot_begin_set.add(id(demark_idx['series']))
+
+    def draw_demark(
+            self,
+            meta: CChanPlotMeta,
+            ax: Axes,
+            setup_color='b',
+            countdown_color='r',
+            fontsize=12,
+            min_setup=9,
+            max_countdown_background='yellow',
+            begin_line_color: Optional[str] = 'purple',
+            begin_line_style='dashed',
+    ):  # sourcery skip: low-code-quality
+        x_begin = ax.get_xlim()[0]
+        text_height: Optional[float] = None
+        for klu in meta.klu_iter():
+            if klu.idx < x_begin:
+                continue
+            under_bias, upper_bias = 0, 0
+            plot_begin_set = set()
+            for demark_idx in klu.demark.get_setup():
+                if demark_idx['series'].idx < min_setup or not demark_idx['series'].setup_finished:
+                    continue
+                self.draw_demark_begin_line(ax, begin_line_color, plot_begin_set, begin_line_style, demark_idx)
+                txt_instance = ax.text(
+                    klu.idx,
+                    klu.low-under_bias if demark_idx['dir'] == BI_DIR.DOWN else klu.high+upper_bias,
+                    str(demark_idx['idx']),
+                    fontsize=fontsize,
+                    color=setup_color,
+                    verticalalignment='top' if demark_idx['dir'] == BI_DIR.DOWN else 'bottom',
+                    horizontalalignment='center'
+                )
+                if demark_idx['dir'] == BI_DIR.DOWN:
+                    under_bias += getTextBox(ax, txt_instance).height if demark_idx['dir'] == BI_DIR.DOWN else 0
+                else:
+                    upper_bias += getTextBox(ax, txt_instance).height
+            for demark_idx in klu.demark.get_countdown():
+                box_bias = 0.5*text_height if text_height is not None and demark_idx['idx'] == CDemarkEngine.MAX_COUNTDOWN else 0
+                txt_instance = ax.text(
+                    klu.idx,
+                    klu.low-under_bias-box_bias if demark_idx['dir'] == BI_DIR.DOWN else klu.high+upper_bias+box_bias,
+                    str(demark_idx['idx']),
+                    fontsize=fontsize,
+                    color=countdown_color,
+                    verticalalignment='top' if demark_idx['dir'] == BI_DIR.DOWN else 'bottom',
+                    horizontalalignment='center',
+                )
+                if text_height is None:
+                    text_height = getTextBox(ax, txt_instance).height
+                if demark_idx['idx'] == CDemarkEngine.MAX_COUNTDOWN:
+                    txt_instance.set_bbox(dict(facecolor=max_countdown_background, edgecolor=max_countdown_background, pad=0))
+                if demark_idx['dir'] == BI_DIR.DOWN:
+                    under_bias += getTextBox(ax, txt_instance).height
+                else:
+                    upper_bias += getTextBox(ax, txt_instance).height
+
+
+def getTextBox(ax: Axes, txt_instance):
+    return txt_instance.get_window_extent().transformed(ax.transData.inverted())
 
 
 def plot_bi_element(bi: CBi_meta, ax: Axes, color: str):

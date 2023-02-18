@@ -4,6 +4,7 @@ from Common.CEnum import DATA_FIELD, TREND_TYPE
 from Common.ChanException import CChanException, ErrCode
 from Common.CTime import CTime
 from Math.BOLL import BOLL_Metric, BollModel
+from Math.Demark import T_DEMARK_TYPE, CDemarkEngine, CDemarkIndex
 from Math.MACD import CMACD, CMACD_item
 from Math.TrendModel import CTrendModel
 
@@ -23,6 +24,8 @@ class CKLine_Unit:
         self.check(autofix)
 
         self.trade_info = CTradeInfo(kl_dict)
+
+        self.demark: CDemarkIndex = CDemarkIndex()
 
         self.sub_kl_list = []  # 次级别KLU列表
         self.sup_kl: Optional[CKLine_Unit] = None  # 指向更高级别KLU
@@ -93,6 +96,8 @@ class CKLine_Unit:
                 self.trend[metric_model.type][metric_model.T] = metric_model.add(self.close)
             elif isinstance(metric_model, BollModel):
                 self.boll: BOLL_Metric = metric_model.add(self.close)
+            elif isinstance(metric_model, CDemarkEngine):
+                self.demark = metric_model.update(idx=self.idx, close=self.close, high=self.high, low=self.low)
 
     def get_parent_klc(self):
         assert self.sup_kl is not None
