@@ -569,13 +569,25 @@ else:  # 绘制动画
         - 例子：[5,20]
     - trend_metrics：计算上下轨道线周期，即 T 天内最高/低价格（用于生成特征及绘图时使用），默认为空[]
     - boll_n：布林线参数 N，整数，默认为 20（用于生成特征及绘图时使用）
+    - macd: MACD配置
+        - fast: 默认为12
+        - slow: 默认为26
+        - signal: 默认为9
+    - demark: 德马克指标配置
+        - demark_len: setup完成时长度，默认为9
+        - setup_bias: setup比较偏移量，默认为4
+        - countdown_bias: countdown比较偏移量，默认为2
+        - max_countdown: 最大countdown数，默认为13
+        - tiaokong_st: 序列真实起始位置计算时，如果setup第一根跳空，是否需要取前一根收盘价，默认为True
+        - setup_cmp2close: setup计算当前K线的收盘价对比的是`setup_bias`根K线前的close，如果不是，下跌setup对比的是low，上升对比的是close，默认为True
+        - countdown_cmp2close：countdown计算当前K线的收盘价对比的是`countdown_bias`根K线前的close，如果不是，下跌setup对比的是low，上升对比的是close，默认为True
     - triger_step：是否回放逐步返回，默认为 False
         - 用于逐步回放绘图时使用，此时 CChan 会变成一个生成器，每读取一根新K线就会计算一次当前所有指标，返回当前帧指标状况；常用于返回给 CAnimateDriver 绘图
     - skip_step：triger_step 为 True 时有效，指定跳过前面几根K线，默认为 0；
     - kl_data_check：是否需要检验K线数据，检查项包括时间线是否有乱序，大小级别K线是否有缺失；默认为 True
     - max_kl_misalgin_cnt：在次级别找不到K线最大条数，默认为 2（次级别数据有缺失），`kl_data_check` 为 True 时生效
     - max_kl_inconsistent_cnt：天K线以下（包括）子级别和父级别日期不一致最大允许条数（往往是父级别数据有缺失），默认为 5，`kl_data_check` 为 True 时生效
-    - print_warming：打印K线不一致的明细，默认为 True
+    - print_warning：打印K线不一致的明细，默认为 True
     - print_err_time：计算发生错误时打印因为什么时间的K线数据导致的，默认为 False
     - auto_skip_illegal_sub_lv：如果获取次级别数据失败，自动删除该级别（比如指数数据一般不提供分钟线），默认为 False
 - 模型：

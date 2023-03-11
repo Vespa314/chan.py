@@ -22,7 +22,7 @@ if __name__ == "__main__":
         "bs1_peak": False,
         "macd_algo": "peak",
         "bs_type": '1,2,3a,1p,2s,3b',
-        "print_warming": True,
+        "print_warning": True,
     })
 
     plot_config = {

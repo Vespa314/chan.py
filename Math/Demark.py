@@ -12,6 +12,11 @@ class C_KL:
     high: float
     low: float
 
+    def v(self, is_close: bool, _dir: BI_DIR) -> float:
+        if is_close:
+            return self.close
+        return self.high if _dir == BI_DIR.UP else self.low
+
 
 T_DEMARK_TYPE = Literal['setup', 'countdown']
 
@@ -60,10 +65,10 @@ class CDemarkCountdown:
         if (self.dir == BI_DIR.DOWN and kl.high > self.TDST_peak) or (self.dir == BI_DIR.UP and kl.low < self.TDST_peak):
             self.finish = True
             return False
-        if self.dir == BI_DIR.DOWN and self.kl_list[-1].close < self.kl_list[-1 - CDemarkEngine.COUNTDOWN_BIAS].close:
+        if self.dir == BI_DIR.DOWN and self.kl_list[-1].close < self.kl_list[-1 - CDemarkEngine.COUNTDOWN_BIAS].v(CDemarkEngine.COUNTDOWN_CMP2CLOSE, self.dir):
             self.idx += 1
             return True
-        if self.dir == BI_DIR.UP and self.kl_list[-1].close > self.kl_list[-1 - CDemarkEngine.COUNTDOWN_BIAS].close:
+        if self.dir == BI_DIR.UP and self.kl_list[-1].close > self.kl_list[-1 - CDemarkEngine.COUNTDOWN_BIAS].v(CDemarkEngine.COUNTDOWN_CMP2CLOSE, self.dir):
             self.idx += 1
             return True
         return False
@@ -80,18 +85,18 @@ class CDemarkSetup:
         self.idx = 0
         self.TDST_peak: Optional[float] = None
 
-        self.last_demark_index = CDemarkIndex()
+        self.last_demark_index = CDemarkIndex()  # 缓存用
 
     def update(self, kl: C_KL) -> CDemarkIndex:
         self.last_demark_index = CDemarkIndex()
         if not self.setup_finished:
             self.kl_list.append(kl)
             if self.dir == BI_DIR.DOWN:
-                if self.kl_list[-1].close < self.kl_list[-1-CDemarkEngine.SETUP_BIAS].close:
+                if self.kl_list[-1].close < self.kl_list[-1-CDemarkEngine.SETUP_BIAS].v(CDemarkEngine.SETUP_CMP2CLOSE, self.dir):
                     self.add_setup()
                 else:
                     self.setup_finished = True
-            elif self.kl_list[-1].close > self.kl_list[-1-CDemarkEngine.SETUP_BIAS].close:
+            elif self.kl_list[-1].close > self.kl_list[-1-CDemarkEngine.SETUP_BIAS].v(CDemarkEngine.SETUP_CMP2CLOSE, self.dir):
                 self.add_setup()
             else:
                 self.setup_finished = True
@@ -127,8 +132,27 @@ class CDemarkEngine:
     COUNTDOWN_BIAS = 2
     MAX_COUNTDOWN = 13
     TIAOKONG_ST = True  # 第一根跳空时是否跟前一根的close比
+    SETUP_CMP2CLOSE = True
+    COUNTDOWN_CMP2CLOSE = True
 
-    def __init__(self):
+    def __init__(
+        self,
+        demark_len=9,
+        setup_bias=4,
+        countdown_bias=2,
+        max_countdown=13,
+        tiaokong_st=True,
+        setup_cmp2close=True,
+        countdown_cmp2close=True
+    ):
+        CDemarkEngine.DEMARK_LEN = demark_len
+        CDemarkEngine.SETUP_BIAS = setup_bias
+        CDemarkEngine.COUNTDOWN_BIAS = countdown_bias
+        CDemarkEngine.MAX_COUNTDOWN = max_countdown
+        CDemarkEngine.TIAOKONG_ST = tiaokong_st
+        CDemarkEngine.SETUP_CMP2CLOSE = setup_cmp2close
+        CDemarkEngine.COUNTDOWN_CMP2CLOSE = countdown_cmp2close
+
         self.kl_lst: List[C_KL] = []
         self.series: List[CDemarkSetup] = []
 

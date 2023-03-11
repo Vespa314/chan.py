@@ -110,8 +110,8 @@ class CChan:
                 valid_lv_list.append(lv)
             except CChanException as e:
                 if e.errcode == ErrCode.SRC_DATA_NOT_FOUND and self.conf.auto_skip_illegal_sub_lv:
-                    if self.conf.print_warming:
-                        print(f"[WARMING-{self.code}]{lv}级别获取数据失败，跳过")
+                    if self.conf.print_warning:
+                        print(f"[WARNING-{self.code}]{lv}级别获取数据失败，跳过")
                     del self.kl_datas[lv]
                     continue
                 raise e
@@ -187,16 +187,16 @@ class CChan:
            parent_klu.time.month != sub_klu.time.month or \
            parent_klu.time.day != sub_klu.time.day:
             self.kl_inconsistent_detail[str(parent_klu.time)].append(sub_klu.time)
-            if self.conf.print_warming:
-                print(f"[WARMING-{self.code}]父级别时间是{parent_klu.time}，次级别时间却是{sub_klu.time}")
+            if self.conf.print_warning:
+                print(f"[WARNING-{self.code}]父级别时间是{parent_klu.time}，次级别时间却是{sub_klu.time}")
             if len(self.kl_inconsistent_detail) >= self.conf.max_kl_inconsistent_cnt:
                 raise CChanException(f"父&子级别K线时间不一致条数超过{self.conf.max_kl_inconsistent_cnt}！！", ErrCode.KL_TIME_INCONSISTENT)
 
     def check_kl_align(self, kline_unit, lv_idx):
         if self.conf.kl_data_check and len(kline_unit.sub_kl_list) == 0:
             self.kl_misalign_cnt += 1
-            if self.conf.print_warming:
-                print(f"[WARMING-{self.code}]当前{kline_unit.time}没在次级别{self.lv_list[lv_idx+1]}找到K线！！")
+            if self.conf.print_warning:
+                print(f"[WARNING-{self.code}]当前{kline_unit.time}没在次级别{self.lv_list[lv_idx+1]}找到K线！！")
             if self.kl_misalign_cnt >= self.conf.max_kl_misalgin_cnt:
                 raise CChanException(f"在次级别找不到K线条数超过{self.conf.max_kl_misalgin_cnt}！！", ErrCode.KL_DATA_NOT_ALIGN)
 

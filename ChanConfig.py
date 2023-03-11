@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List
 
 from Bi.BiConfig import CBiConfig
 from BuySellPoint.BSPointConfig import CBSPointConfig
@@ -42,11 +42,21 @@ class CChanConfig:
         self.max_kl_misalgin_cnt = conf.get("max_kl_misalgin_cnt", 2)
         self.max_kl_inconsistent_cnt = conf.get("max_kl_inconsistent_cnt", 5)
         self.auto_skip_illegal_sub_lv = conf.get("auto_skip_illegal_sub_lv", False)
-        self.print_warming = conf.get("print_warming", True)
+        self.print_warning = conf.get("print_warning", True)
         self.print_err_time = conf.get("print_err_time", False)
 
         self.mean_metrics: List[int] = conf.get("mean_metrics", [])
         self.trend_metrics: List[int] = conf.get("trend_metrics", [])
+        self.macd_config = conf.get("macd", {"fast": 12, "slow": 26, "signal": 9})
+        self.demark_config = conf.get("demark", {
+            'demark_len': 9,
+            'setup_bias': 4,
+            'countdown_bias': 2,
+            'max_countdown': 13,
+            'tiaokong_st': True,
+            'setup_cmp2close': True,
+            'countdown_cmp2close': True,
+        })
         self.boll_n = conf.get("boll_n", 20)
 
         self.set_bsp_config(conf)
@@ -54,14 +64,28 @@ class CChanConfig:
         conf.check()
 
     def GetMetricModel(self):
-        res: List[Union[CMACD, CTrendModel, BollModel, CDemarkEngine]] = [CMACD()]
+        res: List[CMACD | CTrendModel | BollModel | CDemarkEngine] = [
+            CMACD(
+                fastperiod=self.macd_config['fast'],
+                slowperiod=self.macd_config['slow'],
+                signalperiod=self.macd_config['signal'],
+            )
+        ]
         res.extend(CTrendModel(TREND_TYPE.MEAN, mean_T) for mean_T in self.mean_metrics)
 
         for trend_T in self.trend_metrics:
             res.append(CTrendModel(TREND_TYPE.MAX, trend_T))
             res.append(CTrendModel(TREND_TYPE.MIN, trend_T))
         res.append(BollModel(self.boll_n))
-        res.append(CDemarkEngine())
+        res.append(CDemarkEngine(
+            demark_len=self.demark_config['demark_len'],
+            setup_bias=self.demark_config['setup_bias'],
+            countdown_bias=self.demark_config['countdown_bias'],
+            max_countdown=self.demark_config['max_countdown'],
+            tiaokong_st=self.demark_config['tiaokong_st'],
+            setup_cmp2close=self.demark_config['setup_cmp2close'],
+            countdown_cmp2close=self.demark_config['countdown_cmp2close'],
+        ))
         return res
 
     def set_bsp_config(self, conf):
