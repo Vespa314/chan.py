@@ -11,6 +11,10 @@
              ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═╝        ╚═╝
 ```
 
+<p><a href="https://github.com/Vespa314/chan.py/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Vespa314/chan.py" /></a></p>
+
+讨论组：<a href="https://t.me/zen_python">Telegram</a>
+
 
 **特别说明①**：当前公开部分代码暂时只包含基本的静态计算能力，暂未包含策略类，特征，模型，automl框架，交易引擎对接等；
 
@@ -978,7 +982,9 @@ create table if not exists {table_name}(
     signal_last_modify datetime(6),  --- 计算信号时不再生效时设置
     model_version varchar(256), --- 开仓时
     model_score_before float,  --- 开仓时
+    snapshot_before varchar(256),  --- 开仓时
     model_score_after float,  --- 分数复查时
+    snapshot_after varchar(256),  --- 分数复查时
 
     is_open  BOOLEAN default false,  --- 开仓信号突破时
     open_price float,  --- 成交时设置
@@ -986,6 +992,7 @@ create table if not exists {table_name}(
     open_date datetime(6),  --- 开仓信号突破时
     open_order_id varchar(32),  --- 提交订单时
     open_image_url varchar(64),--- 开仓信号突破时
+    cover_image_url varchar(64),--- 平仓时
     peak_price_after_open float, --- 更新peak_price时
 
     cover_avg_price float, -- 平仓成交时
