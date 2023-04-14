@@ -13,7 +13,8 @@
 
 <p><a href="https://github.com/Vespa314/chan.py/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Vespa314/chan.py" /></a></p>
 
-讨论组：<a href="https://t.me/zen_python">Telegram</a>
+- 讨论组：<a href="https://t.me/zen_python">Telegram</a>
+- [快速上手指南](./quick_guide.md)
 
 
 **特别说明①**：当前公开部分代码暂时只包含基本的静态计算能力，暂未包含策略类，特征，模型，automl框架，交易引擎对接等；
