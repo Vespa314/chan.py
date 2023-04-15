@@ -173,7 +173,7 @@ item_dict为一个字典：
 - 开收高低：必须要有
 - 换手率，成交额，成交量：这三个可以没有
 
-```json
+```python
 {
     DATA_FIELD.FIELD_TIME: time,  # 必须是CTime
     DATA_FIELD.FIELD_OPEN: float(_open),  # 必填
@@ -194,14 +194,12 @@ item_dict为一个字典：
 如果数据来源于其他服务，需要有初始化和结束的操作，那么需要额外重载实现两个类函数：
 ```python
   @classmethod
-  @abc.abstractmethod
   def do_init(cls):
-      pass
+      ...
 
   @classmethod
-  @abc.abstractmethod
   def do_close(cls):
-      pass
+      ...
 ```
 
 比如baostock即需要实现login,logout操作，futu数据源需要初始化和关闭ctx操作；
