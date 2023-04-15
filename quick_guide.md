@@ -1,7 +1,7 @@
 # 快速上手指南
 
 - [快速上手指南](#快速上手指南)
-  - [不可绕过的步骤（README里面都有细讲）](#不可绕过的步骤readme里面都有细讲)
+  - [不可绕过的步骤](#不可绕过的步骤)
   - [取出缠论元素组织策略](#取出缠论元素组织策略)
     - [CKLine-合并K线](#ckline-合并k线)
       - [CKLine\_Unit-单根K线](#ckline_unit-单根k线)
@@ -13,9 +13,14 @@
       - [CZS：中枢类](#czs中枢类)
     - [CBSPointList-买卖点管理类](#cbspointlist-买卖点管理类)
       - [CBS\_Point：买卖点类](#cbs_point买卖点类)
+  - [数据接入速成班](#数据接入速成班)
+    - [CCommonStockApi子类实现](#ccommonstockapi子类实现)
+    - [CTime](#ctime)
+    - [初始化和结束](#初始化和结束)
+    - [接入数据源](#接入数据源)
 
 
-## 不可绕过的步骤（README里面都有细讲）
+## 不可绕过的步骤
 很多用户使用，其实不需要细看整个代码是怎么实现了，假装相信框架没BUG，通过直接提取框架计算好的缠论元素来组装策略；
 
 但是即便如此，以下三部分建议先读README文件了解下；
@@ -28,6 +33,7 @@
 
 然后通过画图，可能找到一些不合理的地方（笔段中枢买卖点算错或漏算之类的），再具体去看实际实现细节或者反馈给作者。
 
+这些README里面都有细讲。。
 
 ## 取出缠论元素组织策略
 - CChan这个类里面有个变量`kl_datas`，这是一个字典，键是 KL_TYPE（即级别，具体取值参见Common/CEnum），值是 CKLine_List 类；
@@ -137,3 +143,69 @@
 - Klu：所在K线
 - is_buy：True为买点，False为卖点
 - type：List[BSP_TYPE] 买卖点类别，是个数组，比如2，3类买卖点是同一个
+
+
+## 数据接入速成班
+### CCommonStockApi子类实现
+参考`DataAPI/BaoStockAPI.py`，实现一个类继承自`CCommonStockApi`，接受输入参数为：
+- code
+- k_type: KL_TYPE类型
+- begin_date/end_date：能不能为None，应该是什么格式自行决定，会通过CChan类的初始化参数传进来；
+
+并在该类里面实现一个关键方法：
+
+`get_kl_data(self)`：该方法为一个生成器，yield 返回每一根K线信息 `CKLine_Unit`，K线类可以通过`CKLine_Unit(item_dict)`来实例化；
+
+| 当然你也可以直接返回一个有序的数组，每个元素为`CKLine_Unit`，只不过性能可能会差一些；
+
+```python
+class C_YOUR_OWN_DATA_CLS(CCommonStockApi):
+    def __init__(self, code, k_type=KL_TYPE.K_DAY, begin_date=None, end_date=None, autype=AUTYPE.QFQ):
+        super(C_YOUR_OWN_DATA_CLS, self).__init__(code, k_type, begin_date, end_date, autype)
+
+    def get_kl_data(self) -> Iterable[CKLine_Unit]:
+       ...
+       yield CKLine_Unit(item_dict)
+```
+
+item_dict为一个字典：
+- 包含时间：必须是框架实现的CTime类
+- 开收高低：必须要有
+- 换手率，成交额，成交量：这三个可以没有
+
+```json
+{
+    DATA_FIELD.FIELD_TIME: time,  # 必须是CTime
+    DATA_FIELD.FIELD_OPEN: float(_open),  # 必填
+    DATA_FIELD.FIELD_CLOSE: float(_close),  # 必填
+    DATA_FIELD.FIELD_LOW: float(_low),  # 必填
+    DATA_FIELD.FIELD_HIGH: float(_high),  # 必填
+    DATA_FIELD.FIELD_VOLUME: float(volume),  # 可选
+    DATA_FIELD.FIELD_TURNOVER: float(amount),  # 可选
+    DATA_FIELD.FIELD_TURNRATE: float(turn),  # 可选
+}
+```
+
+### CTime
+构造`CTime(year, month, day, hour, minute)`实例即可；
+
+
+### 初始化和结束
+如果数据来源于其他服务，需要有初始化和结束的操作，那么需要额外重载实现两个类函数：
+```python
+  @classmethod
+  @abc.abstractmethod
+  def do_init(cls):
+      pass
+
+  @classmethod
+  @abc.abstractmethod
+  def do_close(cls):
+      pass
+```
+
+比如baostock即需要实现login,logout操作，futu数据源需要初始化和关闭ctx操作；
+
+
+### 接入数据源
+最简单的方法就是把实现的类放在`./DataAPI/`目录下，然后`CChan`的`data_src`参数配置为`custom:文件名.类名`即可；
