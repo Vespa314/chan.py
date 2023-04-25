@@ -523,8 +523,9 @@ else:  # 绘制动画
 - begin_time：开始时间，默认为 None（至于 None 怎么理解,也取决于数据源格式）
 - end_time：结束时间，默认为 None（至于 None 怎么理解,也取决于数据源格式）
 - data_src：数据源，框架提供：
-    - DATA_SRC.FUTU：富途(默认)
-    - DATA_SRC.BAO_STOCK：BaoStock
+    - DATA_SRC.FUTU：富途
+    - DATA_SRC.BAO_STOCK：BaoStock(默认)
+    - DATA_SRC.CCTX：cctx
     - "custom:文件名:类名"：自定义解析器
         - 框架默认提供一个 demo 为："custom: OfflineDataAPI.CStockFileReader"
         - 自己开发参考下文『自定义开发-数据接入』

@@ -18,6 +18,9 @@ def GetStockAPI(src):
     if src == DATA_SRC.BAO_STOCK:
         from DataAPI.BaoStockAPI import CBaoStock
         _dict[DATA_SRC.BAO_STOCK] = CBaoStock
+    if src == DATA_SRC.CCTX:
+        from DataAPI.cctx import CCTX
+        _dict[DATA_SRC.CCTX] = CCTX
     if src in _dict:
         return _dict[src]
     if src.find("custom:") < 0:
@@ -164,7 +167,7 @@ class CChan:
                 try:
                     kline_unit = lv_klu_iter_lst[lv_idx].__next__()
                     if not kline_unit.time > self.klu_last_t[lv_idx]:
-                        raise CChanException("kline time err, cur={kline_unit.time}, last={self.klu_last_t[lv_idx]}", ErrCode.KL_NOT_MONOTONOUS)
+                        raise CChanException(f"kline time err, cur={kline_unit.time}, last={self.klu_last_t[lv_idx]}", ErrCode.KL_NOT_MONOTONOUS)
                     self.klu_last_t[lv_idx] = kline_unit.time
                 except StopIteration:
                     break

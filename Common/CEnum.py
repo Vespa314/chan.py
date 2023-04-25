@@ -4,6 +4,7 @@ from typing import Literal
 
 class DATA_SRC(Enum):
     BAO_STOCK = auto()
+    CCTX = auto()
 
 
 class KL_TYPE(Enum):
