@@ -21,11 +21,11 @@ def GetColumnNameFromFieldList(fileds: str):
     return [_dict[x] for x in fileds.split(",")]
 
 
-class CCTX(CCommonStockApi):
+class CCXT(CCommonStockApi):
     is_connect = None
 
     def __init__(self, code, k_type=KL_TYPE.K_DAY, begin_date=None, end_date=None, autype=AUTYPE.QFQ):
-        super(CCTX, self).__init__(code, k_type, begin_date, end_date, autype)
+        super(CCXT, self).__init__(code, k_type, begin_date, end_date, autype)
 
     def get_kl_data(self):
         fields = "time,open,high,low,close"

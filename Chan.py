@@ -18,9 +18,9 @@ def GetStockAPI(src):
     if src == DATA_SRC.BAO_STOCK:
         from DataAPI.BaoStockAPI import CBaoStock
         _dict[DATA_SRC.BAO_STOCK] = CBaoStock
-    if src == DATA_SRC.CCTX:
-        from DataAPI.cctx import CCTX
-        _dict[DATA_SRC.CCTX] = CCTX
+    if src == DATA_SRC.CCXT:
+        from DataAPI.ccxt import CCXT
+        _dict[DATA_SRC.CCXT] = CCXT
     if src in _dict:
         return _dict[src]
     if src.find("custom:") < 0:
