@@ -60,9 +60,10 @@ def parse_plot_config(plot_config: Union[str, dict, list], lv_list: List[KL_TYPE
     return {lv: parse_single_lv_plot_config(plot_config) for lv in lv_list}
 
 
-def set_x_tick(ax, x_limits, tick):
+def set_x_tick(ax, x_limits, tick, x_tick_num: int):
+    assert x_tick_num > 1
     ax.set_xlim(x_limits[0], x_limits[1]+1)
-    ax.set_xticks(range(x_limits[0], x_limits[1], max([1, int((x_limits[1]-x_limits[0])/10)])))
+    ax.set_xticks(range(x_limits[0], x_limits[1], max([1, int((x_limits[1]-x_limits[0])/float(x_tick_num))])))
     ax.set_xticklabels([tick[i] for i in ax.get_xticks()], rotation=20)
 
 
@@ -184,9 +185,9 @@ class CPlotDriver:
                     x_limits[0] = max(sseg_begin, sbi_begin)
                 elif srange_begin != 0:
                     x_limits[0] = srange_begin
-            set_x_tick(ax, x_limits, meta.datetick)
+            set_x_tick(ax, x_limits, meta.datetick, figure_config.get('x_tick_num', 10))
             if ax_macd:
-                set_x_tick(ax_macd, x_limits, meta.datetick)
+                set_x_tick(ax_macd, x_limits, meta.datetick, figure_config.get('x_tick_num', 10))
             self.y_min, self.y_max = cal_y_range(meta, ax)  # 需要先设置 x_tick后计算
 
             self.DrawElement(plot_config[lv], meta, ax, lv, plot_para, ax_macd, x_limits)
