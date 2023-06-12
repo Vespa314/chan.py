@@ -4,7 +4,7 @@ from Common.CEnum import DATA_FIELD, TREND_TYPE
 from Common.ChanException import CChanException, ErrCode
 from Common.CTime import CTime
 from Math.BOLL import BOLL_Metric, BollModel
-from Math.Demark import T_DEMARK_TYPE, CDemarkEngine, CDemarkIndex
+from Math.Demark import CDemarkEngine, CDemarkIndex
 from Math.MACD import CMACD, CMACD_item
 from Math.TrendModel import CTrendModel
 
@@ -71,7 +71,7 @@ class CKLine_Unit:
             else:
                 raise CChanException(f"{self.time} high price={self.high} is not max of [low={self.low}, open={self.open}, high={self.high}, close={self.close}]", ErrCode.KL_DATA_INVALID)
 
-    def add_chindren(self, child):
+    def add_children(self, child):
         self.sub_kl_list.append(child)
 
     def set_parent(self, parent: 'CKLine_Unit'):

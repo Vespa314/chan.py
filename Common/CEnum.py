@@ -69,7 +69,7 @@ class BSP_TYPE(Enum):
     T3BQ = '3b-Q'  # 中枢在1类前面
 
     def main_type(self) -> BSP_MAIN_TYPE:
-        return self.value[0]
+        return self.value[0]  # type: ignore
 
     def to_qjt(self) -> 'BSP_TYPE':
         _d = {

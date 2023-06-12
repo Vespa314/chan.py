@@ -143,7 +143,7 @@ class CChan:
     def set_klu_parent_relation(self, parent_klu, kline_unit, cur_lv, lv_idx):
         if self.conf.kl_data_check and kltype_lte_day(cur_lv) and kltype_lte_day(self.lv_list[lv_idx-1]):
             self.check_kl_consitent(parent_klu, kline_unit)
-        parent_klu.add_chindren(kline_unit)
+        parent_klu.add_children(kline_unit)
         kline_unit.set_parent(parent_klu)
 
     def add_new_kl(self, cur_lv: KL_TYPE, kline_unit):
