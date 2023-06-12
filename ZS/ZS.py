@@ -124,13 +124,13 @@ class CZS(Generic[LINE_TYPE]):
             self.do_combine(zs2)
             return True
         elif combine_mode == 'peak':
-            if has_overlap(self.low, self.high, zs2.peak_low, zs2.peak_high):
+            if has_overlap(self.peak_low, self.peak_high, zs2.peak_low, zs2.peak_high):
                 self.do_combine(zs2)
                 return True
             else:
                 return False
         else:
-            raise CChanException(f"${combine_mode} is unsupport zs conbine mode", ErrCode.PARA_ERROR)
+            raise CChanException(f"{combine_mode} is unsupport zs conbine mode", ErrCode.PARA_ERROR)
 
     def do_combine(self, zs2: 'CZS'):
         if len(self.sub_zs_lst) == 0:
