@@ -89,6 +89,7 @@ class CZSList:
 
         # 处理未生成新线段的部分
         if len(seg_lst):
+            self.clear_free_lst()
             self.add_zs_from_bi_range(bi_lst[seg_lst[-1].end_bi.idx+1:], revert_bi_dir(seg_lst[-1].dir), False)
 
     def __iter__(self):
