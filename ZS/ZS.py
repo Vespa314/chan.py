@@ -116,9 +116,9 @@ class CZS(Generic[LINE_TYPE]):
     def combine(self, zs2: 'CZS', combine_mode) -> bool:
         if zs2.is_one_bi_zs():
             return False
+        if self.begin_bi.seg_idx != zs2.begin_bi.seg_idx:
+            return False
         if combine_mode == 'zs':
-            if self.begin_bi.seg_idx != zs2.begin_bi.seg_idx:
-                return False
             if not has_overlap(self.low, self.high, zs2.low, zs2.high, equal=True):
                 return False
             self.do_combine(zs2)
