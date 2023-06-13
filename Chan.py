@@ -92,12 +92,18 @@ class CChan:
         if not yielded:
             yield self
 
-    def trigger_load(self, inp: dict):
+    def trigger_load(self, inp):
         # 在已有pickle基础上继续计算新的
         # {type: [klu, ...]}
+        if not hasattr(self, 'klu_cache'):
+            self.klu_cache: List[Optional[CKLine_Unit]] = [None for _ in self.lv_list]
+        if not hasattr(self, 'klu_last_t'):
+            self.klu_last_t = [CTime(1980, 1, 1, 0, 0) for _ in self.lv_list]
         lv_klu_iter_lst = []
         for lv in self.lv_list:
             assert type(inp[lv]) == list
+            for klu in inp[lv]:
+                klu.kl_type = lv
             _iter = iter(inp[lv])
             lv_klu_iter_lst.append(_iter)
         for _ in self.load_iterator(lv_idx=0, lv_klu_iter_lst=lv_klu_iter_lst, parent_klu=None, step=False):
@@ -154,6 +160,14 @@ class CChan:
                 print(f"[ERROR-{self.code}]在计算{kline_unit.time}K线时发生错误!")
             raise
 
+    def try_set_klu_idx(self, lv_idx: int, kline_unit: CKLine_Unit):
+        if kline_unit.idx >= 0:
+            return
+        if len(self[lv_idx]) == 0:
+            kline_unit.set_idx(0)
+        else:
+            kline_unit.set_idx(self[lv_idx][-1][-1].idx + 1)
+
     def load_iterator(self, lv_idx, lv_klu_iter_lst, parent_klu, step):
         # K线时间天级别以下描述的是结束时间，如60M线，每天第一根是10点30的
         # 天以上是当天日期
@@ -166,6 +180,7 @@ class CChan:
             else:
                 try:
                     kline_unit = lv_klu_iter_lst[lv_idx].__next__()
+                    self.try_set_klu_idx(lv_idx, kline_unit)
                     if not kline_unit.time > self.klu_last_t[lv_idx]:
                         raise CChanException(f"kline time err, cur={kline_unit.time}, last={self.klu_last_t[lv_idx]}", ErrCode.KL_NOT_MONOTONOUS)
                     self.klu_last_t[lv_idx] = kline_unit.time

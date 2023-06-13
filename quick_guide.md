@@ -19,6 +19,7 @@
     - [初始化和结束](#初始化和结束)
     - [接入数据源](#接入数据源)
   - [策略实现 \& 回测](#策略实现--回测)
+    - [从外部喂K线](#从外部喂k线)
 
 
 ## 不可绕过的步骤
@@ -211,12 +212,21 @@ item_dict为一个字典：
 
 
 ## 策略实现 & 回测
-具体demo参见`stragety_demo.py`
+具体demo参见[stragety_demo.py](./Debug/stragety_demo.py)
 
 原理就是：打开CChanConfig中的`triger_step`开关，那么CChan初始化的时候就不会做任何计算；
 
 而手动调用CChan.step_load()，才会启动计算；
 - 多少根K线就返回多少次
 - 这个函数就是一个生成器：每喂一根K线后，就会计算当前K线位置的静态元素，返回当前的CChan类，可以用上文描述的方法来获取需要的元素；
+- 每一帧的计算不是完全重算的，只重新计算不确定的部分，故计算性能还行
 
-回测啥的就用户自行组装了！
+回测啥的就自行组装了~
+
+
+### 从外部喂K线
+实盘的时候需要在获取到K线之后触发缠论计算，可以使用`CChan.trigger_load`来触发计算；
+
+其中该函数的输入参数格式为：`Dict[KL_TYPE, List[CKLine_Unit]]`
+
+具体使用case可以参考[stragety_demo.py](./Debug/stragety_demo2.py)

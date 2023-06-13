@@ -8,7 +8,7 @@ if __name__ == "__main__":
     只用做展示如何自己实现策略，做回测用~
     """
     code = "sz.000001"
-    begin_time = "2018-01-01"
+    begin_time = "2021-01-01"
     end_time = None
     data_src = DATA_SRC.BAO_STOCK
     lv_list = [KL_TYPE.K_DAY]
