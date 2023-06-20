@@ -38,6 +38,7 @@ if __name__ == "__main__":
         "plot_bsp": True,
         "plot_extrainfo": False,
         "plot_demark": False,
+        "plot_marker": False,
     }
 
     plot_para = {
@@ -50,6 +51,12 @@ if __name__ == "__main__":
         "figure": {
             "x_range": 50,
         },
+        "marker": {
+            "markers": {  # text, position, color
+                '2023/06/01': ('marker here', 'up', 'red'),
+                '2023/06/08': ('marker here', 'down')
+            },
+        }
     }
     chan = CChan(
         code=code,

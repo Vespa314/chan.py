@@ -1,5 +1,5 @@
 import inspect
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Literal, Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
@@ -9,6 +9,7 @@ from matplotlib.patches import Rectangle
 from Chan import CChan
 from Common.CEnum import BI_DIR, FX_TYPE, KL_TYPE, KLINE_DIR, TREND_TYPE
 from Common.ChanException import CChanException, ErrCode
+from Common.CTime import CTime
 from Math.Demark import T_DEMARK_INDEX, CDemarkEngine
 
 from .PlotMeta import CBi_meta, CChanPlotMeta, CZS_meta
@@ -265,6 +266,8 @@ class CPlotDriver:
             self.draw_seg_bs_point(meta, ax, **plot_para.get('seg_bsp', {}))
         if plot_config.get("plot_demark", False):
             self.draw_demark(meta, ax, **plot_para.get('demark', {}))
+        if plot_config.get("plot_marker", False):
+            self.draw_marker(meta, ax, **plot_para.get('marker', {'markers': {}}))
 
     def ShowDrawFuncHelper(self):
         # 写README的时候显示所有画图函数的参数和默认值
@@ -620,6 +623,58 @@ class CPlotDriver:
                 closeAction.x-cbsp.x,
                 arrow_len*arrow_dir + (closeAction.y-cbsp.y),
                 color=color,
+            )
+
+    def draw_marker(
+            self,
+            meta: CChanPlotMeta,
+            ax: Axes,
+            markers: Dict[CTime | str, Tuple[str, Literal['up', 'down'], str] | Tuple[str, Literal['up', 'down']]],
+            arrow_l=0.15,
+            arrow_h_r=0.2,
+            arrow_w=1,
+            fontsize=14,
+            default_color='b',
+    ):
+        # {'2022/03/01': ('xxx', 'up', 'red'), '2022/03/02': ('yyy', 'down')}
+        x_begin, x_end = ax.get_xlim()
+        datetick_dict = {date: idx for idx, date in enumerate(meta.datetick)}
+        kl_dict = dict(enumerate(meta.klu_iter()))
+        y_range = self.y_max-self.y_min
+        arror_len = arrow_l*y_range
+        arrow_h = arror_len*arrow_h_r
+        for date, marker in markers.items():
+            if isinstance(date, CTime):
+                date = date.to_str()
+            x = datetick_dict[date]
+            if x < x_begin or x > x_end:
+                continue
+            if len(marker) == 2:
+                color = default_color
+                marker_content, position = marker
+            else:
+                assert len(marker) == 3
+                marker_content, position, color = marker
+            assert position in ['up', 'down']
+            _dir = -1 if position == 'up' else 1
+            bench = kl_dict[x].high if position == 'up' else kl_dict[x].low
+            ax.arrow(
+                x,
+                bench-arror_len*_dir,
+                0,
+                (arror_len-arrow_h)*_dir,  # 箭头的长度实际上是arror_len+arrow_h，所以要减去，顺便减去半个箭头防止和K线重叠
+                head_width=arrow_w,
+                head_length=arrow_h,
+                color=color
+            )
+            ax.text(
+                x,
+                bench-arror_len*_dir,
+                marker_content,
+                fontsize=fontsize,
+                color=color,
+                verticalalignment='top' if position == 'down' else 'bottom',
+                horizontalalignment='center'
             )
 
     def draw_demark_begin_line(self, ax, begin_line_color, plot_begin_set: set, linestyle: str, demark_idx: T_DEMARK_INDEX):
