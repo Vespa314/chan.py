@@ -51,10 +51,12 @@ class CSeg_meta:
         self.is_sure = seg.is_sure
 
         self.has_tl = False
-        self.tl_y0 = None
-        self.tl_y1 = None
-        self.tl_x0 = None
-        self.tl_x1 = None
+        if seg.trend_line and seg.trend_line.line:
+            self.has_tl = True
+            self.tl_y0 = self.begin_y
+            self.tl_y1 = self.end_y
+            self.tl_x0 = (self.begin_y-seg.trend_line.line.p.y)/(seg.trend_line.line.slope+1e-7) + seg.trend_line.line.p.x
+            self.tl_x1 = (self.end_y-seg.trend_line.line.p.y)/(seg.trend_line.line.slope+1e-7) + seg.trend_line.line.p.x
 
 
 class CEigen_meta:

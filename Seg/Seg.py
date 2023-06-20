@@ -4,6 +4,7 @@ from Bi.Bi import CBi
 from Common.CEnum import BI_DIR, MACD_ALGO
 from Common.ChanException import CChanException, ErrCode
 from KLine.KLine_Unit import CKLine_Unit
+from Math.TrendLine import CTrendLine
 
 from .EigenFX import CEigenFX
 
@@ -33,6 +34,7 @@ class CSeg(Generic[LINE_TYPE]):
 
         self.bi_list: List[LINE_TYPE] = []  # 仅通过self.update_bi_list来更新
         self.reason = reason
+        self.trend_line = None
         if end_bi.idx - start_bi.idx < 2:
             self.is_sure = False
         self.check()
@@ -128,6 +130,8 @@ class CSeg(Generic[LINE_TYPE]):
         for bi_idx in range(idx1, idx2+1):
             bi_lst[bi_idx].parent_seg = self
             self.bi_list.append(bi_lst[bi_idx])
+        if len(self.bi_list) >= 3:
+            self.trend_line = CTrendLine(self.bi_list)
 
     def get_first_multi_bi_zs(self):
         return next((zs for zs in self.zs_lst if not zs.is_one_bi_zs()), None)

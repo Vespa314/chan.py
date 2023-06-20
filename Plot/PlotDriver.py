@@ -381,6 +381,9 @@ class CPlotDriver:
         disp_end=False,
         end_color='g',
         end_fontsize=13,
+        plot_trendline=False,
+        trendline_color='r',
+        trendline_width=3,
     ):
         x_begin = ax.get_xlim()[0]
 
@@ -393,6 +396,8 @@ class CPlotDriver:
                 ax.plot([seg_meta.begin_x, seg_meta.end_x], [seg_meta.begin_y, seg_meta.end_y], color=color, linewidth=width, linestyle='dashed')
             if disp_end:
                 bi_text(seg_idx, ax, seg_meta, end_fontsize, end_color)
+            if plot_trendline and seg_meta.has_tl:
+                ax.plot([seg_meta.tl_x0, seg_meta.tl_x1], [seg_meta.tl_y0, seg_meta.tl_y1], color=trendline_color, linewidth=trendline_width)
         if sub_lv_cnt is not None and len(self.lv_lst) > 1 and lv != self.lv_lst[-1]:
             if sub_lv_cnt >= len(meta.seg_list):
                 return
