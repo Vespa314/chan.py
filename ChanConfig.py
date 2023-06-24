@@ -140,6 +140,8 @@ class CChanConfig:
                 raise CChanException(f"unknown para = {k}", ErrCode.PARA_ERROR)
         self.bs_point_conf.b_conf.parse_target_type()
         self.bs_point_conf.s_conf.parse_target_type()
+        self.seg_bs_point_conf.b_conf.parse_target_type()
+        self.seg_bs_point_conf.s_conf.parse_target_type()
 
 
 class ConfigWithCheck:
