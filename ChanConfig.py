@@ -48,6 +48,7 @@ class CChanConfig:
         self.mean_metrics: List[int] = conf.get("mean_metrics", [])
         self.trend_metrics: List[int] = conf.get("trend_metrics", [])
         self.macd_config = conf.get("macd", {"fast": 12, "slow": 26, "signal": 9})
+        self.cal_demark = conf.get("cal_demark", False)
         self.demark_config = conf.get("demark", {
             'demark_len': 9,
             'setup_bias': 4,
@@ -77,15 +78,16 @@ class CChanConfig:
             res.append(CTrendModel(TREND_TYPE.MAX, trend_T))
             res.append(CTrendModel(TREND_TYPE.MIN, trend_T))
         res.append(BollModel(self.boll_n))
-        res.append(CDemarkEngine(
-            demark_len=self.demark_config['demark_len'],
-            setup_bias=self.demark_config['setup_bias'],
-            countdown_bias=self.demark_config['countdown_bias'],
-            max_countdown=self.demark_config['max_countdown'],
-            tiaokong_st=self.demark_config['tiaokong_st'],
-            setup_cmp2close=self.demark_config['setup_cmp2close'],
-            countdown_cmp2close=self.demark_config['countdown_cmp2close'],
-        ))
+        if self.cal_demark:
+            res.append(CDemarkEngine(
+                demark_len=self.demark_config['demark_len'],
+                setup_bias=self.demark_config['setup_bias'],
+                countdown_bias=self.demark_config['countdown_bias'],
+                max_countdown=self.demark_config['max_countdown'],
+                tiaokong_st=self.demark_config['tiaokong_st'],
+                setup_cmp2close=self.demark_config['setup_cmp2close'],
+                countdown_cmp2close=self.demark_config['countdown_cmp2close'],
+            ))
         return res
 
     def set_bsp_config(self, conf):
