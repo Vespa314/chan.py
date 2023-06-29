@@ -61,26 +61,8 @@ class BSP_TYPE(Enum):
     T3A = '3a'  # 中枢在1类后面
     T3B = '3b'  # 中枢在1类前面
 
-    T1Q = '1-Q'
-    T1PQ = '1p-Q'
-    T2Q = '2-Q'
-    T2SQ = '2s-Q'
-    T3AQ = '3a-Q'  # 中枢在1类后面
-    T3BQ = '3b-Q'  # 中枢在1类前面
-
     def main_type(self) -> BSP_MAIN_TYPE:
         return self.value[0]  # type: ignore
-
-    def to_qjt(self) -> 'BSP_TYPE':
-        _d = {
-            '1': BSP_TYPE.T1Q,
-            '1p': BSP_TYPE.T1PQ,
-            '2': BSP_TYPE.T2Q,
-            '2s': BSP_TYPE.T2SQ,
-            '3a': BSP_TYPE.T3AQ,
-            '3b': BSP_TYPE.T3BQ,
-        }
-        return _d[self.value]
 
 
 class AUTYPE(Enum):
