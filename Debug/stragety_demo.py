@@ -40,11 +40,11 @@ if __name__ == "__main__":
             continue
 
         cur_lv_chan = chan_snapshot[0]
-        if cur_lv_chan[-2].fx == FX_TYPE.BOTTOM and not is_hold:  # 底分型形成后开仓
+        if cur_lv_chan[-2].fx == FX_TYPE.BOTTOM and last_bsp.is_buy and not is_hold:  # 底分型形成后开仓
             last_buy_price = cur_lv_chan[-1][-1].close  # 开仓价格为最后一根K线close
-            print(f'buy price = {last_buy_price}')
+            print(f'{cur_lv_chan[-1][-1].time}:buy price = {last_buy_price}')
             is_hold = True
-        elif cur_lv_chan[-2].fx == FX_TYPE.TOP and is_hold:  # 顶分型形成后平仓
+        elif cur_lv_chan[-2].fx == FX_TYPE.TOP and not last_bsp.is_buy and is_hold:  # 顶分型形成后平仓
             sell_price = cur_lv_chan[-1][-1].close
-            print(f'sell price = {sell_price}, profit rate = {(sell_price-last_buy_price)/last_buy_price*100:.2f}%')
+            print(f'{cur_lv_chan[-1][-1].time}:sell price = {sell_price}, profit rate = {(sell_price-last_buy_price)/last_buy_price*100:.2f}%')
             is_hold = False
