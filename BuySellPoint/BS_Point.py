@@ -9,7 +9,7 @@ LINE_TYPE = TypeVar('LINE_TYPE', CBi, CSeg)
 
 
 class CBS_Point(Generic[LINE_TYPE]):
-    def __init__(self, bi: LINE_TYPE, is_buy, bs_type: BSP_TYPE, relate_bsp1: Optional['CBS_Point']):
+    def __init__(self, bi: LINE_TYPE, is_buy, bs_type: BSP_TYPE, relate_bsp1: Optional['CBS_Point'], feature_dict=None):
         self.bi: LINE_TYPE = bi
         self.klu = bi.get_end_klu()
         self.is_buy = is_buy
@@ -17,7 +17,7 @@ class CBS_Point(Generic[LINE_TYPE]):
         self.relate_bsp1 = relate_bsp1
 
         self.bi.bsp = self  # type: ignore
-        self.features = CFeatures()
+        self.features = CFeatures(feature_dict)
 
         self.is_segbsp = False
 

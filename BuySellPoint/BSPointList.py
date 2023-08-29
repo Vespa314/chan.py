@@ -63,6 +63,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         bi: LINE_TYPE,
         relate_bsp1: Optional[CBS_Point],
         is_target_bsp: bool = True,
+        feature_dict=None,
     ):
         is_buy = bi.is_down()
         for exist_bsp in self.lst:
@@ -79,6 +80,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
                 is_buy=is_buy,
                 bs_type=bs_type,
                 relate_bsp1=relate_bsp1,
+                feature_dict=feature_dict,
             )
         else:
             return
@@ -108,10 +110,11 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         break_peak, _ = last_zs.out_bi_is_peak()  # break_peak=False应该只有线段第一笔直接拉得很低的时候才会有这个情况
         if BSP_CONF.bs1_peak and not break_peak:
             is_target_bsp = False
-        is_diver, _ = last_zs.is_divergence(BSP_CONF)
+        is_diver, divergence_rate = last_zs.is_divergence(BSP_CONF)
         if not is_diver:
             is_target_bsp = False
-        self.add_bs(bs_type=BSP_TYPE.T1, bi=last_zs.bi_out, relate_bsp1=None, is_target_bsp=is_target_bsp)
+        feature_dict = {'divergence_rate': divergence_rate}
+        self.add_bs(bs_type=BSP_TYPE.T1, bi=last_zs.bi_out, relate_bsp1=None, is_target_bsp=is_target_bsp, feature_dict=feature_dict)
 
     def treat_pz_bsp1(self, seg: CSeg[LINE_TYPE], BSP_CONF: CPointConfig, bi_list: LINE_LIST_TYPE, is_target_bsp):
         last_bi = seg.end_bi
@@ -126,12 +129,13 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
             return
         in_metric = pre_bi.cal_macd_metric(BSP_CONF.macd_algo, is_reverse=False)
         out_metric = last_bi.cal_macd_metric(BSP_CONF.macd_algo, is_reverse=True)
-        is_diver, _ = out_metric <= BSP_CONF.divergence_rate*in_metric, out_metric/(in_metric+1e-7)
+        is_diver, divergence_rate = out_metric <= BSP_CONF.divergence_rate*in_metric, out_metric/(in_metric+1e-7)
         if not is_diver:
             is_target_bsp = False
         if isinstance(bi_list, CBiList):
             assert isinstance(last_bi, CBi) and isinstance(pre_bi, CBi)
-        self.add_bs(bs_type=BSP_TYPE.T1P, bi=last_bi, relate_bsp1=None, is_target_bsp=is_target_bsp)
+        feature_dict = {'divergence_rate': divergence_rate}
+        self.add_bs(bs_type=BSP_TYPE.T1P, bi=last_bi, relate_bsp1=None, is_target_bsp=is_target_bsp, feature_dict=feature_dict)
 
     def cal_seg_bs2point(self, seg_list: CSegListComm[LINE_TYPE], bi_list: LINE_LIST_TYPE):
         bsp1_bi_idx_dict = {bsp.bi.idx: bsp for bsp in self.bsp1_lst}
