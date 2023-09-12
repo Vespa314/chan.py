@@ -3,16 +3,21 @@ from typing import List
 
 from Chan import CChan
 from ChanConfig import CChanConfig
-from Common.CEnum import AUTYPE, DATA_SRC, KL_TYPE
+from Common.CEnum import AUTYPE, DATA_FIELD, DATA_SRC, KL_TYPE
 from DataAPI.BaoStockAPI import CBaoStock
 from KLine.KLine_Unit import CKLine_Unit
 
 
 def combine_5m_klu_form_1m(klu_1m_lst: List[CKLine_Unit]) -> CKLine_Unit:
-    """
-    自行实现把一分钟K线合成5分钟K线后返回
-    """
-    ...
+    return CKLine_Unit(
+        {
+            DATA_FIELD.FIELD_TIME: klu_1m_lst[-1].time,
+            DATA_FIELD.FIELD_OPEN: klu_1m_lst[0].open,
+            DATA_FIELD.FIELD_CLOSE: klu_1m_lst[-1].close,
+            DATA_FIELD.FIELD_HIGH: max(klu.high for klu in klu_1m_lst),
+            DATA_FIELD.FIELD_LOW: min(klu.low for klu in klu_1m_lst),
+        }
+    )
 
 
 if __name__ == "__main__":
