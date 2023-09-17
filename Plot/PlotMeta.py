@@ -50,13 +50,22 @@ class CSeg_meta:
         self.dir = seg.dir
         self.is_sure = seg.is_sure
 
-        self.has_tl = False
-        if seg.trend_line and seg.trend_line.line:
-            self.has_tl = True
-            self.tl_y0 = self.begin_y
-            self.tl_y1 = self.end_y
-            self.tl_x0 = (self.begin_y-seg.trend_line.line.p.y)/(seg.trend_line.line.slope+1e-7) + seg.trend_line.line.p.x
-            self.tl_x1 = (self.end_y-seg.trend_line.line.p.y)/(seg.trend_line.line.slope+1e-7) + seg.trend_line.line.p.x
+        self.tl = {}
+        if seg.support_trend_line and seg.support_trend_line.line:
+            self.tl["support"] = seg.support_trend_line
+        if seg.resistance_trend_line and seg.resistance_trend_line.line:
+            self.tl["resistance"] = seg.resistance_trend_line
+
+    def format_tl(self, tl):
+        assert tl.line
+        tl_slope = tl.line.slope
+        tl_x = tl.line.p.x
+        tl_y = tl.line.p.y
+        tl_y0 = self.begin_y
+        tl_y1 = self.end_y
+        tl_x0 = (tl_y0-tl_y)/tl_slope + tl_x
+        tl_x1 = (tl_y1-tl_y)/tl_slope + tl_x
+        return tl_x0, tl_y0, tl_x1, tl_y1
 
 
 class CEigen_meta:

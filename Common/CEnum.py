@@ -77,6 +77,11 @@ class TREND_TYPE(Enum):
     MIN = "min"
 
 
+class TREND_LINE_SIDE(Enum):
+    INSIDE = auto()
+    OUTSIDE = auto()
+
+
 class LEFT_SEG_METHOD(Enum):
     ALL = auto()
     PEAK = auto()
