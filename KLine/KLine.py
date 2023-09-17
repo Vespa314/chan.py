@@ -55,7 +55,7 @@ class CKLine(CKLine_Combiner[CKLine_Unit]):
             elif method == FX_CHECK_METHOD.LOSS:  # 只检测顶底分形KLC
                 item2_high = item2.high
                 self_low = self.low
-            elif method == FX_CHECK_METHOD.STRICT:  # 检测三个klc
+            elif method in (FX_CHECK_METHOD.STRICT, FX_CHECK_METHOD.TOTALLY):
                 if for_virtual:
                     item2_high = max([item2.pre.high, item2.high])
                 else:
@@ -64,7 +64,10 @@ class CKLine(CKLine_Combiner[CKLine_Unit]):
                 self_low = min([self.pre.low, self.low, self.next.low])
             else:
                 raise CChanException("bi_fx_check config error!", ErrCode.CONFIG_ERROR)
-            return self.high > item2_high and item2.low < self_low
+            if method == FX_CHECK_METHOD.TOTALLY:
+                return self.low > item2_high
+            else:
+                return self.high > item2_high and item2.low < self_low
         elif self.fx == FX_TYPE.BOTTOM:
             assert for_virtual or item2.fx == FX_TYPE.TOP
             if method == FX_CHECK_METHOD.HALF:
@@ -73,7 +76,7 @@ class CKLine(CKLine_Combiner[CKLine_Unit]):
             elif method == FX_CHECK_METHOD.LOSS:
                 item2_low = item2.low
                 cur_high = self.high
-            elif method == FX_CHECK_METHOD.STRICT:
+            elif method in (FX_CHECK_METHOD.STRICT, FX_CHECK_METHOD.TOTALLY):
                 if for_virtual:
                     item2_low = min([item2.pre.low, item2.low])
                 else:
@@ -82,6 +85,9 @@ class CKLine(CKLine_Combiner[CKLine_Unit]):
                 cur_high = max([self.pre.high, self.high, self.next.high])
             else:
                 raise CChanException("bi_fx_check config error!", ErrCode.CONFIG_ERROR)
-            return self.low < item2_low and item2.high > cur_high
+            if method == FX_CHECK_METHOD.TOTALLY:
+                return self.high < item2_low
+            else:
+                return self.low < item2_low and item2.high > cur_high
         else:
             raise CChanException("only top/bottom fx can check_valid_top_button", ErrCode.BI_ERR)

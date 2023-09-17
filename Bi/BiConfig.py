@@ -19,6 +19,8 @@ class CBiConfig:
             self.bi_fx_check = FX_CHECK_METHOD.LOSS
         elif bi_fx_check == "half":
             self.bi_fx_check = FX_CHECK_METHOD.HALF
+        elif bi_fx_check == 'totally':
+            self.bi_fx_check = FX_CHECK_METHOD.TOTALLY
         else:
             raise CChanException(f"unknown bi_fx_check={bi_fx_check}", ErrCode.PARA_ERROR)
 

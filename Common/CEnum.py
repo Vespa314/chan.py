@@ -86,6 +86,7 @@ class FX_CHECK_METHOD(Enum):
     STRICT = auto()
     LOSS = auto()
     HALF = auto()
+    TOTALLY = auto()
 
 
 class SEG_TYPE(Enum):
