@@ -111,6 +111,7 @@ class MACD_ALGO(Enum):
     VOLUMN_AVG = auto()
     AMOUNT_AVG = auto()
     TURNRATE_AVG = auto()
+    RSI = auto()
 
 
 class DATA_FIELD:

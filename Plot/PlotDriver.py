@@ -268,6 +268,8 @@ class CPlotDriver:
             self.draw_demark(meta, ax, **plot_para.get('demark', {}))
         if plot_config.get("plot_marker", False):
             self.draw_marker(meta, ax, **plot_para.get('marker', {'markers': {}}))
+        if plot_config.get("plot_rsi", False):
+            self.draw_rsi(meta, ax.twinx(), **plot_para.get('rsi', {}))
 
     def ShowDrawFuncHelper(self):
         # 写README的时候显示所有画图函数的参数和默认值
@@ -700,6 +702,16 @@ class CPlotDriver:
                 linestyle=linestyle
             )
             plot_begin_set.add(id(demark_idx['series']))
+
+    def draw_rsi(
+        self,
+        meta: CChanPlotMeta,
+        ax,
+        color='b',
+    ):
+        data = [klu.rsi for klu in meta.klu_iter()]
+        x_begin, x_end = int(ax.get_xlim()[0]), int(ax.get_xlim()[1])
+        ax.plot(range(x_begin, x_end), data[x_begin: x_end], c=color)
 
     def draw_demark(
             self,

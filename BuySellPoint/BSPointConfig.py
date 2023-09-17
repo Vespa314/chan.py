@@ -66,6 +66,7 @@ class CPointConfig:
             "amount_avg": MACD_ALGO.AMOUNT_AVG,
             "volumn_avg": MACD_ALGO.VOLUMN_AVG,
             "turnrate_avg": MACD_ALGO.AMOUNT_AVG,
+            "rsi": MACD_ALGO.RSI,
         }
         self.macd_algo = _d[macd_algo]
 

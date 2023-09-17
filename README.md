@@ -601,6 +601,8 @@ else:  # 绘制动画
         - tiaokong_st: 序列真实起始位置计算时，如果setup第一根跳空，是否需要取前一根收盘价，默认为True
         - setup_cmp2close: setup计算当前K线的收盘价对比的是`setup_bias`根K线前的close，如果不是，下跌setup对比的是low，上升对比的是close，默认为True
         - countdown_cmp2close：countdown计算当前K线的收盘价对比的是`countdown_bias`根K线前的close，如果不是，下跌setup对比的是low，上升对比的是close，默认为True
+    - rsi:
+        - rsi_cycle: rsi计算周期，默认为14
     - triger_step：是否回放逐步返回，默认为 False
         - 用于逐步回放绘图时使用，此时 CChan 会变成一个生成器，每读取一根新K线就会计算一次当前所有指标，返回当前帧指标状况；常用于返回给 CAnimateDriver 绘图
     - skip_step：triger_step 为 True 时有效，指定跳过前面几根K线，默认为 0；
@@ -638,6 +640,7 @@ else:  # 绘制动画
         - amount_avg：笔上K线平均成交额
         - volumn_avg：笔上K线平均成交量
         - turnrate_avg：笔上K线平均换手率
+        - rsi: 笔上RSI值极值
     - bs_type：关注的买卖点类型，逗号分隔，默认"1,1p,2,2s,3a,3b"
         - 1,2：分别表示1，2，3类买卖点
         - 2s：类二买卖点
@@ -921,6 +924,10 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
     - begin_line_style: setup真实起始位置线类型，默认为虚线'dashed'
 
 <img src="./Image/demark.png" />
+
+- rsi: RSI指标
+    - color: 颜色，默认为b
+
 
 ## 模型
 本框架可以通过机器学习方法来提高买卖点判断的准确率，在计算动力学买卖点 cbsp 时，会同时计算默认提供的数百个特征（一直持续增加中）和五种不同的标签；

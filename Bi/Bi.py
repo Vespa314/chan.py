@@ -189,8 +189,18 @@ class CBi:
             return self.Cal_MACD_trade_metric(DATA_FIELD.FIELD_TURNOVER, cal_avg=True)
         elif macd_algo == MACD_ALGO.TURNRATE_AVG:
             return self.Cal_MACD_trade_metric(DATA_FIELD.FIELD_TURNRATE, cal_avg=True)
+        elif macd_algo == MACD_ALGO.RSI:
+            return self.Cal_Rsi()
         else:
             raise CChanException(f"unsupport macd_algo={macd_algo}, should be one of area/full_area/peak/diff/slope/amp", ErrCode.PARA_ERROR)
+
+    @make_cache
+    def Cal_Rsi(self):
+        rsi_lst = []
+        for klc in self.klc_lst:
+            for klu in klc.lst:
+                rsi_lst.append(klu.rsi)
+        return 10000.0/min(rsi_lst) if self.is_down() else max(rsi_lst)
 
     @make_cache
     def Cal_MACD_area(self):

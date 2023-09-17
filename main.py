@@ -39,17 +39,19 @@ if __name__ == "__main__":
         "plot_extrainfo": False,
         "plot_demark": False,
         "plot_marker": False,
+        "plot_rsi": False,
     }
 
     plot_para = {
         "seg": {
+            # "plot_trendline": True,
         },
         "bi": {
             # "show_num": True,
             # "disp_end": True,
         },
         "figure": {
-            "x_range": 50,
+            "x_range": 200,
         },
         "marker": {
             "markers": {  # text, position, color
