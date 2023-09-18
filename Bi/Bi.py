@@ -196,11 +196,10 @@ class CBi:
 
     @make_cache
     def Cal_Rsi(self):
-        rsi_lst = []
+        rsi_lst: List[float] = []
         for klc in self.klc_lst:
-            for klu in klc.lst:
-                rsi_lst.append(klu.rsi)
-        return 10000.0/min(rsi_lst) if self.is_down() else max(rsi_lst)
+            rsi_lst.extend(klu.rsi for klu in klc.lst)
+        return 10000.0/(min(rsi_lst)+1e-7) if self.is_down() else max(rsi_lst)
 
     @make_cache
     def Cal_MACD_area(self):
