@@ -40,6 +40,7 @@ if __name__ == "__main__":
         "plot_demark": False,
         "plot_marker": False,
         "plot_rsi": False,
+        "plot_kdj": False,
     }
 
     plot_para = {

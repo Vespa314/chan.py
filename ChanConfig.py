@@ -7,6 +7,7 @@ from Common.ChanException import CChanException, ErrCode
 from Common.func_util import _parse_inf
 from Math.BOLL import BollModel
 from Math.Demark import CDemarkEngine
+from Math.KDJ import KDJ
 from Math.MACD import CMACD
 from Math.RSI import RSI
 from Math.TrendModel import CTrendModel
@@ -51,7 +52,10 @@ class CChanConfig:
         self.trend_metrics: List[int] = conf.get("trend_metrics", [])
         self.macd_config = conf.get("macd", {"fast": 12, "slow": 26, "signal": 9})
         self.cal_demark = conf.get("cal_demark", False)
+        self.cal_rsi = conf.get("cal_rsi", False)
+        self.cal_kdj = conf.get("cal_kdj", False)
         self.rsi_cycle = conf.get("rsi_cycle", 14)
+        self.kdj_cycle = conf.get("kdj_cycle", 9)
         self.demark_config = conf.get("demark", {
             'demark_len': 9,
             'setup_bias': 4,
@@ -68,7 +72,7 @@ class CChanConfig:
         conf.check()
 
     def GetMetricModel(self):
-        res: List[CMACD | CTrendModel | BollModel | CDemarkEngine | RSI] = [
+        res: List[CMACD | CTrendModel | BollModel | CDemarkEngine | RSI | KDJ] = [
             CMACD(
                 fastperiod=self.macd_config['fast'],
                 slowperiod=self.macd_config['slow'],
@@ -91,7 +95,10 @@ class CChanConfig:
                 setup_cmp2close=self.demark_config['setup_cmp2close'],
                 countdown_cmp2close=self.demark_config['countdown_cmp2close'],
             ))
-        res.append(RSI(self.rsi_cycle))
+        if self.cal_rsi:
+            res.append(RSI(self.rsi_cycle))
+        if self.cal_kdj:
+            res.append(KDJ(self.kdj_cycle))
         return res
 
     def set_bsp_config(self, conf):

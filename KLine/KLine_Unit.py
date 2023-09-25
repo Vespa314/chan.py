@@ -5,6 +5,7 @@ from Common.ChanException import CChanException, ErrCode
 from Common.CTime import CTime
 from Math.BOLL import BOLL_Metric, BollModel
 from Math.Demark import CDemarkEngine, CDemarkIndex
+from Math.KDJ import KDJ
 from Math.MACD import CMACD, CMACD_item
 from Math.RSI import RSI
 from Math.TrendModel import CTrendModel
@@ -101,6 +102,8 @@ class CKLine_Unit:
                 self.demark = metric_model.update(idx=self.idx, close=self.close, high=self.high, low=self.low)
             elif isinstance(metric_model, RSI):
                 self.rsi = metric_model.add(self.close)
+            elif isinstance(metric_model, KDJ):
+                self.kdj = metric_model.add(self.high, self.low, self.close)
 
     def get_parent_klc(self):
         assert self.sup_kl is not None

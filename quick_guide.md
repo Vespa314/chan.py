@@ -27,6 +27,8 @@
   - [策略实现 \& 回测](#策略实现--回测)
     - [从外部喂K线](#从外部喂k线)
     - [更新小级别触发大级别重算](#更新小级别触发大级别重算)
+  - [开源版本指标添加](#开源版本指标添加)
+    - [指标画图](#指标画图)
   - [打赏](#打赏)
 
 
@@ -316,6 +318,61 @@ item_dict为一个字典：
 原理是：
 - 当某一个时刻所有级别的K线都在将来不需要变化时（比如每5分钟结束时），把当前CChan保存下来（不管是用深度拷贝保存成一个临时的变量或者序列化到本地文件）成一个快照
 - 之后每根最小级别K线产生时，均重新加载这个快照重新计算当前的所有级别
+
+
+## 开源版本指标添加
+以实现RSI指标为例，只需要三步：
+
+首先你需要实现一个计算类（见Math/RSI.py）：
+- 类可以接收指标计算的参数（如周期等）
+- 类对外提供一个方法：
+  - 接收需要的K线信息（不要直接接收CKLine_Unit，不然后续可能会有循环引用问题）
+  - 返回指标值，或者包含所有指标结果的一个类（比如MACD类需要返回快线慢线，红绿柱等信息）
+  - tips：
+    - 出于性能考虑，指标的计算尽量优化成增量计算，而不是当前K线的指标需要用前面所有K线的数据来算
+    - 也就是新的一根K线+部分之前K线计算的中间结果，就可以算出当前K线的指标
+    - 本框架所有开源指标均遵循此原则
+    - 当然你自己开发的不在意计算效率的话，倒无所谓。。
+
+
+然后在`CChanConfig`的GetMetricModel方法修改res变量的注解（增加你的指标类），然后append一个上面实现的指标计算实例(可以参考rsi实现方法在)CChanConfig里面配置指标计算的参数；
+```python
+    def GetMetricModel(self):
+        res: List[CMACD | CTrendModel | BollModel | CDemarkEngine | RSI] = []
+        # 其他已有指标
+        # balabala....
+        res.append(RSI(self.rsi_cycle))
+        return res
+
+```
+
+最后在`CKLine_Unit`的set_metric方法最后增加一行，调用你实现的指标类的计算方法：
+```python
+    def set_metric(self, metric_model_lst: list) -> None:
+        for metric_model in metric_model_lst:
+            # balabala...
+            elif isinstance(metric_model, RSI):
+                self.rsi = metric_model.add(self.close)
+```
+
+至此，你就可以通过CKLine_Unit.rsi取得你的指标，参与后续计算了；
+
+### 指标画图
+如果你想你的指标支持绘制，PlotDriver.py的DrawElement方法增加一行：
+```python
+def DrawElement(self, plot_config: Dict[str, bool], meta: CChanPlotMeta, ax: Axes, lv, plot_para, ax_macd: Optional[Axes], x_limits):
+    # balabala...
+    if plot_config.get("plot_rsi", False):
+        self.draw_rsi(meta, ax.twinx(), **plot_para.get('rsi', {}))
+```
+
+然后实现draw_rsi方法即可：
+```python
+def draw_rsi(self, meta: CChanPlotMeta, ax, color='b'):
+    data = [klu.rsi for klu in meta.klu_iter()]
+    x_begin, x_end = int(ax.get_xlim()[0]), int(ax.get_xlim()[1])
+    ax.plot(range(x_begin, x_end), data[x_begin: x_end], c=color)
+```
 
 
 ## 打赏

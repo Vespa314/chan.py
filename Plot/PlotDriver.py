@@ -270,6 +270,8 @@ class CPlotDriver:
             self.draw_marker(meta, ax, **plot_para.get('marker', {'markers': {}}))
         if plot_config.get("plot_rsi", False):
             self.draw_rsi(meta, ax.twinx(), **plot_para.get('rsi', {}))
+        if plot_config.get("plot_kdj", False):
+            self.draw_kdj(meta, ax.twinx(), **plot_para.get('kdj', {}))
 
     def ShowDrawFuncHelper(self):
         # 写README的时候显示所有画图函数的参数和默认值
@@ -712,6 +714,21 @@ class CPlotDriver:
         data = [klu.rsi for klu in meta.klu_iter()]
         x_begin, x_end = int(ax.get_xlim()[0]), int(ax.get_xlim()[1])
         ax.plot(range(x_begin, x_end), data[x_begin: x_end], c=color)
+
+    def draw_kdj(
+        self,
+        meta: CChanPlotMeta,
+        ax,
+        k_color='orange',
+        d_color='blue',
+        j_color='pink',
+    ):
+        kdj = [klu.kdj for klu in meta.klu_iter()]
+        x_begin, x_end = int(ax.get_xlim()[0]), int(ax.get_xlim()[1])
+        ax.plot(range(x_begin, x_end), [x.k for x in kdj][x_begin: x_end], c=k_color, label='K')
+        ax.plot(range(x_begin, x_end), [x.d for x in kdj][x_begin: x_end], c=d_color, label='D')
+        ax.plot(range(x_begin, x_end), [x.j for x in kdj][x_begin: x_end], c=j_color, label='J')
+        ax.legend()
 
     def draw_demark(
             self,
