@@ -593,6 +593,7 @@ else:  # 绘制动画
         - fast: 默认为12
         - slow: 默认为26
         - signal: 默认为9
+    - cal_demark: 是否计算demark指标，默认为False
     - demark: 德马克指标配置
         - demark_len: setup完成时长度，默认为9
         - setup_bias: setup比较偏移量，默认为4
@@ -601,8 +602,12 @@ else:  # 绘制动画
         - tiaokong_st: 序列真实起始位置计算时，如果setup第一根跳空，是否需要取前一根收盘价，默认为True
         - setup_cmp2close: setup计算当前K线的收盘价对比的是`setup_bias`根K线前的close，如果不是，下跌setup对比的是low，上升对比的是close，默认为True
         - countdown_cmp2close：countdown计算当前K线的收盘价对比的是`countdown_bias`根K线前的close，如果不是，下跌setup对比的是low，上升对比的是close，默认为True
+    - cal_rsi: 是否计算rsi指标，默认为False
     - rsi:
         - rsi_cycle: rsi计算周期，默认为14
+    - cal_kdj: 是否计算kdj指标，默认为False
+    - kdj:
+        - kdj_cycle: kdj计算周期，默认为9
     - triger_step：是否回放逐步返回，默认为 False
         - 用于逐步回放绘图时使用，此时 CChan 会变成一个生成器，每读取一根新K线就会计算一次当前所有指标，返回当前帧指标状况；常用于返回给 CAnimateDriver 绘图
     - skip_step：triger_step 为 True 时有效，指定跳过前面几根K线，默认为 0；
@@ -927,6 +932,11 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 
 - rsi: RSI指标
     - color: 颜色，默认为b
+
+- kdj: RSI指标
+    - k_color: K指标颜色，默认为orange
+    - d_color: D指标颜色，默认为blue
+    - j_color: J指标颜色，默认为pink
 
 
 ## 模型
