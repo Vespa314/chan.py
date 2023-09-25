@@ -23,7 +23,7 @@ class KDJ:
         hn = max([x['high'] for x in self.arr])
         ln = min([x['low'] for x in self.arr])
         cn = close
-        rsv = 100 * (cn - ln) / (hn - ln)
+        rsv = 100 * (cn - ln) / (hn - ln) if hn != ln else 0.0
 
         cur_k = 2 / 3 * self.pre_kdj.k + 1 / 3 * rsv
         cur_d = 2 / 3 * self.pre_kdj.d + 1 / 3 * cur_k
