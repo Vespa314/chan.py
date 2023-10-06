@@ -20,7 +20,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         self.lst: List[CBS_Point[LINE_TYPE]] = []
         self.bsp1_lst: List[CBS_Point[LINE_TYPE]] = []
         self.config = bs_point_config
-        self.last_sure_pos = -1  # 上一次计算时sure seg【起始】klu的位置，用起始原因是因为这一次计算可能最后一个线段是刚刚生成的
+        self.last_sure_pos = -1
 
     def __iter__(self):
         yield from self.lst
@@ -99,29 +99,31 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         BSP_CONF = self.config.GetBSConfig(seg.is_down())
         zs_cnt = seg.get_multi_bi_zs_cnt() if BSP_CONF.bsp1_only_multibi_zs else len(seg.zs_lst)
         is_target_bsp = (BSP_CONF.min_zs_cnt <= 0 or zs_cnt >= BSP_CONF.min_zs_cnt)
-        if len(seg.zs_lst) > 0 and not seg.zs_lst[-1].is_one_bi_zs() and seg.zs_lst[-1].bi_out and seg.zs_lst[-1].bi_out.idx == seg.end_bi.idx:
-            self.treat_bsp1(seg, BSP_CONF, is_target_bsp)  # 中枢一类买卖点
+        if len(seg.zs_lst) > 0 and \
+           not seg.zs_lst[-1].is_one_bi_zs() and \
+           ((seg.zs_lst[-1].bi_out and seg.zs_lst[-1].bi_out.idx >= seg.end_bi.idx) or seg.zs_lst[-1].bi_lst[-1].idx >= seg.end_bi.idx) \
+           and seg.end_bi.idx - seg.zs_lst[-1].get_bi_in().idx > 2:
+            self.treat_bsp1(seg, BSP_CONF, is_target_bsp)
         else:
-            self.treat_pz_bsp1(seg, BSP_CONF, bi_list, is_target_bsp)  # 盘整一类买卖点
+            self.treat_pz_bsp1(seg, BSP_CONF, bi_list, is_target_bsp)
 
     def treat_bsp1(self, seg: CSeg[LINE_TYPE], BSP_CONF: CPointConfig, is_target_bsp: bool):
         last_zs = seg.zs_lst[-1]
-        assert last_zs.bi_out is not None
-        break_peak, _ = last_zs.out_bi_is_peak()  # break_peak=False应该只有线段第一笔直接拉得很低的时候才会有这个情况
+        break_peak, _ = last_zs.out_bi_is_peak(seg.end_bi.idx)
         if BSP_CONF.bs1_peak and not break_peak:
             is_target_bsp = False
-        is_diver, divergence_rate = last_zs.is_divergence(BSP_CONF)
+        is_diver, divergence_rate = last_zs.is_divergence(BSP_CONF, out_bi=seg.end_bi)
         if not is_diver:
             is_target_bsp = False
         feature_dict = {'divergence_rate': divergence_rate}
-        self.add_bs(bs_type=BSP_TYPE.T1, bi=last_zs.bi_out, relate_bsp1=None, is_target_bsp=is_target_bsp, feature_dict=feature_dict)
+        self.add_bs(bs_type=BSP_TYPE.T1, bi=seg.end_bi, relate_bsp1=None, is_target_bsp=is_target_bsp, feature_dict=feature_dict)
 
     def treat_pz_bsp1(self, seg: CSeg[LINE_TYPE], BSP_CONF: CPointConfig, bi_list: LINE_LIST_TYPE, is_target_bsp):
         last_bi = seg.end_bi
         pre_bi = bi_list[last_bi.idx-2]
         if last_bi.seg_idx != pre_bi.seg_idx:
             return
-        if last_bi.dir != seg.dir:  # 尾部的虚段可能会有不一样的笔
+        if last_bi.dir != seg.dir:
             return
         if last_bi.is_down() and last_bi._low() > pre_bi._low():  # 创新低
             return
@@ -163,7 +165,6 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
             bsp2_bi = bi_list[1]
             break_bi = bi_list[0]
         if BSP_CONF.bsp2_follow_1 and bsp1_bi_idx not in bsp1_bi_idx_dict:  # check bsp2_follow_1
-            # 不满足时，2，2s都不计算
             return
         retrace_rate = bsp2_bi.amp()/break_bi.amp()
         bsp2_flag = retrace_rate <= BSP_CONF.max_bs2_rate
@@ -190,7 +191,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
             if BSP_CONF.max_bsp2s_lv is not None and bias/2 > BSP_CONF.max_bsp2s_lv:
                 break
             if bsp2s_bi.seg_idx != bsp2_bi.seg_idx and (bsp2s_bi.seg_idx < len(seg_list)-1 or seg_list[bsp2_bi.seg_idx].is_sure):
-                break  # 跨线段且（不是最后两段 或 2类段已坐实）
+                break
             if bias == 2:
                 if not has_overlap(bsp2_bi._low(), bsp2_bi._high(), bsp2s_bi._low(), bsp2s_bi._high()):
                     break
@@ -230,7 +231,6 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
                 continue
             if next_seg:
                 self.treat_bsp3_after(seg_list, next_seg, BSP_CONF, bi_list, real_bsp1, bsp1_bi_idx, next_seg_idx)
-            # len(seg_list)==1 -> next_seg==next_seg，后面可能只有两笔，未形成线段，但也有可能有3类bsp
             self.treat_bsp3_before(seg_list, seg, next_seg, bsp1_bi, BSP_CONF, bi_list, real_bsp1, next_seg_idx)
 
     def treat_bsp3_after(
@@ -246,17 +246,19 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         first_zs = next_seg.get_first_multi_bi_zs()
         if first_zs is None:
             return
-        if BSP_CONF.strict_bsp3 and first_zs.get_bi_in().idx != bsp1_bi_idx+1:  # 严格模式下，必须直接接在1类后面
+        if BSP_CONF.strict_bsp3 and first_zs.get_bi_in().idx != bsp1_bi_idx+1:
             return
         if first_zs.bi_out is None or first_zs.bi_out.idx+1 >= len(bi_list):
             return
         bsp3_bi = bi_list[first_zs.bi_out.idx+1]
+        if bsp3_bi.dir == next_seg.dir:
+            return
         if bsp3_bi.seg_idx != next_seg_idx and next_seg_idx < len(seg_list)-2:
             return
         if bsp3_back2zs(bsp3_bi, first_zs):
             return
         bsp3_peak_zs = bsp3_break_zspeak(bsp3_bi, first_zs)
-        if BSP_CONF.bsp3_peak and not bsp3_peak_zs:  # 突破笔不是中枢里面最突破的
+        if BSP_CONF.bsp3_peak and not bsp3_peak_zs:
             return
         self.add_bs(bs_type=BSP_TYPE.T3A, bi=bsp3_bi, relate_bsp1=real_bsp1)  # type: ignore
 
@@ -276,8 +278,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
             return
         if not bsp1_bi:
             return
-        assert cmp_zs.bi_out is not None
-        if BSP_CONF.strict_bsp3 and cmp_zs.bi_out.idx != bsp1_bi.idx:  # 严格模式下，后面必须接1类
+        if BSP_CONF.strict_bsp3 and (cmp_zs.bi_out is None or cmp_zs.bi_out.idx != bsp1_bi.idx):
             return
         end_bi_idx = cal_bsp3_bi_end_idx(next_seg)
         for bsp3_bi in bi_list[bsp1_bi.idx+2::2]:
@@ -311,17 +312,15 @@ def bsp3_break_zspeak(bsp3_bi: LINE_TYPE, zs: CZS) -> bool:
 
 
 def cal_bsp3_bi_end_idx(seg: Optional[CSeg[LINE_TYPE]]):
-    # 对于中枢在一类bsp前面的三类bsp，遍历的结束位置应该是一类bsp之后第一个中枢的in_idx
     if not seg:
         return float("inf")
     if seg.get_multi_bi_zs_cnt() == 0 and seg.next is None:
-        # 比如最后一虚段只有一笔，后面还跟着一个parent_seg为None的笔
         return float("inf")
     end_bi_idx = seg.end_bi.idx-1
     for zs in seg.zs_lst:
         if zs.is_one_bi_zs():
             continue
-        assert zs.bi_out is not None
-        end_bi_idx = zs.bi_out.idx
-        break
+        if zs.bi_out is not None:
+            end_bi_idx = zs.bi_out.idx
+            break
     return end_bi_idx

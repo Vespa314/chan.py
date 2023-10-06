@@ -68,29 +68,55 @@ class CZSList:
                 self.update(bi, seg_is_sure)
 
     def try_construct_zs(self, lst, is_sure):
-        if not self.config.one_bi_zs:
-            if len(lst) == 1:
+        if self.config.zs_algo == "normal":
+            if not self.config.one_bi_zs:
+                if len(lst) == 1:
+                    return None
+                else:
+                    lst = lst[-2:]
+        elif self.config.zs_algo == "over_seg":
+            if len(lst) < 3:
                 return None
-            else:
-                lst = lst[-2:]
+            lst = lst[-3:]
+            if lst[0].dir == lst[0].parent_seg.dir:
+                lst = lst[1:]
+                return None
         min_high = min(item._high() for item in lst)
         max_low = max(item._low() for item in lst)
         return CZS(lst, is_sure=is_sure) if min_high > max_low else None
 
     def cal_bi_zs(self, bi_lst: Union[CBiList, CSegListComm], seg_lst: CSegListComm):
-        self.zs_lst = [zs for zs in self.zs_lst if zs.end.idx is not None and zs.end.idx <= self.last_sure_pos]
+        if self.config.zs_algo == "normal":
+            self.zs_lst = [zs for zs in self.zs_lst if zs.end.idx is not None and zs.end.idx <= self.last_sure_pos]
 
-        for seg in seg_lst:
-            if not self.seg_need_cal(seg):
-                continue
-            self.clear_free_lst()
-            seg_bi_lst = bi_lst[seg.start_bi.idx:seg.end_bi.idx+1]
-            self.add_zs_from_bi_range(seg_bi_lst, seg.dir, seg.is_sure)
+            for seg in seg_lst:
+                if not self.seg_need_cal(seg):
+                    continue
+                self.clear_free_lst()
+                seg_bi_lst = bi_lst[seg.start_bi.idx:seg.end_bi.idx+1]
+                self.add_zs_from_bi_range(seg_bi_lst, seg.dir, seg.is_sure)
 
-        # 处理未生成新线段的部分
-        if len(seg_lst):
-            self.clear_free_lst()
-            self.add_zs_from_bi_range(bi_lst[seg_lst[-1].end_bi.idx+1:], revert_bi_dir(seg_lst[-1].dir), False)
+            # 处理未生成新线段的部分
+            if len(seg_lst):
+                self.clear_free_lst()
+                self.add_zs_from_bi_range(bi_lst[seg_lst[-1].end_bi.idx+1:], revert_bi_dir(seg_lst[-1].dir), False)
+        else:
+            assert self.config.one_bi_zs is False
+            self.zs_lst = [zs for zs in self.zs_lst if zs.begin_bi.idx < self.last_sure_pos]
+            self.free_item_lst = []
+            begin_bi_idx = self.zs_lst[-1].end_bi.idx+1 if self.zs_lst else 0
+            for bi in bi_lst[begin_bi_idx:]:
+                self.update_overseg_zs(bi)
+
+    def update_overseg_zs(self, bi: CBi | CSeg):
+        if len(self.zs_lst) and len(self.free_item_lst) == 0:
+            if bi.next is None:
+                return
+            if self.zs_lst[-1].in_range(bi.next) and self.zs_lst[-1].try_add_to_end(bi):
+                return
+        if len(self.free_item_lst) == 0 and len(self.zs_lst) and self.zs_lst[-1].in_range(bi):
+            return
+        self.add_to_free_lst(bi, bi.is_sure)
 
     def __iter__(self):
         yield from self.zs_lst

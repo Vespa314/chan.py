@@ -2,7 +2,6 @@ from typing import Generic, List, Optional, TypeVar
 
 from Bi.Bi import CBi
 from BuySellPoint.BSPointConfig import CPointConfig
-from Common.cache import make_cache
 from Common.ChanException import CChanException, ErrCode
 from Common.func_util import has_overlap
 from KLine.KLine_Unit import CKLine_Unit
@@ -160,11 +159,15 @@ class CZS(Generic[LINE_TYPE]):
     def is_inside(self, seg: CSeg):
         return seg.start_bi.idx <= self.begin_bi.idx <= seg.end_bi.idx
 
-    def is_divergence(self, config: CPointConfig):
-        if not self.end_bi_break():  # 最后一笔必须突破中枢
+    def is_divergence(self, config: CPointConfig, out_bi=None):
+        if not self.end_bi_break(out_bi):  # 最后一笔必须突破中枢
             return False, None
         in_metric = self.get_bi_in().cal_macd_metric(config.macd_algo, is_reverse=False)
-        out_metric = self.get_bi_out().cal_macd_metric(config.macd_algo, is_reverse=True)
+        if out_bi is None:
+            out_metric = self.get_bi_out().cal_macd_metric(config.macd_algo, is_reverse=True)
+        else:
+            out_metric = out_bi.cal_macd_metric(config.macd_algo, is_reverse=True)
+
         if config.divergence_rate > 100:  # 保送
             return True, out_metric/in_metric
         else:
@@ -187,20 +190,22 @@ class CZS(Generic[LINE_TYPE]):
         copy.init_from_zs(zs=self)
         return copy
 
-    @make_cache
-    def end_bi_break(self):
-        assert self.bi_out is not None
-        return (self.bi_out.is_down() and self.bi_out._low() < self.low) or \
-            (self.bi_out.is_up() and self.bi_out._high() > self.high)
+    def end_bi_break(self, end_bi=None) -> bool:
+        if end_bi is None:
+            end_bi = self.get_bi_out()
+        assert end_bi is not None
+        return (end_bi.is_down() and end_bi._low() < self.low) or \
+            (end_bi.is_up() and end_bi._high() > self.high)
 
-    @make_cache
-    def out_bi_is_peak(self):
+    def out_bi_is_peak(self, end_bi_idx: int):
         # 返回 (是否最低点，bi_out与中枢里面尾部最接近它的差距比例)
         assert len(self.bi_lst) > 0
         if self.bi_out is None:
             return False, None
         peak_rate = float("inf")
         for bi in self.bi_lst:
+            if bi.idx > end_bi_idx:
+                break
             if (self.bi_out.is_down() and bi._low() < self.bi_out._low()) or (self.bi_out.is_up() and bi._high() > self.bi_out._high()):
                 return False, None
             r = abs(bi.get_end_val()-self.bi_out.get_end_val())/self.bi_out.get_end_val()

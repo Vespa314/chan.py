@@ -36,6 +36,7 @@ class CChanConfig:
             need_combine=conf.get("zs_combine", True),
             zs_combine_mode=conf.get("zs_combine_mode", "zs"),
             one_bi_zs=conf.get("one_bi_zs", False),
+            zs_algo=conf.get("zs_algo", "normal"),
         )
 
         self.triger_step = conf.get("triger_step", False)

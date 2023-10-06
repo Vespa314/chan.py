@@ -23,6 +23,7 @@ if __name__ == "__main__":
         "macd_algo": "peak",
         "bs_type": '1,2,3a,1p,2s,3b',
         "print_warning": True,
+        "zs_algo": "normal",
     })
 
     plot_config = {
@@ -55,10 +56,10 @@ if __name__ == "__main__":
             "x_range": 200,
         },
         "marker": {
-            "markers": {  # text, position, color
-                '2023/06/01': ('marker here', 'up', 'red'),
-                '2023/06/08': ('marker here', 'down')
-            },
+            # "markers": {  # text, position, color
+            #     '2023/06/01': ('marker here', 'up', 'red'),
+            #     '2023/06/08': ('marker here', 'down')
+            # },
         }
     }
     chan = CChan(
