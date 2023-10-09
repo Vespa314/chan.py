@@ -24,7 +24,7 @@ class CChanConfig:
             bi_algo=conf.get("bi_algo", "normal"),
             is_strict=conf.get("bi_strict", True),
             bi_fx_check=conf.get("bi_fx_check", "strict"),
-            gap_as_kl=conf.get("gap_as_kl", True),
+            gap_as_kl=conf.get("gap_as_kl", False),
             bi_end_is_peak=conf.get('bi_end_is_peak', True),
 
         )
@@ -128,7 +128,7 @@ class CChanConfig:
         self.seg_bs_point_conf.s_conf.set("bsp1_only_multibi_zs", False)
 
         for k, v in conf.items():
-            if type(v) == str:
+            if isinstance(v, str):
                 v = f'"{v}"'
             v = _parse_inf(v)
             if k.endswith("-buy"):
