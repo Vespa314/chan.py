@@ -251,6 +251,11 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         if first_zs.bi_out is None or first_zs.bi_out.idx+1 >= len(bi_list):
             return
         bsp3_bi = bi_list[first_zs.bi_out.idx+1]
+        if bsp3_bi.parent_seg is None:
+            if next_seg.idx != len(seg_list)-1:
+                return
+        elif bsp3_bi.parent_seg.idx != next_seg.idx:
+            return
         if bsp3_bi.dir == next_seg.dir:
             return
         if bsp3_bi.seg_idx != next_seg_idx and next_seg_idx < len(seg_list)-2:
