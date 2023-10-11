@@ -179,10 +179,10 @@
 │   ├── 📄 demo_config.yaml: demo配置
 │   ├── 📄 EnvConfig.py: python读取配置类
 ├── 📁 CustomBuySellPoint: 自定义动力学买卖点类（即cbsp）
-│   ├── 📄 Stragety.py: 通用抽象策略父类
-│   ├── 📄 CustomStragety.py: demo策略1
-│   ├── 📄 SegBspStragety.py: demo策略2
-│   ├── 📄 ExamStragety.py: 生成买卖点判断试题的策略
+│   ├── 📄 Strategy.py: 通用抽象策略父类
+│   ├── 📄 CustomStrategy.py: demo策略1
+│   ├── 📄 SegBspStrategy.py: demo策略2
+│   ├── 📄 ExamStrategy.py: 生成买卖点判断试题的策略
 │   ├── 📄 CustomBSP.py: 自定义买卖点
 │   └── 📄 Signal.py: 信号类
 ├── 📁 DataAPI: 数据接口
@@ -207,7 +207,7 @@
 │   ├── 📄 OutlinerDetection.py: 离群点计算类
 │   ├── 📄 TrendModel.py: 趋势类（支持均线，最大值，最小值）
 │   └── 📄 TrendLine.py: 趋势线
-├── 📁 ModelStragety: 模型策略
+├── 📁 ModelStrategy: 模型策略
 │   ├── 📄 BacktestChanConfig.py: 回测配置
 │   ├── 📄 backtest.py: 回测计算框架
 │   ├── 📄 FeatureReconciliation.py: 特征离线在线一致性校验
@@ -224,7 +224,7 @@
 │   │       ├── 📄 XGBTrainModelGenerator.py: XGB模型
 │   │       └── 📄 xgb_util.py: XGB便捷调用工具
 │   └── 📁 parameterEvaluate: 策略参数评估
-│       ├── 📄 eval_stragety.py: 评估策略收益类
+│       ├── 📄 eval_strategy.py: 评估策略收益类
 │       ├── 📄 multi_cycle_test_data.sh: 多周期策略评估数据生成脚本
 │       ├── 📄 multi_cycle_test.py: 多周期策略评估
 │       ├── 📄 para_automl.py: Automl计算模型超参
@@ -425,7 +425,7 @@ def _log_trade(title, *msg):
 - klu：K Line Unit 的简称，表示单根K线
 - klc：K Line Combine 的简称，表示合并后的K线（不再有 open，close 价格属性）
 - bsp：Buy Sell Point 买卖点的简称，本项目中特指形态学中的买卖点，是根据走势和定义可以计算出来过去各个买卖点的位置，即一定正确的那一些；
-- cbsp：Custom Buy Sell Point 自定义买卖点的简称，由用户自己编写策略（通过实现 CChanConfig 中的 cbsp_stragety 参数）产生的交易点，该策略类在每根新K线出现时判断当下是否是新的买卖点（即仅有到当下为止的K线数据），一般而言，相较于 bsp 会延后，而且不一定正确；
+- cbsp：Custom Buy Sell Point 自定义买卖点的简称，由用户自己编写策略（通过实现 CChanConfig 中的 cbsp_strategy 参数）产生的交易点，该策略类在每根新K线出现时判断当下是否是新的买卖点（即仅有到当下为止的K线数据），一般而言，相较于 bsp 会延后，而且不一定正确；
 
 比如下图表述的就是 1，2，3 类 bsp：
 
@@ -447,7 +447,7 @@ from ChanConfig import CChanConfig
 from ChanModel.XGBModel import CXGBModel
 from Common.CEnum import AUTYPE, KL_TYPE
 from Config.EnvConfig import Env
-from CustomBuySellPoint.CustomStragety import CCustomStragety
+from CustomBuySellPoint.CustomStrategy import CCustomStrategy
 from Plot.AnimatePlotDriver import CAnimateDriver
 from Plot.PlotDriver import CPlotDriver
 
@@ -553,7 +553,7 @@ else:  # 绘制动画
 
 >  如果需要部署成服务对外提供接口，调用 `CChan.toJson()` 可返回所有相关信息。
 
-运行后，可通过 `CChan[KL_TYPE]` 的 bi_list，seg_list，bs_point_lst，cbsp_stragety 等属性获得笔，线段，bsp，cbsp 信息；
+运行后，可通过 `CChan[KL_TYPE]` 的 bi_list，seg_list，bs_point_lst，cbsp_strategy 等属性获得笔，线段，bsp，cbsp 信息；
 
 >  如果只有一个级别，可以省去 KL_TYPE，直接使用 `CChan[0].bi_list` 这种调用方法
 
@@ -622,7 +622,7 @@ else:  # 绘制动画
 - 模型：
     - model：模型类，支持接入机器学习模型对买卖点打分，参见下文「模型」，默认为 None
     - score_thred：模型开仓平仓分数阈值，`model` 配置时生效，默认为 None
-    - cal_feature：是否计算特征，默认为 False（加速计算），但是如果开启了 `model` 或者 `cbsp_stragety` 会被强制设置成 True
+    - cal_feature：是否计算特征，默认为 False（加速计算），但是如果开启了 `model` 或者 `cbsp_strategy` 会被强制设置成 True
 - 离群点检测：（换手率，成交量等指标）
     - od_win_width：离群点检测窗口，默认为 100
     - od_mean_thred：离群点检测阈值，默认为 3.0
@@ -661,10 +661,10 @@ else:  # 绘制动画
     - "max_bsp2s_lv": 类2买卖点最大层级（距离2类买卖点的笔的距离/2），默认为None，不做限制
     - "strict_bsp3":3类买卖点对应的中枢必须紧挨着1类买卖点，默认为 False
 - 自定义策略类相关（关于策略类详细介绍参见后文）：
-    - cbsp_stragety：自定义策略类，默认为 None
-        - 框架自带实现类别为 `CCustomStragety`/`CSegBspStragety`
-    - stragety_para：需要传递给自定义买卖点的参数，字典，默认为{}
-        - 如果使用的是自带类 `CCustomStragety`/`CSegBspStragety`，支持配置参数包括：
+    - cbsp_strategy：自定义策略类，默认为 None
+        - 框架自带实现类别为 `CCustomStrategy`/`CSegBspStrategy`
+    - strategy_para：需要传递给自定义买卖点的参数，字典，默认为{}
+        - 如果使用的是自带类 `CCustomStrategy`/`CSegBspStrategy`，支持配置参数包括：
             - strict_open：严格开仓条件，即如果对一个买卖点当下无法找到合适的买卖时机却已经完成一笔了，就放弃。默认为 True。
             - use_qjt：使用区间套计算买卖点（多级别下才有效），默认为 True。
             - short_shelling：是否做空，默认为 True
@@ -681,7 +681,7 @@ else:  # 绘制动画
     - stock_distinct_price_thred: `stock_no_active_day` 根K线内股价多样性低于多少则定义为不活跃，默认为 25
 
 #### 精确设置配置
-`divergence_rate`,`min_zs_cnt`,`bsp1_only_multibi_zs`,`max_bs2_rate`,`macd_algo`,`bs1_peak`,`stragety_para`，`bs_type`，`bsp2_follow_1`，`bsp3_follow_1`，`bsp2s_follow_2`，`strict_bsp3`，`score_thred`，`bsp3_peak` 这几个指标可以分别对买卖点/线段买卖点各自设置：
+`divergence_rate`,`min_zs_cnt`,`bsp1_only_multibi_zs`,`max_bs2_rate`,`macd_algo`,`bs1_peak`,`strategy_para`，`bs_type`，`bsp2_follow_1`，`bsp3_follow_1`，`bsp2s_follow_2`，`strict_bsp3`，`score_thred`，`bsp3_peak` 这几个指标可以分别对买卖点/线段买卖点各自设置：
 
 - 后面加 `-buy` 或 `-sell`，比如 min_zs_cnt-buy=2，min_zs_cnt-sell=1：对『笔』的买点/卖点生效
 - 后面加 `-segbuy` 或 `-segsell`：对『线段』的买点/卖点生效
@@ -704,9 +704,9 @@ config = CChanConfig({
     "bs1_peak": True,
     "macd_algo": "peak",
     "bs_type": '1,2,3a,3b,2s,1p',
-    "cbsp_stragety": CCustomStragety,
+    "cbsp_strategy": CCustomStrategy,
     "only_judge_last": False,
-    "stragety_para": {
+    "strategy_para": {
         "strict_open": True,
         "use_qjt": True,
         "short_shelling": True,
@@ -969,15 +969,15 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 ## 模型
 本框架可以通过机器学习方法来提高买卖点判断的准确率，在计算动力学买卖点 cbsp 时，会同时计算默认提供的数百个特征（一直持续增加中）和五种不同的标签；
 
-可以通过运行 `ModelStragety/backtest.py` 特征回测脚本，计算所有感兴趣的股票的特征和 label，并落地为本地文件；
+可以通过运行 `ModelStrategy/backtest.py` 特征回测脚本，计算所有感兴趣的股票的特征和 label，并落地为本地文件；
 
-然后开发一个类继承自 `ModelStragety/ModelGenerator.py`(详情见下文『模型开发』)，训练出模型文件，并评估离线指标；
+然后开发一个类继承自 `ModelStrategy/ModelGenerator.py`(详情见下文『模型开发』)，训练出模型文件，并评估离线指标；
 
-【可选】有了模型，什么阈值买点收益更高，模型对哪一类买卖点效果更好，买卖点具备什么属性更适合这个模型；我们可以将模型类注册进 `ModelStragety/parameterEvaluate/para_automl.py` 的 AUTOML 框架中，通过对每种参数评估出盈亏比，交易次数，最大回撤，平均收益等诸多指标，然后自己实现一个 `CalScore(eval_res)` 函数，计算出该策略的分值；automl 框架会自动启发式的搜索出最优参数组合；（这个可能需要专门写一篇长文来解释。。。）
+【可选】有了模型，什么阈值买点收益更高，模型对哪一类买卖点效果更好，买卖点具备什么属性更适合这个模型；我们可以将模型类注册进 `ModelStrategy/parameterEvaluate/para_automl.py` 的 AUTOML 框架中，通过对每种参数评估出盈亏比，交易次数，最大回撤，平均收益等诸多指标，然后自己实现一个 `CalScore(eval_res)` 函数，计算出该策略的分值；automl 框架会自动启发式的搜索出最优参数组合；（这个可能需要专门写一篇长文来解释。。。）
 
 有了模型，参考下文『模型接入』实现一个类继承自 `CCommModel`，并设置为配置 `CChanConfig.model`，即可实现对每个 cbsp 进行打分；
 
-【可选】如果担心接入后线上模型和离线模型特征不一致带来的差异（比如 backtest.py 中笔段的计算起始时间和实盘中的不一样，可能会导致某些特征不相等），可以运行 `ModelStragety/FeatureReconciliation.py` 来进行特征一致性检查；
+【可选】如果担心接入后线上模型和离线模型特征不一致带来的差异（比如 backtest.py 中笔段的计算起始时间和实盘中的不一样，可能会导致某些特征不相等），可以运行 `ModelStrategy/FeatureReconciliation.py` 来进行特征一致性检查；
 
 同时，如果为了例行更新模型，可以配置后直接运行 `Script/run_train_pipeline.sh`，会自动完成以下所有流程：
 - 回测
@@ -989,7 +989,7 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 ## 特征
 本框架中所有的特征计算均在 `ChanModel/Features.py` 中实现，而特征的描述 meta 均注册在 `ChanModel/FeaturesDesc.py`（运行完回测脚本 `backtest.py` 后运行 `FeaturesDesc.py` 即可获得那些特征描述还没注册）；
 
-特征最终是为了描述 cbsp 而设计的，而 cbsp 生成过程中一定对应某个 bsp，bsp 计算过程中也会产生描述 bsp 的特征，这些特征会被同步附加到 cbsp 的特征列表里面；如果要获取某级别某个特征的值，可以通过 `CChan[lv].cbsp_stragety.features[feat_name]` 获得；
+特征最终是为了描述 cbsp 而设计的，而 cbsp 生成过程中一定对应某个 bsp，bsp 计算过程中也会产生描述 bsp 的特征，这些特征会被同步附加到 cbsp 的特征列表里面；如果要获取某级别某个特征的值，可以通过 `CChan[lv].cbsp_strategy.features[feat_name]` 获得；
 
 `CFeatures` 通过回测脚本 `backtest.py` 可以生成特征文件供模型训练研究用；也可以对接到 `CCommModel` 类，在实盘中对 cbsp 打分；
 
@@ -1066,7 +1066,7 @@ create table if not exists {table_name}(
 直接使用 `db = CChanDB()` 即可，无需初始化，会自动从配置文件中读取数据库类型和连接参数；
 
 ### 信号计算
-信号计算的实现在 `SignalMonitor.py` 中实现，按照下文『cbsp 买卖点策略』中需要实现一个类继承自 CStragety，并且实现产生信号数据的接口 `bsp_signal`，那么因为配置文件中设置了该 `cbsp_stragety`，所以可以不用做修改每周期例行化运行，即可实现：
+信号计算的实现在 `SignalMonitor.py` 中实现，按照下文『cbsp 买卖点策略』中需要实现一个类继承自 CStrategy，并且实现产生信号数据的接口 `bsp_signal`，那么因为配置文件中设置了该 `cbsp_strategy`，所以可以不用做修改每周期例行化运行，即可实现：
 - 信号计算
 - 信号入库
 - 删除不再生效的信号
@@ -1194,14 +1194,14 @@ def cal(self, bi_list: CBiList, seg_list: CSegListComm) -> None:
 ### cbsp 买卖点策略
 本框架支持方便地开发用户自己买卖点策略，比如一买底分型确定时买入这种；
 
-实现方法也很简单，开发一个类继承自 `CStragety`，赋值给 `CChanConfig.cbsp_stragety` 即可；一旦设置，那么每新增一根K线都会调用该类的 `update` 函数来计算当下是否是买卖点，其中 `update` 函数会调用用户开发的 `try_open`(开仓)和 `try_close`（平仓）函数，接受的参数都是 CChan 类（包含所有级别的信息）和 lv（当前级别，`chan[lv]` 为当前级别信息）。
+实现方法也很简单，开发一个类继承自 `CStrategy`，赋值给 `CChanConfig.cbsp_strategy` 即可；一旦设置，那么每新增一根K线都会调用该类的 `update` 函数来计算当下是否是买卖点，其中 `update` 函数会调用用户开发的 `try_open`(开仓)和 `try_close`（平仓）函数，接受的参数都是 CChan 类（包含所有级别的信息）和 lv（当前级别，`chan[lv]` 为当前级别信息）。
 
 > 之所以需要传入 CChan 和本级别 lv，是为了可以方便实现类似区间套的策略，计算本级别买卖点时接口可以通过 `chan[lv+1]` 拿到次级别的所有数据
 
 ```python
-class CCustomStragety(CStragety):
+class CCustomStrategy(CStrategy):
     def __init__(self, conf: CChanConfig):
-        super(CCustomStragety, self).__init__(conf=conf)
+        super(CCustomStrategy, self).__init__(conf=conf)
 
     @abc.abstractmethod
     def try_open(self, chan: CChan, lv: int) -> Optional[CCustomBSP]:
@@ -1224,7 +1224,7 @@ class CCustomStragety(CStragety):
 - `bsp_signal(self, chan: CChan, lv: int)` -> List[CSignal]: 如果需要上线实盘交易时需要实现，返回当前数据哪些股票可能在第二天如果满足自定义的突破条件时就会变成真正的 cbsp，算出信号后框架会自动落库，第二天实盘交易时只会跟踪产生信号的股票；
 
 #### 区间套策略示例
-在 `CStragety` 这个框架下就很容易实现区间套的策略：因为 `CChan` 里面包含了所有级别的数据，所以利用 `chan[lv+1]` 就可以得到次级别的买卖点数据，而每根次级别K线也可以通过 `self.sup_kl` 获得其对应的父级别 klu 变量，所以区间套策略可以用下面 20 行左右代码实现：
+在 `CStrategy` 这个框架下就很容易实现区间套的策略：因为 `CChan` 里面包含了所有级别的数据，所以利用 `chan[lv+1]` 就可以得到次级别的买卖点数据，而每根次级别K线也可以通过 `self.sup_kl` 获得其对应的父级别 klu 变量，所以区间套策略可以用下面 20 行左右代码实现：
 ```python
 def try_open(self, chan: CChan, lv) -> Optional[CCustomBSP]:
     data = chan[lv]
@@ -1240,7 +1240,7 @@ def cal_qjt_bsp(self, data: CKLine_List, sub_lv_data: CKLine_List) -> Optional[C
     last_bsp = last_bsp_lst[0]
     if last_bsp.klu.idx != last_klu.idx:  # 当前K线是父级别的买卖点
         return None
-    for sub_bsp in sub_lv_data.cbsp_stragety:  # 对于次级别的买卖点
+    for sub_bsp in sub_lv_data.cbsp_strategy:  # 对于次级别的买卖点
         if sub_bsp.klu.sup_kl.idx == last_klu.idx and \  # 如果是父级别K线下的次级别K线
            sub_bsp.type2str().find("1") >= 0:  # 且是一类买卖点
            return CCustomBSP(
@@ -1423,7 +1423,7 @@ class CCommModel:
 
 其根本原因在于：仅仅对 cbsp 打分，是无法关注到策略的平仓行为的，对 cbsp 预测得再准，如果止损或者止盈点设置不同，也会获得不同的结局；
 
-所以本框架首先实现了一个策略在离线数据中的评估类 `eval_stragety.py`，输入所需要的策略配置（比如买卖点阈值，模型策略，对不同类别的买卖店的不同特征值进行过滤，止盈止损配置，评估股票集合，评估时间段等），即可返回评估结果，包含盈亏比，交易次数，回撤，所需成本，最大持股数，收益，各个股票获利情况等信息；
+所以本框架首先实现了一个策略在离线数据中的评估类 `eval_strategy.py`，输入所需要的策略配置（比如买卖点阈值，模型策略，对不同类别的买卖店的不同特征值进行过滤，止盈止损配置，评估股票集合，评估时间段等），即可返回评估结果，包含盈亏比，交易次数，回撤，所需成本，最大持股数，收益，各个股票获利情况等信息；
 
 有了上述的框架类，再实现一个 Automl 的框架 `para_automl.py` 中实现，配置所需要的AutoML算法（提供了贝叶斯优化，PBT，暴力搜索），需要搜索的参数和范围，初始值，以及一个打分函数；
 
@@ -1490,7 +1490,7 @@ else:
 Q.PlotAnswerFigure()
 ```
 
-其原理就是几行代码实现了个如果cbsp分形完成，就输出的策略（参见`CustomBuySellPoint/ExamStragety.py`）；
+其原理就是几行代码实现了个如果cbsp分形完成，就输出的策略（参见`CustomBuySellPoint/ExamStrategy.py`）；
 
 绘制的题目效果如下：
 

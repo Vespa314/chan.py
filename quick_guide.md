@@ -310,7 +310,7 @@ item_dict为一个字典：
 
 
 ## 策略实现 & 回测
-具体demo参见[stragety_demo.py](./Debug/stragety_demo.py)
+具体demo参见[strategy_demo.py](./Debug/strategy_demo.py)
 
 原理就是：打开CChanConfig中的`triger_step`开关，那么CChan初始化的时候就不会做任何计算；
 
@@ -327,7 +327,7 @@ item_dict为一个字典：
 
 其中该函数的输入参数格式为：`Dict[KL_TYPE, List[CKLine_Unit]]`
 
-具体使用case可以参考[stragety_demo.py](./Debug/stragety_demo2.py)
+具体使用case可以参考[strategy_demo.py](./Debug/strategy_demo2.py)
 
 
 ### 更新小级别触发大级别重算
@@ -339,7 +339,7 @@ item_dict为一个字典：
 
 问题是当你把当前的5分钟K线喂进去后，下一分钟框架无法回退掉/更新这个5分钟K线，而这个5分钟K线可能相较于前一分钟时所得是有变化的；
 
-解决方法：参考[stragety_demo.py](./Debug/stragety_demo3.py)
+解决方法：参考[strategy_demo.py](./Debug/strategy_demo3.py)
 原理是：
 - 当某一个时刻所有级别的K线都在将来不需要变化时（比如每5分钟结束时），把当前CChan保存下来（不管是用深度拷贝保存成一个临时的变量或者序列化到本地文件）成一个快照
 - 之后每根最小级别K线产生时，均重新加载这个快照重新计算当前的所有级别
