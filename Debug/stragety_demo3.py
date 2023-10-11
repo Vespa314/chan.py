@@ -27,7 +27,7 @@ if __name__ == "__main__":
     code = "sz.000001"
     begin_time = "2023-09-10"
     end_time = None
-    data_src = DATA_SRC.BAO_STOCK
+    data_src_type = DATA_SRC.BAO_STOCK
     lv_list = [KL_TYPE.K_60M, KL_TYPE.K_15M]
 
     config = CChanConfig({
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     # 快照
     chan_snapshot = CChan(
         code=code,
-        data_src=data_src,
+        data_src=data_src_type,
         lv_list=lv_list,
         config=config,
     )

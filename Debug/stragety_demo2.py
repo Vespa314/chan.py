@@ -12,7 +12,7 @@ if __name__ == "__main__":
     code = "sz.000001"
     begin_time = "2021-01-01"
     end_time = None
-    data_src = DATA_SRC.BAO_STOCK
+    data_src_type = DATA_SRC.BAO_STOCK
     lv_list = [KL_TYPE.K_DAY]
 
     config = CChanConfig({
@@ -25,7 +25,7 @@ if __name__ == "__main__":
         code=code,
         begin_time=begin_time,  # 已经没啥用了这一行
         end_time=end_time,  # 已经没啥用了这一行
-        data_src=data_src,  # 已经没啥用了这一行
+        data_src=data_src_type,  # 已经没啥用了这一行
         lv_list=lv_list,
         config=config,
         autype=AUTYPE.QFQ,  # 已经没啥用了这一行
