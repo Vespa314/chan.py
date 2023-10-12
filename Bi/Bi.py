@@ -8,14 +8,14 @@ from KLine.KLine_Unit import CKLine_Unit
 
 
 class CBi:
-    def __init__(self, bigin_klc: CKLine, end_klc: CKLine, idx: int, is_sure: bool):
-        # self.__begin_klc = bigin_klc
+    def __init__(self, begin_klc: CKLine, end_klc: CKLine, idx: int, is_sure: bool):
+        # self.__begin_klc = begin_klc
         # self.__end_klc = end_klc
         self.__dir = None
         self.__idx = idx
         self.__type = BI_TYPE.STRICT
 
-        self.set(bigin_klc, end_klc)
+        self.set(begin_klc, end_klc)
 
         self.__is_sure = is_sure
         self.__sure_end = None
@@ -77,12 +77,12 @@ class CBi:
         except Exception as e:
             raise CChanException(f"{self.idx}:{self.begin_klc[0].time}~{self.end_klc[-1].time}笔的方向和收尾位置不一致!", ErrCode.BI_ERR) from e
 
-    def set(self, bigin_klc: CKLine, end_klc: CKLine):
-        self.__begin_klc: CKLine = bigin_klc
+    def set(self, begin_klc: CKLine, end_klc: CKLine):
+        self.__begin_klc: CKLine = begin_klc
         self.__end_klc: CKLine = end_klc
-        if bigin_klc.fx == FX_TYPE.BOTTOM:
+        if begin_klc.fx == FX_TYPE.BOTTOM:
             self.__dir = BI_DIR.UP
-        elif bigin_klc.fx == FX_TYPE.TOP:
+        elif begin_klc.fx == FX_TYPE.TOP:
             self.__dir = BI_DIR.DOWN
         else:
             raise CChanException("ERROR DIRECTION when creating bi", ErrCode.BI_ERR)
