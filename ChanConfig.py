@@ -26,7 +26,7 @@ class CChanConfig:
             bi_fx_check=conf.get("bi_fx_check", "strict"),
             gap_as_kl=conf.get("gap_as_kl", False),
             bi_end_is_peak=conf.get('bi_end_is_peak', True),
-
+            bi_allow_sub_peak = conf.get("bi_allow_sub_peak", True),
         )
         self.seg_conf = CSegConfig(
             seg_algo=conf.get("seg_algo", "chan"),

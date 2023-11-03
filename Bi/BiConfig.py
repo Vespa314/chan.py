@@ -10,6 +10,7 @@ class CBiConfig:
         bi_fx_check="half",
         gap_as_kl=True,
         bi_end_is_peak=True,
+        bi_allow_sub_peak=True,
     ):
         self.bi_algo = bi_algo
         self.is_strict = is_strict
@@ -26,3 +27,4 @@ class CBiConfig:
 
         self.gap_as_kl = gap_as_kl
         self.bi_end_is_peak = bi_end_is_peak
+        self.bi_allow_sub_peak = bi_allow_sub_peak

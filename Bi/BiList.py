@@ -70,7 +70,13 @@ class CBiList:
             self.add_new_bi(self.last_end, klc)
             self.last_end = klc
             return True
-        return _tmp_end != self.get_last_klu_of_last_bi()  # 可能新增加的K线使得原本的虚笔消失，比如 US.BELFA@2017-02-15 v.s. US.BELFA@2017-02-17
+        elif not self.config.bi_allow_sub_peak and ( \
+            (self.bi_list[-1].is_down() and klc.high >= self.bi_list[-1].get_begin_val()) or \
+            (self.bi_list[-1].is_up() and klc.high <= self.bi_list[-1].get_begin_val()) \
+        ):
+            self.bi_list = self.bi_list[:-1]
+            return self.try_update_end(klc)
+        return _tmp_end != self.get_last_klu_of_last_bi()
 
     def delete_virtual_bi(self):
         if len(self) > 0 and not self.bi_list[-1].is_sure:
