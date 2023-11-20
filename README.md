@@ -527,6 +527,7 @@ else:  # 绘制动画
     - DATA_SRC.FUTU：富途
     - DATA_SRC.BAO_STOCK：BaoStock(默认)
     - DATA_SRC.CCXT：ccxt
+    - DATA_SRC.CSV: csv（具体可以看内部实现）
     - "custom:文件名:类名"：自定义解析器
         - 框架默认提供一个 demo 为："custom: OfflineDataAPI.CStockFileReader"
         - 自己开发参考下文『自定义开发-数据接入』

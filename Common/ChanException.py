@@ -20,6 +20,7 @@ class ErrCode(IntEnum):
     UNKNOWN_DB_TYPE = 15
     FEATURE_ERROR = 16
     CONFIG_ERROR = 17
+    SRC_DATA_FORMAT_ERROR = 18
     _CHAN_ERR_END = 99
 
     # Trade Error
