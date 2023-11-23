@@ -1,3 +1,4 @@
+import copy
 from typing import List, Union, overload
 
 from Bi.Bi import CBi
@@ -49,6 +50,38 @@ class CKLine_List:
         self.metric_model_lst = conf.GetMetricModel()
 
         self.step_calculation = self.need_cal_step_by_step()
+
+    def __deepcopy__(self, memo):
+        new_obj = CKLine_List(self.kl_type, self.config)
+        memo[id(self)] = new_obj
+        for klc in self.lst:
+            klus_new = []
+            for klu in klc.lst:
+                new_klu = copy.deepcopy(klu, memo)
+                klus_new.append(new_klu)
+
+            new_klc = CKLine(klus_new[0], idx=klc.idx, _dir=klc.dir)
+            new_klc.set_fx(klc.fx)
+            new_klc.kl_type = klc.kl_type
+            for idx, klu in enumerate(klus_new):
+                klu.set_klc(new_klc)
+                if idx != 0:
+                    new_klc.add(klu)
+            memo[id(klc)] = new_klc
+            if new_obj.lst:
+                new_obj.lst[-1].set_next(new_klc)
+                new_klc.set_pre(new_obj.lst[-1])
+            new_obj.lst.append(new_klc)
+        new_obj.bi_list = copy.deepcopy(self.bi_list, memo)
+        new_obj.seg_list = copy.deepcopy(self.seg_list, memo)
+        new_obj.segseg_list = copy.deepcopy(self.segseg_list, memo)
+        new_obj.zs_list = copy.deepcopy(self.zs_list, memo)
+        new_obj.segzs_list = copy.deepcopy(self.segzs_list, memo)
+        new_obj.bs_point_lst = copy.deepcopy(self.bs_point_lst, memo)
+        new_obj.metric_model_lst = copy.deepcopy(self.metric_model_lst, memo)
+        new_obj.step_calculation = copy.deepcopy(self.step_calculation, memo)
+        new_obj.seg_bs_point_lst = copy.deepcopy(self.seg_bs_point_lst, memo)
+        return new_obj
 
     @overload
     def __getitem__(self, index: int) -> CKLine: ...

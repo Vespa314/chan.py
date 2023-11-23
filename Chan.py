@@ -1,3 +1,4 @@
+import copy
 import datetime
 from collections import defaultdict
 from typing import Dict, Iterable, List, Optional, Union
@@ -49,8 +50,8 @@ class CChan:
             lv_list = [KL_TYPE.K_DAY, KL_TYPE.K_60M]
         check_kltype_order(lv_list)  # lv_list顺序从高到低
         self.code = code
-        self.begin_time = str(begin_time) if type(begin_time) == datetime.date else begin_time
-        self.end_time = str(end_time) if type(end_time) == datetime.date else end_time
+        self.begin_time = str(begin_time) if isinstance(begin_time, datetime.date) else begin_time
+        self.end_time = str(end_time) if isinstance(end_time, datetime.date) else end_time
         self.autype = autype
         self.data_src = data_src
         self.lv_list: List[KL_TYPE] = lv_list
@@ -69,6 +70,36 @@ class CChan:
         if not config.triger_step:
             for _ in self.load():
                 ...
+
+    def __deepcopy__(self, memo):
+        cls = self.__class__
+        obj: CChan = cls.__new__(cls)
+        memo[id(self)] = obj
+        obj.code = self.code
+        obj.begin_time = self.begin_time
+        obj.end_time = self.end_time
+        obj.autype = self.autype
+        obj.data_src = self.data_src
+        obj.lv_list = copy.deepcopy(self.lv_list, memo)
+        obj.conf = copy.deepcopy(self.conf, memo)
+        obj.kl_misalign_cnt = self.kl_misalign_cnt
+        obj.kl_inconsistent_detail = copy.deepcopy(self.kl_inconsistent_detail, memo)
+        obj.g_kl_iter = copy.deepcopy(self.g_kl_iter, memo)
+        if hasattr(self, 'kl_datas'):
+            obj.klu_cache = copy.deepcopy(self.klu_cache, memo)
+        if hasattr(self, 'klu_last_t'):
+            obj.klu_last_t = copy.deepcopy(self.klu_last_t, memo)
+        obj.kl_datas = {}
+        for kl_type, ckline in self.kl_datas.items():
+            obj.kl_datas[kl_type] = copy.deepcopy(ckline, memo)
+        for kl_type, ckline in self.kl_datas.items():
+            for klc in ckline:
+                for klu in klc.lst:
+                    assert id(klu) in memo
+                    if klu.sup_kl:
+                        memo[id(klu)].sup_kl = memo[id(klu.sup_kl)]
+                    memo[id(klu)].sub_kl_list = [memo[id(sub_kl)] for sub_kl in klu.sub_kl_list]
+        return obj
 
     def do_init(self):
         self.kl_datas: Dict[KL_TYPE, CKLine_List] = {}

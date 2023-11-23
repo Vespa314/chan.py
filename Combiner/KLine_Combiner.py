@@ -77,6 +77,14 @@ class CKLine_Combiner(Generic[T]):
         else:
             raise CChanException("combine type unknown", ErrCode.COMBINER_ERR)
 
+    def add(self, unit_kl: T):
+        # only for deepcopy
+        self.__lst.append(unit_kl)
+
+    def set_fx(self, fx: FX_TYPE):
+        # only for deepcopy
+        self.__fx = fx
+
     def try_add(self, unit_kl: T, exclude_included=False, allow_top_equal=None):
         # allow_top_equal = None普通模式
         # allow_top_equal = 1 被包含，顶部相等不合并

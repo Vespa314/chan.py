@@ -1,6 +1,7 @@
+import copy
 from typing import Dict, Optional
 
-from Common.CEnum import DATA_FIELD, TREND_TYPE
+from Common.CEnum import DATA_FIELD, TRADE_INFO_LST, TREND_TYPE
 from Common.ChanException import CChanException, ErrCode
 from Common.CTime import CTime
 from Math.BOLL import BOLL_Metric, BollModel
@@ -42,6 +43,31 @@ class CKLine_Unit:
         self.limit_flag = 0  # 0:普通 -1:跌停，1:涨停
 
         self.set_idx(-1)
+
+    def __deepcopy__(self, memo):
+        _dict = {
+            DATA_FIELD.FIELD_TIME: self.time,
+            DATA_FIELD.FIELD_CLOSE: self.close,
+            DATA_FIELD.FIELD_OPEN: self.open,
+            DATA_FIELD.FIELD_HIGH: self.high,
+            DATA_FIELD.FIELD_LOW: self.low,
+        }
+        for metric in TRADE_INFO_LST:
+            if metric in self.trade_info.metric:
+                _dict[metric] = self.trade_info.metric[metric]
+        obj = CKLine_Unit(_dict)
+        obj.demark = copy.deepcopy(self.demark, memo)
+        obj.trend = copy.deepcopy(self.trend, memo)
+        obj.limit_flag = self.limit_flag
+        obj.macd = copy.deepcopy(self.macd, memo)
+        obj.boll = copy.deepcopy(self.boll, memo)
+        if hasattr(self, "rsi"):
+            obj.rsi = copy.deepcopy(self.rsi, memo)
+        if hasattr(self, "kdj"):
+            obj.kdj = copy.deepcopy(self.kdj, memo)
+        obj.set_idx(self.idx)
+        memo[id(self)] = obj
+        return obj
 
     @property
     def klc(self):
