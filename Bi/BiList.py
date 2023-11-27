@@ -55,6 +55,21 @@ class CBiList:
         else:
             return flag1
 
+    def can_update_peak(self, klc: CKLine):
+        if self.config.bi_allow_sub_peak or len(self.bi_list) < 2:
+            return False
+        if self.bi_list[-1].is_down() and klc.high < self.bi_list[-1].get_begin_val():
+            return False
+        if self.bi_list[-1].is_up() and klc.low > self.bi_list[-1].get_begin_val():
+            return False
+        if not end_is_peak(self.bi_list[-2].begin_klc, klc):
+            return False
+        if self[-1].is_down() and self[-1].get_end_val() < self[-2].get_begin_val():
+            return False
+        if self[-1].is_up() and self[-1].get_end_val() > self[-2].get_begin_val():
+            return False
+        return True
+
     def update_bi_sure(self, klc: CKLine) -> bool:
         # klc: 倒数第二根klc
         _tmp_end = self.get_last_klu_of_last_bi()
@@ -70,10 +85,7 @@ class CBiList:
             self.add_new_bi(self.last_end, klc)
             self.last_end = klc
             return True
-        elif not self.config.bi_allow_sub_peak and ( \
-            (self.bi_list[-1].is_down() and klc.high >= self.bi_list[-1].get_begin_val()) or \
-            (self.bi_list[-1].is_up() and klc.high <= self.bi_list[-1].get_begin_val()) \
-        ):
+        elif self.can_update_peak(klc):
             self.bi_list = self.bi_list[:-1]
             return self.try_update_end(klc)
         return _tmp_end != self.get_last_klu_of_last_bi()
