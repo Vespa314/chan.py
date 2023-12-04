@@ -5,8 +5,8 @@ class CFeatures:
     def __init__(self, initFeat=None):
         self.__features = {} if initFeat is None else dict(initFeat)
 
-    def toJson(self):
-        return self.__features
+    def items(self):
+        yield from self.__features.items()
 
     def __getitem__(self, k):
         return self.__features[k]

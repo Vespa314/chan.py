@@ -21,6 +21,8 @@ class CBS_Point(Generic[LINE_TYPE]):
 
         self.is_segbsp = False
 
+        self.init_common_feature()
+
     def add_type(self, bs_type: BSP_TYPE):
         self.type.append(bs_type)
 
@@ -36,3 +38,9 @@ class CBS_Point(Generic[LINE_TYPE]):
 
     def add_feat(self, inp1: Union[str, Dict[str, float], Dict[str, Optional[float]], 'CFeatures'], inp2: Optional[float] = None):
         self.features.add_feat(inp1, inp2)
+
+    def init_common_feature(self):
+        # 用于配置适用所有买卖点的特征
+        self.add_feat({
+            'bsp_bi_amp': self.bi.amp(),
+        })
