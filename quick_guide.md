@@ -31,6 +31,7 @@
     - [更新小级别触发大级别重算](#更新小级别触发大级别重算)
   - [开源版本指标添加](#开源版本指标添加)
     - [指标画图](#指标画图)
+  - [机器学习接入](#机器学习接入)
   - [打赏](#打赏)
 
 
@@ -398,6 +399,16 @@ def draw_rsi(self, meta: CChanPlotMeta, ax, color='b'):
     x_begin, x_end = int(ax.get_xlim()[0]), int(ax.get_xlim()[1])
     ax.plot(range(x_begin, x_end), data[x_begin: x_end], c=color)
 ```
+
+
+## 机器学习接入
+机器学习相关演示参见项目`machinelearning`分支[strategy_demo5.py](./Debug/strategy_demo5.py)，里面演示了包括：
+- 如何在bsp各个地方增加特征计算
+- 如何在bsp里面增加通用特征
+- 策略如何与bsp特征联动
+  - 如何在策略生效时新增策略特征
+- 如何绘图分析label是否正确
+- 如何训练 & 预测
 
 
 ## 打赏
