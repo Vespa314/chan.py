@@ -85,7 +85,7 @@ class CChan:
         obj.kl_misalign_cnt = self.kl_misalign_cnt
         obj.kl_inconsistent_detail = copy.deepcopy(self.kl_inconsistent_detail, memo)
         obj.g_kl_iter = copy.deepcopy(self.g_kl_iter, memo)
-        if hasattr(self, 'kl_datas'):
+        if hasattr(self, 'klu_cache'):
             obj.klu_cache = copy.deepcopy(self.klu_cache, memo)
         if hasattr(self, 'klu_last_t'):
             obj.klu_last_t = copy.deepcopy(self.klu_last_t, memo)
