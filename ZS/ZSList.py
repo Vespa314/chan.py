@@ -32,12 +32,12 @@ class CZSList:
     def seg_need_cal(self, seg: CSeg):
         return seg.end_bi.get_end_klu().idx > self.last_sure_pos
 
-    def add_to_free_lst(self, item, is_sure):
+    def add_to_free_lst(self, item, is_sure, zs_algo):
         if len(self.free_item_lst) != 0 and item.idx == self.free_item_lst[-1].idx:
             # 防止笔新高或新低的更新带来bug
             self.free_item_lst = self.free_item_lst[:-1]
         self.free_item_lst.append(item)
-        res = self.try_construct_zs(self.free_item_lst, is_sure)  # 可能是一笔中枢
+        res = self.try_construct_zs(self.free_item_lst, is_sure, zs_algo)  # 可能是一笔中枢
         if res is not None and res.begin_bi.idx > 0:  # 禁止第一笔就是中枢的起点
             self.zs_lst.append(res)
             self.clear_free_lst()
@@ -51,7 +51,7 @@ class CZSList:
             # zs_combine_mode=peak合并模式下会触发生效，=zs合并一定无效返回
             self.try_combine()  # 新形成的中枢尝试和之前的中枢合并
             return
-        self.add_to_free_lst(bi, is_sure)
+        self.add_to_free_lst(bi, is_sure, "normal")
 
     def try_add_to_end(self, bi):
         return False if len(self.zs_lst) == 0 else self[-1].try_add_to_end(bi)
@@ -62,19 +62,19 @@ class CZSList:
             if bi.dir == seg_dir:
                 continue
             if deal_bi_cnt < 1:  # 防止try_add_to_end执行到上一个线段的中枢里面去
-                self.add_to_free_lst(bi, seg_is_sure)
+                self.add_to_free_lst(bi, seg_is_sure, "normal")
                 deal_bi_cnt += 1
             else:
                 self.update(bi, seg_is_sure)
 
-    def try_construct_zs(self, lst, is_sure):
-        if self.config.zs_algo == "normal":
+    def try_construct_zs(self, lst, is_sure, zs_algo):
+        if zs_algo == "normal":
             if not self.config.one_bi_zs:
                 if len(lst) == 1:
                     return None
                 else:
                     lst = lst[-2:]
-        elif self.config.zs_algo == "over_seg":
+        elif zs_algo == "over_seg":
             if len(lst) < 3:
                 return None
             lst = lst[-3:]
@@ -86,9 +86,8 @@ class CZSList:
         return CZS(lst, is_sure=is_sure) if min_high > max_low else None
 
     def cal_bi_zs(self, bi_lst: Union[CBiList, CSegListComm], seg_lst: CSegListComm):
+        self.zs_lst = [zs for zs in self.zs_lst if zs.begin_bi.idx < self.last_sure_pos]
         if self.config.zs_algo == "normal":
-            self.zs_lst = [zs for zs in self.zs_lst if zs.end.idx is not None and zs.end.idx <= self.last_sure_pos]
-
             for seg in seg_lst:
                 if not self.seg_need_cal(seg):
                     continue
@@ -100,23 +99,40 @@ class CZSList:
             if len(seg_lst):
                 self.clear_free_lst()
                 self.add_zs_from_bi_range(bi_lst[seg_lst[-1].end_bi.idx+1:], revert_bi_dir(seg_lst[-1].dir), False)
-        else:
+        elif self.config.zs_algo == "over_seg":
             assert self.config.one_bi_zs is False
-            self.zs_lst = [zs for zs in self.zs_lst if zs.begin_bi.idx < self.last_sure_pos]
-            self.free_item_lst = []
+            self.clear_free_lst()
             begin_bi_idx = self.zs_lst[-1].end_bi.idx+1 if self.zs_lst else 0
             for bi in bi_lst[begin_bi_idx:]:
                 self.update_overseg_zs(bi)
+        elif self.config.zs_algo == "auto":
+            sure_seg_appear = False
+            exist_sure_seg = seg_lst.exist_sure_seg()
+            for seg in seg_lst:
+                if seg.is_sure:
+                    sure_seg_appear = True
+                if not self.seg_need_cal(seg):
+                    continue
+                if seg.is_sure or (not sure_seg_appear and exist_sure_seg):
+                    self.clear_free_lst()
+                    self.add_zs_from_bi_range(bi_lst[seg.start_bi.idx:seg.end_bi.idx+1], seg.dir, seg.is_sure)
+                else:
+                    self.clear_free_lst()
+                    for bi in bi_lst[seg.start_bi.idx:]:
+                        self.update_overseg_zs(bi)
+                    break
+        else:
+            raise Exception(f"unknown zs_algo {self.config.zs_algo}")
 
     def update_overseg_zs(self, bi: CBi | CSeg):
         if len(self.zs_lst) and len(self.free_item_lst) == 0:
             if bi.next is None:
                 return
-            if self.zs_lst[-1].in_range(bi.next) and self.zs_lst[-1].try_add_to_end(bi):
+            if bi.idx - self.zs_lst[-1].end_bi.idx <= 1 and self.zs_lst[-1].in_range(bi.next) and self.zs_lst[-1].try_add_to_end(bi):
                 return
-        if len(self.free_item_lst) == 0 and len(self.zs_lst) and self.zs_lst[-1].in_range(bi):
+        if len(self.zs_lst) and len(self.free_item_lst) == 0 and self.zs_lst[-1].in_range(bi) and bi.idx - self.zs_lst[-1].end_bi.idx <= 1:
             return
-        self.add_to_free_lst(bi, bi.is_sure)
+        self.add_to_free_lst(bi, bi.is_sure, zs_algo="over_seg")
 
     def __iter__(self):
         yield from self.zs_lst

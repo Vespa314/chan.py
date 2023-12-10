@@ -567,7 +567,7 @@ else:  # 绘制动画
           - zs：两中枢区间有重叠才合并（默认）
           - peak：两中枢有K线重叠就合并
       - one_bi_zs：是否需要计算只有一笔的中枢（分析趋势时会用到），默认为 False
-      - zs_algo: 中枢算法normal/over_seg（段内中枢和跨段中枢，具体参见[中枢算法](#中枢算法)章节），默认为normal
+      - zs_algo: 中枢算法normal/over_seg/auto（段内中枢/跨段中枢/自动，具体参见[中枢算法](#中枢算法)章节），默认为normal
     - 笔
       - bi_algo: 笔算法，默认为 normal
         - normal: 按缠论笔定义来算
@@ -949,6 +949,7 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 中枢算法主要有`zs_algo`参数决定，有两种取值：
 - normal: 段内中枢
 - over_seg: 跨段中枢
+- auto: 对于确定的线段，采用normal算法，不确定部分用over_seg
 
 <img src="./Image/zs_algo.png" />
 
