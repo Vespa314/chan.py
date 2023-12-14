@@ -153,6 +153,9 @@ class CSegListComm(Generic[SUB_LINE_TYPE]):
     def update(self, bi_lst: CBiList):
         ...
 
+    def exist_sure_seg(self):
+        return any(seg.is_sure for seg in self.lst)
+
 
 def FindPeakBi(bi_lst: Union[CBiList, List[CBi]], is_high):
     peak_val = float("-inf") if is_high else float("inf")
