@@ -1,3 +1,4 @@
+import json
 from typing import Dict, TypedDict
 
 import xgboost as xgb
@@ -39,6 +40,12 @@ def plot(chan, plot_marker):
         plot_para=plot_para,
     )
     plot_driver.save2img("label.png")
+
+
+def stragety_feature(last_klu):
+    return {
+        "open_klu_rate": (last_klu.close - last_klu.open)/last_klu.open,
+    }
 
 
 if __name__ == "__main__":
@@ -87,9 +94,7 @@ if __name__ == "__main__":
                 "is_buy": last_bsp.is_buy,
                 "open_time": last_bsp.klu.time,
             }
-            bsp_dict[last_bsp.klu.idx]['feature'].add_feat({
-                "open_klu_rate": (last_klu.close - last_klu.open)/last_klu.open,
-            })  # 开仓K线特征
+            bsp_dict[last_bsp.klu.idx]['feature'].add_feat(stragety_feature(last_klu))  # 开仓K线特征
             print(last_bsp.klu.time, last_bsp.is_buy)
 
     # 生成libsvm样本特征
@@ -111,6 +116,10 @@ if __name__ == "__main__":
         fid.write(f"{label} {feature_str}\n")
         plot_marker[feature_info["open_time"].to_str()] = ("√" if label else "×", "down" if feature_info["is_buy"] else "up")
     fid.close()
+
+    with open("feature.meta", "w") as fid:
+        # meta保存下来，实盘预测时特征对齐用
+        fid.write(json.dumps(feature_meta))
 
     # 画图检查label是否正确
     plot(chan, plot_marker)
