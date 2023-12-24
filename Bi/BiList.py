@@ -111,9 +111,10 @@ class CBiList:
         _tmp_klc = klc
         while _tmp_klc and _tmp_klc.idx > self[-1].end_klc.idx:
             assert _tmp_klc is not None
-            if not self.satisfy_bi_span(_tmp_klc, self[-1].end_klc):
-                return False
-            if ((self[-1].is_down() and _tmp_klc.dir == KLINE_DIR.UP and _tmp_klc.low > self[-1].end_klc.low) or (self[-1].is_up() and _tmp_klc.dir == KLINE_DIR.DOWN and _tmp_klc.high < self[-1].end_klc.high)) and self[-1].end_klc.check_fx_valid(_tmp_klc, self.config.bi_fx_check, for_virtual=True):
+            if self.config.bi_algo != "fx":#顶底分形即成笔
+                if not self.satisfy_bi_span(_tmp_klc, self[-1].end_klc):
+                    return False
+            if self.can_make_bi(_tmp_klc, self[-1].end_klc, cal_virtual=True):
                 # 新增一笔
                 self.add_new_bi(self.last_end, _tmp_klc, is_sure=False)
                 return True
@@ -155,10 +156,10 @@ class CBiList:
             tmp_klc = tmp_klc.next
         return span
 
-    def can_make_bi(self, klc: CKLine, last_end: CKLine):
+    def can_make_bi(self, klc: CKLine, last_end: CKLine, cal_virtual=False):
         if self.config.bi_algo == "fx":
             return True
-        satisify_span = self.satisfy_bi_span(klc, last_end) if last_end.check_fx_valid(klc, self.config.bi_fx_check) else False
+        satisify_span = self.satisfy_bi_span(klc, last_end) if last_end.check_fx_valid(klc, self.config.bi_fx_check, cal_virtual) else False
         if satisify_span and self.config.bi_end_is_peak:
             return end_is_peak(last_end, klc)
         else:
