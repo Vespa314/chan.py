@@ -125,6 +125,8 @@ class CChan:
     def get_next_lv_klu(self, lv_idx):
         if isinstance(lv_idx, int):
             lv_idx = self.lv_list[lv_idx]
+        if len(self.g_kl_iter[lv_idx]) == 0:
+            raise StopIteration
         try:
             return self.g_kl_iter[lv_idx][0].__next__()
         except StopIteration:
