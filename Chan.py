@@ -67,7 +67,7 @@ class CChan:
 
         self.do_init()
 
-        if not config.triger_step:
+        if not config.trigger_step:
             for _ in self.load():
                 ...
 
@@ -137,10 +137,10 @@ class CChan:
                 raise
 
     def step_load(self):
-        assert self.conf.triger_step
+        assert self.conf.trigger_step
         self.do_init()  # 清空数据，防止再次重跑没有数据
         yielded = False  # 是否曾经返回过结果
-        for idx, snapshot in enumerate(self.load(self.conf.triger_step)):
+        for idx, snapshot in enumerate(self.load(self.conf.trigger_step)):
             if idx < self.conf.skip_step:
                 continue
             yield snapshot

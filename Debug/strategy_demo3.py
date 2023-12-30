@@ -31,7 +31,7 @@ if __name__ == "__main__":
     lv_list = [KL_TYPE.K_60M, KL_TYPE.K_15M]
 
     config = CChanConfig({
-        "triger_step": True,
+        "trigger_step": True,
     })
 
     # 快照

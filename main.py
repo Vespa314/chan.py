@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     config = CChanConfig({
         "bi_strict": True,
-        "triger_step": False,
+        "trigger_step": False,
         "skip_step": 0,
         "divergence_rate": float("inf"),
         "bsp2_follow_1": False,
@@ -72,7 +72,7 @@ if __name__ == "__main__":
         autype=AUTYPE.QFQ,
     )
 
-    if not config.triger_step:
+    if not config.trigger_step:
         plot_driver = CPlotDriver(
             chan,
             plot_config=plot_config,

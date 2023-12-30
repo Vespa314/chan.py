@@ -376,7 +376,7 @@ item_dict为一个字典：
 ## 策略实现 & 回测
 具体demo参见[strategy_demo.py](./Debug/strategy_demo.py)
 
-原理就是：打开CChanConfig中的`triger_step`开关，那么CChan初始化的时候就不会做任何计算；
+原理就是：打开CChanConfig中的`trigger_step`开关，那么CChan初始化的时候就不会做任何计算；
 
 而手动调用CChan.step_load()，才会启动计算；
 - 多少根K线就返回多少次
