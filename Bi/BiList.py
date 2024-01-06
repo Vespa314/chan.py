@@ -1,6 +1,6 @@
 from typing import List, Optional, Union, overload
 
-from Common.CEnum import FX_TYPE
+from Common.CEnum import FX_TYPE, KLINE_DIR
 from KLine.KLine import CKLine
 
 from .Bi import CBi
@@ -70,6 +70,17 @@ class CBiList:
             return False
         return True
 
+    def update_peak(self, klc: CKLine, for_virtual=False):
+        if not self.can_update_peak(klc):
+            return False
+        _tmp_last_bi = self.bi_list[-1]
+        self.bi_list = self.bi_list[:-1]
+        if not self.try_update_end(klc, for_virtual=for_virtual):
+            self.bi_list.append(_tmp_last_bi)
+            return False
+        else:
+            return True
+
     def update_bi_sure(self, klc: CKLine) -> bool:
         # klc: 倒数第二根klc
         _tmp_end = self.get_last_klu_of_last_bi()
@@ -85,9 +96,8 @@ class CBiList:
             self.add_new_bi(self.last_end, klc)
             self.last_end = klc
             return True
-        elif self.can_update_peak(klc):
-            self.bi_list = self.bi_list[:-1]
-            return self.try_update_end(klc)
+        elif self.update_peak(klc):
+            return True
         return _tmp_end != self.get_last_klu_of_last_bi()
 
     def delete_virtual_bi(self):
@@ -114,6 +124,8 @@ class CBiList:
             if self.can_make_bi(_tmp_klc, self[-1].end_klc, for_virtual=True):
                 # 新增一笔
                 self.add_new_bi(self.last_end, _tmp_klc, is_sure=False)
+                return True
+            elif self.update_peak(_tmp_klc, for_virtual=True):
                 return True
             _tmp_klc = _tmp_klc.pre
         return False
@@ -163,13 +175,25 @@ class CBiList:
             return False
         return True
 
-    def try_update_end(self, klc: CKLine) -> bool:
+    def try_update_end(self, klc: CKLine, for_virtual=False) -> bool:
+        def check_top(klc: CKLine, for_virtual):
+            if for_virtual:
+                return klc.dir == KLINE_DIR.UP
+            else:
+                return klc.fx == FX_TYPE.TOP
+
+        def check_bottom(klc: CKLine, for_virtual):
+            if for_virtual:
+                return klc.dir == KLINE_DIR.DOWN
+            else:
+                return klc.fx == FX_TYPE.BOTTOM
+
         if len(self.bi_list) == 0:
             return False
         last_bi = self.bi_list[-1]
-        if (last_bi.is_up() and klc.fx == FX_TYPE.TOP and klc.high >= last_bi.get_end_val()) or \
-           (last_bi.is_down() and klc.fx == FX_TYPE.BOTTOM and klc.low <= last_bi.get_end_val()):
-            last_bi.update_new_end(klc)
+        if (last_bi.is_up() and check_top(klc, for_virtual) and klc.high >= last_bi.get_end_val()) or \
+           (last_bi.is_down() and check_bottom(klc, for_virtual) and klc.low <= last_bi.get_end_val()):
+            last_bi.update_virtual_end(klc) if for_virtual else last_bi.update_new_end(klc)
             self.last_end = klc
             return True
         else:
