@@ -149,14 +149,12 @@ class CBi:
         self.__sure_end = self.end_klc
         self.update_new_end(new_klc)
         self.__is_sure = False
-        self.clean_cache()
 
     def restore_from_virtual_end(self):
         self.__is_sure = True
         assert self.sure_end is not None
         self.update_new_end(new_klc=self.sure_end)
         self.__sure_end = None
-        self.clean_cache()
 
     def is_virtual_end(self):
         return self.sure_end is not None

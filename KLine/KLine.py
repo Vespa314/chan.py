@@ -49,6 +49,8 @@ class CKLine(CKLine_Combiner[CKLine_Unit]):
         assert item2.idx > self.idx
         if self.fx == FX_TYPE.TOP:
             assert for_virtual or item2.fx == FX_TYPE.BOTTOM
+            if for_virtual and item2.dir != KLINE_DIR.DOWN:
+                return False
             if method == FX_CHECK_METHOD.HALF:  # 检测前两KLC
                 item2_high = max([item2.pre.high, item2.high])
                 self_low = min([self.low, self.next.low])
@@ -70,6 +72,8 @@ class CKLine(CKLine_Combiner[CKLine_Unit]):
                 return self.high > item2_high and item2.low < self_low
         elif self.fx == FX_TYPE.BOTTOM:
             assert for_virtual or item2.fx == FX_TYPE.TOP
+            if for_virtual and item2.dir != KLINE_DIR.UP:
+                return False
             if method == FX_CHECK_METHOD.HALF:
                 item2_low = min([item2.pre.low, item2.low])
                 cur_high = max([self.high, self.next.high])

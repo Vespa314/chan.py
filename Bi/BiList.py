@@ -70,6 +70,17 @@ class CBiList:
             return False
         return True
 
+    def update_peak(self, klc: CKLine, for_virtual=False):
+        if not self.can_update_peak(klc):
+            return False
+        _tmp_last_bi = self.bi_list[-1]
+        self.bi_list = self.bi_list[:-1]
+        if not self.try_update_end(klc, for_virtual=for_virtual):
+            self.bi_list.append(_tmp_last_bi)
+            return False
+        else:
+            return True
+
     def update_bi_sure(self, klc: CKLine) -> bool:
         # klc: 倒数第二根klc
         _tmp_end = self.get_last_klu_of_last_bi()
@@ -85,9 +96,8 @@ class CBiList:
             self.add_new_bi(self.last_end, klc)
             self.last_end = klc
             return True
-        elif self.can_update_peak(klc):
-            self.bi_list = self.bi_list[:-1]
-            return self.try_update_end(klc)
+        elif self.update_peak(klc):
+            return True
         return _tmp_end != self.get_last_klu_of_last_bi()
 
     def delete_virtual_bi(self):
@@ -111,11 +121,11 @@ class CBiList:
         _tmp_klc = klc
         while _tmp_klc and _tmp_klc.idx > self[-1].end_klc.idx:
             assert _tmp_klc is not None
-            if not self.satisfy_bi_span(_tmp_klc, self[-1].end_klc):
-                return False
-            if ((self[-1].is_down() and _tmp_klc.dir == KLINE_DIR.UP and _tmp_klc.low > self[-1].end_klc.low) or (self[-1].is_up() and _tmp_klc.dir == KLINE_DIR.DOWN and _tmp_klc.high < self[-1].end_klc.high)) and self[-1].end_klc.check_fx_valid(_tmp_klc, self.config.bi_fx_check, for_virtual=True):
+            if self.can_make_bi(_tmp_klc, self[-1].end_klc, for_virtual=True):
                 # 新增一笔
                 self.add_new_bi(self.last_end, _tmp_klc, is_sure=False)
+                return True
+            elif self.update_peak(_tmp_klc, for_virtual=True):
                 return True
             _tmp_klc = _tmp_klc.pre
         return False
@@ -155,22 +165,35 @@ class CBiList:
             tmp_klc = tmp_klc.next
         return span
 
-    def can_make_bi(self, klc: CKLine, last_end: CKLine):
-        if self.config.bi_algo == "fx":
-            return True
-        satisify_span = self.satisfy_bi_span(klc, last_end) if last_end.check_fx_valid(klc, self.config.bi_fx_check) else False
-        if satisify_span and self.config.bi_end_is_peak:
-            return end_is_peak(last_end, klc)
-        else:
-            return satisify_span
+    def can_make_bi(self, klc: CKLine, last_end: CKLine, for_virtual: bool = False):
+        satisify_span = True if self.config.bi_algo == 'fx' else self.satisfy_bi_span(klc, last_end)
+        if not satisify_span:
+            return False
+        if not last_end.check_fx_valid(klc, self.config.bi_fx_check, for_virtual):
+            return False
+        if self.config.bi_end_is_peak and not end_is_peak(last_end, klc):
+            return False
+        return True
 
-    def try_update_end(self, klc: CKLine) -> bool:
+    def try_update_end(self, klc: CKLine, for_virtual=False) -> bool:
+        def check_top(klc: CKLine, for_virtual):
+            if for_virtual:
+                return klc.dir == KLINE_DIR.UP
+            else:
+                return klc.fx == FX_TYPE.TOP
+
+        def check_bottom(klc: CKLine, for_virtual):
+            if for_virtual:
+                return klc.dir == KLINE_DIR.DOWN
+            else:
+                return klc.fx == FX_TYPE.BOTTOM
+
         if len(self.bi_list) == 0:
             return False
         last_bi = self.bi_list[-1]
-        if (last_bi.is_up() and klc.fx == FX_TYPE.TOP and klc.high >= last_bi.get_end_val()) or \
-           (last_bi.is_down() and klc.fx == FX_TYPE.BOTTOM and klc.low <= last_bi.get_end_val()):
-            last_bi.update_new_end(klc)
+        if (last_bi.is_up() and check_top(klc, for_virtual) and klc.high >= last_bi.get_end_val()) or \
+           (last_bi.is_down() and check_bottom(klc, for_virtual) and klc.low <= last_bi.get_end_val()):
+            last_bi.update_virtual_end(klc) if for_virtual else last_bi.update_new_end(klc)
             self.last_end = klc
             return True
         else:

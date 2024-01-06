@@ -16,7 +16,7 @@ if __name__ == "__main__":
     lv_list = [KL_TYPE.K_DAY]
 
     config = CChanConfig({
-        "triger_step": True,
+        "trigger_step": True,
         "divergence_rate": 0.8,
         "min_zs_cnt": 1,
     })

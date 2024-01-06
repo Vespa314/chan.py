@@ -39,7 +39,7 @@ class CChanConfig:
             zs_algo=conf.get("zs_algo", "normal"),
         )
 
-        self.triger_step = conf.get("triger_step", False)
+        self.trigger_step = conf.get("trigger_step", False)
         self.skip_step = conf.get("skip_step", 0)
 
         self.kl_data_check = conf.get("kl_data_check", True)

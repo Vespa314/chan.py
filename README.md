@@ -501,7 +501,7 @@ plot_para = {
     },
 }  # 空格绘图元素详细配置，详见后文
 
-if not config.triger_step:  # 绘制静态图
+if not config.trigger_step:  # 绘制静态图
     plot_driver = CPlotDriver(
         chan,
         plot_config=plot_config,
@@ -626,9 +626,9 @@ else:  # 绘制动画
     - cal_kdj: 是否计算kdj指标，默认为False
     - kdj:
         - kdj_cycle: kdj计算周期，默认为9
-    - triger_step：是否回放逐步返回，默认为 False
+    - trigger_step：是否回放逐步返回，默认为 False
         - 用于逐步回放绘图时使用，此时 CChan 会变成一个生成器，每读取一根新K线就会计算一次当前所有指标，返回当前帧指标状况；常用于返回给 CAnimateDriver 绘图
-    - skip_step：triger_step 为 True 时有效，指定跳过前面几根K线，默认为 0；
+    - skip_step：trigger_step 为 True 时有效，指定跳过前面几根K线，默认为 0；
     - kl_data_check：是否需要检验K线数据，检查项包括时间线是否有乱序，大小级别K线是否有缺失；默认为 True
     - max_kl_misalgin_cnt：在次级别找不到K线最大条数，默认为 2（次级别数据有缺失），`kl_data_check` 为 True 时生效
     - max_kl_inconsistent_cnt：天K线以下（包括）子级别和父级别日期不一致最大允许条数（往往是父级别数据有缺失），默认为 5，`kl_data_check` 为 True 时生效
@@ -711,7 +711,7 @@ config = CChanConfig({
     "zs_combine_mode": "zs",
     "bi_strict": True,
     "mean_metrics": [],
-    "triger_step": False,
+    "trigger_step": False,
     "skip_step": 0,
     "seg_algo": "chan",
     "divergence_rate": 0.9,

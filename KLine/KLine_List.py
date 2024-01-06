@@ -113,7 +113,7 @@ class CKLine_List:
         self.bs_point_lst.cal(self.bi_list, self.seg_list)  # 再算笔买卖点
 
     def need_cal_step_by_step(self):
-        return self.config.triger_step
+        return self.config.trigger_step
 
     def add_single_klu(self, klu: CKLine_Unit):
         klu.set_metric(self.metric_model_lst)
