@@ -63,7 +63,18 @@ if __name__ == "__main__":
     lv_list = [KL_TYPE.K_DAY]
 
     config = CChanConfig({
-        "triger_step": True,  # 打开开关！
+        "trigger_step": True,  # 打开开关！
+        "bi_strict": True,
+        "skip_step": 0,
+        "divergence_rate": float("inf"),
+        "bsp2_follow_1": False,
+        "bsp3_follow_1": False,
+        "min_zs_cnt": 0,
+        "bs1_peak": False,
+        "macd_algo": "peak",
+        "bs_type": '1,2,3a,1p,2s,3b',
+        "print_warning": True,
+        "zs_algo": "normal",
     })
 
     chan = CChan(

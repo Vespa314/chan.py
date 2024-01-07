@@ -2,6 +2,7 @@ import json
 from typing import Dict, TypedDict
 
 import xgboost as xgb
+from strategy_demo5 import stragety_feature
 
 from BuySellPoint.BS_Point import CBS_Point
 from Chan import CChan
@@ -9,7 +10,6 @@ from ChanConfig import CChanConfig
 from ChanModel.Features import CFeatures
 from Common.CEnum import AUTYPE, DATA_SRC, KL_TYPE
 from Common.CTime import CTime
-from Debug.strategy_demo5 import stragety_feature
 
 
 class T_SAMPLE_INFO(TypedDict):
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     lv_list = [KL_TYPE.K_DAY]
 
     config = CChanConfig({
-        "triger_step": True,  # 打开开关！
+        "trigger_step": True,  # 打开开关！
     })
 
     chan = CChan(

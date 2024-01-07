@@ -276,7 +276,7 @@
 │       ├── 📄 StaticsChanConfig.py: 缠论计算配置
 │       └── 📄 UpdatePeakPrice.py: 峰值股价更新（用于做动态止损）
 ├── 📁 Debug： debug工具/策略demo
-│   ├── 📄 strategy_demo.py  基于triger_step的回测实现
+│   ├── 📄 strategy_demo.py  基于trigger_step的回测实现
 │   ├── 📄 strategy_demo2.py  基于trigger_load的回测实现
 │   ├── 📄 strategy_demo3.py  基于trigger_load实现小级别触发大级别重算
 │   ├── 📄 strategy_demo4.py  基于trigger_load实现多级别喂数据时避免K线时间对齐
