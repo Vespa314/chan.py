@@ -190,7 +190,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
             assert bsp2s_bi.seg_idx is not None and bsp2_bi.seg_idx is not None
             if BSP_CONF.max_bsp2s_lv is not None and bias/2 > BSP_CONF.max_bsp2s_lv:
                 break
-            if bsp2s_bi.seg_idx != bsp2_bi.seg_idx and (bsp2s_bi.seg_idx < len(seg_list)-1 or seg_list[bsp2_bi.seg_idx].is_sure):
+            if bsp2s_bi.seg_idx != bsp2_bi.seg_idx and (bsp2s_bi.seg_idx < len(seg_list)-1 or bsp2s_bi.seg_idx - bsp2_bi.seg_idx >= 2 or seg_list[bsp2_bi.seg_idx].is_sure):
                 break
             if bias == 2:
                 if not has_overlap(bsp2_bi._low(), bsp2_bi._high(), bsp2s_bi._low(), bsp2s_bi._high()):
