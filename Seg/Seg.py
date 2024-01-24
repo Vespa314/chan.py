@@ -40,6 +40,8 @@ class CSeg(Generic[LINE_TYPE]):
             self.is_sure = False
         self.check()
 
+        self.ele_inside_is_sure = False
+
     def set_seg_idx(self, idx):
         self.seg_idx = idx
 

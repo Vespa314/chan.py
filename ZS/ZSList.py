@@ -17,20 +17,17 @@ class CZSList:
         self.config = zs_config
         self.free_item_lst = []
 
-        self.FORCE_CAL_ALL = False  # 控制是否强制计算所有的点，理论上开不开结果一样，效率相差比较多，debug时打开
-        self.last_sure_pos = -1  # 上一次计算时sure seg【起始】klu的位置，用起始原因是因为这一次计算可能最后一个线段是刚刚生成的
+        self.last_sure_pos = -1
 
     def update_last_pos(self, seg_list: CSegListComm):
         self.last_sure_pos = -1
-        if self.FORCE_CAL_ALL:
-            return
         for seg in seg_list[::-1]:
             if seg.is_sure:
-                self.last_sure_pos = seg.end_bi.get_begin_klu().idx
+                self.last_sure_pos = seg.start_bi.idx
                 return
 
     def seg_need_cal(self, seg: CSeg):
-        return seg.end_bi.get_end_klu().idx > self.last_sure_pos
+        return seg.start_bi.idx >= self.last_sure_pos
 
     def add_to_free_lst(self, item, is_sure, zs_algo):
         if len(self.free_item_lst) != 0 and item.idx == self.free_item_lst[-1].idx:
@@ -123,6 +120,7 @@ class CZSList:
                     break
         else:
             raise Exception(f"unknown zs_algo {self.config.zs_algo}")
+        self.update_last_pos(seg_lst)
 
     def update_overseg_zs(self, bi: CBi | CSeg):
         if len(self.zs_lst) and len(self.free_item_lst) == 0:
