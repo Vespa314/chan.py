@@ -106,6 +106,7 @@ class CBiList:
                 self.bi_list[-1].restore_from_virtual_end()
             else:
                 del self.bi_list[-1]
+        self.last_end = self[-1].end_klc if len(self) > 0 else None
 
     def try_add_virtual_bi(self, klc: CKLine, need_del_end=False):
         if need_del_end:
