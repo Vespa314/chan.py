@@ -134,3 +134,13 @@ class CKLine_Unit:
     def get_parent_klc(self):
         assert self.sup_kl is not None
         return self.sup_kl.klc
+
+    def include_sub_lv_time(self, sub_lv_t: str) -> bool:
+        if self.time.to_str() == sub_lv_t:
+            return True
+        for sub_klu in self.sub_kl_list:
+            if sub_klu.time.to_str() == sub_lv_t:
+                return True
+            if sub_klu.include_sub_lv_time(sub_lv_t):
+                return True
+        return False

@@ -620,7 +620,7 @@ class CPlotDriver:
             arrow_l=arrow_l,
             arrow_h=arrow_h,
             arrow_w=arrow_w,
-            )
+        )
 
     def update_y_range(self, text_box, text_y):
         text_height = text_box.y1 - text_box.y0
@@ -640,26 +640,37 @@ class CPlotDriver:
             )
 
     def draw_marker(
-            self,
-            meta: CChanPlotMeta,
-            ax: Axes,
-            markers: Dict[CTime | str, Tuple[str, Literal['up', 'down'], str] | Tuple[str, Literal['up', 'down']]],
-            arrow_l=0.15,
-            arrow_h_r=0.2,
-            arrow_w=1,
-            fontsize=14,
-            default_color='b',
+        self,
+        meta: CChanPlotMeta,
+        ax: Axes,
+        markers: Dict[CTime | str, Tuple[str, Literal['up', 'down'], str] | Tuple[str, Literal['up', 'down']]],
+        arrow_l=0.15,
+        arrow_h_r=0.2,
+        arrow_w=1,
+        fontsize=14,
+        default_color='b',
     ):
         # {'2022/03/01': ('xxx', 'up', 'red'), '2022/03/02': ('yyy', 'down')}
         x_begin, x_end = ax.get_xlim()
         datetick_dict = {date: idx for idx, date in enumerate(meta.datetick)}
+
+        new_marker = {}
+        for klu in meta.klu_iter():
+            for date, marker in markers.items():
+                date_str = date.to_str() if isinstance(date, CTime) else date
+                if klu.include_sub_lv_time(date_str) and klu.time.to_str() != date_str:
+                    new_marker[klu.time.to_str()] = marker
+        new_marker.update(markers)
+
         kl_dict = dict(enumerate(meta.klu_iter()))
         y_range = self.y_max-self.y_min
         arror_len = arrow_l*y_range
         arrow_h = arror_len*arrow_h_r
-        for date, marker in markers.items():
+        for date, marker in new_marker.items():
             if isinstance(date, CTime):
                 date = date.to_str()
+            if date not in datetick_dict:
+                continue
             x = datetick_dict[date]
             if x < x_begin or x > x_end:
                 continue
@@ -825,7 +836,7 @@ def show_func_helper(func):
         if para.default == inspect.Parameter.empty:
             continue
             # print(f"\t{name}*")
-        elif type(para.default) == str:
+        elif isinstance(para.default, str):
             print(f"\t{name}: '{para.default}'")
         else:
             print(f"\t{name}: {para.default}")
