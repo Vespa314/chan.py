@@ -106,8 +106,6 @@ class CKLine_List:
         self.segzs_list.cal_bi_zs(self.seg_list, self.segseg_list)
         update_zs_in_seg(self.seg_list, self.segseg_list, self.segzs_list)  # 计算segseg的zs_lst，以及中枢的bi_in, bi_out
 
-        self.update_klc_in_bi()  # 计算每一笔里面的 klc列表
-
         # 计算买卖点
         self.seg_bs_point_lst.cal(self.seg_list, self.segseg_list)  # 线段线段买卖点
         self.bs_point_lst.cal(self.bi_list, self.seg_list)  # 再算笔买卖点
@@ -133,10 +131,6 @@ class CKLine_List:
     def klu_iter(self, klc_begin_idx=0):
         for klc in self.lst[klc_begin_idx:]:
             yield from klc.lst
-
-    def update_klc_in_bi(self):
-        for bi in self.bi_list:
-            bi.set_klc_lst(self[bi.begin_klc.idx:bi.end_klc.idx+1])
 
 
 def cal_seg(bi_list, seg_list):

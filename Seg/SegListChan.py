@@ -13,12 +13,12 @@ class CSegListChan(CSegListComm):
     def do_init(self):
         # 删除末尾不确定的线段
         while len(self) and not self.lst[-1].is_sure:
-            self.lst = self.lst[:-1]
+            self.lst.pop()
         if len(self):
             assert self.lst[-1].eigen_fx and self.lst[-1].eigen_fx.ele[-1]
             if not self.lst[-1].eigen_fx.ele[-1].lst[-1].is_sure:
                 # 如果确定线段的分形的第三元素包含不确定笔，也需要重新算，不然线段分形元素的高低点可能不对
-                self.lst = self.lst[:-1]
+                self.lst.pop()
 
     def update(self, bi_lst: CBiList):
         self.do_init()
