@@ -103,7 +103,7 @@ if __name__ == "__main__":
             bsp_dict[last_bsp.klu.idx] = {
                 "feature": last_bsp.features,
                 "is_buy": last_bsp.is_buy,
-                "open_time": last_bsp.klu.time,
+                "open_time": last_klu.time,
             }
             bsp_dict[last_bsp.klu.idx]['feature'].add_feat(stragety_feature(last_klu))  # 开仓K线特征
             print(last_bsp.klu.time, last_bsp.is_buy)
