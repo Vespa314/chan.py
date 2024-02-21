@@ -74,7 +74,7 @@ class CBiList:
         if not self.can_update_peak(klc):
             return False
         _tmp_last_bi = self.bi_list[-1]
-        self.bi_list = self.bi_list[:-1]
+        self.bi_list.pop()
         if not self.try_update_end(klc, for_virtual=for_virtual):
             self.bi_list.append(_tmp_last_bi)
             return False

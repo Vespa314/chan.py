@@ -83,7 +83,8 @@ class CZSList:
         return CZS(lst, is_sure=is_sure) if min_high > max_low else None
 
     def cal_bi_zs(self, bi_lst: Union[CBiList, CSegListComm], seg_lst: CSegListComm):
-        self.zs_lst = [zs for zs in self.zs_lst if zs.begin_bi.idx < self.last_sure_pos]
+        while self.zs_lst and self.zs_lst[-1].begin_bi.idx >= self.last_sure_pos:
+            self.zs_lst.pop()
         if self.config.zs_algo == "normal":
             for seg in seg_lst:
                 if not self.seg_need_cal(seg):
