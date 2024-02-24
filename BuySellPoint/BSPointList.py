@@ -1,4 +1,4 @@
-from typing import Generic, List, Optional, TypeVar, Union, overload
+from typing import Dict, Generic, List, Optional, TypeVar, Union, overload
 
 from Bi.Bi import CBi
 from Bi.BiList import CBiList
@@ -18,7 +18,7 @@ LINE_LIST_TYPE = TypeVar('LINE_LIST_TYPE', CBiList, CSegListComm[CBi])
 class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
     def __init__(self, bs_point_config: CBSPointConfig):
         self.lst: List[CBS_Point[LINE_TYPE]] = []
-        self.lst_dict = {}
+        self.bsp_dict: Dict[int, CBS_Point[LINE_TYPE]] = {}
         self.bsp1_lst: List[CBS_Point[LINE_TYPE]] = []
         self.config = bs_point_config
         self.last_sure_pos = -1
@@ -40,7 +40,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
 
     def cal(self, bi_list: LINE_LIST_TYPE, seg_list: CSegListComm[LINE_TYPE]):
         self.lst = [bsp for bsp in self.lst if bsp.klu.idx <= self.last_sure_pos]
-        self.lst_dict = {bsp.bi.get_end_klu(): bsp for bsp in self.lst}
+        self.bsp_dict = {bsp.bi.get_end_klu().idx: bsp for bsp in self.lst}
         self.bsp1_lst = [bsp for bsp in self.bsp1_lst if bsp.klu.idx <= self.last_sure_pos]
 
         self.cal_seg_bs1point(seg_list, bi_list)
@@ -68,7 +68,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         feature_dict=None,
     ):
         is_buy = bi.is_down()
-        if exist_bsp := self.lst_dict.get(bi.get_end_klu().idx):
+        if exist_bsp := self.bsp_dict.get(bi.get_end_klu().idx):
             assert exist_bsp.is_buy == is_buy
             exist_bsp.add_another_bsp_prop(bs_type, relate_bsp1)
             if feature_dict is not None:
@@ -89,7 +89,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
             return
         if is_target_bsp:
             self.lst.append(bsp)
-            self.lst_dict[bi.get_end_klu().idx] = bsp
+            self.bsp_dict[bi.get_end_klu().idx] = bsp
         if bs_type in [BSP_TYPE.T1, BSP_TYPE.T1P]:
             self.bsp1_lst.append(bsp)
 
