@@ -194,8 +194,10 @@ class CPlotDriver:
             self.DrawElement(plot_config[lv], meta, ax, lv, plot_para, ax_macd, x_limits)
 
             if lv != self.lv_lst[-1]:
-                sseg_begin = meta.sub_last_kseg_start_idx(slv_seg_cnt)
-                sbi_begin = meta.sub_last_kbi_start_idx(slv_bi_cnt)
+                if slv_seg_cnt is not None:
+                    sseg_begin = meta.sub_last_kseg_start_idx(slv_seg_cnt)
+                if slv_bi_cnt is not None:
+                    sbi_begin = meta.sub_last_kbi_start_idx(slv_bi_cnt)
                 if x_range != 0:
                     srange_begin = meta.sub_range_start_idx(x_range)
 
