@@ -14,27 +14,6 @@ from KLine.KLine_List import CKLine_List
 from KLine.KLine_Unit import CKLine_Unit
 
 
-def GetStockAPI(src):
-    _dict = {}
-    if src == DATA_SRC.BAO_STOCK:
-        from DataAPI.BaoStockAPI import CBaoStock
-        _dict[DATA_SRC.BAO_STOCK] = CBaoStock
-    elif src == DATA_SRC.CCXT:
-        from DataAPI.ccxt import CCXT
-        _dict[DATA_SRC.CCXT] = CCXT
-    elif src == DATA_SRC.CSV:
-        from DataAPI.csvAPI import CSV_API
-        _dict[DATA_SRC.CSV] = CSV_API
-    if src in _dict:
-        return _dict[src]
-    if src.find("custom:") < 0:
-        raise CChanException("load src type error", ErrCode.SRC_DATA_TYPE_ERR)
-    package_info = src.split(":")[1]
-    package_name, cls_name = package_info.split(".")
-    exec(f"from DataAPI.{package_name} import {cls_name}")
-    return eval(cls_name)
-
-
 class CChan:
     def __init__(
         self,
@@ -183,8 +162,29 @@ class CChan:
         self.lv_list = valid_lv_list
         return lv_klu_iter
 
+    def GetStockAPI(self):
+        _dict = {}
+        if self.data_src == DATA_SRC.BAO_STOCK:
+            from DataAPI.BaoStockAPI import CBaoStock
+            _dict[DATA_SRC.BAO_STOCK] = CBaoStock
+        elif self.data_src == DATA_SRC.CCXT:
+            from DataAPI.ccxt import CCXT
+            _dict[DATA_SRC.CCXT] = CCXT
+        elif self.data_src == DATA_SRC.CSV:
+            from DataAPI.csvAPI import CSV_API
+            _dict[DATA_SRC.CSV] = CSV_API
+        if self.data_src in _dict:
+            return _dict[self.data_src]
+        assert isinstance(self.data_src, str)
+        if self.data_src.find("custom:") < 0:
+            raise CChanException("load src type error", ErrCode.SRC_DATA_TYPE_ERR)
+        package_info = self.data_src.split(":")[1]
+        package_name, cls_name = package_info.split(".")
+        exec(f"from DataAPI.{package_name} import {cls_name}")
+        return eval(cls_name)
+
     def load(self, step=False):
-        stockapi_cls = GetStockAPI(self.data_src)
+        stockapi_cls = self.GetStockAPI()
         try:
             stockapi_cls.do_init()
             for lv_idx, klu_iter in enumerate(self.init_lv_klu_iter(stockapi_cls)):
