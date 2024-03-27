@@ -36,13 +36,13 @@ class CBi_meta:
 
 class CSeg_meta:
     def __init__(self, seg: CSeg):
-        if type(seg.start_bi) == CBi:
+        if isinstance(seg.start_bi, CBi):
             self.begin_x = seg.start_bi.get_begin_klu().idx
             self.begin_y = seg.start_bi.get_begin_val()
             self.end_x = seg.end_bi.get_end_klu().idx
             self.end_y = seg.end_bi.get_end_val()
         else:
-            assert type(seg.start_bi) == CSeg
+            assert isinstance(seg.start_bi, CSeg)
             self.begin_x = seg.start_bi.start_bi.get_begin_klu().idx
             self.begin_y = seg.start_bi.start_bi.get_begin_val()
             self.end_x = seg.end_bi.end_bi.get_end_klu().idx
@@ -58,7 +58,7 @@ class CSeg_meta:
 
     def format_tl(self, tl):
         assert tl.line
-        tl_slope = tl.line.slope
+        tl_slope = tl.line.slope + 1e-7
         tl_x = tl.line.p.x
         tl_y = tl.line.p.y
         tl_y0 = self.begin_y
