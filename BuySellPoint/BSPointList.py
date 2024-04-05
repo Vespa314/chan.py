@@ -166,7 +166,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
                 return
             bsp2_bi = bi_list[1]
             break_bi = bi_list[0]
-        if BSP_CONF.bsp2_follow_1 and bsp1_bi_idx not in bsp1_bi_idx_dict:  # check bsp2_follow_1
+        if BSP_CONF.bsp2_follow_1 and bsp1_bi_idx not in [bsp.bi.idx for bsp in self.bsp_dict.values()]:  # check bsp2_follow_1
             return
         retrace_rate = bsp2_bi.amp()/break_bi.amp()
         bsp2_flag = retrace_rate <= BSP_CONF.max_bs2_rate
@@ -229,7 +229,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
                 bsp1_bi, real_bsp1 = None, None
                 bsp1_bi_idx = -1
                 BSP_CONF = self.config.GetBSConfig(seg.is_up())
-            if BSP_CONF.bsp3_follow_1 and bsp1_bi_idx not in bsp1_bi_idx_dict:
+            if BSP_CONF.bsp3_follow_1 and bsp1_bi_idx not in [bsp.bi.idx for bsp in self.bsp_dict.values()]:
                 continue
             if next_seg:
                 self.treat_bsp3_after(seg_list, next_seg, BSP_CONF, bi_list, real_bsp1, bsp1_bi_idx, next_seg_idx)

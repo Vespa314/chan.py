@@ -143,6 +143,9 @@ class CChan:
             self.add_lv_iter(lv, iter(inp[lv]))
         for _ in self.load_iterator(lv_idx=0, parent_klu=None, step=False):
             ...
+        if not self.conf.trigger_step:  # 非回放模式全部算完之后才算一次中枢和线段
+            for lv in self.lv_list:
+                self.kl_datas[lv].cal_seg_and_zs()
 
     def init_lv_klu_iter(self, stockapi_cls):
         # 为了跳过一些获取数据失败的级别
