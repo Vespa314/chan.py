@@ -36,7 +36,7 @@ def parse_time_column(inp):
         hour = int(inp[11:13])
         minute = int(inp[14:16])
     else:
-        raise Exception(f"unknown time column from baostock:{inp}")
+        raise Exception(f"unknown time column from csv:{inp}")
     return CTime(year, month, day, hour, minute)
 
 
@@ -65,7 +65,7 @@ class CSV_API(CCommonStockApi):
         for line_number, line in enumerate(open(file_path, 'r')):
             if self.headers_exist and line_number == 0:
                 continue
-            data = line.split(",")
+            data = line.strip("\n").split(",")
             if len(data) != len(self.columns):
                 raise CChanException(f"file format error: {file_path}", ErrCode.SRC_DATA_FORMAT_ERROR)
             if self.begin_date is not None and data[self.time_column_idx] < self.begin_date:
