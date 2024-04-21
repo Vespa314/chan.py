@@ -18,7 +18,7 @@ class CBi:
         self.set(begin_klc, end_klc)
 
         self.__is_sure = is_sure
-        self.__sure_end = None
+        self.__sure_end: List[CKLine] = []
 
         self.__seg_idx: Optional[int] = None
 
@@ -160,18 +160,17 @@ class CBi:
         return self.dir == BI_DIR.UP
 
     def update_virtual_end(self, new_klc: CKLine):
-        self.__sure_end = self.end_klc
+        self.append_sure_end(self.end_klc)
         self.update_new_end(new_klc)
         self.__is_sure = False
 
-    def restore_from_virtual_end(self):
+    def restore_from_virtual_end(self, sure_end: CKLine):
         self.__is_sure = True
-        assert self.sure_end is not None
-        self.update_new_end(new_klc=self.sure_end)
-        self.__sure_end = None
+        self.update_new_end(new_klc=sure_end)
+        self.__sure_end = []
 
-    def is_virtual_end(self):
-        return self.sure_end is not None
+    def append_sure_end(self, klc: CKLine):
+        self.__sure_end.append(klc)
 
     def update_new_end(self, new_klc: CKLine):
         self.__end_klc = new_klc
