@@ -13,6 +13,11 @@ class CSegListChan(CSegListComm):
     def do_init(self):
         # 删除末尾不确定的线段
         while len(self) and not self.lst[-1].is_sure:
+            _seg = self[-1]
+            for bi in _seg.bi_list:
+                bi.parent_seg = None
+            if _seg.pre:
+                _seg.pre.next = None
             self.lst.pop()
         if len(self):
             assert self.lst[-1].eigen_fx and self.lst[-1].eigen_fx.ele[-1]
