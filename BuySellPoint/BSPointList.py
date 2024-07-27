@@ -6,7 +6,7 @@ from Common.CEnum import BSP_TYPE
 from Common.func_util import has_overlap
 from Seg.Seg import CSeg
 from Seg.SegListComm import CSegListComm
-from ZS.ZS import CZS
+from ZS.ZS import CZS, construct_virtual_bi
 
 from .BS_Point import CBS_Point
 from .BSPointConfig import CBSPointConfig, CPointConfig
@@ -105,16 +105,22 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
            not seg.zs_lst[-1].is_one_bi_zs() and \
            ((seg.zs_lst[-1].bi_out and seg.zs_lst[-1].bi_out.idx >= seg.end_bi.idx) or seg.zs_lst[-1].bi_lst[-1].idx >= seg.end_bi.idx) \
            and seg.end_bi.idx - seg.zs_lst[-1].get_bi_in().idx > 2:
-            self.treat_bsp1(seg, BSP_CONF, is_target_bsp)
+            self.treat_bsp1(seg, bi_list, BSP_CONF, is_target_bsp)
         else:
             self.treat_pz_bsp1(seg, BSP_CONF, bi_list, is_target_bsp)
 
-    def treat_bsp1(self, seg: CSeg[LINE_TYPE], BSP_CONF: CPointConfig, is_target_bsp: bool):
+    def treat_bsp1(self, seg: CSeg[LINE_TYPE], bi_list: LINE_LIST_TYPE, BSP_CONF: CPointConfig, is_target_bsp: bool):
         last_zs = seg.zs_lst[-1]
         break_peak, _ = last_zs.out_bi_is_peak(seg.end_bi.idx)
         if BSP_CONF.bs1_peak and not break_peak:
             is_target_bsp = False
-        is_diver, divergence_rate = last_zs.is_divergence(BSP_CONF, out_bi=seg.end_bi)
+        multi_bi_divergence = self.config.GetBSConfig(seg.is_down()).multi_bi_divergence
+        if multi_bi_divergence:
+            begin_bi_idx = seg.start_bi.idx if len(seg.zs_lst) == 1 else seg.zs_lst[-2].get_bi_out().idx
+            in_bi_list = bi_list[begin_bi_idx:last_zs.get_bi_in().idx+1]
+            is_diver, divergence_rate = last_zs.is_divergence(BSP_CONF, in_bi=in_bi_list, out_bi=[seg.end_bi])
+        else:
+            is_diver, divergence_rate = last_zs.is_divergence(BSP_CONF, in_bi=[last_zs.get_bi_in()], out_bi=[seg.end_bi])
         if not is_diver:
             is_target_bsp = False
         feature_dict = {'divergence_rate': divergence_rate}
@@ -131,8 +137,17 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
             return
         if last_bi.is_up() and last_bi._high() < pre_bi._high():  # 创新高
             return
-        in_metric = pre_bi.cal_macd_metric(BSP_CONF.macd_algo, is_reverse=False)
-        out_metric = last_bi.cal_macd_metric(BSP_CONF.macd_algo, is_reverse=True)
+        multi_bi_divergence = self.config.GetBSConfig(seg.is_down()).multi_bi_divergence
+        if multi_bi_divergence and len(seg.zs_lst) >= 1:
+            last_zs = seg.zs_lst[-1]
+            in_begin_bi_idx = seg.start_bi.idx if len(seg.zs_lst) == 1 else seg.zs_lst[-2].get_bi_out().idx
+            virtual_in_bi = construct_virtual_bi(bi_list[in_begin_bi_idx:last_zs.get_bi_in().idx+1])  # type: ignore
+            virtual_bi_out = construct_virtual_bi(bi_list[last_zs.get_bi_out().idx:seg.end_bi.idx+1])  # type: ignore
+            in_metric = virtual_in_bi.cal_macd_metric(BSP_CONF.macd_algo, is_reverse=False)
+            out_metric = virtual_bi_out.cal_macd_metric(BSP_CONF.macd_algo, is_reverse=True)
+        else:
+            in_metric = pre_bi.cal_macd_metric(BSP_CONF.macd_algo, is_reverse=False)
+            out_metric = last_bi.cal_macd_metric(BSP_CONF.macd_algo, is_reverse=True)
         is_diver, divergence_rate = out_metric <= BSP_CONF.divergence_rate*in_metric, out_metric/(in_metric+1e-7)
         if not is_diver:
             is_target_bsp = False

@@ -105,6 +105,7 @@ class CChanConfig:
     def set_bsp_config(self, conf):
         para_dict = {
             "divergence_rate": float("inf"),
+            "multi_bi_divergence": False,
             "min_zs_cnt": 1,
             "bsp1_only_multibi_zs": True,
             "max_bs2_rate": 0.9999,
@@ -160,6 +161,8 @@ class CChanConfig:
 
 class ConfigWithCheck:
     def __init__(self, conf):
+        if conf.get('multi_bi_divergence', False) and conf.get('zs_algo', '') != 'normal':
+            raise CChanException("multi_bi_divergence only support zs_algo=normal", ErrCode.PARA_ERROR)
         self.conf = conf
 
     def get(self, k, default_value=None):

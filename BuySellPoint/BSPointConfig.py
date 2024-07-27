@@ -16,6 +16,7 @@ class CBSPointConfig:
 class CPointConfig:
     def __init__(self,
                  divergence_rate,
+                 multi_bi_divergence,
                  min_zs_cnt,
                  bsp1_only_multibi_zs,
                  max_bs2_rate,
@@ -30,6 +31,7 @@ class CPointConfig:
                  strict_bsp3,
                  ):
         self.divergence_rate = divergence_rate
+        self.multi_bi_divergence = multi_bi_divergence
         self.min_zs_cnt = min_zs_cnt
         self.bsp1_only_multibi_zs = bsp1_only_multibi_zs
         self.max_bs2_rate = max_bs2_rate

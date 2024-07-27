@@ -632,6 +632,7 @@ else:  # 绘制动画
     - od_skip_zero：自动跳过指标为 0 的指标，（即不把 0 当做指标），默认为 True
 - 买卖点相关：
     - divergence_rate：1类买卖点背驰比例，即离开中枢的笔的 MACD 指标相对于进入中枢的笔，默认为 0.9
+    - multi_bi_divergence: 多笔计算背驰模式（把相邻中枢之间多笔当成一个更大的笔来计算背驰）
     - min_zs_cnt：1类买卖点至少要经历几个中枢，默认为 1
     - bsp1_only_multibi_zs: `min_zs_cnt` 计算的中枢至少 3 笔（少于 3 笔是因为开启了 `one_bi_zs` 参数），默认为 True；
     - max_bs2_rate：2类买卖点那一笔回撤最大比例，默认为 0.9999

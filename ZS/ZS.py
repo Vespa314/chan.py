@@ -159,15 +159,14 @@ class CZS(Generic[LINE_TYPE]):
     def is_inside(self, seg: CSeg):
         return seg.start_bi.idx <= self.begin_bi.idx <= seg.end_bi.idx
 
-    def is_divergence(self, config: CPointConfig, out_bi=None):
-        if not self.end_bi_break(out_bi):  # 最后一笔必须突破中枢
+    def is_divergence(self, config: CPointConfig, in_bi: list, out_bi: list):
+        if not self.end_bi_break(out_bi[-1]):
             return False, None
-        in_metric = self.get_bi_in().cal_macd_metric(config.macd_algo, is_reverse=False)
-        if out_bi is None:
-            out_metric = self.get_bi_out().cal_macd_metric(config.macd_algo, is_reverse=True)
-        else:
-            out_metric = out_bi.cal_macd_metric(config.macd_algo, is_reverse=True)
 
+        in_bi_virtual = construct_virtual_bi(in_bi)
+        out_bi_virtual = construct_virtual_bi(out_bi)
+        in_metric = in_bi_virtual.cal_macd_metric(config.macd_algo, is_reverse=False)
+        out_metric = out_bi_virtual.cal_macd_metric(config.macd_algo, is_reverse=True)
         if config.divergence_rate > 100:  # 保送
             return True, out_metric/in_metric
         else:
@@ -232,3 +231,14 @@ class CZS(Generic[LINE_TYPE]):
     def set_bi_lst(self, bi_lst):
         self.__bi_lst = bi_lst
         self.clean_cache()
+
+
+def construct_virtual_bi(bi_lst: List[LINE_TYPE]) -> LINE_TYPE:
+    if len(bi_lst) == 1:
+        return bi_lst[0]
+    if isinstance(bi_lst[0], CBi):
+        assert isinstance(bi_lst[-1], CBi)
+        return CBi(bi_lst[0].begin_klc, bi_lst[-1].end_klc, idx=-1, is_sure=False)
+    assert isinstance(bi_lst[0], CSeg)
+    assert isinstance(bi_lst[-1], CSeg)
+    return CSeg(idx=-1, start_bi=bi_lst[0].start_bi, end_bi=bi_lst[-1].end_bi, is_sure=False)
