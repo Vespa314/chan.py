@@ -58,6 +58,9 @@ class CKLine_List:
             klus_new = []
             for klu in klc.lst:
                 new_klu = copy.deepcopy(klu, memo)
+                memo[id(klu)] = new_klu
+                if klu.pre is not None:
+                    new_klu.set_pre_klu(memo[id(klu.pre)])
                 klus_new.append(new_klu)
 
             new_klc = CKLine(klus_new[0], idx=klc.idx, _dir=klc.dir)
