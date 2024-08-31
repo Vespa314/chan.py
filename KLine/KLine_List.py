@@ -136,15 +136,35 @@ class CKLine_List:
             yield from klc.lst
 
 
-def cal_seg(bi_list, seg_list):
+def cal_seg(bi_list, seg_list: CSegListComm):
     seg_list.update(bi_list)
-    # 计算每一笔属于哪个线段
-    bi_seg_idx_dict = {}
-    for seg_idx, seg in enumerate(seg_list):
-        for i in range(seg.start_bi.idx, seg.end_bi.idx+1):
-            bi_seg_idx_dict[i] = seg_idx
-    for bi in bi_list:
-        bi.set_seg_idx(bi_seg_idx_dict.get(bi.idx, len(seg_list)))  # 找不到的应该都是最后一个线段的
+
+    sure_seg_cnt = 0
+    if len(seg_list) == 0:
+        for bi in bi_list:
+            bi.set_seg_idx(0)
+        return
+    begin_seg: CSeg = seg_list[-1]
+    for seg in seg_list[::-1]:
+        if seg.is_sure:
+            sure_seg_cnt += 1
+        else:
+            sure_seg_cnt = 0
+        begin_seg = seg
+        if sure_seg_cnt > 2:
+            break
+
+    cur_seg: CSeg = seg_list[-1]
+    for bi in bi_list[::-1]:
+        if bi.seg_idx is not None and bi.idx < begin_seg.start_bi.idx:
+            break
+        if bi.idx > cur_seg.end_bi.idx:
+            bi.set_seg_idx(cur_seg.idx+1)
+            continue
+        if bi.idx < cur_seg.start_bi.idx:
+            assert cur_seg.pre
+            cur_seg = cur_seg.pre
+        bi.set_seg_idx(cur_seg.idx)
 
 
 def update_zs_in_seg(bi_list, seg_list, zs_list):
