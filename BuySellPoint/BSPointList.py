@@ -144,6 +144,9 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
     def cal_seg_bs2point(self, seg_list: CSegListComm[LINE_TYPE], bi_list: LINE_LIST_TYPE):
         bsp1_bi_idx_dict = {bsp.bi.idx: bsp for bsp in self.bsp1_lst}
         for seg in seg_list:
+            config = self.config.GetBSConfig(seg.is_down())
+            if BSP_TYPE.T2 not in config.target_types and BSP_TYPE.T2S not in config.target_types:
+                continue
             self.treat_bsp2(seg, bsp1_bi_idx_dict, seg_list, bi_list)
 
     def treat_bsp2(self, seg: CSeg, bsp1_bi_idx_dict, seg_list: CSegListComm[LINE_TYPE], bi_list: LINE_LIST_TYPE):
@@ -173,6 +176,8 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         if bsp2_flag:
             self.add_bs(bs_type=BSP_TYPE.T2, bi=bsp2_bi, relate_bsp1=real_bsp1)  # type: ignore
         elif BSP_CONF.bsp2s_follow_2:
+            return
+        if BSP_TYPE.T2S not in self.config.GetBSConfig(seg.is_down()).target_types:
             return
         self.treat_bsp2s(seg_list, bi_list, bsp2_bi, break_bi, real_bsp1, BSP_CONF)  # type: ignore
 
@@ -215,6 +220,9 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         bsp1_bi_idx_dict = {bsp.bi.idx: bsp for bsp in self.bsp1_lst}
         for seg in seg_list:
             if not self.seg_need_cal(seg):
+                continue
+            config = self.config.GetBSConfig(seg.is_down())
+            if BSP_TYPE.T3A not in config.target_types and BSP_TYPE.T3B not in config.target_types:
                 continue
             if len(seg_list) > 1:
                 bsp1_bi = seg.end_bi
