@@ -41,6 +41,8 @@ class CKLine_Unit:
         self.trend: Dict[TREND_TYPE, Dict[int, float]] = {}  # int -> float
 
         self.limit_flag = 0  # 0:普通 -1:跌停，1:涨停
+        self.pre: Optional[CKLine_Unit] = None
+        self.next: Optional[CKLine_Unit] = None
 
         self.set_idx(-1)
 
@@ -144,3 +146,9 @@ class CKLine_Unit:
             if sub_klu.include_sub_lv_time(sub_lv_t):
                 return True
         return False
+
+    def set_pre_klu(self, pre_klu: Optional['CKLine_Unit']):
+        if pre_klu is None:
+            return
+        pre_klu.next = self
+        self.pre = pre_klu

@@ -232,6 +232,7 @@ class CChan:
         # K线时间天级别以下描述的是结束时间，如60M线，每天第一根是10点30的
         # 天以上是当天日期
         cur_lv = self.lv_list[lv_idx]
+        pre_klu = None
         while True:
             if self.klu_cache[lv_idx]:
                 kline_unit = self.klu_cache[lv_idx]
@@ -250,6 +251,8 @@ class CChan:
             if parent_klu and kline_unit.time > parent_klu.time:
                 self.klu_cache[lv_idx] = kline_unit
                 break
+            kline_unit.set_pre_klu(pre_klu)
+            pre_klu = kline_unit
             self.add_new_kl(cur_lv, kline_unit)
             if parent_klu:
                 self.set_klu_parent_relation(parent_klu, kline_unit, cur_lv, lv_idx)
