@@ -139,6 +139,8 @@ class CChan:
                 if lv_idx == 0:
                     raise CChanException(f"最高级别{lv}没有传入数据", ErrCode.NO_DATA)
                 continue
+            for klu in inp[lv]:
+                klu.kl_type = lv
             assert isinstance(inp[lv], list)
             self.add_lv_iter(lv, iter(inp[lv]))
         for _ in self.load_iterator(lv_idx=0, parent_klu=None, step=False):
