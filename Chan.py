@@ -128,7 +128,6 @@ class CChan:
             yield self
 
     def trigger_load(self, inp):
-        # 在已有pickle基础上继续计算新的
         # {type: [klu, ...]}
         if not hasattr(self, 'klu_cache'):
             self.klu_cache: List[Optional[CKLine_Unit]] = [None for _ in self.lv_list]
@@ -234,7 +233,7 @@ class CChan:
         # K线时间天级别以下描述的是结束时间，如60M线，每天第一根是10点30的
         # 天以上是当天日期
         cur_lv = self.lv_list[lv_idx]
-        pre_klu = None
+        pre_klu = self[lv_idx][-1][-1] if len(self[lv_idx]) > 0 and len(self[lv_idx][-1]) > 0 else None
         while True:
             if self.klu_cache[lv_idx]:
                 kline_unit = self.klu_cache[lv_idx]
