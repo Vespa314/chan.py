@@ -736,10 +736,10 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 - plot_boll：画布林线，默认为 False
 - plot_mean：画均线，默认为 False
 - plot_tradeinfo：绘制配置的额外信息（在另一根 y 轴上），默认为 False
-- ploy_marker: 添加自定义文本标记
-- ploy_demark: 绘制Demark指标
-- ploy_rsi: 绘制rsi指标
-- ploy_kdj: 绘制kdj指标
+- plot_marker: 添加自定义文本标记
+- plot_demark: 绘制Demark指标
+- plot_rsi: 绘制rsi指标
+- plot_kdj: 绘制kdj指标
 
 其中这个参数有几种写法：
 - 字典：比如`{"plot_bi": True, "plot_seg": True}`
