@@ -805,7 +805,7 @@ def getTextBox(ax: Axes, txt_instance):
 
 
 def plot_bi_element(bi: CBi_meta, ax: Axes, color: str):
-    if bi.id_sure:
+    if bi.is_sure:
         ax.plot([bi.begin_x, bi.end_x], [bi.begin_y, bi.end_y], color=color)
     else:
         ax.plot([bi.begin_x, bi.end_x], [bi.begin_y, bi.end_y], linestyle='dashed', color=color)

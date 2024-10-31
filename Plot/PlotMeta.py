@@ -31,7 +31,7 @@ class CBi_meta:
         self.end_x = bi.get_end_klu().idx
         self.begin_y = bi.get_begin_val()
         self.end_y = bi.get_end_val()
-        self.id_sure = bi.is_sure
+        self.is_sure = bi.is_sure
 
 
 class CSeg_meta:
