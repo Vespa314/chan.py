@@ -215,9 +215,14 @@ class CBi:
     @make_cache
     def Cal_MACD_area(self):
         _s = 1e-7
+        begin_klu = self.get_begin_klu()
+        end_klu = self.get_end_klu()
         for klc in self.klc_lst:
             for klu in klc.lst:
-                _s += abs(klu.macd.macd)
+                if klu.idx < begin_klu.idx or klu.idx > end_klu.idx:
+                    continue
+                if (self.is_down() and klu.macd.macd < 0) or (self.is_up() and klu.macd.macd > 0):
+                    _s += abs(klu.macd.macd)
         return _s
 
     @make_cache
