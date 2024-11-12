@@ -105,7 +105,7 @@ class CKLine_Combiner(Generic[T]):
                     self.__low = min([self.low, combine_item.low])
             else:
                 raise CChanException(f"KLINE_DIR = {self.dir} err!!! must be {KLINE_DIR.UP}/{KLINE_DIR.DOWN}", ErrCode.COMBINER_ERR)
-            self._time_end = combine_item.time_end
+            self.__time_end = combine_item.time_end
             self.clean_cache()
         # 返回UP/DOWN/COMBINE给KL_LIST，设置下一个的方向
         return _dir
