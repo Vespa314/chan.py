@@ -1,3 +1,5 @@
+from typing import Self
+
 from Bi.Bi import CBi
 from Combiner.KLine_Combiner import CKLine_Combiner
 from Common.CEnum import BI_DIR, FX_TYPE
@@ -8,7 +10,7 @@ class CEigen(CKLine_Combiner[CBi]):
         super(CEigen, self).__init__(bi, _dir)
         self.gap = False
 
-    def update_fx(self, _pre: 'CEigen', _next: 'CEigen', exclude_included=False, allow_top_equal=None):
+    def update_fx(self, _pre: Self, _next: Self, exclude_included=False, allow_top_equal=None):
         super(CEigen, self).update_fx(_pre, _next, exclude_included, allow_top_equal)
         if (self.fx == FX_TYPE.TOP and _pre.high < self.low) or \
            (self.fx == FX_TYPE.BOTTOM and _pre.low > self.high):
