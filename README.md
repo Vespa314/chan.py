@@ -741,6 +741,7 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 - plot_eigen：画特征序列（一般调试用），默认为 False
 - plot_zs：画中枢，默认为 False
 - plot_segseg：画线段分段，默认为 False
+- plot_segeigen：画线段分段的特征序列（一般调试用），默认为 False
 - plot_bsp：画理论买卖点，默认为 False
 - plot_cbsp：画自定义策略买卖点位置，默认为 False
 - plot_segzs：画线段中枢，默认为 False
@@ -834,7 +835,7 @@ CPlotDriver 和 CAnimateDriver 参数，用于控制绘制哪些元素
 
 <img src="./Image/chan.py_image_11.png" />
 
-- eigen:  特征序列（`CChanConfig` 中 `seg_algo` 设置为 `chan` 时有效）
+- eigen/segeigen:  特征序列（`CChanConfig` 中 `seg_algo` 设置为 `chan` 时有效）
     - color_top: 'r'  顶分型颜色
     - color_bottom: 'b'  底分型颜色
     - aplha: 0.5  透明度

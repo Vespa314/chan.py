@@ -123,6 +123,7 @@ class CChanPlotMeta:
         self.klu_len = sum(len(klc.klu_list) for klc in self.klc_list)
 
         self.bi_list = [CBi_meta(bi) for bi in kl_list.bi_list]
+
         self.seg_list: List[CSeg_meta] = []
         self.eigenfx_lst: List[CEigenFX_meta] = []
         for seg in kl_list.seg_list:
@@ -130,7 +131,13 @@ class CChanPlotMeta:
             if seg.eigen_fx:
                 self.eigenfx_lst.append(CEigenFX_meta(seg.eigen_fx))
 
-        self.segseg_list: List[CSeg_meta] = [CSeg_meta(segseg) for segseg in kl_list.segseg_list]
+        self.seg_eigenfx_lst: List[CEigenFX_meta] = []
+        self.segseg_list: List[CSeg_meta] = []
+        for segseg in kl_list.segseg_list:
+            self.segseg_list.append(CSeg_meta(segseg))
+            if segseg.eigen_fx:
+                self.seg_eigenfx_lst.append(CEigenFX_meta(segseg.eigen_fx))
+
         self.zs_lst: List[CZS_meta] = [CZS_meta(zs) for zs in kl_list.zs_list]
         self.segzs_lst: List[CZS_meta] = [CZS_meta(segzs) for segzs in kl_list.segzs_list]
 
