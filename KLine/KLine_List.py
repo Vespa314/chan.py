@@ -145,7 +145,9 @@ def cal_seg(bi_list, seg_list: CSegListComm):
             bi.set_seg_idx(0)
         return
     begin_seg: CSeg = seg_list[-1]
-    for seg in seg_list[::-1]:
+    _seg_idx = len(seg_list) - 1
+    while _seg_idx >= 0:
+        seg = seg_list[_seg_idx]
         if seg.is_sure:
             sure_seg_cnt += 1
         else:
@@ -153,29 +155,39 @@ def cal_seg(bi_list, seg_list: CSegListComm):
         begin_seg = seg
         if sure_seg_cnt > 2:
             break
+        _seg_idx -= 1
 
     cur_seg: CSeg = seg_list[-1]
-    for bi in bi_list[::-1]:
+
+    bi_idx = len(bi_list) - 1
+    while bi_idx >= 0:
+        bi = bi_list[bi_idx]
         if bi.seg_idx is not None and bi.idx < begin_seg.start_bi.idx:
             break
         if bi.idx > cur_seg.end_bi.idx:
             bi.set_seg_idx(cur_seg.idx+1)
+            bi_idx -= 1
             continue
         if bi.idx < cur_seg.start_bi.idx:
             assert cur_seg.pre
             cur_seg = cur_seg.pre
         bi.set_seg_idx(cur_seg.idx)
+        bi_idx -= 1
 
 
 def update_zs_in_seg(bi_list, seg_list, zs_list):
     sure_seg_cnt = 0
-    for seg in seg_list[::-1]:
+    seg_idx = len(seg_list) - 1
+    while seg_idx >= 0:
+        seg = seg_list[seg_idx]
         if seg.ele_inside_is_sure:
             break
         if seg.is_sure:
             sure_seg_cnt += 1
         seg.clear_zs_lst()
-        for zs in zs_list[::-1]:
+        _zs_idx = len(zs_list) - 1
+        while _zs_idx >= 0:
+            zs = zs_list[_zs_idx]
             if zs.end.idx < seg.start_bi.get_begin_klu().idx:
                 break
             if zs.is_inside(seg):
@@ -185,7 +197,9 @@ def update_zs_in_seg(bi_list, seg_list, zs_list):
             if zs.end_bi.idx+1 < len(bi_list):
                 zs.set_bi_out(bi_list[zs.end_bi.idx+1])
             zs.set_bi_lst(list(bi_list[zs.begin_bi.idx:zs.end_bi.idx+1]))
+            _zs_idx -= 1
 
         if sure_seg_cnt > 2:
             if not seg.ele_inside_is_sure:
                 seg.ele_inside_is_sure = True
+        seg_idx -= 1

@@ -244,7 +244,7 @@ class CChan:
                     kline_unit = self.get_next_lv_klu(lv_idx)
                     self.try_set_klu_idx(lv_idx, kline_unit)
                     if not kline_unit.time > self.klu_last_t[lv_idx]:
-                        raise CChanException(f"kline time err, cur={kline_unit.time}, last={self.klu_last_t[lv_idx]}", ErrCode.KL_NOT_MONOTONOUS)
+                        raise CChanException(f"kline time err, cur={kline_unit.time}, last={self.klu_last_t[lv_idx]}, or refer to quick_guide.md, try set auto=False in the CTime returned by your data source class", ErrCode.KL_NOT_MONOTONOUS)
                     self.klu_last_t[lv_idx] = kline_unit.time
                 except StopIteration:
                     break
@@ -292,6 +292,6 @@ class CChan:
 
     def get_bsp(self, idx=None) -> List[CBS_Point]:
         if idx is not None:
-            return sorted(self[idx].bs_point_lst.lst, key=lambda x: x.klu.time)
+            return self[idx].bs_point_lst.getSortedBspList()
         assert len(self.lv_list) == 1
-        return sorted(self[0].bs_point_lst.lst, key=lambda x: x.klu.time)
+        return self[0].bs_point_lst.getSortedBspList()
