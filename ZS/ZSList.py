@@ -18,13 +18,19 @@ class CZSList:
         self.free_item_lst = []
 
         self.last_sure_pos = -1
+        self.last_seg_idx = 0
 
     def update_last_pos(self, seg_list: CSegListComm):
         self.last_sure_pos = -1
-        for seg in seg_list[::-1]:
+        self.last_seg_idx = 0
+        _seg_idx = len(seg_list) - 1
+        while _seg_idx >= 0:
+            seg = seg_list[_seg_idx]
             if seg.is_sure:
                 self.last_sure_pos = seg.start_bi.idx
+                self.last_seg_idx = seg.idx
                 return
+            _seg_idx -= 1
 
     def seg_need_cal(self, seg: CSeg):
         return seg.start_bi.idx >= self.last_sure_pos
@@ -86,7 +92,7 @@ class CZSList:
         while self.zs_lst and self.zs_lst[-1].begin_bi.idx >= self.last_sure_pos:
             self.zs_lst.pop()
         if self.config.zs_algo == "normal":
-            for seg in seg_lst:
+            for seg in seg_lst[self.last_seg_idx:]:
                 if not self.seg_need_cal(seg):
                     continue
                 self.clear_free_lst()
@@ -106,7 +112,7 @@ class CZSList:
         elif self.config.zs_algo == "auto":
             sure_seg_appear = False
             exist_sure_seg = seg_lst.exist_sure_seg()
-            for seg in seg_lst:
+            for seg in seg_lst[self.last_seg_idx:]:
                 if seg.is_sure:
                     sure_seg_appear = True
                 if not self.seg_need_cal(seg):

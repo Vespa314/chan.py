@@ -141,7 +141,13 @@ class CSeg(Generic[LINE_TYPE]):
         return next((zs for zs in self.zs_lst if not zs.is_one_bi_zs()), None)
 
     def get_final_multi_bi_zs(self):
-        return next((zs for zs in self.zs_lst[::-1] if not zs.is_one_bi_zs()), None)
+        zs_idx = len(self.zs_lst) - 1
+        while zs_idx >= 0:
+            zs = self.zs_lst[zs_idx]
+            if not zs.is_one_bi_zs():
+                return zs
+            zs_idx -= 1
+        return None
 
     def get_multi_bi_zs_cnt(self):
         return sum(not zs.is_one_bi_zs() for zs in self.zs_lst)
