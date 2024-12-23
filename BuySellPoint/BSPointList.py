@@ -333,7 +333,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
             break
 
     def getSortedBspList(self) -> List[CBS_Point[LINE_TYPE]]:
-        return sorted(self.bsp_iter(), key=lambda bsp: bsp.bi.idx, reverse=True)
+        return sorted(self.bsp_iter(), key=lambda bsp: bsp.bi.idx)
 
 
 def bsp2s_break_bsp1(bsp2s_bi: LINE_TYPE, bsp2_break_bi: LINE_TYPE) -> bool:
