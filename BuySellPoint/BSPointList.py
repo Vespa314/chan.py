@@ -1,5 +1,4 @@
-from collections import defaultdict
-from typing import Dict, Generic, Iterable, List, Optional, TypeVar
+from typing import Dict, Generic, Iterable, List, Optional, Tuple, TypeVar
 
 from Bi.Bi import CBi
 from Bi.BiList import CBiList
@@ -18,7 +17,7 @@ LINE_LIST_TYPE = TypeVar('LINE_LIST_TYPE', CBiList, CSegListComm[CBi])
 
 class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
     def __init__(self, bs_point_config: CBSPointConfig):
-        self.bsp_store_dict: Dict[BSP_TYPE, List[CBS_Point[LINE_TYPE]]] = defaultdict(list)
+        self.bsp_store_dict: Dict[BSP_TYPE, Tuple[List[CBS_Point[LINE_TYPE]], List[CBS_Point[LINE_TYPE]]]] = {}
         self.bsp_store_flat_dict: Dict[int, CBS_Point[LINE_TYPE]] = {}
 
         self.bsp1_list: List[CBS_Point[LINE_TYPE]] = []
@@ -29,9 +28,11 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         self.last_sure_seg_idx = 0
 
     def store_add_bsp(self, bsp_type: BSP_TYPE, bsp: CBS_Point[LINE_TYPE]):
-        if len(self.bsp_store_dict[bsp_type]) > 0:
-            assert self.bsp_store_dict[bsp_type][-1].bi.idx < bsp.bi.idx, f"{bsp_type}, {bsp.is_buy} {self.bsp_store_dict[bsp_type][-1].bi.idx} {bsp.bi.idx}"
-        self.bsp_store_dict[bsp_type].append(bsp)
+        if bsp_type not in self.bsp_store_dict:
+            self.bsp_store_dict[bsp_type] = ([], [])
+        if len(self.bsp_store_dict[bsp_type][bsp.is_buy]) > 0:
+            assert self.bsp_store_dict[bsp_type][bsp.is_buy][-1].bi.idx < bsp.bi.idx, f"{bsp_type}, {bsp.is_buy} {self.bsp_store_dict[bsp_type][bsp.is_buy][-1].bi.idx} {bsp.bi.idx}"
+        self.bsp_store_dict[bsp_type][bsp.is_buy].append(bsp)
         self.bsp_store_flat_dict[bsp.bi.idx] = bsp
 
     def add_bsp1(self, bsp: CBS_Point[LINE_TYPE]):
@@ -42,11 +43,12 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
 
     def clear_store_end(self):
         for bsp_list in self.bsp_store_dict.values():
-            while len(bsp_list) > 0:
-                if bsp_list[-1].bi.get_end_klu().idx <= self.last_sure_pos:
-                    break
-                del self.bsp_store_flat_dict[bsp_list[-1].bi.idx]
-                bsp_list.pop()
+            for is_buy in [True, False]:
+                while len(bsp_list[is_buy]) > 0:
+                    if bsp_list[is_buy][-1].bi.get_end_klu().idx <= self.last_sure_pos:
+                        break
+                    del self.bsp_store_flat_dict[bsp_list[is_buy][-1].bi.idx]
+                    bsp_list[is_buy].pop()
 
     def clear_bsp1_end(self):
         while len(self.bsp1_list) > 0:
@@ -57,7 +59,8 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
 
     def bsp_iter(self) -> Iterable[CBS_Point[LINE_TYPE]]:
         for bsp_list in self.bsp_store_dict.values():
-            yield from bsp_list
+            yield from bsp_list[True]
+            yield from bsp_list[False]
 
     def __len__(self):
         return len(self.bsp_store_flat_dict)
@@ -217,8 +220,6 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         _low, _high = None, None
         while bsp2_bi.idx + bias < len(bi_list):  # 计算类二
             bsp2s_bi = bi_list[bsp2_bi.idx + bias]
-            if (bsp2s_bi.parent_seg.idx if bsp2s_bi.parent_seg else None) != (bsp2_bi.parent_seg.idx if bsp2_bi.parent_seg else None):
-                break
             assert bsp2s_bi.seg_idx is not None and bsp2_bi.seg_idx is not None
             if BSP_CONF.max_bsp2s_lv is not None and bias/2 > BSP_CONF.max_bsp2s_lv:
                 break

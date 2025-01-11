@@ -47,7 +47,7 @@ class CChanConfig:
         self.max_kl_inconsistent_cnt = conf.get("max_kl_inconsistent_cnt", 5)
         self.auto_skip_illegal_sub_lv = conf.get("auto_skip_illegal_sub_lv", False)
         self.print_warning = conf.get("print_warning", True)
-        self.print_err_time = conf.get("print_err_time", False)
+        self.print_err_time = conf.get("print_err_time", True)
 
         self.mean_metrics: List[int] = conf.get("mean_metrics", [])
         self.trend_metrics: List[int] = conf.get("trend_metrics", [])
