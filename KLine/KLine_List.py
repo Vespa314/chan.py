@@ -51,6 +51,9 @@ class CKLine_List:
 
         self.step_calculation = self.need_cal_step_by_step()
 
+        self.last_sure_seg_start_bi_idx = -1
+        self.last_sure_segseg_start_bi_idx = -1
+
     def __deepcopy__(self, memo):
         new_obj = CKLine_List(self.kl_type, self.config)
         memo[id(self)] = new_obj
@@ -101,11 +104,11 @@ class CKLine_List:
     def cal_seg_and_zs(self):
         if not self.step_calculation:
             self.bi_list.try_add_virtual_bi(self.lst[-1])
-        cal_seg(self.bi_list, self.seg_list)
+        self.last_sure_seg_start_bi_idx = cal_seg(self.bi_list, self.seg_list, self.last_sure_seg_start_bi_idx)
         self.zs_list.cal_bi_zs(self.bi_list, self.seg_list)
         update_zs_in_seg(self.bi_list, self.seg_list, self.zs_list)  # 计算seg的zs_lst，以及中枢的bi_in, bi_out
 
-        cal_seg(self.seg_list, self.segseg_list)
+        self.last_sure_segseg_start_bi_idx = cal_seg(self.seg_list, self.segseg_list, self.last_sure_segseg_start_bi_idx)
         self.segzs_list.cal_bi_zs(self.seg_list, self.segseg_list)
         update_zs_in_seg(self.seg_list, self.segseg_list, self.segzs_list)  # 计算segseg的zs_lst，以及中枢的bi_in, bi_out
 
@@ -136,33 +139,20 @@ class CKLine_List:
             yield from klc.lst
 
 
-def cal_seg(bi_list, seg_list: CSegListComm):
+def cal_seg(bi_list, seg_list: CSegListComm, last_sure_seg_start_bi_idx):
     seg_list.update(bi_list)
 
-    sure_seg_cnt = 0
     if len(seg_list) == 0:
         for bi in bi_list:
             bi.set_seg_idx(0)
-        return
-    begin_seg: CSeg = seg_list[-1]
-    _seg_idx = len(seg_list) - 1
-    while _seg_idx >= 0:
-        seg = seg_list[_seg_idx]
-        if seg.is_sure:
-            sure_seg_cnt += 1
-        else:
-            sure_seg_cnt = 0
-        begin_seg = seg
-        if sure_seg_cnt > 2:
-            break
-        _seg_idx -= 1
+        return -1
 
     cur_seg: CSeg = seg_list[-1]
 
     bi_idx = len(bi_list) - 1
     while bi_idx >= 0:
         bi = bi_list[bi_idx]
-        if bi.seg_idx is not None and bi.idx < begin_seg.start_bi.idx:
+        if bi.seg_idx is not None and bi.idx < last_sure_seg_start_bi_idx:
             break
         if bi.idx > cur_seg.end_bi.idx:
             bi.set_seg_idx(cur_seg.idx+1)
@@ -173,6 +163,15 @@ def cal_seg(bi_list, seg_list: CSegListComm):
             cur_seg = cur_seg.pre
         bi.set_seg_idx(cur_seg.idx)
         bi_idx -= 1
+
+    last_sure_seg_start_bi_idx = -1
+    seg = seg_list[-1]
+    while seg:
+        if seg.is_sure:
+            last_sure_seg_start_bi_idx = seg.start_bi.idx
+            break
+        seg = seg.pre
+    return last_sure_seg_start_bi_idx
 
 
 def update_zs_in_seg(bi_list, seg_list, zs_list):
