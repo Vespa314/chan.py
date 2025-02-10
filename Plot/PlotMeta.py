@@ -49,6 +49,7 @@ class CSeg_meta:
             self.end_y = seg.end_bi.end_bi.get_end_val()
         self.dir = seg.dir
         self.is_sure = seg.is_sure
+        self.idx = seg.idx
 
         self.tl = {}
         if seg.support_trend_line and seg.support_trend_line.line:
