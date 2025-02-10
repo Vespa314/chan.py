@@ -392,6 +392,9 @@ class CPlotDriver:
         plot_trendline=False,
         trendline_color='r',
         trendline_width=3,
+        show_num=False,
+        num_fontsize=25,
+        num_color="blue",
     ):
         x_begin = ax.get_xlim()[0]
 
@@ -411,6 +414,8 @@ class CPlotDriver:
                 if seg_meta.tl.get('resistance'):
                     tl_meta = seg_meta.format_tl(seg_meta.tl['resistance'])
                     ax.plot([tl_meta[0], tl_meta[2]], [tl_meta[1], tl_meta[3]], color=trendline_color, linewidth=trendline_width)
+            if show_num and seg_meta.begin_x >= x_begin:
+                ax.text((seg_meta.begin_x+seg_meta.end_x)/2, (seg_meta.begin_y+seg_meta.end_y)/2, f'{seg_meta.idx}', fontsize=num_fontsize, color=num_color)
         if sub_lv_cnt is not None and len(self.lv_lst) > 1 and lv != self.lv_lst[-1]:
             if sub_lv_cnt >= len(meta.seg_list):
                 return
@@ -429,6 +434,9 @@ class CPlotDriver:
         disp_end=False,
         end_color='brown',
         end_fontsize=15,
+        show_num=False,
+        num_fontsize=30,
+        num_color="blue",
     ):
         x_begin = ax.get_xlim()[0]
 
@@ -457,6 +465,8 @@ class CPlotDriver:
                     color=end_color,
                     verticalalignment="top" if seg_meta.dir == BI_DIR.DOWN else "bottom",
                     horizontalalignment='center')
+            if show_num and seg_meta.begin_x >= x_begin:
+                ax.text((seg_meta.begin_x+seg_meta.end_x)/2, (seg_meta.begin_y+seg_meta.end_y)/2, f'{seg_meta.idx}', fontsize=num_fontsize, color=num_color)
 
     def plot_single_eigen(self, eigenfx_meta, ax, color_top, color_bottom, aplha, only_peak):
         x_begin = ax.get_xlim()[0]
