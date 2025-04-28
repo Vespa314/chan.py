@@ -166,10 +166,10 @@ class CKLine_Combiner(Generic[T]):
     def __iter__(self) -> Iterable[T]:
         yield from self.lst
 
-    def set_pre(self, _pre: Self):
+    def set_pre(self, _pre: Self | None):
         self.__pre = _pre
         self.clean_cache()
 
-    def set_next(self, _next: Self):
+    def set_next(self, _next: Self | None):
         self.__next = _next
         self.clean_cache()
