@@ -1,5 +1,7 @@
 import copy
 import datetime
+import pickle
+import sys
 from collections import defaultdict
 from typing import Dict, Iterable, List, Optional, Union
 
@@ -295,3 +297,67 @@ class CChan:
             return self[idx].bs_point_lst.getSortedBspList()
         assert len(self.lv_list) == 1
         return self[0].bs_point_lst.getSortedBspList()
+
+    def chan_dump_pickle(self, file_path):
+        _pre_limit = sys.getrecursionlimit()
+        sys.setrecursionlimit(0x100000)
+        for kl_list in self.kl_datas.values():
+            for klc in kl_list.lst:
+                for klu in klc.lst:
+                    klu.pre = None
+                    klu.next = None
+                klc.set_pre(None)
+                klc.set_next(None)
+            for bi in kl_list.bi_list:
+                bi.pre = None
+                bi.next = None
+            for seg in kl_list.seg_list:
+                seg.pre = None
+                seg.next = None
+
+            for segseg in kl_list.segseg_list:
+                segseg.pre = None
+                segseg.next = None
+
+        with open(file_path, "wb") as f:
+            pickle.dump(self, f)
+
+        sys.setrecursionlimit(_pre_limit)
+
+    @staticmethod
+    def chan_load_pickle(file_path) -> 'CChan':
+        with open(file_path, "rb") as f:
+            chan = pickle.load(f)
+        last_klu = None
+        last_klc = None
+        last_bi = None
+        last_seg = None
+        last_segseg = None
+        for kl_list in chan.kl_datas.values():
+            for klc in kl_list.lst:
+                for klu in klc.lst:
+                    klu.pre = last_klu
+                    if last_klu:
+                        last_klu.next = klu
+                    last_klu = klu
+                klc.set_pre(last_klc)
+                if last_klc:
+                    last_klc.set_next(klc)
+                last_klc = klc
+            for bi in kl_list.bi_list:
+                bi.pre = last_bi
+                if last_bi:
+                    last_bi.next = bi
+                last_bi = bi
+            for seg in kl_list.seg_list:
+                seg.pre = last_seg
+                if last_seg:
+                    last_seg.next = seg
+                last_seg = seg
+            for segseg in kl_list.segseg_list:
+                segseg.pre = last_segseg
+                if last_segseg:
+                    last_segseg.next = segseg
+                last_segseg = segseg
+
+        return chan

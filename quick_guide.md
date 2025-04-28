@@ -197,6 +197,13 @@ README.md文件主要为个人完整版撰写，对于开源版，主要查考�
 sys.setrecursionlimit(0x100000)
 ```
 
+对于pickle_dump，可以使用框架提供的：
+```python
+chan.chan_dump_pickle("chan.pkl")
+
+chan_new = CChan.chan_load_pickle("chan.pkl")
+```
+
 ### 报k线时间相关错误
 常见报错类似：`kline time err, cur=2024/01/01 00:05, last=2024/01/01`
 
