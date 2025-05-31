@@ -61,10 +61,10 @@ if __name__ == "__main__":
     for chan_snapshot in chan.step_load():
         # 策略逻辑要对齐demo5
         last_klu = chan_snapshot[0][-1][-1]
-        bsp_list = chan_snapshot.get_bsp()
+        bsp_list = chan_snapshot.get_latest_bsp()
         if not bsp_list:
             continue
-        last_bsp = bsp_list[-1]
+        last_bsp = bsp_list[0]
 
         cur_lv_chan = chan_snapshot[0]
         if last_bsp.klu.idx in treated_bsp_idx or cur_lv_chan[-2].idx != last_bsp.klu.klc.idx:

@@ -92,10 +92,10 @@ if __name__ == "__main__":
     # 跑策略，保存买卖点的特征
     for chan_snapshot in chan.step_load():
         last_klu = chan_snapshot[0][-1][-1]
-        bsp_list = chan_snapshot.get_bsp()
+        bsp_list = chan_snapshot.get_latest_bsp()
         if not bsp_list:
             continue
-        last_bsp = bsp_list[-1]
+        last_bsp = bsp_list[0]
 
         cur_lv_chan = chan_snapshot[0]
         if last_bsp.klu.idx not in bsp_dict and cur_lv_chan[-2].idx == last_bsp.klu.klc.idx:
@@ -109,7 +109,7 @@ if __name__ == "__main__":
             print(last_bsp.klu.time, last_bsp.is_buy)
 
     # 生成libsvm样本特征
-    bsp_academy = [bsp.klu.idx for bsp in chan.get_bsp()]
+    bsp_academy = [bsp.klu.idx for bsp in chan.get_latest_bsp(number=0)]
     feature_meta = {}  # 特征meta
     cur_feature_idx = 0
     plot_marker = {}
