@@ -32,10 +32,10 @@ if __name__ == "__main__":
     is_hold = False
     last_buy_price = None
     for chan_snapshot in chan.step_load():  # 每增加一根K线，返回当前静态精算结果
-        bsp_list = chan_snapshot.get_bsp()  # 获取买卖点列表
+        bsp_list = chan_snapshot.get_latest_bsp()  # 获取买卖点列表
         if not bsp_list:  # 为空
             continue
-        last_bsp = bsp_list[-1]  # 最后一个买卖点
+        last_bsp = bsp_list[0]  # 最后一个买卖点
         if BSP_TYPE.T1 not in last_bsp.type and BSP_TYPE.T1P not in last_bsp.type:  # 假如只做1类买卖点
             continue
         cur_lv_chan = chan_snapshot[0]
