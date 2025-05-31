@@ -37,10 +37,10 @@ if __name__ == "__main__":
     last_buy_price = None
     for klu in data_src.get_kl_data():  # 获取单根K线
         chan.trigger_load({KL_TYPE.K_DAY: [klu]})  # 喂给CChan新增k线
-        bsp_list = chan.get_bsp()
+        bsp_list = chan.get_latest_bsp()
         if not bsp_list:
             continue
-        last_bsp = bsp_list[-1]
+        last_bsp = bsp_list[0]
         if BSP_TYPE.T1 not in last_bsp.type and BSP_TYPE.T1P not in last_bsp.type:
             continue
 

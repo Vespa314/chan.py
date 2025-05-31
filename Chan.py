@@ -298,6 +298,12 @@ class CChan:
         assert len(self.lv_list) == 1
         return self[0].bs_point_lst.getSortedBspList()
 
+    def get_latest_bsp(self, idx=None, number=1) -> List[CBS_Point]:
+        if idx is not None:
+            return self[idx].bs_point_lst.get_latest_bsp(number)
+        assert len(self.lv_list) == 1
+        return self[0].bs_point_lst.get_latest_bsp(number)
+
     def chan_dump_pickle(self, file_path):
         _pre_limit = sys.getrecursionlimit()
         sys.setrecursionlimit(0x100000)
