@@ -293,12 +293,14 @@ class CChan:
             raise CChanException("unspoourt query type", ErrCode.COMMON_ERROR)
 
     def get_bsp(self, idx=None) -> List[CBS_Point]:
+        print('[deprecated] use get_latest_bsp instead')
         if idx is not None:
             return self[idx].bs_point_lst.getSortedBspList()
         assert len(self.lv_list) == 1
         return self[0].bs_point_lst.getSortedBspList()
 
     def get_latest_bsp(self, idx=None, number=1) -> List[CBS_Point]:
+        # number=0则取全部bsp，从最新到最旧排序
         if idx is not None:
             return self[idx].bs_point_lst.get_latest_bsp(number)
         assert len(self.lv_list) == 1

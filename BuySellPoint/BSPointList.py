@@ -370,7 +370,7 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
         res = []
         for bsp in self.bsp_iter_v2():
             res.append(bsp)
-            if len(res) >= number:
+            if number != 0 and len(res) >= number:
                 break
         return res
 
