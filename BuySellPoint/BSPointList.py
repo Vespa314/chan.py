@@ -147,6 +147,8 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
             return
         if is_target_bsp:
             self.store_add_bsp(bs_type, bsp)
+        else:
+            bsp.bi.bsp = None
         if bs_type in [BSP_TYPE.T1, BSP_TYPE.T1P]:
             self.add_bsp1(bsp)
 
