@@ -48,6 +48,8 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
                     if bsp_list[is_buy][-1].bi.get_end_klu().idx <= self.last_sure_pos:
                         break
                     del self.bsp_store_flat_dict[bsp_list[is_buy][-1].bi.idx]
+                    # 同时把失效买卖点从Bi删除
+                    bsp_list[is_buy][-1].bi.bsp = None
                     bsp_list[is_buy].pop()
 
     def clear_bsp1_end(self):
