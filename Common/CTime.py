@@ -42,3 +42,11 @@ class CTime:
 
     def __ge__(self, t2):
         return self.ts >= t2.ts
+        
+    def __add__(self, delta: timedelta):
+        self.ts=(datetime.fromtimestamp(self.ts) + delta).timestamp()
+        return self
+
+    def __sub__(self, delta: timedelta):
+        self.ts=(datetime.fromtimestamp(self.ts) - delta).timestamp()
+        return self
