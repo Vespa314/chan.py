@@ -1,34 +1,29 @@
 name: Auto Sync All Branches
 
 on:
-  # ⏰ 每天 03:00 UTC 无人值守同步；也可以在 Actions 页面手动点 “Run workflow”
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 3 * * *'           # 每天 03:00 UTC 自动同步
   workflow_dispatch:
 
 jobs:
   sync:
     runs-on: ubuntu-latest
-
     steps:
-      # 1️⃣ 取出自己 fork 的完整历史
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
 
-      # 2️⃣ 用 GitHub CLI 把默认分支快进到上游
       - name: Sync default branch
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # GitHub 自动注入，权限足够
-        run: |
-          gh repo sync "${{ github.repository }}" --force   # 快进 main / master :contentReference[oaicite:0]{index=0}
+        env: { GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} }
+        run: gh repo sync "${{ github.repository }}" --force
 
-      # 3️⃣ 把上游所有其余分支拉下并强推到自己的 fork
       - name: Sync ALL upstream branches
         run: |
-          git remote add upstream https://github.com/Vespa314/chan.py.git
-          git fetch upstream --prune                      # 拉下 upstream/* 全分支 :contentReference[oaicite:1]{index=1}
-          for b in $(git for-each-ref --format='%(refname:short)' \
-                     refs/remotes/upstream/ | sed 's|^upstream/||'); do
-            git push -f origin "refs/remotes/upstream/$b:refs/heads/$b"  # 强推到 fork :contentReference[oaicite:2]{index=2}
+          set -e
+          git remote add upstream git@github.com:Vespa314/chan.py.git
+          git fetch upstream --prune
+          for b in $(git for-each-ref --format='%(refname:short)' refs/remotes/upstream |
+                     grep -v 'upstream/HEAD' |
+                     sed 's|^upstream/||'); do
+            echo "▶ syncing $b"
+            git push -f origin "refs/remotes/upstream/$b:refs/heads/$b"
           done
