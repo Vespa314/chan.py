@@ -128,7 +128,7 @@ class CEigenFX:
         return False
 
     def find_revert_fx(self, bi_list: CBiList, begin_idx: int, thred_value: float, break_thred: float):
-        COMMON_COMBINE = True  # 是否用普通分形合并规则处理
+        COMMON_COMBINE = False  # 是否用普通分形合并规则处理
         # 如果返回None，表示找到最后了
         first_bi_dir = bi_list[begin_idx].dir  # down则是要找顶分型
         egien_fx = CEigenFX(revert_bi_dir(first_bi_dir), exclude_included=not COMMON_COMBINE, lv=self.lv)  # 顶分型的话要找上升线段
