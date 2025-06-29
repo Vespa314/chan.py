@@ -1,29 +1,36 @@
 name: Auto Sync All Branches
 
 on:
+  # 每天 03:00 UTC 自动同步；也可手动触发
   schedule:
-    - cron: '0 3 * * *'           # 每天 03:00 UTC 自动同步
+    - cron: '0 3 * * *'
   workflow_dispatch:
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      # 1️⃣ 取出自己 fork 完整历史
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
 
+      # 2️⃣ 用 gh CLI 快进默认分支
       - name: Sync default branch
-        env: { GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} }
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh repo sync "${{ github.repository }}" --force
 
+      # 3️⃣ 同步上游全部分支
       - name: Sync ALL upstream branches
         run: |
           set -e
           git remote add upstream git@github.com:Vespa314/chan.py.git
           git fetch upstream --prune
-          for b in $(git for-each-ref --format='%(refname:short)' refs/remotes/upstream |
-                     grep -v 'upstream/HEAD' |
-                     sed 's|^upstream/||'); do
+          # 过滤掉 HEAD，只取真实分支
+          for b in $(git for-each-ref --format='%(refname:short)' refs/remotes/upstream \
+                     | grep -v 'upstream/HEAD' \
+                     | sed 's|^upstream/||'); do
             echo "▶ syncing $b"
             git push -f origin "refs/remotes/upstream/$b:refs/heads/$b"
           done
