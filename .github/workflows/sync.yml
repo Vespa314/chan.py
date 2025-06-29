@@ -22,9 +22,7 @@ jobs:
           set -e
           git remote add upstream https://github.com/Vespa314/chan.py.git
           git fetch upstream --prune
-          for b in $(git for-each-ref --format='%(refname:short)' refs/remotes/upstream \
-                     | grep -v 'upstream/HEAD' \
-                     | sed 's|^upstream/||'); do
+          for b in $(git for-each-ref --format='%(refname:strip=3)' refs/remotes/upstream | grep -v '^HEAD$'); do
             echo "▶ syncing $b"
             git push -f origin "refs/remotes/upstream/$b:refs/heads/$b"
           done
