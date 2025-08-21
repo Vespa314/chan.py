@@ -186,8 +186,9 @@ class CChan:
             raise CChanException("load src type error", ErrCode.SRC_DATA_TYPE_ERR)
         package_info = self.data_src.split(":")[1]
         package_name, cls_name = package_info.split(".")
-        exec(f"from DataAPI.{package_name} import {cls_name}")
-        return eval(cls_name)
+        import importlib
+        module = importlib.import_module(f"DataAPI.{package_name}")
+        return getattr(module, cls_name)
 
     def load(self, step=False):
         stockapi_cls = self.GetStockAPI()
