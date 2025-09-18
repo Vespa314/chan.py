@@ -343,12 +343,12 @@ class CChan:
         return chan
 
     def chan_pickle_restore(self):
-        last_klu = None
-        last_klc = None
-        last_bi = None
-        last_seg = None
-        last_segseg = None
         for kl_list in self.kl_datas.values():
+            last_klu = None
+            last_klc = None
+            last_bi = None
+            last_seg = None
+            last_segseg = None
             for klc in kl_list.lst:
                 for klu in klc.lst:
                     klu.pre = last_klu
