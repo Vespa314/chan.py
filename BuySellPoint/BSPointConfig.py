@@ -28,6 +28,7 @@ class CPointConfig:
                  bsp2s_follow_2,
                  max_bsp2s_lv,
                  strict_bsp3,
+                 bsp3a_max_zs_cnt,
                  ):
         self.divergence_rate = divergence_rate
         self.min_zs_cnt = min_zs_cnt
@@ -44,6 +45,8 @@ class CPointConfig:
         self.bsp2s_follow_2 = bsp2s_follow_2
         self.max_bsp2s_lv: Optional[int] = max_bsp2s_lv
         self.strict_bsp3 = strict_bsp3
+        self.bsp3a_max_zs_cnt = bsp3a_max_zs_cnt
+        assert self.bsp3a_max_zs_cnt >= 1
 
     def parse_target_type(self):
         _d: Dict[str, BSP_TYPE] = {x.value: x for x in BSP_TYPE}
