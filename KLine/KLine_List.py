@@ -72,7 +72,7 @@ class CKLine_List:
             for idx, klu in enumerate(klus_new):
                 klu.set_klc(new_klc)
                 if idx != 0:
-                    new_klc.add(klu)
+                    new_klc.try_add(klu, skip_update_input=True)
             memo[id(klc)] = new_klc
             if new_obj.lst:
                 new_obj.lst[-1].set_next(new_klc)

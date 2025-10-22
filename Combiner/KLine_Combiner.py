@@ -77,15 +77,11 @@ class CKLine_Combiner(Generic[T]):
         else:
             raise CChanException("combine type unknown", ErrCode.COMBINER_ERR)
 
-    def add(self, unit_kl: T):
-        # only for deepcopy
-        self.__lst.append(unit_kl)
-
     def set_fx(self, fx: FX_TYPE):
         # only for deepcopy
         self.__fx = fx
 
-    def try_add(self, unit_kl: T, exclude_included=False, allow_top_equal=None):
+    def try_add(self, unit_kl: T, exclude_included=False, allow_top_equal=None, skip_update_input=False):
         # allow_top_equal = None普通模式
         # allow_top_equal = 1 被包含，顶部相等不合并
         # allow_top_equal = -1 被包含，底部相等不合并
@@ -93,7 +89,7 @@ class CKLine_Combiner(Generic[T]):
         _dir = self.test_combine(combine_item, exclude_included, allow_top_equal)
         if _dir == KLINE_DIR.COMBINE:
             self.__lst.append(unit_kl)
-            if isinstance(unit_kl, CKLine_Unit):
+            if isinstance(unit_kl, CKLine_Unit) and not skip_update_input:
                 unit_kl.set_klc(self)
             if self.dir == KLINE_DIR.UP:
                 if combine_item.high != combine_item.low or combine_item.high != self.high:  # 处理一字K线
