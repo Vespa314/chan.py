@@ -71,17 +71,22 @@ class CSegListComm(Generic[SUB_LINE_TYPE]):
             raise CChanException(f"unknown seg left_method = {self.config.left_method}", ErrCode.PARA_ERROR)
 
     def collect_left_seg_peak_method(self, last_seg_end_bi, bi_lst):
+        find_new_seg = False
         if last_seg_end_bi.is_down():
             peak_bi = FindPeakBi(bi_lst[last_seg_end_bi.idx+3:], is_high=True)
             if peak_bi and peak_bi.idx - last_seg_end_bi.idx >= 3:
                 self.add_new_seg(bi_lst, peak_bi.idx, is_sure=False, seg_dir=BI_DIR.UP, reason="collectleft_find_high")
+                find_new_seg = True
         else:
             peak_bi = FindPeakBi(bi_lst[last_seg_end_bi.idx+3:], is_high=False)
             if peak_bi and peak_bi.idx - last_seg_end_bi.idx >= 3:
                 self.add_new_seg(bi_lst, peak_bi.idx, is_sure=False, seg_dir=BI_DIR.DOWN, reason="collectleft_find_low")
+                find_new_seg = True
         last_seg_end_bi = self[-1].end_bi
-
-        self.collect_left_as_seg(bi_lst)
+        if not find_new_seg:
+            self.collect_left_as_seg(bi_lst)
+        else:
+            self.collect_left_seg_peak_method(last_seg_end_bi, bi_lst)
 
     def collect_segs(self, bi_lst):
         last_bi = bi_lst[-1]
