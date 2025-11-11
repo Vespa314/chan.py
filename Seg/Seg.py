@@ -140,6 +140,9 @@ class CSeg(Generic[LINE_TYPE]):
     def get_first_multi_bi_zs(self):
         return next((zs for zs in self.zs_lst if not zs.is_one_bi_zs()), None)
 
+    def get_multi_bi_zs_lst(self):
+        return [zs for zs in self.zs_lst if not zs.is_one_bi_zs()]
+
     def get_final_multi_bi_zs(self):
         zs_idx = len(self.zs_lst) - 1
         while zs_idx >= 0:
