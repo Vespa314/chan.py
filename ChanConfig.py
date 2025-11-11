@@ -117,6 +117,7 @@ class CChanConfig:
             "bsp2s_follow_2": False,
             "max_bsp2s_lv": None,
             "strict_bsp3": False,
+            "bsp3a_max_zs_cnt": 1,
         }
         args = {para: conf.get(para, default_value) for para, default_value in para_dict.items()}
         self.bs_point_conf = CBSPointConfig(**args)

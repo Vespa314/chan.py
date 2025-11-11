@@ -317,25 +317,31 @@ class CBSPointList(Generic[LINE_TYPE, LINE_LIST_TYPE]):
             return
         if BSP_CONF.strict_bsp3 and first_zs.get_bi_in().idx != bsp1_bi_idx+1:
             return
-        if first_zs.bi_out is None or first_zs.bi_out.idx+1 >= len(bi_list):
-            return
-        bsp3_bi = bi_list[first_zs.bi_out.idx+1]
-        if bsp3_bi.parent_seg is None:
-            if next_seg.idx != len(seg_list)-1:
-                return
-        elif bsp3_bi.parent_seg.idx != next_seg.idx:
-            if len(bsp3_bi.parent_seg.bi_list) >= 3:
-                return
-        if bsp3_bi.dir == next_seg.dir:
-            return
-        if bsp3_bi.seg_idx != next_seg_idx and next_seg_idx < len(seg_list)-2:
-            return
-        if bsp3_back2zs(bsp3_bi, first_zs):
-            return
-        bsp3_peak_zs = bsp3_break_zspeak(bsp3_bi, first_zs)
-        if BSP_CONF.bsp3_peak and not bsp3_peak_zs:
-            return
-        self.add_bs(bs_type=BSP_TYPE.T3A, bi=bsp3_bi, relate_bsp1=real_bsp1)  # type: ignore
+
+        config = self.config.GetBSConfig(next_seg.is_down())
+        bsp3a_max_zs_cnt = config.bsp3a_max_zs_cnt
+        for zs_idx, zs in enumerate(next_seg.get_multi_bi_zs_lst()):
+            if zs_idx >= bsp3a_max_zs_cnt:
+                break
+            if zs.bi_out is None or zs.bi_out.idx+1 >= len(bi_list):
+                break
+            bsp3_bi = bi_list[zs.bi_out.idx+1]
+            if bsp3_bi.parent_seg is None:
+                if next_seg.idx != len(seg_list)-1:
+                    break
+            elif bsp3_bi.parent_seg.idx != next_seg.idx:
+                if len(bsp3_bi.parent_seg.bi_list) >= 3:
+                    break
+            if bsp3_bi.dir == next_seg.dir:
+                break
+            if bsp3_bi.seg_idx != next_seg_idx and next_seg_idx < len(seg_list)-2:
+                break
+            if bsp3_back2zs(bsp3_bi, zs):
+                continue
+            bsp3_peak_zs = bsp3_break_zspeak(bsp3_bi, zs)
+            if BSP_CONF.bsp3_peak and not bsp3_peak_zs:
+                continue
+            self.add_bs(bs_type=BSP_TYPE.T3A, bi=bsp3_bi, relate_bsp1=real_bsp1)  # type: ignore
 
     def treat_bsp3_before(
         self,
