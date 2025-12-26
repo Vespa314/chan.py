@@ -280,23 +280,8 @@
 │   │   └── 📄 cprofile_analysis.sh 性能分析脚本
 │   └── 📁 Notebook
 │       └── 📄 xxx.ipynb  各种notebook
-├── 📁 Script: 脚本汇总
-│   ├── 📄 InitDB.py: 数据库初始化
-│   ├── 📄 Install.sh 安装本框架脚本
-│   ├── 📄 requirements.txt: pip requirements文件
-│   ├── 📄 pip_upgrade.sh: pip更新股票数据相关的库
-│   ├── 📄 run_backtest.sh 运行回测计算
-│   ├── 📄 run_train_pipeline.sh 运行回测，指定模型训练预测评估，校验，全pipeline脚本
-│   ├── 📁 cprofile_analysis: 性能分析
-│   │   └── 📄 cprofile_analysis.sh 性能分析脚本
-│   └── 📁 Notion: Notion数据表同步脚本
-│      ├── 📄 DB_sync_Notion.py 交易数据库同步Notion脚本
-│      └── 📁 notion: Notion API
-│          ├── 📄 notion_api.py: Notion统一API接口
-│          ├── 📄 block_driver.py: Notion块操作类
-│          ├── 📄 prop_driver.py.py: Notion数据表属性操作类
-│          ├── 📄 text.py: Notion 富文本操作类
-│          └── 📄 secret.py: notion读取配置文件里面的参数
+├── 📁 App: 其他依赖本项目的应用
+│   ├── 📄 ashare_bsp_scanner_gui.py: A股缠论买点扫描器 GUI 应用（热心网友提供）
 ├── 📄 main.py: demo main函数
 ├── 📄 Chan.py: 缠论主类
 ├── 📄 ChanConfig.py: 缠论配置
@@ -304,121 +289,6 @@
 ├── 📄 LICENSE
 └── 📄 README.md: 本文件
 ```
-
-## 安装方法
-
-1. 配置 yaml 文件：`Config/config.yaml`
-2. 运行 `Script/Install.sh`，会执行：
-    - 创建配置文件中的需要的路径
-    - 安装 python 所需要的库
-    - 提供交易所有 crontab 所需配置命令
-    - 提醒用户自行编写工具脚本：`Common/tools.py`
-
-### 配置文件介绍
-配置文件所需填写内容如下：
-```yaml
-Env:
-  python: /usr/bin/python3.11  # python命令
-
-Data:
-  offline_data_path: xxx  # 离线数据存储位置
-  model_path: xxx  # 模型数据存储位置
-  log_path: xxx  # 日志存储位置
-  stock_info_path: xxx  # 股票信息存储位置
-  pickle_data_path: xxx  # 股票pickle文件存储位置（可不填）
-  automl_result_path: xxx  # automl结果输出路径
-  send_offline_data_update_info: True  # 是否推送每日数据更新情况
-  send_kl_missing_msg: False # 是否推送K线丢失情况(下载的离线数据可能会缺失本来已有的K线)
-
-DB:
-  TYPE: mysql  # 数据库类型，可选mysql / sqlite
-  HOST: 127.0.0.1  # mysql host（TYPE=mysql时填写）
-  PORT: 3306  # mysql 端口（TYPE=mysql时填写）
-  USER: xxx  # mysql user（TYPE=mysql时填写）
-  PASSWD: xxx  # mysql 密码（TYPE=mysql时填写）
-  DATABASE: xxx  # mysql数据库（TYPE=mysql时填写）
-  SQLITE_PATH: xxx/xxx/xxx.db  # sqlite路径（TYPE=sqlite时填写）
-  TABLE: xxx  # sqlite表名（TYPE=sqlite时填写）
-
-Futu:
-  PASSWORD_MD5: xxx  # futu交易密码
-  HOST: 127.0.0.1  # futu后端 host
-  PORT: 11111  # futu后端端口
-  RSA_PATH: ""  # futu RSA鉴权文件
-  ENV: SIMULATE  # futu交易环境，SIMULATE模拟盘/REAL实盘
-
-Trade:
-  log_file: xxx  # 交易日志文件路径
-  trade_model_path: xxx  # 交易模型路径
-  area: cn,hk,us  # 交易哪些地区股票，A股cn，港股hk，美股us，逗号分割
-  open_price_tolerance: 0.01  # 开仓后验允许价格误差，相对值
-  open_score_tolerance: 0.03  # 开仓后验允许分数误差，绝对值
-  chan_begin_date: 2015-01-01  # 缠论计算开始K线日期
-  latest_ipo_date: 2021-01-01  # 股票最晚上市时间（太近的话，K线数据不足，计算不准）
-  touch_sl_cnt: 1  # 多少根分钟K线连续触达止损线才发起止损单
-  touch_sw_cnt: 1  # 多少根分钟K线连续触达止盈线才发起止盈单
-  allow_break_sw_bound: True  # 止盈提单后如果没成交且价格跌破止盈价，是否允许调整下单价格低于止盈价
-  dynamic_sl_include_tody: False  # 动态止盈是否考虑当天峰值
-  DST: True  # True是夏令时，False是冬令时，影响美股交易时间
-  open_thred_cnt: 10  # 开仓时计算缠论信息的线程数
-  trade_reconciliation_begin_t: '20220101'  # 交易一致性检测开始时间
-  snapshot_eigine:  # 股价快照引擎，默认值为下面配置
-    us: sina
-    hk: futu
-    cn: futu
-
-Model:  # 模型配置，可自定义
-  model_tag: bsp_label-scale  # 模型标签
-  model_type: normal:normal/area/bs_type  # 模型分数来源
-  backtest_begin_date: '2000-01-01'  # 回测数据开始时间
-  sample_set_split_date: '20220101'  # 训练集，测试集划分时间
-  automl_begin_t: '20220101'  # automl数据集开始时间，也就是predict_all的参数
-  automl_klu_end_date: '2022/12/31'  # automl K线开始时间，可以不填，则为无穷久之后
-  automl_begin_open_date: '2021/01/01'  # automl 最早允许开仓时间
-  automl_end_open_date: '2022/09/01'  # automl 最晚允许开仓时间
-  win_loss_ratio_smooth: 50.0  # 盈亏比平滑系数
-
-Chan:
-  debug: false  # 是否开启debug模式
-
-Notion:  # Notion同步配置
-    cn_id: xxx
-    hk_id: xxx
-    us_id: xxx
-    token: xxx
-
-COS:  # COS上传图片配置
-  cos_type: xxx  # tencent/minio
-  tencent_cos:
-    secretid: xxx
-    secretkey: xxx
-    region: ap-xxx
-    bucket: chan-xxx
-  minio:
-    endpoint: xxxx.com
-    access_key: xxx
-    secret_key: xxx
-    bucket: xxx
-```
-
-### 自行开发必要工具类
-
-需要根据自身服务器环境提供三个函数在 `Common/tools.py` 文件中，当然默认情况下可以只定义不实现；
-
-```python
-def send_msg(title, content, lv='INFO'):
-  ...
-
-def _metric_report(id, key, value):
-  ...
-
-def _log_trade(title, *msg):
-  ...
-```
-
-- `send_msg`：发送消息函数，比如运行失败，离线计算结果，交易订单相关的信息等等，均会调用这个函数给用户发送消息；可以对接自己的 gotify/chanify/server 酱/邮件等
-- `_metric_report`：指标上报，可以对接自己的grafana或者其他监控系统，比如可以查看到数据更新是否稳定，每天新增多少个交易信号等；
-- `_log_trade`：线上交易时会将调该接口将交易相关的日志写入文件，方便排查；如果 `Config/config.yaml` 打开了 debug 开关，也会将 debug 调该函数写入文件；
 
 ## 缠论计算使用方法
 ### 特殊名词/变量名解释
