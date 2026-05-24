@@ -47,7 +47,7 @@ def chan_analysis(code: Optional[str] = None, start: str = ""):
         config = CChanConfig({
             "bi_strict": True,
             "divergence_rate": float("inf"),
-            "trigger_step": False,
+            "trigger_step": True,
             "zs_algo": "normal",
         })
 
@@ -60,77 +60,98 @@ def chan_analysis(code: Optional[str] = None, start: str = ""):
             config=config,
             autype=AUTYPE.QFQ,
         )
+
+        bsp_tracker = {}
+
+        for _ in chan.step_load():
+            kl_list = chan[KL_TYPE.K_DAY]
+
+            current_bsp_keys = set()
+            for bsp in kl_list.bs_point_lst.bsp_iter():
+                key = f"{bsp.type2str()}_{bsp.bi.begin_klc[0].time.to_str()}"
+                current_bsp_keys.add(key)
+                if key not in bsp_tracker:
+                    bsp_tracker[key] = {
+                        "appear_date": bsp.klu.time.to_str(),
+                        "disappeared": False,
+                    }
+
+            for key, info in bsp_tracker.items():
+                if not info["disappeared"] and key not in current_bsp_keys:
+                    info["disappeared"] = True
+
+        kl_list = chan[KL_TYPE.K_DAY]
+        klines_raw = kl_list.lst
+
+        klines = []
+        for kl in klines_raw:
+            for unit in kl:
+                klines.append({
+                    "time": unit.time.to_str(),
+                    "open": round(unit.open, 2),
+                    "high": round(unit.high, 2),
+                    "low": round(unit.low, 2),
+                    "close": round(unit.close, 2),
+                })
+
+        bi_list = []
+        for bi in kl_list.bi_list:
+            bi_list.append({
+                "startIdx": bi.get_begin_klu().idx,
+                "endIdx": bi.get_end_klu().idx,
+                "dir": "up" if bi.is_up() else "down",
+                "startVal": round(bi.get_begin_val(), 2),
+                "endVal": round(bi.get_end_val(), 2),
+                "isSure": bi.is_sure,
+                "idx": bi.idx,
+            })
+
+        seg_list = []
+        for seg in kl_list.seg_list:
+            seg_list.append({
+                "startIdx": seg.start_bi.get_begin_klu().idx,
+                "endIdx": seg.end_bi.get_end_klu().idx,
+                "dir": "up" if seg.is_up() else "down",
+                "startVal": round(seg.get_begin_val(), 2),
+                "endVal": round(seg.get_end_val(), 2),
+                "isSure": seg.is_sure,
+                "idx": seg.idx,
+            })
+
+        zs_list = []
+        for zs in kl_list.zs_list:
+            zs_list.append({
+                "startIdx": zs.begin.idx,
+                "endIdx": zs.end.idx,
+                "low": round(zs.low, 2),
+                "high": round(zs.high, 2),
+                "isSure": zs.is_sure,
+            })
+
+        macd_list = []
+        for kl in klines_raw:
+            for unit in kl:
+                macd_list.append({
+                    "idx": unit.idx,
+                    "dif": round(unit.macd.DIF, 4),
+                    "dea": round(unit.macd.DEA, 4),
+                    "macd": round(unit.macd.macd, 4),
+                })
+
+        bsp_list = []
+        for bsp in kl_list.bs_point_lst.bsp_iter():
+            key = f"{bsp.type2str()}_{bsp.bi.begin_klc[0].time.to_str()}"
+            info = bsp_tracker.get(key, {})
+            bsp_list.append({
+                "idx": bsp.klu.idx,
+                "isBuy": bsp.is_buy,
+                "type": bsp.type2str(),
+                "price": round(bsp.klu.low if bsp.is_buy else bsp.klu.high, 2),
+                "date": bsp.klu.time.to_str(),
+                "valid": not info.get("disappeared", False),
+            })
     except CChanException:
         return JSONResponse({"error": "未找到该股票或无交易数据"}, status_code=404)
-
-    kl_list = chan[KL_TYPE.K_DAY]
-    klines_raw = kl_list.lst
-
-    klines = []
-    for kl in klines_raw:
-        for unit in kl:
-            klines.append({
-                "time": unit.time.to_str(),
-                "open": round(unit.open, 2),
-                "high": round(unit.high, 2),
-                "low": round(unit.low, 2),
-                "close": round(unit.close, 2),
-            })
-
-    bi_list = []
-    for bi in kl_list.bi_list:
-        bi_list.append({
-            "startIdx": bi.get_begin_klu().idx,
-            "endIdx": bi.get_end_klu().idx,
-            "dir": "up" if bi.is_up() else "down",
-            "startVal": round(bi.get_begin_val(), 2),
-            "endVal": round(bi.get_end_val(), 2),
-            "isSure": bi.is_sure,
-            "idx": bi.idx,
-        })
-
-    seg_list = []
-    for seg in kl_list.seg_list:
-        seg_list.append({
-            "startIdx": seg.start_bi.get_begin_klu().idx,
-            "endIdx": seg.end_bi.get_end_klu().idx,
-            "dir": "up" if seg.is_up() else "down",
-            "startVal": round(seg.get_begin_val(), 2),
-            "endVal": round(seg.get_end_val(), 2),
-            "isSure": seg.is_sure,
-            "idx": seg.idx,
-        })
-
-    zs_list = []
-    for zs in kl_list.zs_list:
-        zs_list.append({
-            "startIdx": zs.begin.idx,
-            "endIdx": zs.end.idx,
-            "low": round(zs.low, 2),
-            "high": round(zs.high, 2),
-            "isSure": zs.is_sure,
-        })
-
-    macd_list = []
-    for kl in klines_raw:
-        for unit in kl:
-            macd_list.append({
-                "idx": unit.idx,
-                "dif": round(unit.macd.DIF, 4),
-                "dea": round(unit.macd.DEA, 4),
-                "macd": round(unit.macd.macd, 4),
-            })
-
-    bsp_list = []
-    for bsp in kl_list.bs_point_lst.bsp_iter():
-        bsp_list.append({
-            "idx": bsp.klu.idx,
-            "isBuy": bsp.is_buy,
-            "type": bsp.type2str(),
-            "price": round(bsp.klu.low if bsp.is_buy else bsp.klu.high, 2),
-            "date": bsp.klu.time.to_str(),
-            "valid": True,
-        })
 
     return {
         "code": code,

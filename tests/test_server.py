@@ -53,3 +53,14 @@ def test_chan_invalid_code():
 def test_chan_missing_code():
     response = client.get("/api/chan")
     assert response.status_code == 400
+
+
+def test_bsp_has_validity_field():
+    response = client.get("/api/chan?code=sz.000001")
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data["bsp"]) > 0
+    for bsp in data["bsp"]:
+        assert "valid" in bsp
+        assert isinstance(bsp["valid"], bool)
+        assert "date" in bsp
