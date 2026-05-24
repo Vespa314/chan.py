@@ -10,6 +10,7 @@ from fastapi.responses import JSONResponse
 from Chan import CChan
 from ChanConfig import CChanConfig
 from Common.CEnum import AUTYPE, DATA_SRC, KL_TYPE
+from Common.ChanException import CChanException
 
 app = FastAPI(title="缠论免画图网站")
 
@@ -38,7 +39,7 @@ def bao_login():
 
 
 @app.get("/api/chan")
-def chan_analysis(code: str = None, start: str = ""):
+def chan_analysis(code: Optional[str] = None, start: str = ""):
     if not code:
         return JSONResponse({"error": "缺少股票代码参数"}, status_code=400)
 
@@ -59,7 +60,7 @@ def chan_analysis(code: str = None, start: str = ""):
             config=config,
             autype=AUTYPE.QFQ,
         )
-    except Exception:
+    except CChanException:
         return JSONResponse({"error": "未找到该股票或无交易数据"}, status_code=404)
 
     kl_list = chan[KL_TYPE.K_DAY]
@@ -128,6 +129,7 @@ def chan_analysis(code: str = None, start: str = ""):
             "type": bsp.type2str(),
             "price": round(bsp.klu.low if bsp.is_buy else bsp.klu.high, 2),
             "date": bsp.klu.time.to_str(),
+            "valid": True,
         })
 
     return {

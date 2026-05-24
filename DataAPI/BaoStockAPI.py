@@ -1,6 +1,7 @@
 import baostock as bs
 
 from Common.CEnum import AUTYPE, DATA_FIELD, KL_TYPE
+from Common.ChanException import CChanException, ErrCode
 from Common.CTime import CTime
 from Common.func_util import kltype_lt_day, str2float
 from KLine.KLine_Unit import CKLine_Unit
@@ -85,8 +86,11 @@ class CBaoStock(CCommonStockApi):
     def SetBasciInfo(self):
         rs = bs.query_stock_basic(code=self.code)
         if rs.error_code != '0':
-            raise Exception(rs.error_msg)
-        code, code_name, ipoDate, outDate, stock_type, status = rs.get_row_data()
+            raise CChanException(rs.error_msg, ErrCode.SRC_DATA_NOT_FOUND)
+        row_data = rs.get_row_data()
+        if not row_data:
+            raise CChanException(f"未找到股票代码: {self.code}", ErrCode.SRC_DATA_NOT_FOUND)
+        code, code_name, ipoDate, outDate, stock_type, status = row_data
         self.name = code_name
         self.is_stock = (stock_type == '1')
 
