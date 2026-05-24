@@ -1,4 +1,3 @@
-from contextlib import contextmanager
 from typing import Optional
 
 import baostock as bs
@@ -11,6 +10,8 @@ from Chan import CChan
 from ChanConfig import CChanConfig
 from Common.CEnum import AUTYPE, DATA_SRC, KL_TYPE
 from Common.ChanException import CChanException
+
+bs.login()
 
 app = FastAPI(title="缠论免画图网站")
 
@@ -25,17 +26,6 @@ app.add_middleware(
 @app.get("/api/health")
 def health():
     return {"status": "ok"}
-
-
-@contextmanager
-def bao_login():
-    lg = bs.login()
-    if lg.error_code != "0":
-        raise RuntimeError(f"baostock login failed: {lg.error_msg}")
-    try:
-        yield
-    finally:
-        bs.logout()
 
 
 @app.get("/api/chan")
@@ -152,6 +142,8 @@ def chan_analysis(code: Optional[str] = None, start: str = ""):
             })
     except CChanException:
         return JSONResponse({"error": "未找到该股票或无交易数据"}, status_code=404)
+    except Exception:
+        return JSONResponse({"error": "服务器内部错误"}, status_code=500)
 
     return {
         "code": code,
@@ -170,15 +162,12 @@ def search_stock(q: Optional[str] = None):
         return JSONResponse({"error": "请输入搜索关键词"}, status_code=400)
 
     try:
-        with bao_login():
-            rs = bs.query_stock_basic(code_name=q)
-            results = []
-            while rs.next():
-                row = rs.get_row_data()
-                results.append(f"{row[0]} {row[1]}")
+        rs = bs.query_stock_basic(code_name=q)
+        results = []
+        while rs.next():
+            row = rs.get_row_data()
+            results.append(f"{row[0]} {row[1]}")
         return results
-    except RuntimeError as e:
-        return JSONResponse({"error": f"数据源连接失败: {str(e)}"}, status_code=503)
     except Exception:
         return JSONResponse({"error": "查询失败，请稍后重试"}, status_code=500)
 
