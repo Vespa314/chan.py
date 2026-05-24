@@ -181,3 +181,6 @@ def search_stock(q: Optional[str] = None):
         return JSONResponse({"error": f"数据源连接失败: {str(e)}"}, status_code=503)
     except Exception:
         return JSONResponse({"error": "查询失败，请稍后重试"}, status_code=500)
+
+
+app.mount("/", StaticFiles(directory="static", html=True), name="static")

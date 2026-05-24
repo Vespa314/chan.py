@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>缠论分析工具</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+#app { max-width: 1400px; margin: 0 auto; padding: 16px; }
+.header { text-align: center; padding: 12px 0 16px; }
+.header h1 { font-size: 22px; color: #f8fafc; }
+.search-bar { display: flex; gap: 8px; margin-bottom: 12px; }
+.search-bar input { flex: 1; background: #1e293b; border: 1px solid #475569; border-radius: 6px; padding: 10px 14px; color: #e2e8f0; font-size: 15px; outline: none; }
+.search-bar input:focus { border-color: #3b82f6; }
+.search-bar button { background: #3b82f6; color: #fff; border: none; border-radius: 6px; padding: 10px 24px; font-size: 15px; cursor: pointer; font-weight: 600; }
+.search-bar button:hover { background: #2563eb; }
+.search-bar button:disabled { background: #475569; cursor: not-allowed; }
+#chart { width: 100%; height: 600px; background: #0f172a; border-radius: 8px; border: 1px solid #334155; }
+.toggles { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; justify-content: center; }
+.toggles label { display: flex; align-items: center; gap: 5px; font-size: 13px; color: #cbd5e1; cursor: pointer; user-select: none; }
+.toggles input { accent-color: #3b82f6; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.dot-kl { background: #94a3b8; } .dot-bi { background: #f97316; } .dot-seg { background: #3b82f6; }
+.dot-zs { background: #eab308; } .dot-bsp { background: #22c55e; } .dot-bsp-invalid { background: #6b7280; } .dot-macd { background: #ef4444; }
+.status { text-align: center; font-size: 12px; color: #64748b; margin-top: 8px; min-height: 20px; }
+.error { color: #f87171; }
+#suggestions { position: absolute; background: #1e293b; border: 1px solid #334155; border-radius: 6px; max-height: 200px; overflow-y: auto; z-index: 100; display: none; width: 100%; }
+#suggestions div { padding: 8px 12px; cursor: pointer; font-size: 13px; }
+#suggestions div:hover { background: #334155; }
+.search-wrapper { position: relative; flex: 1; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="header"><h1>缠论分析工具</h1></div>
+  <div class="search-bar">
+    <div class="search-wrapper">
+      <input id="codeInput" type="text" placeholder="输入股票代码，如 sz.000001" autocomplete="off">
+      <div id="suggestions"></div>
+    </div>
+    <button id="searchBtn" onclick="doSearch()">查询</button>
+  </div>
+  <div id="chart"></div>
+  <div class="toggles">
+    <label><input type="checkbox" checked onchange="updateChart()" id="toggleKL"><span class="dot dot-kl"></span> K线</label>
+    <label><input type="checkbox" checked onchange="updateChart()" id="toggleBi"><span class="dot dot-bi"></span> 笔</label>
+    <label><input type="checkbox" checked onchange="updateChart()" id="toggleSeg"><span class="dot dot-seg"></span> 线段</label>
+    <label><input type="checkbox" checked onchange="updateChart()" id="toggleZS"><span class="dot dot-zs"></span> 中枢</label>
+    <label><input type="checkbox" checked onchange="updateChart()" id="toggleBSP"><span class="dot dot-bsp"></span> 买卖点</label>
+    <label><input type="checkbox" checked onchange="updateChart()" id="toggleMACD"><span class="dot dot-macd"></span> MACD</label>
+  </div>
+  <div class="status">有效买点🟢 失效买点🔘 | 有效卖点🔴 失效卖点🔘</div>
+  <div id="statusMsg" class="status"></div>
+</div>
+
+<script>
+let chartData = null;
+let chart = echarts.init(document.getElementById('chart'));
+
+function setStatus(msg, isError) {
+  const el = document.getElementById('statusMsg');
+  el.textContent = msg;
+  el.className = 'status' + (isError ? ' error' : '');
+}
+
+async function doSearch() {
+  const code = document.getElementById('codeInput').value.trim();
+  if (!code) { setStatus('请输入股票代码', true); return; }
+  const btn = document.getElementById('searchBtn');
+  btn.disabled = true;
+  setStatus('正在加载数据，可能需数十秒...', false);
+  try {
+    const resp = await fetch('/api/chan?code=' + encodeURIComponent(code));
+    if (!resp.ok) {
+      const err = await resp.json();
+      setStatus(err.detail || err.error || '查询失败', true);
+      return;
+    }
+    chartData = await resp.json();
+    setStatus(chartData.code + ' — ' + chartData.klines.length + '根K线，' + chartData.bi.length + '笔，' + chartData.seg.length + '段，' + chartData.zs.length + '中枢，' + chartData.bsp.length + '买卖点', false);
+    updateChart();
+  } catch (e) {
+    setStatus('网络错误，请检查后端是否启动', true);
+  } finally { btn.disabled = false; }
+}
+
+function updateChart() {
+  if (!chartData) return;
+  chart.setOption(buildOption(chartData), true);
+}
+
+function buildOption(data) {
+  const dates = data.klines.map(k => k.time);
+  const ohlc = data.klines.map(k => [k.open, k.close, k.low, k.high]);
+  const series = [];
+  const showKL = document.getElementById('toggleKL').checked;
+  const showBi = document.getElementById('toggleBi').checked;
+  const showSeg = document.getElementById('toggleSeg').checked;
+  const showZS = document.getElementById('toggleZS').checked;
+  const showBSP = document.getElementById('toggleBSP').checked;
+  const showMACD = document.getElementById('toggleMACD').checked;
+
+  if (showKL) {
+    series.push({
+      name: 'K线', type: 'candlestick', data: ohlc,
+      itemStyle: { color: '#ef4444', color0: '#22c55e', borderColor: '#ef4444', borderColor0: '#22c55e' }
+    });
+  }
+
+  if (showBi) {
+    const biData = data.bi.map(bi => {
+      const s = data.klines[bi.startIdx], e = data.klines[bi.endIdx];
+      if (!s || !e) return null;
+      return [{ coord: [s.time, bi.startVal] }, { coord: [e.time, bi.endVal] }];
+    }).filter(Boolean);
+    series.push({
+      name: '笔', type: 'lines', polyline: false, data: biData,
+      lineStyle: { color: '#f97316', width: 1.5 }, effect: { show: false }, z: 2
+    });
+  }
+
+  if (showSeg) {
+    const segData = data.seg.map(seg => {
+      const s = data.klines[seg.startIdx], e = data.klines[seg.endIdx];
+      if (!s || !e) return null;
+      return [{ coord: [s.time, seg.startVal] }, { coord: [e.time, seg.endVal] }];
+    }).filter(Boolean);
+    series.push({
+      name: '线段', type: 'lines', polyline: false, data: segData,
+      lineStyle: { color: '#3b82f6', width: 2 }, effect: { show: false }, z: 3
+    });
+  }
+
+  if (showZS) {
+    const zsData = data.zs.map(zs => {
+      const s = data.klines[zs.startIdx], e = data.klines[zs.endIdx];
+      return [{ xAxis: s ? s.time : '', y: zs.low }, { xAxis: e ? e.time : '', y: zs.high }];
+    });
+    series.push({
+      name: '中枢', type: 'custom', data: zsData, z: 1,
+      renderItem: function(params, api) {
+        const s = api.coord([api.value(0).xAxis, api.value(0).y]);
+        const e = api.coord([api.value(1).xAxis, api.value(1).y]);
+        return {
+          type: 'rect',
+          shape: { x: s[0], y: e[1], width: e[0] - s[0], height: s[1] - e[1] },
+          style: { fill: 'rgba(234,179,8,0.15)', stroke: '#eab308', lineWidth: 1 }
+        };
+      }
+    });
+  }
+
+  if (showBSP) {
+    const buyValid = [], buyInvalid = [], sellValid = [], sellInvalid = [];
+    for (const bsp of data.bsp) {
+      const kl = data.klines[bsp.idx];
+      if (!kl) continue;
+      const isBuy = bsp.type.toLowerCase().includes('buy');
+      const point = { name: bsp.type, value: [kl.time, bsp.price] };
+      if (bsp.valid) {
+        if (isBuy) buyValid.push(point);
+        else sellValid.push(point);
+      } else {
+        if (isBuy) buyInvalid.push(point);
+        else sellInvalid.push(point);
+      }
+    }
+    if (buyValid.length) series.push({ name: '有效买点', type: 'scatter', data: buyValid, symbolSize: 14, symbol: 'triangle', symbolRotate: 180, itemStyle: { color: '#22c55e' }, z: 10 });
+    if (buyInvalid.length) series.push({ name: '失效买点', type: 'scatter', data: buyInvalid, symbolSize: 10, symbol: 'triangle', symbolRotate: 180, itemStyle: { color: '#6b7280' }, z: 9 });
+    if (sellValid.length) series.push({ name: '有效卖点', type: 'scatter', data: sellValid, symbolSize: 14, symbol: 'triangle', itemStyle: { color: '#ef4444' }, z: 10 });
+    if (sellInvalid.length) series.push({ name: '失效卖点', type: 'scatter', data: sellInvalid, symbolSize: 10, symbol: 'triangle', itemStyle: { color: '#6b7280' }, z: 9 });
+  }
+
+  const option = {
+    tooltip: { trigger: 'axis', axisPointer: { type: 'cross' } },
+    grid: showMACD
+      ? [{ left: '8%', right: '2%', top: '5%', height: '55%' }, { left: '8%', right: '2%', top: '68%', height: '25%' }]
+      : { left: '8%', right: '2%', top: '5%', bottom: '8%' },
+    xAxis: showMACD
+      ? [{ type: 'category', data: dates, gridIndex: 0, axisLabel: { show: false }, axisLine: { onZero: false } },
+         { type: 'category', data: data.macd.map(m => data.klines[m.idx]?.time || ''), gridIndex: 1 }]
+      : { type: 'category', data: dates, axisLabel: { rotate: 45, fontSize: 10 }, axisLine: { onZero: false } },
+    yAxis: showMACD
+      ? [{ scale: true, gridIndex: 0, splitArea: { show: true, areaStyle: { color: ['rgba(255,255,255,0.02)', 'rgba(255,255,255,0.05)'] } } },
+         { scale: true, gridIndex: 1 }]
+      : { scale: true, splitArea: { show: true, areaStyle: { color: ['rgba(255,255,255,0.02)', 'rgba(255,255,255,0.05)'] } } },
+    dataZoom: [{ type: 'inside', xAxisIndex: showMACD ? [0, 1] : 0, start: 0, end: 100 },
+               { type: 'slider', xAxisIndex: showMACD ? [0, 1] : 0, start: 0, end: 100, bottom: 0 }],
+    series: series
+  };
+
+  if (showMACD) {
+    option.series = option.series.map(s => {
+      if (['K线','笔','线段','中枢','有效买点','失效买点','有效卖点','失效卖点'].includes(s.name)) {
+        s.xAxisIndex = 0; s.gridIndex = 0;
+      }
+      return s;
+    }).concat([
+      { name: 'DIF', type: 'line', data: data.macd.map(m => m.dif), xAxisIndex: 1, yAxisIndex: 1, lineStyle: { color: '#e2e8f0' }, showSymbol: false },
+      { name: 'DEA', type: 'line', data: data.macd.map(m => m.dea), xAxisIndex: 1, yAxisIndex: 1, lineStyle: { color: '#fbbf24' }, showSymbol: false },
+      { name: 'MACD柱', type: 'bar', data: data.macd.map(m => ({ value: m.macd * 2, itemStyle: { color: m.macd >= 0 ? '#ef4444' : '#22c55e' } })), xAxisIndex: 1, yAxisIndex: 1 }
+    ]);
+  }
+
+  return option;
+}
+
+// Search suggestions
+document.getElementById('codeInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doSearch();
+});
+let searchTimer;
+document.getElementById('codeInput').addEventListener('input', function() {
+  clearTimeout(searchTimer);
+  const q = this.value.trim();
+  if (q.length < 1) { document.getElementById('suggestions').style.display = 'none'; return; }
+  searchTimer = setTimeout(async () => {
+    try {
+      const resp = await fetch('/api/search?q=' + encodeURIComponent(q));
+      const results = await resp.json();
+      const sug = document.getElementById('suggestions');
+      if (Array.isArray(results) && results.length > 0) {
+        sug.innerHTML = results.map(r => '<div>' + r + '</div>').join('');
+        sug.style.display = 'block';
+        sug.querySelectorAll('div').forEach(d => {
+          d.addEventListener('click', function() {
+            document.getElementById('codeInput').value = this.textContent.split(' ')[0];
+            sug.style.display = 'none';
+            doSearch();
+          });
+        });
+      } else { sug.style.display = 'none'; }
+    } catch(e) { /* network issues, ignore */ }
+  }, 300);
+});
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.search-wrapper')) document.getElementById('suggestions').style.display = 'none';
+});
+window.addEventListener('resize', () => chart.resize());
+</script>
+</body>
+</html>
