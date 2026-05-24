@@ -1,6 +1,11 @@
+from contextlib import contextmanager
+from typing import Optional
+
+import baostock as bs
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
 
 app = FastAPI(title="缠论免画图网站")
 
@@ -15,3 +20,28 @@ app.add_middleware(
 @app.get("/api/health")
 def health():
     return {"status": "ok"}
+
+
+@contextmanager
+def bao_login():
+    lg = bs.login()
+    try:
+        yield
+    finally:
+        bs.logout()
+
+
+
+
+@app.get("/api/search")
+def search_stock(q: Optional[str] = None):
+    if not q or not q.strip():
+        return JSONResponse({"error": "请输入搜索关键词"}, status_code=400)
+
+    with bao_login():
+        rs = bs.query_stock_basic(code_name=q)
+        results = []
+        while rs.next():
+            row = rs.get_row_data()
+            results.append(f"{row[0]} {row[1]}")
+    return results
