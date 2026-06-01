@@ -18,6 +18,7 @@ class CBi:
         self.set(begin_klc, end_klc)
 
         self.__is_sure = is_sure
+        self.__used_to_be_sure = is_sure
         self.__sure_end: List[CKLine] = []
 
         self.__seg_idx: Optional[int] = None
@@ -51,6 +52,12 @@ class CBi:
 
     @property
     def is_sure(self): return self.__is_sure
+
+    @property
+    def used_to_be_sure(self): return self.__used_to_be_sure
+
+    @property
+    def is_used_to_be_sure(self): return self.is_sure or self.used_to_be_sure
 
     @property
     def sure_end(self): return self.__sure_end
@@ -162,10 +169,12 @@ class CBi:
     def update_virtual_end(self, new_klc: CKLine):
         self.append_sure_end(self.end_klc)
         self.update_new_end(new_klc)
+        self.__used_to_be_sure = self.__is_sure
         self.__is_sure = False
 
     def restore_from_virtual_end(self, sure_end: CKLine):
         self.__is_sure = True
+        self.__used_to_be_sure = True
         self.update_new_end(new_klc=sure_end)
         self.__sure_end = []
 

@@ -99,7 +99,7 @@ class CEigenFX:
 
     def all_bi_is_sure(self):
         assert self.last_evidence_bi is not None
-        return next((False for bi in self.lst if not bi.is_sure), self.last_evidence_bi.is_sure)
+        return next((False for bi in self.lst if not bi.is_used_to_be_sure), self.last_evidence_bi.is_used_to_be_sure)
 
     def clear(self):
         self.ele = [None, None, None]
