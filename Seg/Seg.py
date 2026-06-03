@@ -18,6 +18,7 @@ class CSeg(Generic[LINE_TYPE]):
         self.start_bi = start_bi
         self.end_bi = end_bi
         self.is_sure = is_sure
+        self.used_to_be_sure = is_sure
         self.dir = end_bi.dir if seg_dir is None else seg_dir
 
         from ZS.ZS import CZS
@@ -92,6 +93,10 @@ class CSeg(Generic[LINE_TYPE]):
 
     def get_begin_val(self):
         return self.start_bi.get_begin_val()
+
+    @property
+    def is_used_to_be_sure(self) -> bool:
+        return self.is_sure or self.used_to_be_sure
 
     def amp(self):
         return abs(self.get_end_val() - self.get_begin_val())

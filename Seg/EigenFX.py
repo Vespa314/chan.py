@@ -18,6 +18,8 @@ class CEigenFX:
         self.exclude_included = exclude_included
         self.kl_dir = KLINE_DIR.UP if _dir == BI_DIR.UP else KLINE_DIR.DOWN
         self.last_evidence_bi: Optional[CBi] = None
+        self.last_evidence_bi_is_sure: bool = False
+        self.actual_break_flag = True
 
     def treat_first_ele(self, bi: CBi) -> bool:
         self.ele[0] = CEigen(bi, self.kl_dir)
@@ -37,6 +39,7 @@ class CEigenFX:
         assert self.ele[0] is not None
         assert self.ele[1] is not None
         self.last_evidence_bi = bi
+        self.last_evidence_bi_is_sure = bi.is_used_to_be_sure
         allow_top_equal = (1 if bi.is_down() else -1) if self.exclude_included else None
         combine_dir = self.ele[1].try_add(bi, allow_top_equal=allow_top_equal)
         if combine_dir == KLINE_DIR.COMBINE:
@@ -85,6 +88,9 @@ class CEigenFX:
             break_thred = self.ele[0].low if self.is_up() else self.ele[0].high
             return self.find_revert_fx(bi_lst, end_bi_idx+2, thred_value, break_thred)
         else:
+            # print(f"{self.ele[0]}, {self.ele[1]}, {self.ele[2]} can_be_end return True")
+            if not self.actual_break_flag:
+                return None
             return True
 
     def is_down(self):
@@ -99,7 +105,7 @@ class CEigenFX:
 
     def all_bi_is_sure(self):
         assert self.last_evidence_bi is not None
-        return next((False for bi in self.lst if not bi.is_used_to_be_sure), self.last_evidence_bi.is_used_to_be_sure)
+        return next((False for bi in self.lst if not bi.is_used_to_be_sure), True) and self.last_evidence_bi_is_sure
 
     def clear(self):
         self.ele = [None, None, None]
@@ -119,12 +125,27 @@ class CEigenFX:
         assert len(self.ele[2]) == 1
         ele2_bi = self.ele[2][0]
         if ele2_bi.next and ele2_bi.next.next:
-            if ele2_bi.is_down() and ele2_bi.next.next._low() < ele2_bi._low():
-                self.last_evidence_bi = ele2_bi.next.next
-                return True
-            elif ele2_bi.is_up() and ele2_bi.next.next._high() > ele2_bi._high():
-                self.last_evidence_bi = ele2_bi.next.next
-                return True
+            if ele2_bi.is_down():
+                if ele2_bi.next.next._low() < ele2_bi._low():
+                    self.last_evidence_bi = ele2_bi.next.next
+                    self.last_evidence_bi_is_sure = ele2_bi.next.next.is_used_to_be_sure
+                    return True
+                else:
+                    if not ele2_bi.next.next.is_used_to_be_sure or ele2_bi.next.next.next is None:
+                        self.actual_break_flag = False
+                        return True
+            elif ele2_bi.is_up():
+                if ele2_bi.next.next._high() > ele2_bi._high():
+                    self.last_evidence_bi = ele2_bi.next.next
+                    self.last_evidence_bi_is_sure = ele2_bi.next.next.is_used_to_be_sure
+                    return True
+                else:
+                    if not ele2_bi.next.next.is_used_to_be_sure or ele2_bi.next.next.next is None:
+                        self.actual_break_flag = False
+                        return True
+        if not ele2_bi.next or not ele2_bi.next.next:
+            self.actual_break_flag = False
+            return True
         return False
 
     def find_revert_fx(self, bi_list: CBiList, begin_idx: int, thred_value: float, break_thred: float):
@@ -139,8 +160,13 @@ class CEigenFX:
 
                 while True:
                     _test = egien_fx.can_be_end(bi_list)
+                    if not egien_fx.actual_break_flag:
+                        _test = None
                     if _test in [True, None]:
-                        self.last_evidence_bi = bi
+                        assert egien_fx.ele[2]
+                        self.last_evidence_bi = egien_fx.ele[2].lst[-1]
+                        if _test is True:
+                            self.last_evidence_bi_is_sure = self.last_evidence_bi.is_used_to_be_sure and egien_fx.last_evidence_bi_is_sure
                         return _test
                     elif not egien_fx.reset():
                         break
