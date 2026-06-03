@@ -88,7 +88,6 @@ class CEigenFX:
             break_thred = self.ele[0].low if self.is_up() else self.ele[0].high
             return self.find_revert_fx(bi_lst, end_bi_idx+2, thred_value, break_thred)
         else:
-            # print(f"{self.ele[0]}, {self.ele[1]}, {self.ele[2]} can_be_end return True")
             if not self.actual_break_flag:
                 return None
             return True
@@ -143,7 +142,7 @@ class CEigenFX:
                     if not ele2_bi.next.next.is_used_to_be_sure or ele2_bi.next.next.next is None:
                         self.actual_break_flag = False
                         return True
-        if not ele2_bi.next or not ele2_bi.next.next:
+        else:
             self.actual_break_flag = False
             return True
         return False
