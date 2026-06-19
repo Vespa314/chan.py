@@ -114,7 +114,7 @@ class CSegListComm(Generic[SUB_LINE_TYPE]):
             self.collect_first_seg(bi_lst)
         else:
             self.collect_segs(bi_lst)
-            if bi_lst[-1].idx - self.lst[-1].bi_list[-1].idx > 2 and not self.lst[-1].is_sure:
+            if len(bi_lst) > 0 and len(self.lst) > 0 and bi_lst[-1].idx - self.lst[-1].bi_list[-1].idx > 2 and not self.lst[-1].is_sure:
                 self.lst = self.lst[:-1]
                 self.collect_segs(bi_lst)
 
