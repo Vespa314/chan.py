@@ -116,7 +116,7 @@ class CSegListComm(Generic[SUB_LINE_TYPE]):
             self.collect_segs(bi_lst)
             if len(bi_lst) > 0 and len(self.lst) > 0 and bi_lst[-1].idx - self.lst[-1].bi_list[-1].idx > 2 and not self.lst[-1].is_sure:
                 self.lst = self.lst[:-1]
-                self.collect_segs(bi_lst)
+                self.collect_left_seg(bi_lst)
 
     def collect_left_as_seg(self, bi_lst: CBiList):
         last_bi = bi_lst[-1]
