@@ -11,3 +11,5 @@
 5. 创建 Pull Request
 第二次练习：自己走一遍branch->commit->push->pr的流程
 在practice-pr-round-2分支修改文件。
+第三次练习
+用vs code走一遍流程
