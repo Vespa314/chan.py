@@ -9,3 +9,5 @@
 3. 提交 commit
 4. push 到自己的 GitHub fork
 5. 创建 Pull Request
+第二次练习：自己走一遍branch->commit->push->pr的流程
+在practice-pr-round-2分支修改文件。
