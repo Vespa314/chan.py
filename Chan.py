@@ -182,6 +182,9 @@ class CChan:
         elif self.data_src == DATA_SRC.AKSHARE:
             from DataAPI.AkshareAPI import CAkshare
             _dict[DATA_SRC.AKSHARE] = CAkshare
+        elif self.data_src == DATA_SRC.QAClickhouse:
+            from DataAPI.QAClickhouseAPI import CQAClickhouse
+            _dict[DATA_SRC.QAClickhouse] = CQAClickhouse
         if self.data_src in _dict:
             return _dict[self.data_src]
         assert isinstance(self.data_src, str)
