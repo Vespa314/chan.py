@@ -1485,7 +1485,7 @@ class COpenQuotaGen:
 
 ## Star history
 
-![Star History Chart](https://api.star-history.com/svg?repos=Vespa314/chan.py&type=Date)
+![Star History Chart](https://star-history.dera.page/svg?repos=Vespa314/chan.py&type=Date)
 
 
 ## 咖啡？NO!
