@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chanpy"
+version = "8.0.0"
+description = "chan.py：一个纯 python 的缠论（技术分析）框架，可直接用于量化回测"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Vespa314" }]
+dependencies = [
+    "baostock>=0.8.8",
+    "ipython>=8.5.0",
+    "matplotlib>=3.5.3",
+    "numpy>=1.23.3",
+    "pandas>=1.4.2",
+    "requests>=2.22.0",
+]
+
+[project.optional-dependencies]
+akshare = ["akshare"]
+ccxt = ["ccxt"]
+model = ["xgboost", "scikit-learn"]
+
+[project.urls]
+Homepage = "https://github.com/Vespa314/chan.py"
+
+[tool.setuptools.packages.find]
+include = ["Chan*"]

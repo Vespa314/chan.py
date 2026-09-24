@@ -291,6 +291,23 @@
 ```
 
 ## 缠论计算使用方法
+### 安装方法
+框架已统一收敛到 `Chan` 包下，支持 pip 安装后直接引用：
+
+```bash
+# 从源码安装
+pip install /path/to/chan.py
+
+# 或本地开发模式（改动即时生效）
+pip install -e /path/to/chan.py
+```
+
+```python
+from Chan import CChan, CChanConfig
+```
+
+如果不想安装，也可以把仓库根目录加进 `sys.path` 后按同样方式 import。
+
 ### 特殊名词/变量名解释
 - klu：K Line Unit 的简称，表示单根K线
 - klc：K Line Combine 的简称，表示合并后的K线（不再有 open，close 价格属性）
@@ -312,14 +329,13 @@
 
 ### 使用 demo
 ```python
-from Chan import CChan
-from ChanConfig import CChanConfig
-from ChanModel.XGBModel import CXGBModel
-from Common.CEnum import AUTYPE, KL_TYPE
+from Chan import CChan, CChanConfig
+from Chan.ChanModel.XGBModel import CXGBModel
+from Chan.Common.CEnum import AUTYPE, DATA_SRC, KL_TYPE
 from Config.EnvConfig import Env
 from CustomBuySellPoint.CustomStrategy import CCustomStrategy
-from Plot.AnimatePlotDriver import CAnimateDriver
-from Plot.PlotDriver import CPlotDriver
+from Chan.Plot.AnimatePlotDriver import CAnimateDriver
+from Chan.Plot.PlotDriver import CPlotDriver
 
 config = CChanConfig({})  # 缠论计算配置，见后文
 

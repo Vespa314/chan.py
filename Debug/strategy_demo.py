@@ -1,6 +1,5 @@
-from Chan import CChan
-from ChanConfig import CChanConfig
-from Common.CEnum import AUTYPE, BSP_TYPE, DATA_SRC, FX_TYPE, KL_TYPE
+from Chan import CChan, CChanConfig
+from Chan.Common.CEnum import AUTYPE, BSP_TYPE, DATA_SRC, FX_TYPE, KL_TYPE
 
 if __name__ == "__main__":
     """
