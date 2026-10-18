@@ -1,9 +1,10 @@
-"""从 ClickHouse 读数并用 QtPlotDriver 画图（对齐 main.py 用法）。
+"""从 ClickHouse 读数并用 QtPlotDriver / QtAnimateDriver 画图。
 
 用法::
 
     ~/MyProject/quantaxis/.venv/bin/python main_qa_clickhouse.py
-    QT_QPA_PLATFORM=offscreen .../python main_qa_clickhouse.py --no-show
+    QT_QPA_PLATFORM=wayland .../python main_qa_clickhouse.py
+    .../python main_qa_clickhouse.py --code 000001.XSHG --begin 2024-01-01
 """
 
 from __future__ import annotations
@@ -14,21 +15,44 @@ import os
 from Chan import CChan
 from ChanConfig import CChanConfig
 from Common.CEnum import AUTYPE, DATA_SRC, KL_TYPE
+from Plot.QtAnimatePlotDriver import CQtAnimateDriver
 from Plot.QtPlotDriver import CQtPlotDriver
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--code", default="sz.000001", help="股票代码，支持 sz.000001 / 000001")
+    parser.add_argument(
+        "--code",
+        default="000001.XSHG",
+        help=(
+            "QAClickhouse order_book_id："
+            "个股 000001.XSHE / 000001.SZ；"
+            "指数 000001.XSHG / 000001.SH / 399001.XSHE"
+        ),
+    )
+
     parser.add_argument("--begin", default="2018-01-01", help="起始日期 YYYY-MM-DD")
     parser.add_argument("--end", default=None, help="结束日期，默认至今")
+    parser.add_argument(
+        "--level",
+        default="day",
+        choices=["day", "1min", "5min"],
+        help="K 线级别：day / 1min / 5min",
+    )
     parser.add_argument("--out", default="./test_qa_clickhouse_qt.png", help="导出图片路径")
-    parser.add_argument("--no-show", action="store_true", help="只导出图片，不进入事件循环")
+    parser.add_argument("--no-show", action="store_true", help="静态图模式：只导出图片")
     args = parser.parse_args()
+
+    level_map = {
+        "day": KL_TYPE.K_DAY,
+        "1min": KL_TYPE.K_1M,
+        "5min": KL_TYPE.K_5M,
+    }
+    lv = level_map[args.level]
 
     config = CChanConfig({
         "bi_strict": True,
-        "trigger_step": False,
+        "trigger_step": True,
         "skip_step": 0,
         "divergence_rate": float("inf"),
         "bsp2_follow_1": False,
@@ -62,7 +86,7 @@ def main() -> None:
         "seg": {},
         "bi": {},
         "figure": {
-            "x_range": 200,
+            "animate_interval_ms": 50,
         },
         "marker": {},
     }
@@ -72,10 +96,19 @@ def main() -> None:
         begin_time=args.begin,
         end_time=args.end,
         data_src=DATA_SRC.QAClickhouse,
-        lv_list=[KL_TYPE.K_DAY],
+        lv_list=[lv],
         config=config,
         autype=AUTYPE.QFQ,
     )
+
+    if config.trigger_step:
+        print(f"animate: code={args.code} level={args.level} begin={args.begin}")
+        CQtAnimateDriver(
+            chan,
+            plot_config=plot_config,
+            plot_para=plot_para,
+        )
+        return
 
     driver = CQtPlotDriver(
         chan,

@@ -134,15 +134,39 @@ class CandlestickItem(pg.GraphicsObject):
         rugd: bool = True,
     ) -> None:
         super().__init__()
-        self.data: Sequence[CandleBar] = data
+        self.data: List[CandleBar] = list(data)
         self.width: float = width
         self.rugd: bool = rugd
-        if data:
-            xs = [bar[0] for bar in data]
-            self._x_min = min(xs) - width
-            self._x_max = max(xs) + width
-            self._y_min = min(bar[3] for bar in data)
-            self._y_max = max(bar[2] for bar in data)
+        self._x_min: float = 0.0
+        self._x_max: float = 1.0
+        self._y_min: float = 0.0
+        self._y_max: float = 1.0
+        self._recompute_bounds()
+
+    def setData(self, data: Sequence[CandleBar]) -> None:
+        """整体替换蜡烛数据（动画增量刷新用）。"""
+        self.prepareGeometryChange()
+        self.data = list(data)
+        self._recompute_bounds()
+        self.update()
+
+    def append(self, bar: CandleBar) -> None:
+        """追加一根蜡烛；若 x 与最后一根相同则覆盖（合并 K 场景）。"""
+        self.prepareGeometryChange()
+        if self.data and abs(self.data[-1][0] - bar[0]) < 1e-9:
+            self.data[-1] = bar
+        else:
+            self.data.append(bar)
+        self._recompute_bounds()
+        self.update()
+
+    def _recompute_bounds(self) -> None:
+        if self.data:
+            xs = [bar[0] for bar in self.data]
+            self._x_min = min(xs) - self.width
+            self._x_max = max(xs) + self.width
+            self._y_min = min(bar[3] for bar in self.data)
+            self._y_max = max(bar[2] for bar in self.data)
         else:
             self._x_min = 0.0
             self._x_max = 1.0
@@ -187,6 +211,16 @@ class CandlestickItem(pg.GraphicsObject):
         )
 
 
+def _sure_prefix_len(items: Sequence[object]) -> int:
+    """连续 is_sure 前缀长度；无该属性时视为 0。"""
+    count = 0
+    for item in items:
+        if not bool(getattr(item, "is_sure", False)):
+            break
+        count += 1
+    return count
+
+
 class CQtPlotDriver:
     """
     PyQtGraph 缠论绘图入口。
@@ -201,11 +235,14 @@ class CQtPlotDriver:
         plot_para: Optional[PlotPara] = None,
         parent_widget: Optional[QtWidgets.QWidget] = None,
         create_app: bool = True,
+        defer_draw: bool = False,
     ) -> None:
         if plot_para is None:
             plot_para = {}
         self.plot_para: PlotPara = plot_para
+        self.plot_config_input: PlotConfigInput = plot_config
         figure_config: Dict = plot_para.get("figure", {})
+        self._figure_config: Dict = figure_config
 
         self.app: Optional[QtWidgets.QApplication]
         if create_app:
@@ -216,14 +253,14 @@ class CQtPlotDriver:
 
         pg.setConfigOptions(antialias=True, foreground="k", background="w")
 
-        parsed_config = parse_plot_config(plot_config, chan.lv_list)
-        plot_metas = GetPlotMeta(chan, figure_config)
-        self.lv_lst: List[KL_TYPE] = chan.lv_list[: len(plot_metas)]
         self.chan: CChan = chan
-
-        x_range = self.GetRealXrange(figure_config, plot_metas[0])
+        # 动画复用时 lv 已固定；静态图用当前 chan 级别
+        self.lv_lst: List[KL_TYPE] = list(chan.lv_list)
+        self._parsed_config: Dict[KL_TYPE, Dict[str, bool]] = parse_plot_config(
+            plot_config, self.lv_lst
+        )
         plot_macd: Dict[KL_TYPE, bool] = {
-            kl_type: conf.get("plot_macd", False) for kl_type, conf in parsed_config.items()
+            kl_type: conf.get("plot_macd", False) for kl_type, conf in self._parsed_config.items()
         }
 
         # 对齐 matplotlib figsize 英寸量级（约 100dpi）
@@ -247,6 +284,64 @@ class CQtPlotDriver:
         self.y_min: float = 0.0
         self.y_max: float = 1.0
 
+        # 动画增量层：K 线复用 + sure 前缀冻结 + tip 每帧重画
+        self._candle_items: Dict[KL_TYPE, CandlestickItem] = {}
+        self._active_layer: Optional[str] = None
+        self._layer_items: Dict[Tuple[int, str], List[object]] = {}
+        self._sure_bi_n: Dict[KL_TYPE, int] = {}
+        self._sure_seg_n: Dict[KL_TYPE, int] = {}
+        self._sure_zs_n: Dict[KL_TYPE, int] = {}
+
+        if defer_draw:
+            self._build_empty_axes(plot_macd, macd_h_ration)
+            return
+
+        plot_metas = GetPlotMeta(chan, figure_config)
+        self.lv_lst = chan.lv_list[: len(plot_metas)]
+        self._draw_all_levels(plot_metas)
+
+    def _build_empty_axes(
+        self,
+        plot_macd: Dict[KL_TYPE, bool],
+        macd_h_ration: float,
+    ) -> None:
+        """只建坐标系，内容由 refresh() 填充（动画首帧）。"""
+        first_plot: Optional[pg.PlotItem] = None
+        row = 0
+        for lv in self.lv_lst:
+            axis = DateAxisItem([], orientation="bottom")
+            plot = self.widget.addPlot(row=row, col=0, axisItems={"bottom": axis})
+            plot.hideButtons()
+            plot.setMenuEnabled(False)
+            self._apply_grid(plot, self._figure_config.get("grid", "xy"))
+            title = f"{self.chan.code}/{lv.name.split('K_')[1]}"
+            plot.setTitle(f'<span style="color:#ff0000;font-size:14pt">{title}</span>')
+            plot.titleLabel.setAttr("justify", "left")
+            if first_plot is None:
+                first_plot = plot
+            else:
+                plot.setXLink(first_plot)
+
+            items: List[pg.PlotItem] = [plot]
+            row += 1
+            if plot_macd.get(lv, False):
+                macd_axis = DateAxisItem([], orientation="bottom")
+                ax_macd = self.widget.addPlot(row=row, col=0, axisItems={"bottom": macd_axis})
+                ax_macd.showGrid(x=True, y=True, alpha=0.3)
+                if first_plot is not None:
+                    ax_macd.setXLink(first_plot)
+                self.widget.ci.layout.setRowStretchFactor(row - 1, 10)
+                self.widget.ci.layout.setRowStretchFactor(row, max(1, int(10 * macd_h_ration)))
+                items.append(ax_macd)
+                row += 1
+            self.plot_items[lv] = items
+
+    def _draw_all_levels(self, plot_metas: List[CChanPlotMeta]) -> None:
+        """静态首绘：全量 DrawElement。"""
+        figure_config = self._figure_config
+        plot_para = self.plot_para
+        x_range = self.GetRealXrange(figure_config, plot_metas[0])
+
         sseg_begin = 0
         slv_seg_cnt = plot_para.get("seg", {}).get("sub_lv_cnt", None)
         sbi_begin = 0
@@ -260,6 +355,11 @@ class CQtPlotDriver:
 
         first_plot: Optional[pg.PlotItem] = None
         row = 0
+        plot_macd: Dict[KL_TYPE, bool] = {
+            kl_type: conf.get("plot_macd", False) for kl_type, conf in self._parsed_config.items()
+        }
+        macd_h_ration = float(figure_config.get("macd_h", 0.3))
+
         for meta, lv in zip(plot_metas, self.lv_lst):
             x_limits = cal_x_limit(meta, x_range)
             if lv != self.lv_lst[0]:
@@ -273,8 +373,7 @@ class CQtPlotDriver:
             plot.hideButtons()
             plot.setMenuEnabled(False)
             self._apply_grid(plot, figure_config.get("grid", "xy"))
-            # 对齐 matplotlib：左上角红色标题
-            title = f"{chan.code}/{lv.name.split('K_')[1]}"
+            title = f"{self.chan.code}/{lv.name.split('K_')[1]}"
             plot.setTitle(f'<span style="color:#ff0000;font-size:14pt">{title}</span>')
             plot.titleLabel.setAttr("justify", "left")
             plot.setXRange(x_limits[0], x_limits[1] + 1, padding=0)
@@ -299,8 +398,7 @@ class CQtPlotDriver:
 
             self.plot_items[lv] = items
             self.y_min, self.y_max = cal_y_range_by_limits(meta, x_limits)
-            self.DrawElement(parsed_config[lv], meta, plot, lv, plot_para, ax_macd, x_limits)
-            # 给买卖点箭头/文字留边，避免贴边裁切
+            self.DrawElement(self._parsed_config[lv], meta, plot, lv, plot_para, ax_macd, x_limits)
             plot.setYRange(self.y_min, self.y_max, padding=0.06)
 
             if lv != self.lv_lst[-1]:
@@ -326,6 +424,261 @@ class CQtPlotDriver:
             plot.showGrid(x=False, y=True, alpha=0.2)
             return
         raise CChanException(f"unsupport grid config={grid_cfg}", ErrCode.PLOT_ERR)
+
+    def _register_item(self, ax: pg.PlotItem, item: object) -> object:
+        """把图元挂到当前 active layer，供分层清理。"""
+        if self._active_layer is None:
+            return item
+        key = (id(ax), self._active_layer)
+        self._layer_items.setdefault(key, []).append(item)
+        return item
+
+    def _clear_layer(self, ax: pg.PlotItem, layer: str) -> None:
+        key = (id(ax), layer)
+        for item in self._layer_items.get(key, []):
+            ax.removeItem(item)  # type: ignore[arg-type]
+        self._layer_items[key] = []
+
+    def _purge_transient(self, ax: pg.PlotItem, lv: KL_TYPE) -> None:
+        """删除除 K 线与 sure 冻结层以外的图元（含 ax.plot 未登记项）。"""
+        keep: set[object] = set()
+        candle = self._candle_items.get(lv)
+        if candle is not None:
+            keep.add(candle)
+        for layer in ("frozen_bi", "frozen_seg", "frozen_zs"):
+            keep.update(self._layer_items.get((id(ax), layer), []))
+        for item in list(ax.items):
+            if item not in keep:
+                ax.removeItem(item)
+        for layer in ("klc", "tip", "aux"):
+            self._layer_items[(id(ax), layer)] = []
+
+    def _set_axis_datetick(self, plot: pg.PlotItem, datetick: List[str]) -> None:
+        axis = plot.getAxis("bottom")
+        if isinstance(axis, DateAxisItem):
+            axis.datetick = datetick
+
+    def _collect_klu_bars(
+        self,
+        meta: CChanPlotMeta,
+        x_begin: float,
+        width: float,
+    ) -> List[CandleBar]:
+        data: List[CandleBar] = []
+        for kl in meta.klu_iter():
+            if kl.idx + width < x_begin:
+                continue
+            data.append((float(kl.idx), kl.open, kl.high, kl.low, kl.close))
+        return data
+
+    def _update_candle(
+        self,
+        meta: CChanPlotMeta,
+        ax: pg.PlotItem,
+        lv: KL_TYPE,
+        x_limits: XLimits,
+        width: float = 0.4,
+        rugd: bool = True,
+    ) -> None:
+        """增量更新可见窗内 K 线，复用 CandlestickItem。"""
+        x_begin = float(x_limits[0])
+        data = self._collect_klu_bars(meta, x_begin, width)
+        candle = self._candle_items.get(lv)
+        if candle is None:
+            candle = CandlestickItem(data, width=width, rugd=rugd)
+            candle.setZValue(0)
+            ax.addItem(candle)
+            self._candle_items[lv] = candle
+        else:
+            candle.width = width
+            candle.rugd = rugd
+            candle.setData(data)
+
+    def refresh(self) -> None:
+        """复用窗口做增量刷新：K 线 setData，结构层 sure/tip 分层重画。"""
+        figure_config = self._figure_config
+        plot_para = self.plot_para
+        plot_metas = GetPlotMeta(self.chan, figure_config)
+        if not plot_metas:
+            return
+        x_range = self.GetRealXrange(figure_config, plot_metas[0])
+
+        sseg_begin = 0
+        slv_seg_cnt = plot_para.get("seg", {}).get("sub_lv_cnt", None)
+        sbi_begin = 0
+        slv_bi_cnt = plot_para.get("bi", {}).get("sub_lv_cnt", None)
+        srange_begin = 0
+
+        for meta, lv in zip(plot_metas, self.lv_lst):
+            if lv not in self.plot_items:
+                continue
+            x_limits = cal_x_limit(meta, x_range)
+            if lv != self.lv_lst[0]:
+                if sseg_begin != 0 or sbi_begin != 0:
+                    x_limits[0] = max(sseg_begin, sbi_begin)
+                elif srange_begin != 0:
+                    x_limits[0] = srange_begin
+
+            plot = self.plot_items[lv][0]
+            ax_macd: Optional[pg.PlotItem] = (
+                self.plot_items[lv][1] if len(self.plot_items[lv]) > 1 else None
+            )
+            self._set_axis_datetick(plot, meta.datetick)
+            if ax_macd is not None:
+                self._set_axis_datetick(ax_macd, meta.datetick)
+
+            conf = self._parsed_config[lv]
+            self.y_min, self.y_max = cal_y_range_by_limits(meta, x_limits)
+
+            # P1: K 线增量（先确保 candle 存在，再 purge 时保留）
+            if conf.get("plot_kline", False):
+                kl_para = plot_para.get("kl", {})
+                self._update_candle(
+                    meta,
+                    plot,
+                    lv,
+                    x_limits,
+                    width=float(kl_para.get("width", 0.4)),
+                    rugd=bool(kl_para.get("rugd", True)),
+                )
+
+            self._purge_transient(plot, lv)
+            if ax_macd is not None:
+                ax_macd.clear()
+
+            # klc：最后一根常变，整层重画
+            if conf.get("plot_kline_combine", False):
+                self._active_layer = "klc"
+                self.draw_klc(meta, plot, x_limits=x_limits, **plot_para.get("klc", {}))
+                self._active_layer = None
+
+            # P2: bi/seg/zs sure 前缀冻结，尾部 tip 重画
+            if conf.get("plot_bi", False):
+                bi_para = plot_para.get("bi", {})
+                sure_n = _sure_prefix_len(meta.bi_list)
+                old_n = self._sure_bi_n.get(lv, 0)
+                if sure_n < old_n:
+                    self._clear_layer(plot, "frozen_bi")
+                    if sure_n > 0:
+                        self._active_layer = "frozen_bi"
+                        self.draw_bi(
+                            meta, plot, lv, x_limits=x_limits, bi_slice=(0, sure_n), **bi_para
+                        )
+                        self._active_layer = None
+                elif sure_n > old_n:
+                    self._active_layer = "frozen_bi"
+                    self.draw_bi(
+                        meta, plot, lv, x_limits=x_limits, bi_slice=(old_n, sure_n), **bi_para
+                    )
+                    self._active_layer = None
+                self._sure_bi_n[lv] = sure_n
+
+                self._active_layer = "tip"
+                self.draw_bi(
+                    meta, plot, lv, x_limits=x_limits, bi_slice=(sure_n, None), **bi_para
+                )
+                self._active_layer = None
+
+            if conf.get("plot_seg", False):
+                seg_para = plot_para.get("seg", {})
+                sure_n = _sure_prefix_len(meta.seg_list)
+                old_n = self._sure_seg_n.get(lv, 0)
+                if sure_n < old_n:
+                    self._clear_layer(plot, "frozen_seg")
+                    if sure_n > 0:
+                        self._active_layer = "frozen_seg"
+                        self.draw_seg(
+                            meta, plot, lv, x_limits=x_limits, seg_slice=(0, sure_n), **seg_para
+                        )
+                        self._active_layer = None
+                elif sure_n > old_n:
+                    self._active_layer = "frozen_seg"
+                    self.draw_seg(
+                        meta, plot, lv, x_limits=x_limits, seg_slice=(old_n, sure_n), **seg_para
+                    )
+                    self._active_layer = None
+                self._sure_seg_n[lv] = sure_n
+                self._active_layer = "tip"
+                self.draw_seg(
+                    meta, plot, lv, x_limits=x_limits, seg_slice=(sure_n, None), **seg_para
+                )
+                self._active_layer = None
+
+            if conf.get("plot_zs", False):
+                zs_para = plot_para.get("zs", {})
+                sure_n = _sure_prefix_len(meta.zs_lst)
+                old_n = self._sure_zs_n.get(lv, 0)
+                if sure_n < old_n:
+                    self._clear_layer(plot, "frozen_zs")
+                    if sure_n > 0:
+                        self._active_layer = "frozen_zs"
+                        self.draw_zs(
+                            meta, plot, x_limits=x_limits, zs_slice=(0, sure_n), **zs_para
+                        )
+                        self._active_layer = None
+                elif sure_n > old_n:
+                    self._active_layer = "frozen_zs"
+                    self.draw_zs(
+                        meta, plot, x_limits=x_limits, zs_slice=(old_n, sure_n), **zs_para
+                    )
+                    self._active_layer = None
+                self._sure_zs_n[lv] = sure_n
+                self._active_layer = "tip"
+                self.draw_zs(
+                    meta, plot, x_limits=x_limits, zs_slice=(sure_n, None), **zs_para
+                )
+                self._active_layer = None
+
+            # tip：其余结构（无稳定前缀语义或每帧易变）
+            self._active_layer = "tip"
+            if conf.get("plot_segseg", False):
+                self.draw_segseg(meta, plot, x_limits=x_limits, **plot_para.get("segseg", {}))
+            if conf.get("plot_eigen", False):
+                self.draw_eigen(meta, plot, x_limits=x_limits, **plot_para.get("eigen", {}))
+            if conf.get("plot_segeigen", False):
+                self.draw_segeigen(meta, plot, x_limits=x_limits, **plot_para.get("segeigen", {}))
+            if conf.get("plot_segzs", False):
+                self.draw_segzs(meta, plot, x_limits=x_limits, **plot_para.get("segzs", {}))
+            if conf.get("plot_bsp", False):
+                self.draw_bs_point(meta, plot, x_limits=x_limits, **plot_para.get("bsp", {}))
+            if conf.get("plot_segbsp", False):
+                self.draw_seg_bs_point(meta, plot, x_limits=x_limits, **plot_para.get("seg_bsp", {}))
+            if conf.get("plot_demark", False):
+                self.draw_demark(meta, plot, x_limits=x_limits, **plot_para.get("demark", {}))
+            if conf.get("plot_marker", False):
+                self.draw_marker(
+                    meta, plot, x_limits=x_limits, **plot_para.get("marker", {"markers": {}})
+                )
+            self._active_layer = None
+
+            self._active_layer = "aux"
+            if conf.get("plot_mean", False):
+                self.draw_mean(meta, plot, **plot_para.get("mean", {}))
+            if conf.get("plot_channel", False):
+                self.draw_channel(meta, plot, **plot_para.get("channel", {}))
+            if conf.get("plot_boll", False):
+                self.draw_boll(meta, plot, x_limits=x_limits, **plot_para.get("boll", {}))
+            if conf.get("plot_rsi", False):
+                self.draw_rsi(meta, plot, x_limits=x_limits, **plot_para.get("rsi", {}))
+            if conf.get("plot_kdj", False):
+                self.draw_kdj(meta, plot, x_limits=x_limits, **plot_para.get("kdj", {}))
+            if conf.get("plot_macd", False):
+                if ax_macd is None:
+                    raise CChanException("macd axes missing", ErrCode.PLOT_ERR)
+                self.draw_macd(meta, ax_macd, x_limits, **plot_para.get("macd", {}))
+                ax_macd.setXRange(x_limits[0], x_limits[1] + 1, padding=0)
+            self._active_layer = None
+
+            plot.setXRange(x_limits[0], x_limits[1] + 1, padding=0)
+            plot.setYRange(self.y_min, self.y_max, padding=0.06)
+
+            if lv != self.lv_lst[-1]:
+                if slv_seg_cnt is not None:
+                    sseg_begin = meta.sub_last_kseg_start_idx(slv_seg_cnt)
+                if slv_bi_cnt is not None:
+                    sbi_begin = meta.sub_last_kbi_start_idx(slv_bi_cnt)
+                if x_range != 0:
+                    srange_begin = meta.sub_range_start_idx(x_range)
 
     def GetRealXrange(self, figure_config: Dict, meta: CChanPlotMeta) -> int:
         """解析 figure 配置中的可见 X 窗口长度。"""
@@ -477,6 +830,7 @@ class CQtPlotDriver:
             rect.setBrush(QtGui.QBrush(Qt.BrushStyle.NoBrush))
         rect.setZValue(z_value)
         ax.addItem(rect)
+        self._register_item(ax, rect)
         return rect
 
     def _add_line(
@@ -493,6 +847,7 @@ class CQtPlotDriver:
         item = pg.PlotDataItem([x0, x1], [y0, y1], pen=make_pen(color, width=width, dashed=dashed))
         item.setZValue(10)
         ax.addItem(item)
+        self._register_item(ax, item)
         return item
 
     def _add_text(
@@ -512,6 +867,7 @@ class CQtPlotDriver:
         ti.setPos(x, y)
         ti.setZValue(20)
         ax.addItem(ti)
+        self._register_item(ax, ti)
         return ti
 
     def _add_arrow(
@@ -538,6 +894,7 @@ class CQtPlotDriver:
         )
         scatter.setZValue(15)
         ax.addItem(scatter)
+        self._register_item(ax, scatter)
 
     def _add_highlight(
         self,
@@ -555,6 +912,7 @@ class CQtPlotDriver:
         )
         region.setZValue(-10)
         ax.addItem(region)
+        self._register_item(ax, region)
 
     def draw_klu(
         self,
@@ -648,10 +1006,13 @@ class CQtPlotDriver:
         end_color: ColorLike = "black",
         end_fontsize: float = 10,
         x_limits: Optional[XLimits] = None,
+        bi_slice: Optional[Tuple[int, Optional[int]]] = None,
     ) -> None:
         x_begin = self._x_begin(ax, x_limits)
         x_end = int(self._x_end(ax, x_limits))
-        for bi_idx, bi in enumerate(meta.bi_list):
+        start_i = 0 if bi_slice is None else bi_slice[0]
+        end_i = len(meta.bi_list) if bi_slice is None or bi_slice[1] is None else bi_slice[1]
+        for bi_idx, bi in enumerate(meta.bi_list[start_i:end_i], start=start_i):
             if bi.end_x < x_begin:
                 continue
             self._add_line(ax, bi.begin_x, bi.begin_y, bi.end_x, bi.end_y, color, dashed=not bi.is_sure)
@@ -666,6 +1027,9 @@ class CQtPlotDriver:
                 )
             if disp_end:
                 _bi_text(self, bi_idx, ax, bi, end_fontsize, end_color)
+        # 高亮只在全量绘制时处理，避免 tip/frozen 分层重复叠加
+        if bi_slice is not None:
+            return
         if sub_lv_cnt is not None and len(self.lv_lst) > 1 and lv != self.lv_lst[-1]:
             if sub_lv_cnt >= len(meta.bi_list):
                 return
@@ -692,10 +1056,13 @@ class CQtPlotDriver:
         num_fontsize: float = 25,
         num_color: ColorLike = "blue",
         x_limits: Optional[XLimits] = None,
+        seg_slice: Optional[Tuple[int, Optional[int]]] = None,
     ) -> None:
         x_begin = self._x_begin(ax, x_limits)
         x_end = int(self._x_end(ax, x_limits))
-        for seg_idx, seg_meta in enumerate(meta.seg_list):
+        start_i = 0 if seg_slice is None else seg_slice[0]
+        end_i = len(meta.seg_list) if seg_slice is None or seg_slice[1] is None else seg_slice[1]
+        for seg_idx, seg_meta in enumerate(meta.seg_list[start_i:end_i], start=start_i):
             if seg_meta.end_x < x_begin:
                 continue
             self._add_line(
@@ -732,6 +1099,8 @@ class CQtPlotDriver:
                     num_color,
                     fontsize=num_fontsize,
                 )
+        if seg_slice is not None:
+            return
         if sub_lv_cnt is not None and len(self.lv_lst) > 1 and lv != self.lv_lst[-1]:
             if sub_lv_cnt >= len(meta.seg_list):
                 return
@@ -850,10 +1219,13 @@ class CQtPlotDriver:
         text_color: ColorLike = "orange",
         draw_one_bi_zs: bool = False,
         x_limits: Optional[XLimits] = None,
+        zs_slice: Optional[Tuple[int, Optional[int]]] = None,
     ) -> None:
         linewidth = max(linewidth, 2)
         x_begin = self._x_begin(ax, x_limits)
-        for zs_meta in meta.zs_lst:
+        start_i = 0 if zs_slice is None else zs_slice[0]
+        end_i = len(meta.zs_lst) if zs_slice is None or zs_slice[1] is None else zs_slice[1]
+        for zs_meta in meta.zs_lst[start_i:end_i]:
             if not draw_one_bi_zs and zs_meta.is_onebi_zs:
                 continue
             if zs_meta.begin + zs_meta.w < x_begin:

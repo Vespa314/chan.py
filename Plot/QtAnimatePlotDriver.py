@@ -1,4 +1,4 @@
-"""PyQtGraph 逐帧动画驱动，行为对齐 CAnimateDriver（每帧整图重建）。"""
+"""PyQtGraph 逐帧动画驱动：复用画布 + K 线增量 + 结构 sure/tip 分层。"""
 
 from __future__ import annotations
 
@@ -14,9 +14,11 @@ from .QtPlotDriver import CQtPlotDriver, PlotConfigInput, PlotPara
 
 class CQtAnimateDriver:
     """
-    用 QTimer 驱动 chan.step_load()，每帧重建 CQtPlotDriver。
+    用 QTimer 驱动 chan.step_load()。
 
-    缠论计算侧是增量的；绘图侧与 matplotlib 版一样，每帧清空并重建。
+    计算侧增量；绘图侧复用同一个 CQtPlotDriver：
+    - K 线 CandlestickItem.setData
+    - bi/seg/zs 的 sure 前缀冻结，未确认尾部每帧重画
     """
 
     def __init__(
@@ -35,6 +37,8 @@ class CQtAnimateDriver:
         self.plot_para: PlotPara = plot_para
         figure_cfg: Dict = plot_para.get("figure", {})
         self.interval_ms: int = int(figure_cfg.get("animate_interval_ms", 50))
+        # 兼容旧行为：figure.full_redraw=True 时每帧销毁重建
+        self.full_redraw: bool = bool(figure_cfg.get("full_redraw", False))
 
         existing_app = QtWidgets.QApplication.instance()
         self.app: QtWidgets.QApplication
@@ -53,6 +57,7 @@ class CQtAnimateDriver:
         self._driver: Optional[CQtPlotDriver] = None
         self._step_iter: Iterator[CChan] = chan.step_load()
         self._paused: bool = False
+        self._frame: int = 0
 
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self._on_tick)
@@ -97,6 +102,20 @@ class CQtAnimateDriver:
                 widget.deleteLater()
         self._driver = None
 
+    def _ensure_driver(self) -> CQtPlotDriver:
+        if self._driver is not None:
+            return self._driver
+        self._driver = CQtPlotDriver(
+            self.chan,
+            plot_config=self.plot_config,
+            plot_para=self.plot_para,
+            parent_widget=self.plot_host,
+            create_app=False,
+            defer_draw=True,
+        )
+        self.plot_host_layout.addWidget(self._driver.widget)
+        return self._driver
+
     def _on_tick(self) -> None:
         if self._paused:
             return
@@ -108,13 +127,18 @@ class CQtAnimateDriver:
             self.btn_pause.setEnabled(False)
             return
 
-        self._clear_plot_host()
-        self._driver = CQtPlotDriver(
-            self.chan,
-            plot_config=self.plot_config,
-            plot_para=self.plot_para,
-            parent_widget=self.plot_host,
-            create_app=False,
-        )
-        self.plot_host_layout.addWidget(self._driver.widget)
+        self._frame += 1
+        if self.full_redraw:
+            self._clear_plot_host()
+            self._driver = CQtPlotDriver(
+                self.chan,
+                plot_config=self.plot_config,
+                plot_para=self.plot_para,
+                parent_widget=self.plot_host,
+                create_app=False,
+            )
+            self.plot_host_layout.addWidget(self._driver.widget)
+        else:
+            driver = self._ensure_driver()
+            driver.refresh()
         QtWidgets.QApplication.processEvents()

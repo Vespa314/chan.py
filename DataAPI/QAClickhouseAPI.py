@@ -1,4 +1,4 @@
-"""基于 QUANTAXIS QAClickhouse 的缠论数据源。"""
+"""基于 QUANTAXIS QAClickhouse 的缠论数据源（区分个股 / 指数）。"""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from datetime import date, datetime, timezone
 from typing import Iterator, Optional, Union
 
 import pandas as pd
-from QUANTAXIS.QAFetch.QAClickhouse import QACKClient, stock_format
+from QUANTAXIS.QAFetch.QAClickhouse import QACKClient, index_format, stock_format
 
 from Common.CEnum import AUTYPE, DATA_FIELD, KL_TYPE
 from Common.ChanException import CChanException, ErrCode
@@ -19,24 +19,79 @@ from .CommonStockAPI import CCommonStockApi
 _TimeLike = Union[datetime, date, pd.Timestamp, str]
 
 
-def to_order_book_id(code: str) -> str:
-    """把 chan.py / BaoStock 风格代码转为 QAClickhouse order_book_id。
+_QA_EXCHANGE_SUFFIX = (".XSHG", ".XSHE", ".XBEI", ".INDX", ".RI")
+_ALIAS_SUFFIX_MAP = {".SH": ".XSHG", ".SZ": ".XSHE", ".BJ": ".XBEI"}
+
+
+def _normalize_code_text(code: str) -> str:
+    """去掉空白并统一为大写。"""
+    return str(code).strip().upper()
+
+
+def _split_symbol_exchange(code: str) -> tuple[str, Optional[str]]:
+    """拆出证券数字码与交易所后缀（若有）。
+
+    仅支持 QAClickhouse 风格：``000001.XSHE`` / ``000001.SZ`` / 纯数字 ``000001``。
+    """
+    text = _normalize_code_text(code)
+    for alias, canonical in _ALIAS_SUFFIX_MAP.items():
+        if text.endswith(alias):
+            text = text.removesuffix(alias) + canonical
+            break
+
+    if text.endswith(_QA_EXCHANGE_SUFFIX):
+        symbol, exchange = text.rsplit(".", 1)
+        return symbol, f".{exchange}"
+
+    return text, None
+
+
+def detect_is_index(code: str) -> bool:
+    """判断代码是否为指数。
+
+    规则（QAClickhouse ``order_book_id``）:
+        - 已带后缀: ``399*.XSHE`` / ``399*.SZ``、``000*.XSHG`` / ``000*.SH``、
+          ``880/881*.XSHG``、``.INDX`` / ``.RI`` 为指数; ``000*.XSHE`` 为深市个股。
+        - 纯数字: ``399*``、``000*``、``880/881*`` 按指数处理（``000001`` → 上证指数）。
+    """
+    symbol, exchange = _split_symbol_exchange(code)
+    digits = "".join(ch for ch in symbol if ch.isdigit())
+    num = digits[:6] if len(digits) >= 6 else symbol
+
+    if exchange in (".INDX", ".RI"):
+        return True
+    if exchange == ".XSHG":
+        return num.startswith(("000", "880", "881"))
+    if exchange == ".XSHE":
+        return num.startswith("399")
+    if exchange == ".XBEI":
+        return False
+
+    if len(num) >= 6:
+        return num.startswith(("000", "399", "880", "881"))
+    return False
+
+
+def to_order_book_id(code: str, *, is_index: bool) -> str:
+    """把输入代码转为 QAClickhouse ``order_book_id``。
 
     Args:
-        code: 如 ``sz.000001``、``000001``、``000001.XSHE``。
+        code: QAClickhouse 风格代码，例如:
+
+            - 标准: ``000001.XSHE``、``000001.XSHG``
+            - 简写后缀: ``000001.SZ``、``000001.SH``
+            - 纯数字: ``000001`` / ``399001``（按 ``is_index`` 走
+              ``index_format`` / ``stock_format``）
+        is_index: 是否按指数格式化（仅影响无交易所后缀时的默认映射）。
 
     Returns:
-        带 ``.XSHG`` / ``.XSHE`` / ``.XBEI`` 后缀的代码。
+        形如 ``000001.XSHE`` / ``000001.XSHG`` 的 order_book_id。
     """
-    text = str(code).strip()
-    lower = text.lower()
-    if lower.startswith("sz."):
-        return f"{text.split('.', 1)[1]}.XSHE"
-    if lower.startswith("sh."):
-        return f"{text.split('.', 1)[1]}.XSHG"
-    if lower.startswith("bj."):
-        return f"{text.split('.', 1)[1]}.XBEI"
-    return stock_format(text)
+    symbol, exchange = _split_symbol_exchange(code)
+    if exchange is not None:
+        return f"{symbol}{exchange}"
+
+    return index_format(symbol) if is_index else stock_format(symbol)
 
 
 def _parse_ctime(value: _TimeLike, *, auto: bool) -> CTime:
@@ -79,8 +134,18 @@ def _row_to_klu(row: pd.Series, *, is_intraday: bool) -> CKLine_Unit:
     return CKLine_Unit(item)
 
 
+def _as_dataframe(result: object) -> pd.DataFrame:
+    if isinstance(result, pd.DataFrame):
+        return result
+    if hasattr(result, "data"):
+        frame = result.data
+        if isinstance(frame, pd.DataFrame):
+            return frame
+    raise CChanException(f"unexpected clickhouse result type: {type(result)}", ErrCode.SRC_DATA_TYPE_ERR)
+
+
 class CQAClickhouse(CCommonStockApi):
-    """从 ClickHouse（QUANTAXIS QACKClient）读取股票 K 线。"""
+    """从 ClickHouse（QUANTAXIS QACKClient）读取个股或指数 K 线。"""
 
     _client: Optional[QACKClient] = None
 
@@ -92,7 +157,8 @@ class CQAClickhouse(CCommonStockApi):
         end_date: Optional[str] = None,
         autype: AUTYPE = AUTYPE.QFQ,
     ) -> None:
-        self.order_book_id: str = to_order_book_id(code)
+        self.is_index: bool = detect_is_index(code)
+        self.order_book_id: str = to_order_book_id(code, is_index=self.is_index)
         super().__init__(code, k_type, begin_date, end_date, autype)
 
     @classmethod
@@ -113,7 +179,7 @@ class CQAClickhouse(CCommonStockApi):
 
     def SetBasciInfo(self) -> None:
         self.name = self.order_book_id
-        self.is_stock = True
+        self.is_stock = not self.is_index
 
     def _date_range(self) -> tuple[str, str]:
         begin = self.begin_date if self.begin_date else "1990-01-01"
@@ -138,13 +204,16 @@ class CQAClickhouse(CCommonStockApi):
     def _load_day_frame(self) -> pd.DataFrame:
         client = self._get_client()
         begin, end = self._date_range()
+        if self.is_index:
+            # 指数无复权字段，QFQ/NONE 均走 index 表
+            return _as_dataframe(client.get_index_day(self.order_book_id, begin, end))
+
         if self.autype == AUTYPE.QFQ:
-            frame = client.get_stock_day_qfq(self.order_book_id, begin, end)
-            return frame if isinstance(frame, pd.DataFrame) else frame.data
+            return _as_dataframe(client.get_stock_day_qfq(self.order_book_id, begin, end))
         if self.autype == AUTYPE.NONE:
-            return client.get_stock_day(self.order_book_id, begin, end).data
+            return _as_dataframe(client.get_stock_day(self.order_book_id, begin, end))
         raise CChanException(
-            "QAClickhouse 数据源暂只支持 AUTYPE.QFQ / AUTYPE.NONE",
+            "QAClickhouse 个股暂只支持 AUTYPE.QFQ / AUTYPE.NONE",
             ErrCode.PARA_ERROR,
         )
 
@@ -157,18 +226,22 @@ class CQAClickhouse(CCommonStockApi):
         if len(end) == 10:
             end = f"{end} 15:30:00"
         frequence = self._min_frequence()
+
+        if self.is_index:
+            raw = client.get_index_min(self.order_book_id, begin, end, frequence=frequence)
+            return _as_dataframe(raw)
+
         raw = client.get_stock_min(self.order_book_id, begin, end, frequence=frequence)
-        frame = raw.data
-        if frame is None or frame.empty:
-            return pd.DataFrame()
+        frame = _as_dataframe(raw)
+        if frame.empty:
+            return frame
         if self.autype == AUTYPE.NONE:
             return frame
         if self.autype == AUTYPE.QFQ:
-            # to_qfq 在空数据上会失败，已在上面拦截
             qfq = client.to_qfq(raw)
-            return qfq.data if hasattr(qfq, "data") else qfq
+            return _as_dataframe(qfq)
         raise CChanException(
-            "QAClickhouse 数据源暂只支持 AUTYPE.QFQ / AUTYPE.NONE",
+            "QAClickhouse 个股暂只支持 AUTYPE.QFQ / AUTYPE.NONE",
             ErrCode.PARA_ERROR,
         )
 
@@ -186,8 +259,9 @@ class CQAClickhouse(CCommonStockApi):
             )
 
         if frame is None or getattr(frame, "empty", True):
+            kind = "index" if self.is_index else "stock"
             raise CChanException(
-                f"QAClickhouse 无数据: {self.order_book_id} {self.k_type} "
+                f"QAClickhouse 无数据({kind}): {self.order_book_id} {self.k_type} "
                 f"{self.begin_date}~{self.end_date}",
                 ErrCode.SRC_DATA_NOT_FOUND,
             )

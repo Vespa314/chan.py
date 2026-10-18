@@ -5,7 +5,7 @@ from Plot.AnimatePlotDriver import CAnimateDriver
 from Plot.PlotDriver import CPlotDriver
 
 if __name__ == "__main__":
-    code = "sz.000001"
+    code = "000001.XSHG"
     begin_time = "2018-01-01"
     end_time = None
     data_src = DATA_SRC.QAClickhouse
