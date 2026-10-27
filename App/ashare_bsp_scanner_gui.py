@@ -4,6 +4,7 @@ A股缠论买点扫描器 - Powered by chan.py
 功能说明:
     - 批量扫描A股市场，自动识别近期出现买点的股票
     - 支持单只股票的缠论分析和图表展示
+    - 一键复制买点股票列表中的全部代码，每行一个
     - 可视化显示K线、笔、线段、中枢、买卖点、MACD等
 
 数据来源:
@@ -433,10 +434,18 @@ class AkshareGUI(QMainWindow):
         self.stock_table.cellClicked.connect(self.on_stock_clicked)
         list_layout.addWidget(self.stock_table)
 
-        # 清空按钮
+        # 列表操作
+        list_btn_layout = QHBoxLayout()
+        self.copy_codes_btn = QPushButton("复制全部代码")
+        self.copy_codes_btn.setToolTip("复制列表中的全部股票代码，每行一个，保留前导零")
+        self.copy_codes_btn.setEnabled(False)
+        self.copy_codes_btn.clicked.connect(self.copy_stock_codes)
+        list_btn_layout.addWidget(self.copy_codes_btn)
+
         self.clear_list_btn = QPushButton("清空列表")
         self.clear_list_btn.clicked.connect(self.clear_stock_list)
-        list_layout.addWidget(self.clear_list_btn)
+        list_btn_layout.addWidget(self.clear_list_btn)
+        list_layout.addLayout(list_btn_layout)
 
         layout.addWidget(list_group)
 
@@ -610,6 +619,7 @@ class AkshareGUI(QMainWindow):
 
         # 缓存 chan 对象
         self.stock_cache[data['code']] = data['chan']
+        self.copy_codes_btn.setEnabled(True)
 
     def on_scan_finished(self, success_count, fail_count):
         """扫描完成"""
@@ -710,10 +720,24 @@ class AkshareGUI(QMainWindow):
         """刷新图表"""
         self.plot_chart()
 
+    def copy_stock_codes(self):
+        """按列表顺序复制全部股票代码，每行一个，保留前导零。"""
+        codes = []
+        for row in range(self.stock_table.rowCount()):
+            item = self.stock_table.item(row, 0)
+            if item is not None and item.text().strip():
+                codes.append(item.text().strip())
+        if not codes:
+            self.statusBar.showMessage('列表为空，没有可复制的股票代码')
+            return
+        QApplication.clipboard().setText('\n'.join(codes))
+        self.statusBar.showMessage(f'已复制 {len(codes)} 个股票代码到剪贴板')
+
     def clear_stock_list(self):
         """清空股票列表"""
         self.stock_table.setRowCount(0)
         self.stock_cache.clear()
+        self.copy_codes_btn.setEnabled(False)
         self.statusBar.showMessage('列表已清空')
 
 
