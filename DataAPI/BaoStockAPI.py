@@ -15,28 +15,7 @@ def create_item_dict(data, column_name):
 
 
 def parse_time_column(inp):
-    # 20210902113000000
-    # 2021-09-13
-    if len(inp) == 10:
-        year = int(inp[:4])
-        month = int(inp[5:7])
-        day = int(inp[8:10])
-        hour = minute = 0
-    elif len(inp) == 17:
-        year = int(inp[:4])
-        month = int(inp[4:6])
-        day = int(inp[6:8])
-        hour = int(inp[8:10])
-        minute = int(inp[10:12])
-    elif len(inp) == 19:
-        year = int(inp[:4])
-        month = int(inp[5:7])
-        day = int(inp[8:10])
-        hour = int(inp[11:13])
-        minute = int(inp[14:16])
-    else:
-        raise Exception(f"unknown time column from baostock:{inp}")
-    return CTime(year, month, day, hour, minute)
+    return CTime.from_str(inp)
 
 
 def GetColumnNameFromFieldList(fileds: str):
