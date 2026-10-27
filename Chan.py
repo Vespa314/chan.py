@@ -255,7 +255,15 @@ class CChan:
                 except StopIteration:
                     break
 
-            if parent_klu and kline_unit.time > parent_klu.time:
+            # Daily and higher futures bars include their evening/night sessions.
+            # Intraday bars still align by their real chronological end times.
+            after_parent = False
+            if parent_klu:
+                if self.lv_list[lv_idx-1].value >= KL_TYPE.K_DAY.value and cur_lv.value < KL_TYPE.K_DAY.value:
+                    after_parent = kline_unit.time.trading_day > parent_klu.time.trading_day
+                else:
+                    after_parent = kline_unit.time > parent_klu.time
+            if after_parent:
                 self.klu_cache[lv_idx] = kline_unit
                 break
             kline_unit.set_pre_klu(pre_klu)
@@ -271,9 +279,7 @@ class CChan:
                 yield self
 
     def check_kl_consitent(self, parent_klu, sub_klu):
-        if parent_klu.time.year != sub_klu.time.year or \
-           parent_klu.time.month != sub_klu.time.month or \
-           parent_klu.time.day != sub_klu.time.day:
+        if parent_klu.time.trading_day != sub_klu.time.trading_day:
             self.kl_inconsistent_detail[str(parent_klu.time)].append(sub_klu.time)
             if self.conf.print_warning:
                 print(f"[WARNING-{self.code}]父级别时间是{parent_klu.time}，次级别时间却是{sub_klu.time}")
