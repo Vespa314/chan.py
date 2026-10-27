@@ -36,7 +36,8 @@ from PyQt6.QtWidgets import (
     QMessageBox, QStatusBar, QSplitter, QTableWidget, QTableWidgetItem,
     QProgressBar, QHeaderView, QTextEdit
 )
-from PyQt6.QtCore import QDate, Qt, QThread, pyqtSignal
+from PyQt6.QtCore import QDate, Qt, QThread, QTimer, pyqtSignal
+from PyQt6.QtGui import QColor, QPalette
 
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
@@ -49,6 +50,88 @@ import pandas as pd
 from Chan import CChan
 from ChanConfig import CChanConfig
 from Common.CEnum import AUTYPE, DATA_SRC, KL_TYPE
+
+
+def apply_theme(app):
+    """固定浅色调色板，避免系统深色模式与白色行情图混用。"""
+    app.setStyle('Fusion')
+    palette = QPalette()
+    colors = {
+        'Window': '#f3f6fa', 'WindowText': '#243247',
+        'Base': '#ffffff', 'AlternateBase': '#f5f8fc',
+        'Text': '#243247', 'Button': '#ffffff', 'ButtonText': '#243247',
+        'Highlight': '#dbeafe', 'HighlightedText': '#173d75',
+        'ToolTipBase': '#ffffff', 'ToolTipText': '#243247',
+        'PlaceholderText': '#69788c', 'Link': '#2563eb',
+        'Light': '#ffffff', 'Midlight': '#edf2f7',
+        'Mid': '#cbd5e1', 'Dark': '#64748b', 'Shadow': '#94a3b8',
+    }
+    for role, color in colors.items():
+        palette.setColor(getattr(QPalette.ColorRole, role), QColor(color))
+    for role in ('WindowText', 'Text', 'ButtonText'):
+        palette.setColor(QPalette.ColorGroup.Disabled,
+                         getattr(QPalette.ColorRole, role), QColor('#69788c'))
+    app.setPalette(palette)
+    app.setStyleSheet("""
+        QWidget { font-family: "Microsoft YaHei UI", "Microsoft YaHei", "Segoe UI";
+                  font-size: 13px; }
+        QGroupBox { background: #ffffff; border: 1px solid #dce3ed;
+                    border-radius: 8px; margin-top: 12px; padding: 14px 10px 10px; }
+        QGroupBox::title { subcontrol-origin: margin; left: 12px;
+                          padding: 0 5px; color: #334155; font-weight: bold; }
+        QPushButton { background: #ffffff; color: #334155; border: 1px solid #cbd5e1;
+                      border-radius: 5px; padding: 7px 12px; }
+        QPushButton:hover { background: #eff6ff; border-color: #93b4e8; }
+        QPushButton:pressed { background: #dbeafe; }
+        QPushButton#scanButton { background: #2563eb; color: #ffffff;
+                                border-color: #2563eb; font-weight: bold; padding: 10px; }
+        QPushButton#scanButton:hover { background: #1d4ed8; }
+        QPushButton#scanButton:pressed { background: #1e40af; }
+        QPushButton#stopButton { background: #fff1f2; color: #b42335;
+                                border-color: #f2b8c0; padding: 10px; }
+        QPushButton#stopButton:hover { background: #ffe4e6; }
+        QPushButton#stopButton:pressed { background: #fecdd3; }
+        QPushButton:disabled, QPushButton#scanButton:disabled,
+        QPushButton#stopButton:disabled { background: #edf1f6; color: #69788c;
+                                         border-color: #dce3ed; }
+        QPushButton:focus, QToolButton:focus { border: 1px solid #2563eb; }
+        QLineEdit, QTextEdit, QTableWidget { background: #ffffff; color: #243247;
+            border: 1px solid #dce3ed; border-radius: 5px;
+            selection-background-color: #dbeafe; selection-color: #173d75; }
+        QLineEdit { padding: 7px; }
+        QLineEdit:focus, QTextEdit:focus, QTableWidget:focus { border-color: #2563eb; }
+        QLineEdit:disabled { background: #edf1f6; color: #69788c; }
+        QTableWidget { alternate-background-color: #f5f8fc; gridline-color: #edf1f6; }
+        QTableWidget::item { padding: 4px; }
+        QTableWidget::item:selected { background: #dbeafe; color: #173d75; }
+        QHeaderView::section { background: #edf2f8; color: #475569;
+                              border: none; border-bottom: 1px solid #dce3ed; padding: 8px 4px; }
+        QTableCornerButton::section { background: #edf2f8; border: none; }
+        QCheckBox { spacing: 6px; padding: 3px 0; }
+        QProgressBar { border: 1px solid #dce3ed; border-radius: 5px;
+                       background: #edf2f8; color: #243247; text-align: center; min-height: 20px; }
+        QProgressBar::chunk { background: #93baf5; border-radius: 4px; }
+        QToolBar { background: #ffffff; border: none; spacing: 3px; padding: 4px; }
+        QToolButton { background: transparent; color: #334155; border: 1px solid transparent;
+                      border-radius: 4px; padding: 4px; }
+        QToolButton:hover, QToolButton:checked { background: #dbeafe; }
+        QSplitter::handle { background: #e2e8f0; }
+        QStatusBar { background: #eaf0f7; color: #475569; }
+        QStatusBar::item { border: none; }
+        QToolTip { background: #ffffff; color: #243247; border: 1px solid #cbd5e1; padding: 5px; }
+    """)
+
+
+def style_chart(figure):
+    """仅统一图表底色和坐标文字，保留涨跌及缠论图层的语义颜色。"""
+    figure.set_facecolor('#ffffff')
+    for ax in figure.axes:
+        ax.set_facecolor('#ffffff')
+        ax.tick_params(colors='#64748b')
+        for spine in ax.spines.values():
+            spine.set_color('#cbd5e1')
+        for label in (ax.title, ax.xaxis.label, ax.yaxis.label):
+            label.set_color('#334155')
 
 
 def get_tradable_stocks():
@@ -112,12 +195,12 @@ class ScanThread(QThread):
     Signals:
         progress: (int, int, str) 当前进度、总数、当前股票信息
         found_signal: (dict) 发现买点时发出，包含股票详情和 CChan 对象
-        finished: (int, int) 扫描完成，返回成功数和失败数
+        finished: QThread 原生完成信号，统计保存在 success_count / fail_count
         log_signal: (str) 日志消息
     """
     progress = pyqtSignal(int, int, str)
     found_signal = pyqtSignal(dict)
-    finished = pyqtSignal(int, int)
+    error = pyqtSignal(str)
     log_signal = pyqtSignal(str)
 
     def __init__(self, stock_list, config, days=365):
@@ -133,11 +216,14 @@ class ScanThread(QThread):
         self.stock_list = stock_list
         self.config = config
         self.days = days
-        self.is_running = True
+        self.success_count = 0
+        self.fail_count = 0
+        self.cancelled = False
 
     def stop(self):
         """停止扫描，设置标志位让 run() 循环退出"""
-        self.is_running = False
+        self.cancelled = True
+        self.requestInterruption()
 
     def run(self):
         """
@@ -151,12 +237,20 @@ class ScanThread(QThread):
         """
         begin_time = (datetime.now() - timedelta(days=self.days)).strftime("%Y-%m-%d")
         end_time = datetime.now().strftime("%Y-%m-%d")
+        if self.stock_list is None:
+            self.log_signal.emit('正在获取股票列表...')
+            self.stock_list = get_tradable_stocks()
+            if self.isInterruptionRequested():
+                return
+            if self.stock_list.empty:
+                self.error.emit('获取股票列表失败或没有符合条件的股票')
+                return
         total = len(self.stock_list)
         success_count = 0
         fail_count = 0
 
         for idx, row in self.stock_list.iterrows():
-            if not self.is_running:
+            if self.isInterruptionRequested():
                 break
 
             code = row['代码']
@@ -175,6 +269,9 @@ class ScanThread(QThread):
                     autype=AUTYPE.QFQ,
                 )
 
+                if self.isInterruptionRequested():
+                    break
+
                 # 检查最近15天是否有数据
                 if len(chan[0]) == 0:
                     fail_count += 1
@@ -188,14 +285,12 @@ class ScanThread(QThread):
                     self.log_signal.emit(f"⏸️ {code} {name}: 停牌超过15天")
                     continue
 
-                success_count += 1
-
                 # 检查是否有买点（只找最近3天内出现的买点）
                 bsp_list = chan.get_latest_bsp(number=0)
-                cutoff_date = datetime.now() - timedelta(days=3)
+                cutoff_date = (datetime.now() - timedelta(days=3)).date()
                 buy_points = [
                     bsp for bsp in bsp_list
-                    if bsp.is_buy and datetime(bsp.klu.time.year, bsp.klu.time.month, bsp.klu.time.day) >= cutoff_date
+                    if bsp.is_buy and datetime(bsp.klu.time.year, bsp.klu.time.month, bsp.klu.time.day).date() >= cutoff_date
                 ]
 
                 if buy_points:
@@ -213,12 +308,16 @@ class ScanThread(QThread):
                     })
                 else:
                     self.log_signal.emit(f"➖ {code} {name}: 无近期买点")
+                success_count += 1
             except Exception as e:
+                if self.isInterruptionRequested():
+                    break
                 fail_count += 1
                 self.log_signal.emit(f"❌ {code} {name}: {str(e)[:50]}")
                 continue
 
-        self.finished.emit(success_count, fail_count)
+        self.success_count = success_count
+        self.fail_count = fail_count
 
 
 class SingleAnalysisThread(QThread):
@@ -228,10 +327,10 @@ class SingleAnalysisThread(QThread):
     用于分析用户手动输入的股票代码，避免阻塞 UI。
 
     Signals:
-        finished: (CChan) 分析完成，返回 CChan 对象
+        result: (CChan) 分析完成，返回 CChan 对象
         error: (str) 分析出错时返回错误信息
     """
-    finished = pyqtSignal(object)
+    result = pyqtSignal(object)
     error = pyqtSignal(str)
 
     def __init__(self, code, config, days=365):
@@ -263,9 +362,11 @@ class SingleAnalysisThread(QThread):
                 config=self.config,
                 autype=AUTYPE.QFQ,
             )
-            self.finished.emit(chan)
+            if not self.isInterruptionRequested():
+                self.result.emit(chan)
         except Exception as e:
-            self.error.emit(str(e))
+            if not self.isInterruptionRequested():
+                self.error.emit(str(e))
 
 
 class ChanPlotCanvas(FigureCanvas):
@@ -281,7 +382,7 @@ class ChanPlotCanvas(FigureCanvas):
     """
 
     def __init__(self, parent=None, width=12, height=8):
-        self.fig = Figure(figsize=(width, height), dpi=100)
+        self.fig = Figure(figsize=(width, height), dpi=100, facecolor='#ffffff')
         super().__init__(self.fig)
         self.setParent(parent)
         self.setMinimumHeight(400)
@@ -312,6 +413,10 @@ class AkshareGUI(QMainWindow):
         self.chan = None  # 当前分析的 CChan 对象
         self.scan_thread = None  # 批量扫描线程
         self.analysis_thread = None  # 单股分析线程
+        self._closing = False
+        self._analysis_request = 0
+        self._pending_analysis = None
+        self._scan_error = None
         self.stock_cache = {}  # 缓存已分析的股票 {code: CChan}
         self.init_ui()
 
@@ -326,6 +431,7 @@ class AkshareGUI(QMainWindow):
 
         # 主布局
         main_layout = QHBoxLayout(central_widget)
+        main_layout.setContentsMargins(12, 12, 12, 8)
 
         # 左侧控制面板和股票列表
         left_panel = self.create_left_panel()
@@ -337,6 +443,9 @@ class AkshareGUI(QMainWindow):
         splitter = QSplitter(Qt.Orientation.Horizontal)
         splitter.addWidget(left_panel)
         splitter.addWidget(right_panel)
+        splitter.setChildrenCollapsible(False)
+        splitter.setStretchFactor(0, 0)
+        splitter.setStretchFactor(1, 1)
         splitter.setSizes([450, 1150])
 
         main_layout.addWidget(splitter)
@@ -349,7 +458,10 @@ class AkshareGUI(QMainWindow):
     def create_left_panel(self):
         """创建左侧面板"""
         panel = QWidget()
+        panel.setMinimumWidth(420)
         layout = QVBoxLayout(panel)
+        layout.setContentsMargins(0, 0, 8, 0)
+        layout.setSpacing(12)
 
         # 扫描控制
         scan_group = QGroupBox("扫描设置")
@@ -364,33 +476,13 @@ class AkshareGUI(QMainWindow):
         btn_layout = QHBoxLayout()
         self.scan_btn = QPushButton("开始扫描")
         self.scan_btn.clicked.connect(self.start_scan)
-        self.scan_btn.setStyleSheet("""
-            QPushButton {
-                background-color: #4CAF50;
-                color: white;
-                font-size: 14px;
-                padding: 10px;
-                border-radius: 5px;
-            }
-            QPushButton:hover { background-color: #45a049; }
-            QPushButton:disabled { background-color: #cccccc; }
-        """)
+        self.scan_btn.setObjectName("scanButton")
         btn_layout.addWidget(self.scan_btn)
 
         self.stop_btn = QPushButton("停止")
         self.stop_btn.clicked.connect(self.stop_scan)
         self.stop_btn.setEnabled(False)
-        self.stop_btn.setStyleSheet("""
-            QPushButton {
-                background-color: #f44336;
-                color: white;
-                font-size: 14px;
-                padding: 10px;
-                border-radius: 5px;
-            }
-            QPushButton:hover { background-color: #da190b; }
-            QPushButton:disabled { background-color: #cccccc; }
-        """)
+        self.stop_btn.setObjectName("stopButton")
         btn_layout.addWidget(self.stop_btn)
         scan_layout.addLayout(btn_layout)
 
@@ -430,6 +522,12 @@ class AkshareGUI(QMainWindow):
         self.stock_table.setHorizontalHeaderLabels(['代码', '名称', '现价', '涨跌%', '买点'])
         self.stock_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.stock_table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.stock_table.setAlternatingRowColors(True)
+        self.stock_table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        self.stock_table.verticalHeader().setVisible(False)
+        self.stock_table.verticalHeader().setDefaultSectionSize(34)
+        self.stock_table.setWordWrap(False)
+        self.stock_table.horizontalHeader().setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
         self.stock_table.cellClicked.connect(self.on_stock_clicked)
         list_layout.addWidget(self.stock_table)
 
@@ -438,7 +536,7 @@ class AkshareGUI(QMainWindow):
         self.clear_list_btn.clicked.connect(self.clear_stock_list)
         list_layout.addWidget(self.clear_list_btn)
 
-        layout.addWidget(list_group)
+        layout.addWidget(list_group, 1)
 
         # 日志区域
         log_group = QGroupBox("扫描日志")
@@ -446,6 +544,7 @@ class AkshareGUI(QMainWindow):
 
         self.log_text = QTextEdit()
         self.log_text.setReadOnly(True)
+        self.log_text.document().setMaximumBlockCount(2000)
         self.log_text.setMaximumHeight(150)
         log_layout.addWidget(self.log_text)
 
@@ -461,6 +560,7 @@ class AkshareGUI(QMainWindow):
         """创建右侧图表面板"""
         panel = QWidget()
         layout = QVBoxLayout(panel)
+        layout.setContentsMargins(8, 0, 0, 0)
 
         # 绘图配置
         config_layout = QHBoxLayout()
@@ -548,44 +648,43 @@ class AkshareGUI(QMainWindow):
 
     def start_scan(self):
         """开始批量扫描所有可交易股票"""
+        if self._closing or self.scan_thread is not None:
+            return
+        self.clear_stock_list()
+        self._scan_error = None
         self.scan_btn.setEnabled(False)
         self.stop_btn.setEnabled(True)
+        self.clear_list_btn.setEnabled(False)
         self.progress_bar.setVisible(True)
-        self.progress_bar.setValue(0)
-        self.stock_cache.clear()
-
+        self.progress_bar.setRange(0, 0)
+        self.progress_label.setText('正在获取股票列表...')
         self.statusBar.showMessage('正在获取股票列表...')
-        QApplication.processEvents()
 
-        # 获取股票列表
-        stock_list = get_tradable_stocks()
-        if stock_list.empty:
-            QMessageBox.warning(self, "警告", "获取股票列表失败")
-            self.scan_btn.setEnabled(True)
-            self.stop_btn.setEnabled(False)
-            self.progress_bar.setVisible(False)
-            return
-
-        self.statusBar.showMessage(f'获取到 {len(stock_list)} 只可交易股票，开始扫描...')
-        self.progress_bar.setMaximum(len(stock_list))
-
-        # 启动扫描线程
-        config = self.get_chan_config()
-        self.scan_thread = ScanThread(stock_list, config, days=365)
+        self.scan_thread = ScanThread(None, self.get_chan_config(), days=365)
         self.scan_thread.progress.connect(self.on_scan_progress)
         self.scan_thread.found_signal.connect(self.on_buy_point_found)
+        self.scan_thread.error.connect(self.on_scan_error)
         self.scan_thread.finished.connect(self.on_scan_finished)
         self.scan_thread.log_signal.connect(self.on_log_message)
         self.scan_thread.start()
 
     def stop_scan(self):
-        """停止扫描"""
+        """协作取消，等待当前数据请求返回后安全退出。"""
         if self.scan_thread:
             self.scan_thread.stop()
-        self.statusBar.showMessage('正在停止扫描...')
+            self.stop_btn.setEnabled(False)
+            self.progress_label.setText('正在停止，等待当前数据请求结束...')
+            self.statusBar.showMessage('正在停止扫描，等待当前数据请求结束...')
+
+    def on_scan_error(self, message):
+        self._scan_error = message
+        self.on_log_message(message)
 
     def on_scan_progress(self, current, total, stock_info):
         """扫描进度更新"""
+        if self._closing or (self.scan_thread and self.scan_thread.cancelled):
+            return
+        self.progress_bar.setRange(0, total)
         self.progress_bar.setValue(current)
         self.progress_label.setText(f"进度: {current}/{total} - {stock_info}")
 
@@ -600,6 +699,8 @@ class AkshareGUI(QMainWindow):
         Args:
             data: dict, 包含股票代码、名称、价格、买点类型、CChan对象等信息
         """
+        if self._closing or (self.scan_thread and self.scan_thread.cancelled):
+            return
         row = self.stock_table.rowCount()
         self.stock_table.insertRow(row)
         self.stock_table.setItem(row, 0, QTableWidgetItem(data['code']))
@@ -611,14 +712,24 @@ class AkshareGUI(QMainWindow):
         # 缓存 chan 对象
         self.stock_cache[data['code']] = data['chan']
 
-    def on_scan_finished(self, success_count, fail_count):
-        """扫描完成"""
+    def on_scan_finished(self):
+        """使用 QThread 原生 finished，确保线程退出后才能重新开始。"""
+        thread = self.scan_thread
+        self.scan_thread = None
+        stopped = thread.cancelled
+        success_count, fail_count = thread.success_count, thread.fail_count
+        thread.deleteLater()
+        if self._closing:
+            return
         self.scan_btn.setEnabled(True)
         self.stop_btn.setEnabled(False)
+        self.clear_list_btn.setEnabled(True)
         self.progress_bar.setVisible(False)
-        found_count = self.stock_table.rowCount()
-        self.statusBar.showMessage(f'扫描完成: 成功{success_count}只, 跳过{fail_count}只, 发现{found_count}只买点股票')
-        self.progress_label.setText(f"完成: 成功{success_count}, 跳过{fail_count}, 买点{found_count}")
+        state = '已停止' if stopped else ('扫描失败' if self._scan_error else '扫描完成')
+        summary = (f'{state}: 成功{success_count}只, 跳过/失败{fail_count}只, '
+                   f'发现{self.stock_table.rowCount()}只买点股票')
+        self.statusBar.showMessage(self._scan_error or summary)
+        self.progress_label.setText(summary)
 
     def on_stock_clicked(self, row, col):
         """点击股票列表"""
@@ -626,6 +737,8 @@ class AkshareGUI(QMainWindow):
         name = self.stock_table.item(row, 1).text()
 
         if code in self.stock_cache:
+            self._analysis_request += 1
+            self._pending_analysis = None
             self.chan = self.stock_cache[code]
             self.plot_chart()
             self.statusBar.showMessage(f'显示: {code} {name}')
@@ -643,27 +756,61 @@ class AkshareGUI(QMainWindow):
 
     def analyze_stock(self, code):
         """分析指定股票"""
-        self.analyze_btn.setEnabled(False)
+        if self._closing:
+            return
+        self._analysis_request += 1
+        self._pending_analysis = (self._analysis_request, code, self.get_chan_config())
         self.statusBar.showMessage(f'正在分析 {code}...')
+        if self.analysis_thread is None:
+            self.start_pending_analysis()
 
-        config = self.get_chan_config()
-        self.analysis_thread = SingleAnalysisThread(code, config, days=365)
-        self.analysis_thread.finished.connect(self.on_analysis_finished)
-        self.analysis_thread.error.connect(self.on_analysis_error)
-        self.analysis_thread.start()
+    def start_pending_analysis(self):
+        if self._closing or self._pending_analysis is None:
+            return
+        request, code, config = self._pending_analysis
+        self._pending_analysis = None
+        thread = SingleAnalysisThread(code, config, days=365)
+        thread.request_id = request
+        self.analysis_thread = thread
+        thread.result.connect(self.on_analysis_finished)
+        thread.error.connect(self.on_analysis_error)
+        thread.finished.connect(self.on_analysis_thread_finished)
+        thread.start()
+
+    def on_analysis_thread_finished(self):
+        thread = self.analysis_thread
+        self.analysis_thread = None
+        thread.deleteLater()
+        self.start_pending_analysis()
 
     def on_analysis_finished(self, chan):
-        """单只股票分析完成"""
+        if self._closing or self.sender().request_id != self._analysis_request:
+            return
         self.chan = chan
-        self.analyze_btn.setEnabled(True)
         self.plot_chart()
         self.statusBar.showMessage(f'分析完成: {chan.code}')
 
     def on_analysis_error(self, error_msg):
-        """分析出错"""
-        self.analyze_btn.setEnabled(True)
+        if self._closing or self.sender().request_id != self._analysis_request:
+            return
         QMessageBox.critical(self, "分析错误", error_msg)
         self.statusBar.showMessage('分析失败')
+
+    def closeEvent(self, event):
+        """不销毁运行中的 QThread；保持事件循环直到后台请求结束。"""
+        self._closing = True
+        self._pending_analysis = None
+        for thread in (self.scan_thread, self.analysis_thread):
+            if thread is not None:
+                thread.requestInterruption()
+        if any(thread is not None and thread.isRunning()
+               for thread in (self.scan_thread, self.analysis_thread)):
+            event.ignore()
+            self.setEnabled(False)
+            self.statusBar.showMessage('正在退出，等待后台数据请求结束...')
+            QTimer.singleShot(100, self.close)
+        else:
+            event.accept()
 
     def plot_chart(self):
         """
@@ -679,7 +826,7 @@ class AkshareGUI(QMainWindow):
             from Plot.PlotDriver import CPlotDriver
 
             # 关闭旧的 figure 释放内存
-            plt.close('all')
+            plt.close(self.canvas.figure)
 
             plot_config = self.get_plot_config()
 
@@ -698,9 +845,11 @@ class AkshareGUI(QMainWindow):
             }
 
             plot_driver = CPlotDriver(self.chan, plot_config=plot_config, plot_para=plot_para)
+            style_chart(plot_driver.figure)
 
             self.canvas.fig = plot_driver.figure
             self.canvas.figure = plot_driver.figure
+            plot_driver.figure.set_canvas(self.canvas)
             self.canvas.draw()
             self.toolbar.update()
         except Exception as e:
@@ -720,7 +869,7 @@ class AkshareGUI(QMainWindow):
 def main():
     """程序入口函数，创建并运行 GUI 应用"""
     app = QApplication(sys.argv)
-    app.setStyle('Fusion')  # 使用 Fusion 风格，跨平台一致性好
+    apply_theme(app)
 
     window = AkshareGUI()
     window.show()

@@ -79,7 +79,8 @@ class CAkshare(CCommonStockApi):
                 period=period,
                 start_date=start_date,
                 end_date=end_date,
-                adjust=adjust
+                adjust=adjust,
+                timeout=15,
             )
         else:
             # 指数数据
