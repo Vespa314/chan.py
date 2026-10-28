@@ -1,0 +1,1870 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "Bi/BiList.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 493,
+      "nonEmptyLines": 413,
+      "functions": [
+        {
+          "name": "end_is_peak",
+          "startLine": 455,
+          "endLine": 493,
+          "params": [
+            "last_end",
+            "cur_end"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CBiList",
+          "startLine": 24,
+          "endLine": 452,
+          "methods": [
+            "__init__",
+            "__str__",
+            "__iter__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "__len__",
+            "try_create_first_bi",
+            "update_bi",
+            "can_update_peak",
+            "update_peak",
+            "update_bi_sure",
+            "delete_virtual_bi",
+            "try_add_virtual_bi",
+            "add_new_bi",
+            "satisfy_bi_span",
+            "get_klc_span",
+            "can_make_bi",
+            "try_update_end",
+            "get_last_klu_of_last_bi"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CBiList",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "end_is_peak",
+          "line": 455,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "CBiConfig",
+          "lineNumber": 46
+        },
+        {
+          "caller": "__str__",
+          "callee": "\"\\n\".join",
+          "lineNumber": 60
+        },
+        {
+          "caller": "__str__",
+          "callee": "str",
+          "lineNumber": 60
+        },
+        {
+          "caller": "__len__",
+          "callee": "len",
+          "lineNumber": 78
+        },
+        {
+          "caller": "try_create_first_bi",
+          "callee": "self.can_make_bi",
+          "lineNumber": 99
+        },
+        {
+          "caller": "try_create_first_bi",
+          "callee": "self.add_new_bi",
+          "lineNumber": 100
+        },
+        {
+          "caller": "try_create_first_bi",
+          "callee": "self.free_klc_lst.append",
+          "lineNumber": 103
+        },
+        {
+          "caller": "update_bi",
+          "callee": "self.update_bi_sure",
+          "lineNumber": 123
+        },
+        {
+          "caller": "update_bi",
+          "callee": "self.try_add_virtual_bi",
+          "lineNumber": 125
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "len",
+          "lineNumber": 149
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "self.bi_list[-1].is_down",
+          "lineNumber": 151
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "self.bi_list[-1].get_begin_val",
+          "lineNumber": 151
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "self.bi_list[-1].is_up",
+          "lineNumber": 153
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "self.bi_list[-1].get_begin_val",
+          "lineNumber": 153
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "end_is_peak",
+          "lineNumber": 155
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "self[-1].is_down",
+          "lineNumber": 157
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "self[-1].get_end_val",
+          "lineNumber": 157
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "self[-2].get_begin_val",
+          "lineNumber": 157
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "self[-1].is_up",
+          "lineNumber": 159
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "self[-1].get_end_val",
+          "lineNumber": 159
+        },
+        {
+          "caller": "can_update_peak",
+          "callee": "self[-2].get_begin_val",
+          "lineNumber": 159
+        },
+        {
+          "caller": "update_peak",
+          "callee": "self.can_update_peak",
+          "lineNumber": 179
+        },
+        {
+          "caller": "update_peak",
+          "callee": "self.bi_list.pop",
+          "lineNumber": 182
+        },
+        {
+          "caller": "update_peak",
+          "callee": "self.try_update_end",
+          "lineNumber": 183
+        },
+        {
+          "caller": "update_peak",
+          "callee": "self.bi_list.append",
+          "lineNumber": 184
+        },
+        {
+          "caller": "update_peak",
+          "callee": "self.bi_list[-1].append_sure_end",
+          "lineNumber": 188
+        },
+        {
+          "caller": "update_bi_sure",
+          "callee": "self.get_last_klu_of_last_bi",
+          "lineNumber": 209
+        },
+        {
+          "caller": "update_bi_sure",
+          "callee": "self.delete_virtual_bi",
+          "lineNumber": 210
+        },
+        {
+          "caller": "update_bi_sure",
+          "callee": "self.get_last_klu_of_last_bi",
+          "lineNumber": 213
+        },
+        {
+          "caller": "update_bi_sure",
+          "callee": "len",
+          "lineNumber": 215
+        },
+        {
+          "caller": "update_bi_sure",
+          "callee": "self.try_create_first_bi",
+          "lineNumber": 216
+        },
+        {
+          "caller": "update_bi_sure",
+          "callee": "self.try_update_end",
+          "lineNumber": 220
+        },
+        {
+          "caller": "update_bi_sure",
+          "callee": "self.can_make_bi",
+          "lineNumber": 221
+        },
+        {
+          "caller": "update_bi_sure",
+          "callee": "self.add_new_bi",
+          "lineNumber": 223
+        },
+        {
+          "caller": "update_bi_sure",
+          "callee": "self.update_peak",
+          "lineNumber": 226
+        },
+        {
+          "caller": "update_bi_sure",
+          "callee": "self.get_last_klu_of_last_bi",
+          "lineNumber": 229
+        },
+        {
+          "caller": "delete_virtual_bi",
+          "callee": "len",
+          "lineNumber": 241
+        },
+        {
+          "caller": "delete_virtual_bi",
+          "callee": "len",
+          "lineNumber": 243
+        },
+        {
+          "caller": "delete_virtual_bi",
+          "callee": "self.bi_list[-1].restore_from_virtual_end",
+          "lineNumber": 245
+        },
+        {
+          "caller": "delete_virtual_bi",
+          "callee": "self.add_new_bi",
+          "lineNumber": 249
+        },
+        {
+          "caller": "delete_virtual_bi",
+          "callee": "len",
+          "lineNumber": 253
+        },
+        {
+          "caller": "delete_virtual_bi",
+          "callee": "len",
+          "lineNumber": 254
+        },
+        {
+          "caller": "try_add_virtual_bi",
+          "callee": "self.delete_virtual_bi",
+          "lineNumber": 278
+        },
+        {
+          "caller": "try_add_virtual_bi",
+          "callee": "len",
+          "lineNumber": 279
+        },
+        {
+          "caller": "try_add_virtual_bi",
+          "callee": "self[-1].is_up",
+          "lineNumber": 285
+        },
+        {
+          "caller": "try_add_virtual_bi",
+          "callee": "self[-1].is_down",
+          "lineNumber": 286
+        },
+        {
+          "caller": "try_add_virtual_bi",
+          "callee": "self.bi_list[-1].update_virtual_end",
+          "lineNumber": 287
+        },
+        {
+          "caller": "try_add_virtual_bi",
+          "callee": "self.can_make_bi",
+          "lineNumber": 294
+        },
+        {
+          "caller": "try_add_virtual_bi",
+          "callee": "self.add_new_bi",
+          "lineNumber": 295
+        },
+        {
+          "caller": "try_add_virtual_bi",
+          "callee": "self.update_peak",
+          "lineNumber": 297
+        },
+        {
+          "caller": "add_new_bi",
+          "callee": "self.bi_list.append",
+          "lineNumber": 311
+        },
+        {
+          "caller": "add_new_bi",
+          "callee": "CBi",
+          "lineNumber": 311
+        },
+        {
+          "caller": "add_new_bi",
+          "callee": "len",
+          "lineNumber": 311
+        },
+        {
+          "caller": "add_new_bi",
+          "callee": "len",
+          "lineNumber": 312
+        },
+        {
+          "caller": "satisfy_bi_span",
+          "callee": "self.get_klc_span",
+          "lineNumber": 334
+        },
+        {
+          "caller": "satisfy_bi_span",
+          "callee": "len",
+          "lineNumber": 341
+        },
+        {
+          "caller": "get_klc_span",
+          "callee": "tmp_klc.has_gap_with_next",
+          "lineNumber": 372
+        },
+        {
+          "caller": "can_make_bi",
+          "callee": "self.satisfy_bi_span",
+          "lineNumber": 394
+        },
+        {
+          "caller": "can_make_bi",
+          "callee": "last_end.check_fx_valid",
+          "lineNumber": 397
+        },
+        {
+          "caller": "can_make_bi",
+          "callee": "end_is_peak",
+          "lineNumber": 399
+        },
+        {
+          "caller": "try_update_end",
+          "callee": "len",
+          "lineNumber": 436
+        },
+        {
+          "caller": "try_update_end",
+          "callee": "last_bi.is_up",
+          "lineNumber": 439
+        },
+        {
+          "caller": "try_update_end",
+          "callee": "check_top",
+          "lineNumber": 439
+        },
+        {
+          "caller": "try_update_end",
+          "callee": "last_bi.get_end_val",
+          "lineNumber": 439
+        },
+        {
+          "caller": "try_update_end",
+          "callee": "last_bi.is_down",
+          "lineNumber": 440
+        },
+        {
+          "caller": "try_update_end",
+          "callee": "check_bottom",
+          "lineNumber": 440
+        },
+        {
+          "caller": "try_update_end",
+          "callee": "last_bi.get_end_val",
+          "lineNumber": 440
+        },
+        {
+          "caller": "try_update_end",
+          "callee": "last_bi.update_virtual_end",
+          "lineNumber": 441
+        },
+        {
+          "caller": "try_update_end",
+          "callee": "last_bi.update_new_end",
+          "lineNumber": 441
+        },
+        {
+          "caller": "get_last_klu_of_last_bi",
+          "callee": "self.bi_list[-1].get_end_klu",
+          "lineNumber": 452
+        },
+        {
+          "caller": "get_last_klu_of_last_bi",
+          "callee": "len",
+          "lineNumber": 452
+        },
+        {
+          "caller": "end_is_peak",
+          "callee": "last_end.get_next",
+          "lineNumber": 476
+        },
+        {
+          "caller": "end_is_peak",
+          "callee": "klc.get_next",
+          "lineNumber": 482
+        },
+        {
+          "caller": "end_is_peak",
+          "callee": "last_end.get_next",
+          "lineNumber": 486
+        },
+        {
+          "caller": "end_is_peak",
+          "callee": "klc.get_next",
+          "lineNumber": 492
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Seg/SegConfig.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 32,
+      "classes": [
+        {
+          "name": "CSegConfig",
+          "startLine": 14,
+          "endLine": 39,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CSegConfig",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "CChanException",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Seg/SegListChan.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 182,
+      "nonEmptyLines": 152,
+      "classes": [
+        {
+          "name": "CSegListChan",
+          "startLine": 20,
+          "endLine": 182,
+          "methods": [
+            "__init__",
+            "do_init",
+            "update",
+            "cal_seg_sure",
+            "treat_fx_eigen"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CSegListChan",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "CSegConfig",
+          "lineNumber": 36
+        },
+        {
+          "caller": "__init__",
+          "callee": "super(CSegListChan, self).__init__",
+          "lineNumber": 37
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 37
+        },
+        {
+          "caller": "do_init",
+          "callee": "len",
+          "lineNumber": 54
+        },
+        {
+          "caller": "do_init",
+          "callee": "self.lst.pop",
+          "lineNumber": 60
+        },
+        {
+          "caller": "do_init",
+          "callee": "len",
+          "lineNumber": 63
+        },
+        {
+          "caller": "do_init",
+          "callee": "self.lst.pop",
+          "lineNumber": 67
+        },
+        {
+          "caller": "update",
+          "callee": "self.do_init",
+          "lineNumber": 81
+        },
+        {
+          "caller": "update",
+          "callee": "len",
+          "lineNumber": 82
+        },
+        {
+          "caller": "update",
+          "callee": "self.cal_seg_sure",
+          "lineNumber": 83
+        },
+        {
+          "caller": "update",
+          "callee": "self.cal_seg_sure",
+          "lineNumber": 85
+        },
+        {
+          "caller": "update",
+          "callee": "self.collect_left_seg",
+          "lineNumber": 86
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "CEigenFX",
+          "lineNumber": 112
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "CEigenFX",
+          "lineNumber": 113
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "len",
+          "lineNumber": 114
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "bi.is_down",
+          "lineNumber": 120
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "up_eigen.add",
+          "lineNumber": 121
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "bi.is_up",
+          "lineNumber": 124
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "down_eigen.add",
+          "lineNumber": 125
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "len",
+          "lineNumber": 129
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "bi.is_down",
+          "lineNumber": 131
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "down_eigen.clear",
+          "lineNumber": 133
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "bi.is_up",
+          "lineNumber": 135
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "up_eigen.clear",
+          "lineNumber": 136
+        },
+        {
+          "caller": "cal_seg_sure",
+          "callee": "self.treat_fx_eigen",
+          "lineNumber": 145
+        },
+        {
+          "caller": "treat_fx_eigen",
+          "callee": "fx_eigen.can_be_end",
+          "lineNumber": 166
+        },
+        {
+          "caller": "treat_fx_eigen",
+          "callee": "fx_eigen.GetPeakBiIdx",
+          "lineNumber": 167
+        },
+        {
+          "caller": "treat_fx_eigen",
+          "callee": "self.add_new_seg",
+          "lineNumber": 172
+        },
+        {
+          "caller": "treat_fx_eigen",
+          "callee": "fx_eigen.all_bi_is_sure",
+          "lineNumber": 172
+        },
+        {
+          "caller": "treat_fx_eigen",
+          "callee": "self.cal_seg_sure",
+          "lineNumber": 174
+        },
+        {
+          "caller": "treat_fx_eigen",
+          "callee": "self.cal_seg_sure",
+          "lineNumber": 179
+        },
+        {
+          "caller": "treat_fx_eigen",
+          "callee": "self.cal_seg_sure",
+          "lineNumber": 182
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Seg/SegListComm.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 353,
+      "nonEmptyLines": 300,
+      "functions": [
+        {
+          "name": "FindPeakBi",
+          "startLine": 325,
+          "endLine": 353,
+          "params": [
+            "bi_lst",
+            "is_high"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CSegListComm",
+          "startLine": 31,
+          "endLine": 322,
+          "methods": [
+            "__init__",
+            "do_init",
+            "__iter__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "__len__",
+            "left_bi_break",
+            "collect_first_seg",
+            "collect_left_seg_peak_method",
+            "collect_segs",
+            "collect_left_seg",
+            "collect_left_as_seg",
+            "try_add_new_seg",
+            "add_new_seg",
+            "update",
+            "exist_sure_seg"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CSegListComm",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "FindPeakBi",
+          "line": 325,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "CSegConfig",
+          "lineNumber": 50
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.do_init",
+          "lineNumber": 53
+        },
+        {
+          "caller": "__len__",
+          "callee": "len",
+          "lineNumber": 75
+        },
+        {
+          "caller": "left_bi_break",
+          "callee": "len",
+          "lineNumber": 88
+        },
+        {
+          "caller": "left_bi_break",
+          "callee": "last_seg_end_bi.is_up",
+          "lineNumber": 92
+        },
+        {
+          "caller": "left_bi_break",
+          "callee": "bi._high",
+          "lineNumber": 92
+        },
+        {
+          "caller": "left_bi_break",
+          "callee": "last_seg_end_bi._high",
+          "lineNumber": 92
+        },
+        {
+          "caller": "left_bi_break",
+          "callee": "last_seg_end_bi.is_down",
+          "lineNumber": 94
+        },
+        {
+          "caller": "left_bi_break",
+          "callee": "bi._low",
+          "lineNumber": 94
+        },
+        {
+          "caller": "left_bi_break",
+          "callee": "last_seg_end_bi._low",
+          "lineNumber": 94
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "len",
+          "lineNumber": 116
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "max",
+          "lineNumber": 120
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "bi._high",
+          "lineNumber": 120
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "min",
+          "lineNumber": 121
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "bi._low",
+          "lineNumber": 121
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "abs",
+          "lineNumber": 122
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "bi_lst[0].get_begin_val",
+          "lineNumber": 122
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "abs",
+          "lineNumber": 122
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "bi_lst[0].get_begin_val",
+          "lineNumber": 122
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "FindPeakBi",
+          "lineNumber": 124
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "self.add_new_seg",
+          "lineNumber": 126
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "FindPeakBi",
+          "lineNumber": 129
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "self.add_new_seg",
+          "lineNumber": 131
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "self.collect_left_as_seg",
+          "lineNumber": 132
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "bi_lst[-1].get_end_val",
+          "lineNumber": 134
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "bi_lst[0].get_begin_val",
+          "lineNumber": 134
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "self.add_new_seg",
+          "lineNumber": 135
+        },
+        {
+          "caller": "collect_first_seg",
+          "callee": "CChanException",
+          "lineNumber": 137
+        },
+        {
+          "caller": "collect_left_seg_peak_method",
+          "callee": "last_seg_end_bi.is_down",
+          "lineNumber": 154
+        },
+        {
+          "caller": "collect_left_seg_peak_method",
+          "callee": "FindPeakBi",
+          "lineNumber": 156
+        },
+        {
+          "caller": "collect_left_seg_peak_method",
+          "callee": "self.add_new_seg",
+          "lineNumber": 158
+        },
+        {
+          "caller": "collect_left_seg_peak_method",
+          "callee": "FindPeakBi",
+          "lineNumber": 162
+        },
+        {
+          "caller": "collect_left_seg_peak_method",
+          "callee": "self.add_new_seg",
+          "lineNumber": 164
+        },
+        {
+          "caller": "collect_left_seg_peak_method",
+          "callee": "self.collect_left_as_seg",
+          "lineNumber": 168
+        },
+        {
+          "caller": "collect_left_seg_peak_method",
+          "callee": "self.collect_left_seg_peak_method",
+          "lineNumber": 170
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "last_seg_end_bi.is_down",
+          "lineNumber": 190
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "last_bi.get_end_val",
+          "lineNumber": 190
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "last_seg_end_bi.get_end_val",
+          "lineNumber": 190
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "FindPeakBi",
+          "lineNumber": 192
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "self.add_new_seg",
+          "lineNumber": 193
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "self.collect_left_seg",
+          "lineNumber": 194
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "last_seg_end_bi.is_up",
+          "lineNumber": 195
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "last_bi.get_end_val",
+          "lineNumber": 195
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "last_seg_end_bi.get_end_val",
+          "lineNumber": 195
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "FindPeakBi",
+          "lineNumber": 197
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "self.add_new_seg",
+          "lineNumber": 198
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "self.collect_left_seg",
+          "lineNumber": 199
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "self.collect_left_as_seg",
+          "lineNumber": 202
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "self.collect_left_seg_peak_method",
+          "lineNumber": 205
+        },
+        {
+          "caller": "collect_segs",
+          "callee": "CChanException",
+          "lineNumber": 207
+        },
+        {
+          "caller": "collect_left_seg",
+          "callee": "len",
+          "lineNumber": 218
+        },
+        {
+          "caller": "collect_left_seg",
+          "callee": "self.collect_first_seg",
+          "lineNumber": 219
+        },
+        {
+          "caller": "collect_left_seg",
+          "callee": "self.collect_segs",
+          "lineNumber": 221
+        },
+        {
+          "caller": "collect_left_seg",
+          "callee": "len",
+          "lineNumber": 222
+        },
+        {
+          "caller": "collect_left_seg",
+          "callee": "len",
+          "lineNumber": 222
+        },
+        {
+          "caller": "collect_left_seg",
+          "callee": "self.collect_left_seg",
+          "lineNumber": 224
+        },
+        {
+          "caller": "collect_left_as_seg",
+          "callee": "len",
+          "lineNumber": 239
+        },
+        {
+          "caller": "collect_left_as_seg",
+          "callee": "self.add_new_seg",
+          "lineNumber": 242
+        },
+        {
+          "caller": "collect_left_as_seg",
+          "callee": "self.add_new_seg",
+          "lineNumber": 244
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "len",
+          "lineNumber": 263
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "FindPeakBi",
+          "lineNumber": 265
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "bi_lst[end_bi_idx].is_down",
+          "lineNumber": 265
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "peak_bi.is_down",
+          "lineNumber": 266
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "peak_bi._low",
+          "lineNumber": 266
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "bi_lst[0]._low",
+          "lineNumber": 266
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "peak_bi.is_up",
+          "lineNumber": 267
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "peak_bi._high",
+          "lineNumber": 267
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "bi_lst[0]._high",
+          "lineNumber": 267
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "self.add_new_seg",
+          "lineNumber": 269
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "self.add_new_seg",
+          "lineNumber": 270
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "len",
+          "lineNumber": 274
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "self.lst.append",
+          "lineNumber": 277
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "CSeg",
+          "lineNumber": 277
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "len",
+          "lineNumber": 277
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "len",
+          "lineNumber": 279
+        },
+        {
+          "caller": "try_add_new_seg",
+          "callee": "self.lst[-1].update_bi_list",
+          "lineNumber": 282
+        },
+        {
+          "caller": "add_new_seg",
+          "callee": "self.try_add_new_seg",
+          "lineNumber": 293
+        },
+        {
+          "caller": "add_new_seg",
+          "callee": "len",
+          "lineNumber": 295
+        },
+        {
+          "caller": "exist_sure_seg",
+          "callee": "any",
+          "lineNumber": 322
+        },
+        {
+          "caller": "FindPeakBi",
+          "callee": "float",
+          "lineNumber": 341
+        },
+        {
+          "caller": "FindPeakBi",
+          "callee": "float",
+          "lineNumber": 341
+        },
+        {
+          "caller": "FindPeakBi",
+          "callee": "bi.get_end_val",
+          "lineNumber": 344
+        },
+        {
+          "caller": "FindPeakBi",
+          "callee": "bi.is_up",
+          "lineNumber": 344
+        },
+        {
+          "caller": "FindPeakBi",
+          "callee": "bi.get_end_val",
+          "lineNumber": 345
+        },
+        {
+          "caller": "FindPeakBi",
+          "callee": "bi.is_down",
+          "lineNumber": 345
+        },
+        {
+          "caller": "FindPeakBi",
+          "callee": "bi.pre.pre.get_end_val",
+          "lineNumber": 348
+        },
+        {
+          "caller": "FindPeakBi",
+          "callee": "bi.get_end_val",
+          "lineNumber": 348
+        },
+        {
+          "caller": "FindPeakBi",
+          "callee": "bi.pre.pre.get_end_val",
+          "lineNumber": 349
+        },
+        {
+          "caller": "FindPeakBi",
+          "callee": "bi.get_end_val",
+          "lineNumber": 349
+        },
+        {
+          "caller": "FindPeakBi",
+          "callee": "bi.get_end_val",
+          "lineNumber": 351
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Seg/SegListDYH.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 243,
+      "nonEmptyLines": 198,
+      "functions": [
+        {
+          "name": "situation1",
+          "startLine": 21,
+          "endLine": 50,
+          "params": [
+            "cur_bi",
+            "next_bi",
+            "pre_bi"
+          ]
+        },
+        {
+          "name": "situation2",
+          "startLine": 53,
+          "endLine": 81,
+          "params": [
+            "cur_bi",
+            "next_bi",
+            "pre_bi"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CSegListDYH",
+          "startLine": 84,
+          "endLine": 243,
+          "methods": [
+            "__init__",
+            "update",
+            "cal_bi_sure",
+            "cal_bi_unsure",
+            "try_update_last_seg"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "situation1",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "situation2",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "CSegListDYH",
+          "line": 84,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "situation1",
+          "callee": "cur_bi.is_down",
+          "lineNumber": 44
+        },
+        {
+          "caller": "situation1",
+          "callee": "cur_bi._low",
+          "lineNumber": 44
+        },
+        {
+          "caller": "situation1",
+          "callee": "pre_bi._low",
+          "lineNumber": 44
+        },
+        {
+          "caller": "situation1",
+          "callee": "next_bi._high",
+          "lineNumber": 45
+        },
+        {
+          "caller": "situation1",
+          "callee": "cur_bi._high",
+          "lineNumber": 45
+        },
+        {
+          "caller": "situation1",
+          "callee": "next_bi._low",
+          "lineNumber": 45
+        },
+        {
+          "caller": "situation1",
+          "callee": "cur_bi._low",
+          "lineNumber": 45
+        },
+        {
+          "caller": "situation1",
+          "callee": "cur_bi.is_up",
+          "lineNumber": 47
+        },
+        {
+          "caller": "situation1",
+          "callee": "cur_bi._high",
+          "lineNumber": 47
+        },
+        {
+          "caller": "situation1",
+          "callee": "pre_bi._high",
+          "lineNumber": 47
+        },
+        {
+          "caller": "situation1",
+          "callee": "next_bi._low",
+          "lineNumber": 48
+        },
+        {
+          "caller": "situation1",
+          "callee": "cur_bi._low",
+          "lineNumber": 48
+        },
+        {
+          "caller": "situation1",
+          "callee": "next_bi._high",
+          "lineNumber": 48
+        },
+        {
+          "caller": "situation1",
+          "callee": "cur_bi._high",
+          "lineNumber": 48
+        },
+        {
+          "caller": "situation2",
+          "callee": "cur_bi.is_down",
+          "lineNumber": 75
+        },
+        {
+          "caller": "situation2",
+          "callee": "cur_bi._low",
+          "lineNumber": 75
+        },
+        {
+          "caller": "situation2",
+          "callee": "pre_bi._low",
+          "lineNumber": 75
+        },
+        {
+          "caller": "situation2",
+          "callee": "next_bi._high",
+          "lineNumber": 76
+        },
+        {
+          "caller": "situation2",
+          "callee": "cur_bi._high",
+          "lineNumber": 76
+        },
+        {
+          "caller": "situation2",
+          "callee": "next_bi._low",
+          "lineNumber": 76
+        },
+        {
+          "caller": "situation2",
+          "callee": "pre_bi._low",
+          "lineNumber": 76
+        },
+        {
+          "caller": "situation2",
+          "callee": "cur_bi.is_up",
+          "lineNumber": 78
+        },
+        {
+          "caller": "situation2",
+          "callee": "cur_bi._high",
+          "lineNumber": 78
+        },
+        {
+          "caller": "situation2",
+          "callee": "pre_bi._high",
+          "lineNumber": 78
+        },
+        {
+          "caller": "situation2",
+          "callee": "next_bi._low",
+          "lineNumber": 79
+        },
+        {
+          "caller": "situation2",
+          "callee": "cur_bi._low",
+          "lineNumber": 79
+        },
+        {
+          "caller": "situation2",
+          "callee": "next_bi._high",
+          "lineNumber": 79
+        },
+        {
+          "caller": "situation2",
+          "callee": "pre_bi._high",
+          "lineNumber": 79
+        },
+        {
+          "caller": "__init__",
+          "callee": "CSegConfig",
+          "lineNumber": 103
+        },
+        {
+          "caller": "__init__",
+          "callee": "super(CSegListDYH, self).__init__",
+          "lineNumber": 104
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 104
+        },
+        {
+          "caller": "update",
+          "callee": "self.do_init",
+          "lineNumber": 121
+        },
+        {
+          "caller": "update",
+          "callee": "self.cal_bi_sure",
+          "lineNumber": 122
+        },
+        {
+          "caller": "update",
+          "callee": "self.try_update_last_seg",
+          "lineNumber": 123
+        },
+        {
+          "caller": "update",
+          "callee": "self.left_bi_break",
+          "lineNumber": 124
+        },
+        {
+          "caller": "update",
+          "callee": "self.cal_bi_unsure",
+          "lineNumber": 125
+        },
+        {
+          "caller": "update",
+          "callee": "self.collect_left_seg",
+          "lineNumber": 126
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "len",
+          "lineNumber": 145
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "enumerate",
+          "lineNumber": 148
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "len",
+          "lineNumber": 153
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi.is_down",
+          "lineNumber": 157
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi_lst[idx - 1]._high",
+          "lineNumber": 157
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "next_begin_bi._low",
+          "lineNumber": 157
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi.is_up",
+          "lineNumber": 159
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi_lst[idx - 1]._low",
+          "lineNumber": 159
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "next_begin_bi._high",
+          "lineNumber": 159
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "len",
+          "lineNumber": 163
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi.is_down",
+          "lineNumber": 164
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi._low",
+          "lineNumber": 164
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "self[-1].end_bi._low",
+          "lineNumber": 164
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi.is_up",
+          "lineNumber": 165
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi._high",
+          "lineNumber": 165
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "self[-1].end_bi._high",
+          "lineNumber": 165
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "len",
+          "lineNumber": 174
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "situation1",
+          "lineNumber": 176
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "situation2",
+          "lineNumber": 177
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "self.add_new_seg",
+          "lineNumber": 179
+        },
+        {
+          "caller": "cal_bi_unsure",
+          "callee": "len",
+          "lineNumber": 192
+        },
+        {
+          "caller": "cal_bi_unsure",
+          "callee": "float",
+          "lineNumber": 198
+        },
+        {
+          "caller": "cal_bi_unsure",
+          "callee": "float",
+          "lineNumber": 198
+        },
+        {
+          "caller": "cal_bi_unsure",
+          "callee": "bi._low",
+          "lineNumber": 204
+        },
+        {
+          "caller": "cal_bi_unsure",
+          "callee": "bi._high",
+          "lineNumber": 204
+        },
+        {
+          "caller": "cal_bi_unsure",
+          "callee": "self.add_new_seg",
+          "lineNumber": 211
+        },
+        {
+          "caller": "try_update_last_seg",
+          "callee": "len",
+          "lineNumber": 224
+        },
+        {
+          "caller": "try_update_last_seg",
+          "callee": "last_bi.get_end_val",
+          "lineNumber": 228
+        },
+        {
+          "caller": "try_update_last_seg",
+          "callee": "bi.is_down",
+          "lineNumber": 234
+        },
+        {
+          "caller": "try_update_last_seg",
+          "callee": "bi._low",
+          "lineNumber": 234
+        },
+        {
+          "caller": "try_update_last_seg",
+          "callee": "bi._low",
+          "lineNumber": 235
+        },
+        {
+          "caller": "try_update_last_seg",
+          "callee": "bi.is_up",
+          "lineNumber": 237
+        },
+        {
+          "caller": "try_update_last_seg",
+          "callee": "bi._high",
+          "lineNumber": 237
+        },
+        {
+          "caller": "try_update_last_seg",
+          "callee": "bi._high",
+          "lineNumber": 238
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Seg/SegListDef.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 170,
+      "nonEmptyLines": 136,
+      "functions": [
+        {
+          "name": "is_up_seg",
+          "startLine": 20,
+          "endLine": 36,
+          "params": [
+            "bi",
+            "pre_bi"
+          ]
+        },
+        {
+          "name": "is_down_seg",
+          "startLine": 39,
+          "endLine": 50,
+          "params": [
+            "bi",
+            "pre_bi"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CSegListDef",
+          "startLine": 53,
+          "endLine": 170,
+          "methods": [
+            "__init__",
+            "update",
+            "update_last_end",
+            "cal_bi_sure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "is_up_seg",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "is_down_seg",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "CSegListDef",
+          "line": 53,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "is_up_seg",
+          "callee": "bi._high",
+          "lineNumber": 36
+        },
+        {
+          "caller": "is_up_seg",
+          "callee": "pre_bi._high",
+          "lineNumber": 36
+        },
+        {
+          "caller": "is_down_seg",
+          "callee": "bi._low",
+          "lineNumber": 50
+        },
+        {
+          "caller": "is_down_seg",
+          "callee": "pre_bi._low",
+          "lineNumber": 50
+        },
+        {
+          "caller": "__init__",
+          "callee": "CSegConfig",
+          "lineNumber": 69
+        },
+        {
+          "caller": "__init__",
+          "callee": "super(CSegListDef, self).__init__",
+          "lineNumber": 70
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 70
+        },
+        {
+          "caller": "update",
+          "callee": "self.do_init",
+          "lineNumber": 85
+        },
+        {
+          "caller": "update",
+          "callee": "self.cal_bi_sure",
+          "lineNumber": 86
+        },
+        {
+          "caller": "update",
+          "callee": "self.collect_left_seg",
+          "lineNumber": 87
+        },
+        {
+          "caller": "update_last_end",
+          "callee": "self.lst[-1].update_bi_list",
+          "lineNumber": 102
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "len",
+          "lineNumber": 124
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "enumerate",
+          "lineNumber": 127
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi.is_up",
+          "lineNumber": 133
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "peak_bi.is_up",
+          "lineNumber": 133
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi._high",
+          "lineNumber": 133
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "peak_bi._high",
+          "lineNumber": 133
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi.is_down",
+          "lineNumber": 134
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "peak_bi.is_down",
+          "lineNumber": 134
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi._low",
+          "lineNumber": 134
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "peak_bi._low",
+          "lineNumber": 134
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "len",
+          "lineNumber": 141
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi.is_up",
+          "lineNumber": 143
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi._high",
+          "lineNumber": 143
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "self[-1].end_bi._high",
+          "lineNumber": 143
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi.is_down",
+          "lineNumber": 144
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi._low",
+          "lineNumber": 144
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "self[-1].end_bi._low",
+          "lineNumber": 144
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "self.update_last_end",
+          "lineNumber": 147
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi.is_up",
+          "lineNumber": 153
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "is_up_seg",
+          "lineNumber": 153
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "bi.is_down",
+          "lineNumber": 154
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "is_down_seg",
+          "lineNumber": 154
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "len",
+          "lineNumber": 157
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "self.add_new_seg",
+          "lineNumber": 164
+        },
+        {
+          "caller": "cal_bi_sure",
+          "callee": "self.add_new_seg",
+          "lineNumber": 170
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    }
+  ]
+}

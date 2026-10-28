@@ -1,0 +1,373 @@
+{
+  "version": "1.0.0",
+  "baseCommit": "4c53175ab1bec1805d599f6f63e9627fdc27eb0b",
+  "headCommit": "0b502ecff876ba35c73e55e80f03d91feacdb8e6",
+  "generatedAt": "2026-09-06T07:46:04.423Z",
+  "files": {
+    "Bi/BiList.py": {
+      "filePath": "Bi/BiList.py",
+      "contentHash": "59aa3abd2f895b6a57c76b320eb14663b481fa031e795e635eaca19fb343ae79",
+      "functions": [
+        {
+          "name": "end_is_peak",
+          "params": [
+            "last_end",
+            "cur_end"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 39
+        }
+      ],
+      "classes": [
+        {
+          "name": "CBiList",
+          "methods": [
+            "__init__",
+            "__str__",
+            "__iter__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "__len__",
+            "try_create_first_bi",
+            "update_bi",
+            "can_update_peak",
+            "update_peak",
+            "update_bi_sure",
+            "delete_virtual_bi",
+            "try_add_virtual_bi",
+            "add_new_bi",
+            "satisfy_bi_span",
+            "get_klc_span",
+            "can_make_bi",
+            "try_update_end",
+            "get_last_klu_of_last_bi"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 429
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Optional",
+            "Union",
+            "overload"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "FX_TYPE",
+            "KLINE_DIR"
+          ]
+        },
+        {
+          "source": "KLine.KLine",
+          "specifiers": [
+            "CKLine"
+          ]
+        },
+        {
+          "source": ".Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": ".BiConfig",
+          "specifiers": [
+            "CBiConfig"
+          ]
+        }
+      ],
+      "exports": [
+        "CBiList",
+        "end_is_peak"
+      ],
+      "totalLines": 493,
+      "hasStructuralAnalysis": true
+    },
+    "Debug/bi_test.py": {
+      "filePath": "Debug/bi_test.py",
+      "contentHash": "f23297874764670cbf3e960b809fff0c37ff952692cb034c7557b33065bf2c57",
+      "functions": [
+        {
+          "name": "make_klu",
+          "params": [
+            "year",
+            "month",
+            "day",
+            "o",
+            "h",
+            "l",
+            "c"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "build_sawtooth_close",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 43
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "DATA_FIELD",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "Common.CTime",
+          "specifiers": [
+            "CTime"
+          ]
+        },
+        {
+          "source": "KLine.KLine_List",
+          "specifiers": [
+            "CKLine_List"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        }
+      ],
+      "exports": [
+        "make_klu",
+        "build_sawtooth_close",
+        "main"
+      ],
+      "totalLines": 101,
+      "hasStructuralAnalysis": true
+    },
+    "KLine/KLine_List.py": {
+      "filePath": "KLine/KLine_List.py",
+      "contentHash": "e9e3e83b1a070b441c6503edf7dc3e26e75eb5afddebfabe839313b6389c41ab",
+      "functions": [
+        {
+          "name": "get_seglist_instance",
+          "params": [
+            "seg_config",
+            "lv"
+          ],
+          "returnType": "CSegListComm",
+          "exported": true,
+          "lineCount": 32
+        },
+        {
+          "name": "cal_seg",
+          "params": [
+            "bi_list",
+            "seg_list",
+            "last_sure_seg_start_bi_idx"
+          ],
+          "exported": true,
+          "lineCount": 58
+        },
+        {
+          "name": "update_zs_in_seg",
+          "params": [
+            "bi_list",
+            "seg_list",
+            "zs_list"
+          ],
+          "exported": true,
+          "lineCount": 53
+        }
+      ],
+      "classes": [
+        {
+          "name": "CKLine_List",
+          "methods": [
+            "__init__",
+            "__deepcopy__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "__len__",
+            "cal_seg_and_zs",
+            "need_cal_step_by_step",
+            "add_single_klu",
+            "klu_iter"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 214
+        }
+      ],
+      "imports": [
+        {
+          "source": "copy",
+          "specifiers": [
+            "copy"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Union",
+            "overload"
+          ]
+        },
+        {
+          "source": "Bi.Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": "Bi.BiList",
+          "specifiers": [
+            "CBiList"
+          ]
+        },
+        {
+          "source": "BuySellPoint.BSPointList",
+          "specifiers": [
+            "CBSPointList"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "KLINE_DIR",
+            "SEG_TYPE"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "Seg.Seg",
+          "specifiers": [
+            "CSeg"
+          ]
+        },
+        {
+          "source": "Seg.SegConfig",
+          "specifiers": [
+            "CSegConfig"
+          ]
+        },
+        {
+          "source": "Seg.SegListComm",
+          "specifiers": [
+            "CSegListComm"
+          ]
+        },
+        {
+          "source": "ZS.ZSList",
+          "specifiers": [
+            "CZSList"
+          ]
+        },
+        {
+          "source": ".KLine",
+          "specifiers": [
+            "CKLine"
+          ]
+        },
+        {
+          "source": ".KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        }
+      ],
+      "exports": [
+        "get_seglist_instance",
+        "CKLine_List",
+        "cal_seg",
+        "update_zs_in_seg"
+      ],
+      "totalLines": 395,
+      "hasStructuralAnalysis": true
+    },
+    "docs/ONBOARDING.md": {
+      "filePath": "docs/ONBOARDING.md",
+      "contentHash": "c61958281a19ce887e07557eaaa24ecfe755f04dd9f5fa325075bb2636036b6f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 387,
+      "hasStructuralAnalysis": false
+    },
+    "prompt.txt": {
+      "filePath": "prompt.txt",
+      "contentHash": "9c028bc0bd635d8152c20e3f7c15cc77ac64c20fa9c6d607f2e1dff41905ef50",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": false
+    },
+    "代码走读说明.md": {
+      "filePath": "代码走读说明.md",
+      "contentHash": "51af47d1f62fb8bece06d0899a94fce000aeef3178226c4da45a43549efa85ab",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 801,
+      "hasStructuralAnalysis": false
+    }
+  },
+  "deletedFiles": []
+}

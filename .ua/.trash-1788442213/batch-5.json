@@ -1,0 +1,286 @@
+{
+  "nodes": [
+    {
+      "id": "file:Bi/BiConfig.py",
+      "type": "file",
+      "name": "BiConfig.py",
+      "filePath": "Bi/BiConfig.py",
+      "summary": "笔计算的配置参数类，定义笔算法、严格模式、分型验证方法、跳空处理等配置项，并提供字符串到枚举值的转换逻辑，未知配置时抛出 CChanException 异常。",
+      "tags": ["configuration", "chan-theory", "bi-calculation", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Combiner/Combine_Item.py",
+      "type": "file",
+      "name": "Combine_Item.py",
+      "filePath": "Combiner/Combine_Item.py",
+      "summary": "适配器包装类，将 CBi、CKLine_Unit、CSeg 三种类型统一包装，提供 time_begin、time_end、high、low 四个统一属性，使 CKLine_Combiner 可以共用同一套合并逻辑处理不同层级元素。",
+      "tags": ["adapter-pattern", "wrapper", "chan-theory", "type-unification"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Combiner/KLine_Combiner.py",
+      "type": "file",
+      "name": "KLine_Combiner.py",
+      "filePath": "Combiner/KLine_Combiner.py",
+      "summary": "K线合并器核心基类，实现缠论中的K线包含处理逻辑，包括包含关系判断、合并高低点、分形检测、前后链表管理，被 CKLine 和 CEigen 继承使用，是项目中最关键的基类之一。",
+      "tags": ["chan-theory", "kline-inclusion", "base-class", "fractal-detection", "linked-list"],
+      "complexity": "complex",
+      "languageNotes": "使用 Python 泛型 Generic[T] 和 TypeVar，支持 Self 类型注解，私有属性使用双下划线名称改写，通过 @property 提供只读访问器。"
+    },
+    {
+      "id": "file:Common/ChanException.py",
+      "type": "file",
+      "name": "ChanException.py",
+      "filePath": "Common/ChanException.py",
+      "summary": "异常类定义模块，包含 ErrCode 错误码枚举（按缠论错误、交易错误、K线数据错误分为三段，共30+个错误码）和 CChanException 自定义异常类，提供 is_kldata_err 和 is_chan_err 错误类型判断方法。",
+      "tags": ["exception-handling", "error-codes", "enumeration", "chan-theory", "error-classification"],
+      "complexity": "moderate",
+      "languageNotes": "使用 Python 特有的 IntEnum 实现同时具有 int 和 Enum 特性的错误码，通过区间比较判断错误类别，模块末尾包含 Python 3.8/3.11 IntEnum __str__ 行为差异的演示代码。"
+    },
+    {
+      "id": "file:Common/cache.py",
+      "type": "file",
+      "name": "cache.py",
+      "filePath": "Common/cache.py",
+      "summary": "实例方法级别的备忘录缓存装饰器，通过 Python 描述器协议实现，将缓存绑定到实例的 _memoize_cache 字典上，支持 clean_cache 清空缓存使计算属性重新求值，被 CBi 和 CKLine_Combiner 大量使用。",
+      "tags": ["caching", "decorator", "descriptor-protocol", "memoization", "utility"],
+      "complexity": "moderate",
+      "languageNotes": "利用 Python 描述器协议（__get__/__call__）和 types.MethodType 实现实例绑定，缓存 key 使用函数的字符串表示，仅支持无参方法（验证签名为仅有 self 一个参数）。"
+    },
+    {
+      "id": "class:Bi/BiConfig.py:CBiConfig",
+      "type": "class",
+      "name": "CBiConfig",
+      "filePath": "Bi/BiConfig.py",
+      "lineRange": [16, 66],
+      "summary": "笔的配置参数类，封装笔算法、严格模式、分型验证方法、跳空处理、端点极值要求、次高低点允许等配置，将字符串配置转换为 FX_CHECK_METHOD 枚举值。",
+      "tags": ["configuration", "chan-theory", "bi-calculation", "parameter-validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Combiner/Combine_Item.py:CCombine_Item",
+      "type": "class",
+      "name": "CCombine_Item",
+      "filePath": "Combiner/Combine_Item.py",
+      "lineRange": [14, 60],
+      "summary": "合并元素适配器包装器，通过延迟导入和 isinstance 类型判断，将 CBi、CKLine_Unit、CSeg 三种类型统一包装为 time_begin、time_end、high、low 四个属性，实现适配器模式。",
+      "tags": ["adapter-pattern", "wrapper", "type-unification", "lazy-import"],
+      "complexity": "simple",
+      "languageNotes": "使用延迟导入（函数内 import）避免循环引用问题，通过 isinstance 分派不同属性提取逻辑。"
+    },
+    {
+      "id": "class:Combiner/KLine_Combiner.py:CKLine_Combiner",
+      "type": "class",
+      "name": "CKLine_Combiner",
+      "filePath": "Combiner/KLine_Combiner.py",
+      "lineRange": [32, 334],
+      "summary": "K线合并器泛型基类，实现缠论K线包含处理的核心逻辑：包含关系判断（test_combine）、合并计算（try_add）、分形检测（set_fx/update_fx）、极值点查找（get_peak_klu），以及前后链表管理（set_pre/set_next），被 CKLine 和 CEigen 继承。",
+      "tags": ["chan-theory", "kline-inclusion", "base-class", "fractal-detection", "linked-list", "generic"],
+      "complexity": "complex",
+      "languageNotes": "Python 泛型类 Generic[T]，使用 @make_cache 装饰器缓存高点和低点计算，双下划线私有属性实现封装，@property 提供只读访问器，支持 __getitem__/__len__/__iter__ 等容器协议。"
+    },
+    {
+      "id": "class:Common/ChanException.py:ErrCode",
+      "type": "class",
+      "name": "ErrCode",
+      "filePath": "Common/ChanException.py",
+      "lineRange": [15, 81],
+      "summary": "错误码 IntEnum 枚举，将错误码分为三段：0-99 缠论计算错误（COMMON_ERROR、PARA_ERROR、BI_ERR 等），100-199 交易错误（SIGNAL_EXISTED、PLACE_ORDER_FAIL 等），200-299 K线数据错误（PRICE_BELOW_ZERO、KL_DATA_INVALID 等），共30+个错误码。",
+      "tags": ["error-codes", "enumeration", "error-classification", "chan-theory", "trading"],
+      "complexity": "moderate",
+      "languageNotes": "继承 Python 特有 IntEnum，兼具 int 和 Enum 特性，通过区间边界值（_CHAN_ERR_BEGIN/END 等）实现错误类别判断。"
+    },
+    {
+      "id": "class:Common/ChanException.py:CChanException",
+      "type": "class",
+      "name": "CChanException",
+      "filePath": "Common/ChanException.py",
+      "lineRange": [84, 113],
+      "summary": "缠论自定义异常类，继承 Exception，包含 errcode 错误码和 msg 错误消息，提供 is_kldata_err 和 is_chan_err 方法判断错误属于 K 线数据错误还是缠论计算错误。",
+      "tags": ["exception-handling", "error-codes", "chan-theory", "error-classification"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Common/cache.py:make_cache",
+      "type": "class",
+      "name": "make_cache",
+      "filePath": "Common/cache.py",
+      "lineRange": [21, 94],
+      "summary": "实例方法级别的备忘录缓存装饰器类，通过描述器协议实现，在 __get__ 中为实例创建 _memoize_cache 字典，在 __call__ 中查缓存并返回缓存值或执行原函数并缓存结果，仅支持无参方法。",
+      "tags": ["caching", "decorator", "descriptor-protocol", "memoization", "utility"],
+      "complexity": "moderate",
+      "languageNotes": "使用 Python 描述器协议（__get__/__call__）和 types.MethodType 实现实例方法绑定，通过 inspect.getfullargspec 验证方法签名确保仅支持 (self) 单参数方法。"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:Bi/BiConfig.py",
+      "target": "class:Bi/BiConfig.py:CBiConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Combiner/Combine_Item.py",
+      "target": "class:Combiner/Combine_Item.py:CCombine_Item",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "class:Combiner/KLine_Combiner.py:CKLine_Combiner",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/ChanException.py",
+      "target": "class:Common/ChanException.py:ErrCode",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/ChanException.py",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/cache.py",
+      "target": "class:Common/cache.py:make_cache",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Bi/BiConfig.py",
+      "target": "class:Bi/BiConfig.py:CBiConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Combiner/Combine_Item.py",
+      "target": "class:Combiner/Combine_Item.py:CCombine_Item",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "class:Combiner/KLine_Combiner.py:CKLine_Combiner",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/ChanException.py",
+      "target": "class:Common/ChanException.py:ErrCode",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/ChanException.py",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/cache.py",
+      "target": "class:Common/cache.py:make_cache",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Bi/BiConfig.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiConfig.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/Combine_Item.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Combiner/Combine_Item.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Common/cache.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "class:Bi/BiConfig.py:CBiConfig",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Combiner/Combine_Item.py:CCombine_Item",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Combiner/KLine_Combiner.py:CKLine_Combiner",
+      "target": "class:Combiner/Combine_Item.py:CCombine_Item",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Combiner/KLine_Combiner.py:CKLine_Combiner",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

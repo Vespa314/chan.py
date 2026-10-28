@@ -1,0 +1,84 @@
+[
+  {
+    "order": 1,
+    "title": "项目概览：缠论技术分析框架",
+    "description": "从 README.md 开始，了解整个项目的全貌。这份约 1500 行的中文文档覆盖了缠论框架的核心功能（基本元素计算、策略买卖点、ML 对接、线上交易）、目录结构、CChan/CChanConfig 使用详解、画图配置、中枢算法、策略回测、自定义开发（数据接入、笔/线段/买卖点/模型扩展）等全部内容，是后续深入代码之前必读的导航地图。",
+    "nodeIds": ["document:README.md"]
+  },
+  {
+    "order": 2,
+    "title": "应用入口：main.py 与批量计算流程",
+    "description": "main.py 是项目的标准演示入口，它加载 sz.000001（平安银行）的日线 K 线数据，实例化 CChan 门面类执行完整的缠论计算流水线，并调用绘图模块输出静态图表或动画回放。阅读这个文件可以快速理解从「数据加载 -> 配置组装 -> 缠论计算 -> 结果可视化」的完整调用链路。",
+    "nodeIds": ["file:main.py"]
+  },
+  {
+    "order": 3,
+    "title": "配置系统：CChanConfig 与严格校验机制",
+    "description": "ChanConfig.py 是项目的配置中枢，CChanConfig 组装笔（BiConfig）、段（SegConfig）、中枢（ZSConfig）、买卖点（BSPointConfig）四类子配置。ConfigWithCheck 包装器通过消费 key 并检测未使用 key 来抛出异常，实现了严格的配置校验——任何拼写错误的配置项都会被立即发现，这在技术分析这类参数敏感的场景中尤为重要。",
+    "nodeIds": ["file:ChanConfig.py", "file:Bi/BiConfig.py", "file:Seg/SegConfig.py", "file:ZS/ZSConfig.py", "file:BuySellPoint/BSPointConfig.py"],
+    "languageLesson": "ConfigWithCheck 使用「消费 key」模式实现配置校验：子配置类从字典中取出自己关心的 key 后，包装器检查字典是否为空，若有剩余 key 则抛出异常。这是一种比 pydantic 更轻量的配置校验方案，适合不需要数据模型的场景。"
+  },
+  {
+    "order": 4,
+    "title": "基础公共层：枚举体系、异常处理与工具函数",
+    "description": "Common/ 目录是整个项目的底层依赖，fan-in 最高（CEnum.py 被 41 处引用）。CEnum.py 定义了 15 个核心枚举类（K 线级别 KL_TYPE、方向 DIRECTION、分形类型、笔类型、买卖点类型、MACD 算法等），是整个代码库的「类型词汇表」。ChanException.py 提供 30+ 错误码的异常体系，func_util.py 包含 has_overlap（区间重叠判断）等关键工具函数，CTime.py 封装了时间处理逻辑。",
+    "nodeIds": ["file:Common/CEnum.py", "file:Common/ChanException.py", "file:Common/func_util.py", "file:Common/CTime.py"],
+    "languageLesson": "Python 枚举（IntEnum）在缠论中被大量使用，因为它天然支持整数值比较和成员名称的可读性。例如 KL_TYPE.K_DAY > KL_TYPE.K_60M 可以直接比较级别大小，同时 print(KL_TYPE.K_DAY) 输出 'K_DAY'，兼顾了计算效率和代码可读性。"
+  },
+  {
+    "order": 5,
+    "title": "缓存机制：@make_cache 装饰器与实例级记忆化",
+    "description": "Common/cache.py 实现了 @make_cache 装饰器，将计算结果绑定到实例的 self._memoize_cache 字典上。当底层 K 线数据变更时，调用 clean_cache() 使缓存失效，确保派生属性（如笔的结束点、中枢的区间）始终与原始数据保持一致。CBi 和 CKLine_Combiner 大量使用这一机制来缓存昂贵的计算。",
+    "nodeIds": ["file:Common/cache.py"],
+    "languageLesson": "与 functools.lru_cache 不同，@make_cache 将缓存绑定到实例而非函数，这使得每个实例有独立的缓存空间，且可通过 clean_cache() 主动失效。在状态频繁变更的增量计算场景中（如步进模式下每根新 K 线到达时），这种设计避免了全局缓存的污染问题。"
+  },
+  {
+    "order": 6,
+    "title": "主门面类：CChan 的多级别递归与模式切换",
+    "description": "Chan.py 的 CChan 类是项目的核心门面，封装了多级别 K 线加载、递归计算流水线（笔->段->中枢->买卖点）、序列化与反序列化。它支持两种运行模式：批量模式（trigger_step=False）加载全部数据后一次性计算，步进模式（trigger_step=True）变为生成器，每根新 K 线产出快照，适合回测与动画播放。__deepcopy__ 手动重建跨级别 K 线指针图，序列化前临时移除 pre/next 链表指针以避免 pickle 递归溢出。",
+    "nodeIds": ["file:Chan.py"],
+    "languageLesson": "CChan 的步进模式（生成器）使用了 Python 的 yield 机制：每次 yield 返回当前状态的快照，调用方可以像遍历列表一样逐根 K 线消费计算进度。这种「惰性计算」模式避免了在回测中一次性加载全部历史快照的内存开销。"
+  },
+  {
+    "order": 7,
+    "title": "数据适配层：多数据源统一接口",
+    "description": "DataAPI/ 目录通过抽象基类 CommonStockAPI 定义了统一的 K 线数据获取接口，BaoStockAPI、AkshareAPI、csvAPI、ccxt 等子类分别适配不同的数据源（BaoStock 证券数据、Akshare 财经数据、CSV 本地文件、CCXT 加密货币交易所），将外部数据统一转换为缠论框架的标准格式。通过传入 'custom:ModuleName.ClassName' 字符串，还可以接入自定义数据源。",
+    "nodeIds": ["file:DataAPI/CommonStockAPI.py", "file:DataAPI/BaoStockAPI.py"],
+    "languageLesson": "抽象基类（ABC）定义了 get_kl_data() 等统一接口，各数据源子类只需实现这些方法即可无缝接入缠论框架。这种「适配器模式」让计算核心与数据来源完全解耦，切换数据源只需修改一行配置字符串。"
+  },
+  {
+    "order": 8,
+    "title": "K 线数据管线：CKLine_Unit、CKLine 与 KLine_List",
+    "description": "KLine/ 目录是缠论计算的数据基础层。CKLine_Unit 是最小数据单元，封装单根 K 线的 OHLC 数据和时频信息；CKLine 在每个 CKLine_Unit 上计算技术指标（MACD、BOLL、RSI 等）；KLine_List 是 K 线列表管理器，负责调度逐根 K 线的计算流程，并维护子级别 K 线列表的父子关系（通过 set_klu_parent_relation 建立区间套所需的跨级别关联）。",
+    "nodeIds": ["file:KLine/KLine_Unit.py", "file:KLine/KLine_List.py", "file:KLine/KLine.py"],
+    "languageLesson": "KLine_List 的 fan-out 达到 26（项目第二高），说明它是整个计算流水线的调度中枢。它通过迭代每根 CKLine 并协调 BiList、SegList、ZSList 等下游模块，体现了「管道-过滤器」架构模式——每个模块只负责一个转换步骤，KLine_List 作为管道将它们串联起来。"
+  },
+  {
+    "order": 9,
+    "title": "包含处理与笔的构建：Combiner 与 Bi 模块",
+    "description": "Combiner/KLine_Combiner.py 处理 K 线包含关系（当一根 K 线完全包含前一根时，按趋势方向合并），这是缠论特有的预处理步骤。Bi/ 模块在此基础上检测分形（顶分型和底分型），并将相邻的顶底分形连接成笔（Bi）。CBi 类使用 @make_cache 缓存昂贵的属性计算，CBiList 管理笔的列表并与 KLine_List 协作完成增量更新。",
+    "nodeIds": ["file:Combiner/KLine_Combiner.py", "file:Bi/Bi.py", "file:Bi/BiList.py"],
+    "languageLesson": "K 线包含处理是缠论区别于其他技术分析的核心步骤之一。当一根 K 线的高低点完全包含前一根 K 线时，需要根据趋势方向决定保留哪根 K 线——上升趋势保留高点更高的，下降趋势保留低点更低的。这一预处理保证了后续分形检测的准确性。"
+  },
+  {
+    "order": 10,
+    "title": "线段划分：特征序列分形与三段算法",
+    "description": "Seg/ 模块将笔连接成线段（Seg），这是缠论中最复杂的计算环节。CSegListComm 是所有段算法的基类，包含未确认段（虚段）的复杂处理逻辑。SegListChan.py 是默认算法，使用特征序列分形来判定段的结束；SegListDYH.py（都业华版）和 SegListDef.py（定义版）提供替代算法。Eigen.py 和 EigenFX.py 定义了特征序列及其分形的数据结构。",
+    "nodeIds": ["file:Seg/SegListComm.py", "file:Seg/SegListChan.py", "file:Seg/Eigen.py", "file:Seg/EigenFX.py"],
+    "languageLesson": "特征序列（EigenSequence）是缠论线段划分的核心概念：将一段笔中的每一笔视为一个特征序列元素，当特征序列出现分形时，才确认前一段的结束。CSegListComm 中的「虚段」处理反映了线段划分的实时性——在步进模式下，当前线段可能尚未确认，需要支持「未确认段」的临时状态。"
+  },
+  {
+    "order": 11,
+    "title": "中枢与买卖点：缠论策略的核心输出",
+    "description": "ZS/ZSList.py 在线段的基础上构建中枢——三段重叠的区间，并根据中枢的延伸、扩展、新生关系进行合并。BuySellPoint/BSPointList.py 检测六类买卖点（T1/T1P/T2/T2S/T3A/T3B），基于中枢背驰、MACD 背离等条件判断。这是缠论策略的最终输出层，策略回测和实盘交易都依赖买卖点信号。",
+    "nodeIds": ["file:ZS/ZSList.py", "file:ZS/ZS.py", "file:BuySellPoint/BSPointList.py", "file:BuySellPoint/BS_Point.py"],
+    "languageLesson": "中枢合并是缠论中一个精妙的递推问题：当新的线段延伸后，已有的中枢可能被扩展或合并，需要重算区间。ZSList 采用增量更新策略——每次新线段到达时，仅检查受影响的中枢，而非全量重算，这对步进模式的性能至关重要。"
+  },
+  {
+    "order": 12,
+    "title": "技术指标、可视化与实战演练",
+    "description": "Math/ 目录包含手写实现的 MACD、BOLL、RSI、KDJ、DeMark 序列、TrendLine 趋势线拟合等技术指标（不依赖 talib），为中枢背驰判断和买卖点检测提供量化依据。Plot/PlotDriver.py 使用 matplotlib 将 K 线、笔、段、中枢、买卖点完整渲染成图表。最后，Debug/strategy_demo.py 展示了步进回放模式的实际用法，而 代码走读说明.md 提供了按十个阶段循序渐进的代码阅读路线图，可作为后续深入学习的指南。",
+    "nodeIds": ["file:Math/MACD.py", "file:Math/BOLL.py", "file:Plot/PlotDriver.py", "file:Debug/strategy_demo.py", "document:代码走读说明.md"],
+    "languageLesson": "手写技术指标而不依赖 talib 的设计决策，使得缠论框架完全自包含——无需安装 C 扩展库即可在任意 Python 3.11+ 环境中运行。MACD 的 DEA/DIF 双重平滑计算、BOLL 的标准差带宽计算，均用纯 NumPy 实现，保证了跨平台兼容性。"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 0,
+  "edgesRestored": 6,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "Fixed部分：9条tested_by边被丢弃，其中6条为合法test→prod关系（Debug/strategy_demo*.py → Chan.py），已恢复；剩余3条（Common/CTime.py→Debug/strategy_demo5.py, Common/CTime.py→Debug/strategy_demo6.py, KLine/KLine_Unit.py→Debug/strategy_demo3.py）为反向的prod→test边，语义上不合理，保留丢弃",
+    "合并脚本的test/prod筛选逻辑过于激进——仅基于标签判断，未考虑test→prod方向的tested_by关系是合理的",
+    "无'Could not fix'节——合并脚本未报告任何无法自动修复的问题",
+    "所有223个节点均无缺失id/type/name/filePath字段，无未知类型，无未知复杂度值",
+    "跨批次imports边完全覆盖：importMap中73个条目产生的212条import关系在图谱中均有对应边，无缺失",
+    "13个孤立节点（__init__.py空包文件、文档文件、配置文件）符合预期",
+    "节点类型分布合理：function(80)、class(70)、file(65)、document(7)、config(1)",
+    "复杂度分布合理：simple(117)、moderate(66)、complex(40)",
+    "边类型分布合理：imports(212)、contains(150)、exports(111)、calls(95)、documents(43)、tested_by(6)、depends_on(15)、related(12)、inherits(7)"
+  ]
+}

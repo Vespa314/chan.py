@@ -1,0 +1,1170 @@
+{
+  "scriptCompleted": true,
+  "directoryGroups": {
+    "App": [
+      "file:App/ashare_bsp_scanner_gui.py"
+    ],
+    "Chan.py": [
+      "file:Chan.py"
+    ],
+    "ChanConfig.py": [
+      "file:ChanConfig.py"
+    ],
+    "ChanModel": [
+      "file:ChanModel/Features.py"
+    ],
+    "Common": [
+      "file:Common/CEnum.py",
+      "file:Common/func_util.py",
+      "file:Common/CTime.py",
+      "file:Common/ChanException.py",
+      "file:Common/cache.py",
+      "file:Common/__init__.py"
+    ],
+    "DataAPI": [
+      "file:DataAPI/BaoStockAPI.py",
+      "file:DataAPI/AkshareAPI.py",
+      "file:DataAPI/CommonStockAPI.py",
+      "file:DataAPI/ccxt.py",
+      "file:DataAPI/csvAPI.py",
+      "file:DataAPI/__init__.py"
+    ],
+    "Debug": [
+      "file:Debug/strategy_demo.py",
+      "file:Debug/strategy_demo2.py",
+      "file:Debug/strategy_demo3.py",
+      "file:Debug/strategy_demo4.py",
+      "file:Debug/strategy_demo5.py",
+      "file:Debug/strategy_demo6.py"
+    ],
+    "Math": [
+      "file:Math/BOLL.py",
+      "file:Math/Demark.py",
+      "file:Math/KDJ.py",
+      "file:Math/MACD.py",
+      "file:Math/RSI.py",
+      "file:Math/TrendLine.py",
+      "file:Math/TrendModel.py",
+      "file:Math/__init__.py"
+    ],
+    "Plot": [
+      "file:Plot/AnimatePlotDriver.py",
+      "file:Plot/PlotDriver.py",
+      "file:Plot/PlotMeta.py",
+      "file:Plot/__init__.py"
+    ],
+    "ZS": [
+      "file:ZS/ZSConfig.py",
+      "file:ZS/ZS.py",
+      "file:ZS/ZSList.py",
+      "file:ZS/__init__.py"
+    ],
+    "main.py": [
+      "file:main.py"
+    ],
+    "Bi": [
+      "file:Bi/Bi.py",
+      "file:Bi/BiList.py",
+      "file:Bi/BiConfig.py"
+    ],
+    "BuySellPoint": [
+      "file:BuySellPoint/BSPointConfig.py",
+      "file:BuySellPoint/BSPointList.py",
+      "file:BuySellPoint/BS_Point.py",
+      "file:BuySellPoint/__init__.py"
+    ],
+    "KLine": [
+      "file:KLine/KLine.py",
+      "file:KLine/KLine_List.py",
+      "file:KLine/KLine_Unit.py",
+      "file:KLine/TradeInfo.py",
+      "file:KLine/__init__.py"
+    ],
+    "Seg": [
+      "file:Seg/Eigen.py",
+      "file:Seg/EigenFX.py",
+      "file:Seg/Seg.py",
+      "file:Seg/SegConfig.py",
+      "file:Seg/SegListChan.py",
+      "file:Seg/SegListComm.py",
+      "file:Seg/SegListDYH.py",
+      "file:Seg/SegListDef.py",
+      "file:Seg/__init__.py"
+    ],
+    "Combiner": [
+      "file:Combiner/Combine_Item.py",
+      "file:Combiner/KLine_Combiner.py",
+      "file:Combiner/__init__.py"
+    ],
+    "CLAUDE.md": [
+      "document:CLAUDE.md"
+    ],
+    "README.md": [
+      "document:README.md"
+    ],
+    "prompt.txt": [
+      "document:prompt.txt"
+    ],
+    "quick_guide.md": [
+      "document:quick_guide.md"
+    ],
+    "代码走读说明.md": [
+      "document:代码走读说明.md"
+    ],
+    "阅读文档.md": [
+      "document:阅读文档.md"
+    ],
+    "__init__.py": [
+      "file:__init__.py"
+    ],
+    ".ua": [
+      "file:.ua/.understandignore",
+      "config:.ua/config.json"
+    ],
+    "Script": [
+      "document:Script/requirements.txt"
+    ]
+  },
+  "nodeTypeGroups": {
+    "file": [
+      "file:App/ashare_bsp_scanner_gui.py",
+      "file:Chan.py",
+      "file:ChanConfig.py",
+      "file:ChanModel/Features.py",
+      "file:Common/CEnum.py",
+      "file:DataAPI/BaoStockAPI.py",
+      "file:Debug/strategy_demo.py",
+      "file:Debug/strategy_demo2.py",
+      "file:Debug/strategy_demo3.py",
+      "file:Debug/strategy_demo4.py",
+      "file:Debug/strategy_demo5.py",
+      "file:Debug/strategy_demo6.py",
+      "file:Math/BOLL.py",
+      "file:Math/Demark.py",
+      "file:Math/KDJ.py",
+      "file:Math/MACD.py",
+      "file:Math/RSI.py",
+      "file:Math/TrendLine.py",
+      "file:Math/TrendModel.py",
+      "file:Plot/AnimatePlotDriver.py",
+      "file:Plot/PlotDriver.py",
+      "file:ZS/ZSConfig.py",
+      "file:main.py",
+      "file:Bi/Bi.py",
+      "file:BuySellPoint/BSPointConfig.py",
+      "file:BuySellPoint/BSPointList.py",
+      "file:BuySellPoint/BS_Point.py",
+      "file:Common/func_util.py",
+      "file:KLine/KLine.py",
+      "file:KLine/KLine_List.py",
+      "file:Plot/PlotMeta.py",
+      "file:Seg/Eigen.py",
+      "file:Seg/EigenFX.py",
+      "file:Seg/Seg.py",
+      "file:ZS/ZS.py",
+      "file:ZS/ZSList.py",
+      "file:Common/CTime.py",
+      "file:DataAPI/AkshareAPI.py",
+      "file:DataAPI/CommonStockAPI.py",
+      "file:DataAPI/ccxt.py",
+      "file:DataAPI/csvAPI.py",
+      "file:KLine/KLine_Unit.py",
+      "file:KLine/TradeInfo.py",
+      "file:Bi/BiList.py",
+      "file:Seg/SegConfig.py",
+      "file:Seg/SegListChan.py",
+      "file:Seg/SegListComm.py",
+      "file:Seg/SegListDYH.py",
+      "file:Seg/SegListDef.py",
+      "file:Bi/BiConfig.py",
+      "file:Combiner/Combine_Item.py",
+      "file:Combiner/KLine_Combiner.py",
+      "file:Common/ChanException.py",
+      "file:Common/cache.py",
+      "file:__init__.py",
+      "file:.ua/.understandignore",
+      "file:BuySellPoint/__init__.py",
+      "file:Combiner/__init__.py",
+      "file:Common/__init__.py",
+      "file:DataAPI/__init__.py",
+      "file:KLine/__init__.py",
+      "file:Math/__init__.py",
+      "file:Plot/__init__.py",
+      "file:Seg/__init__.py",
+      "file:ZS/__init__.py"
+    ],
+    "document": [
+      "document:CLAUDE.md",
+      "document:README.md",
+      "document:prompt.txt",
+      "document:quick_guide.md",
+      "document:代码走读说明.md",
+      "document:阅读文档.md",
+      "document:Script/requirements.txt"
+    ],
+    "config": [
+      "config:.ua/config.json"
+    ]
+  },
+  "crossCategoryEdges": [
+    {
+      "fromType": "file",
+      "toType": "unknown",
+      "edgeType": "contains",
+      "count": 111
+    },
+    {
+      "fromType": "file",
+      "toType": "unknown",
+      "edgeType": "exports",
+      "count": 111
+    },
+    {
+      "fromType": "document",
+      "toType": "file",
+      "edgeType": "documents",
+      "count": 43
+    },
+    {
+      "fromType": "file",
+      "toType": "unknown",
+      "edgeType": "calls",
+      "count": 37
+    },
+    {
+      "fromType": "file",
+      "toType": "unknown",
+      "edgeType": "depends_on",
+      "count": 8
+    }
+  ],
+  "interGroupImports": [
+    {
+      "from": "DataAPI",
+      "to": "Common",
+      "count": 13
+    },
+    {
+      "from": "Seg",
+      "to": "Common",
+      "count": 13
+    },
+    {
+      "from": "KLine",
+      "to": "Common",
+      "count": 9
+    },
+    {
+      "from": "Seg",
+      "to": "Bi",
+      "count": 9
+    },
+    {
+      "from": "Debug",
+      "to": "Common",
+      "count": 8
+    },
+    {
+      "from": "ChanConfig.py",
+      "to": "Math",
+      "count": 6
+    },
+    {
+      "from": "Debug",
+      "to": "Chan.py",
+      "count": 6
+    },
+    {
+      "from": "Debug",
+      "to": "ChanConfig.py",
+      "count": 6
+    },
+    {
+      "from": "Bi",
+      "to": "Common",
+      "count": 6
+    },
+    {
+      "from": "KLine",
+      "to": "Math",
+      "count": 6
+    },
+    {
+      "from": "DataAPI",
+      "to": "KLine",
+      "count": 5
+    },
+    {
+      "from": "BuySellPoint",
+      "to": "Common",
+      "count": 5
+    },
+    {
+      "from": "Chan.py",
+      "to": "Common",
+      "count": 4
+    },
+    {
+      "from": "Math",
+      "to": "Common",
+      "count": 4
+    },
+    {
+      "from": "Plot",
+      "to": "Common",
+      "count": 4
+    },
+    {
+      "from": "Combiner",
+      "to": "Common",
+      "count": 4
+    },
+    {
+      "from": "ChanConfig.py",
+      "to": "Common",
+      "count": 3
+    },
+    {
+      "from": "Debug",
+      "to": "DataAPI",
+      "count": 3
+    },
+    {
+      "from": "Plot",
+      "to": "Seg",
+      "count": 3
+    },
+    {
+      "from": "Bi",
+      "to": "KLine",
+      "count": 3
+    },
+    {
+      "from": "BuySellPoint",
+      "to": "Bi",
+      "count": 3
+    },
+    {
+      "from": "BuySellPoint",
+      "to": "Seg",
+      "count": 3
+    },
+    {
+      "from": "KLine",
+      "to": "Seg",
+      "count": 3
+    },
+    {
+      "from": "ZS",
+      "to": "Bi",
+      "count": 3
+    },
+    {
+      "from": "ZS",
+      "to": "Common",
+      "count": 3
+    },
+    {
+      "from": "ZS",
+      "to": "Seg",
+      "count": 3
+    },
+    {
+      "from": "Chan.py",
+      "to": "KLine",
+      "count": 2
+    },
+    {
+      "from": "Debug",
+      "to": "ChanModel",
+      "count": 2
+    },
+    {
+      "from": "Plot",
+      "to": "Chan.py",
+      "count": 2
+    },
+    {
+      "from": "Plot",
+      "to": "KLine",
+      "count": 2
+    },
+    {
+      "from": "main.py",
+      "to": "Plot",
+      "count": 2
+    },
+    {
+      "from": "KLine",
+      "to": "Bi",
+      "count": 2
+    },
+    {
+      "from": "App",
+      "to": "Chan.py",
+      "count": 1
+    },
+    {
+      "from": "App",
+      "to": "ChanConfig.py",
+      "count": 1
+    },
+    {
+      "from": "App",
+      "to": "Common",
+      "count": 1
+    },
+    {
+      "from": "Chan.py",
+      "to": "BuySellPoint",
+      "count": 1
+    },
+    {
+      "from": "Chan.py",
+      "to": "ChanConfig.py",
+      "count": 1
+    },
+    {
+      "from": "Chan.py",
+      "to": "DataAPI",
+      "count": 1
+    },
+    {
+      "from": "ChanConfig.py",
+      "to": "Bi",
+      "count": 1
+    },
+    {
+      "from": "ChanConfig.py",
+      "to": "BuySellPoint",
+      "count": 1
+    },
+    {
+      "from": "ChanConfig.py",
+      "to": "Seg",
+      "count": 1
+    },
+    {
+      "from": "ChanConfig.py",
+      "to": "ZS",
+      "count": 1
+    },
+    {
+      "from": "Debug",
+      "to": "KLine",
+      "count": 1
+    },
+    {
+      "from": "Debug",
+      "to": "Plot",
+      "count": 1
+    },
+    {
+      "from": "Debug",
+      "to": "BuySellPoint",
+      "count": 1
+    },
+    {
+      "from": "Plot",
+      "to": "Math",
+      "count": 1
+    },
+    {
+      "from": "Plot",
+      "to": "Bi",
+      "count": 1
+    },
+    {
+      "from": "Plot",
+      "to": "BuySellPoint",
+      "count": 1
+    },
+    {
+      "from": "Plot",
+      "to": "ZS",
+      "count": 1
+    },
+    {
+      "from": "main.py",
+      "to": "Chan.py",
+      "count": 1
+    },
+    {
+      "from": "main.py",
+      "to": "ChanConfig.py",
+      "count": 1
+    },
+    {
+      "from": "main.py",
+      "to": "Common",
+      "count": 1
+    },
+    {
+      "from": "BuySellPoint",
+      "to": "ZS",
+      "count": 1
+    },
+    {
+      "from": "BuySellPoint",
+      "to": "ChanModel",
+      "count": 1
+    },
+    {
+      "from": "KLine",
+      "to": "Combiner",
+      "count": 1
+    },
+    {
+      "from": "KLine",
+      "to": "BuySellPoint",
+      "count": 1
+    },
+    {
+      "from": "KLine",
+      "to": "ChanConfig.py",
+      "count": 1
+    },
+    {
+      "from": "KLine",
+      "to": "ZS",
+      "count": 1
+    },
+    {
+      "from": "Seg",
+      "to": "Combiner",
+      "count": 1
+    },
+    {
+      "from": "Seg",
+      "to": "KLine",
+      "count": 1
+    },
+    {
+      "from": "Seg",
+      "to": "Math",
+      "count": 1
+    },
+    {
+      "from": "ZS",
+      "to": "BuySellPoint",
+      "count": 1
+    },
+    {
+      "from": "ZS",
+      "to": "KLine",
+      "count": 1
+    },
+    {
+      "from": "Combiner",
+      "to": "KLine",
+      "count": 1
+    }
+  ],
+  "intraGroupDensity": {
+    "App": {
+      "internalEdges": 0,
+      "totalEdges": 3,
+      "density": 0.0
+    },
+    "Chan.py": {
+      "internalEdges": 0,
+      "totalEdges": 19,
+      "density": 0.0
+    },
+    "ChanConfig.py": {
+      "internalEdges": 0,
+      "totalEdges": 23,
+      "density": 0.0
+    },
+    "ChanModel": {
+      "internalEdges": 0,
+      "totalEdges": 3,
+      "density": 0.0
+    },
+    "Common": {
+      "internalEdges": 1,
+      "totalEdges": 80,
+      "density": 0.0125
+    },
+    "DataAPI": {
+      "internalEdges": 4,
+      "totalEdges": 30,
+      "density": 0.13333333333333333
+    },
+    "Debug": {
+      "internalEdges": 1,
+      "totalEdges": 30,
+      "density": 0.03333333333333333
+    },
+    "Math": {
+      "internalEdges": 0,
+      "totalEdges": 18,
+      "density": 0.0
+    },
+    "Plot": {
+      "internalEdges": 2,
+      "totalEdges": 22,
+      "density": 0.09090909090909091
+    },
+    "ZS": {
+      "internalEdges": 2,
+      "totalEdges": 19,
+      "density": 0.10526315789473684
+    },
+    "main.py": {
+      "internalEdges": 0,
+      "totalEdges": 5,
+      "density": 0.0
+    },
+    "Bi": {
+      "internalEdges": 2,
+      "totalEdges": 32,
+      "density": 0.0625
+    },
+    "BuySellPoint": {
+      "internalEdges": 2,
+      "totalEdges": 23,
+      "density": 0.08695652173913043
+    },
+    "KLine": {
+      "internalEdges": 4,
+      "totalEdges": 48,
+      "density": 0.08333333333333333
+    },
+    "Seg": {
+      "internalEdges": 11,
+      "totalEdges": 60,
+      "density": 0.18333333333333332
+    },
+    "Combiner": {
+      "internalEdges": 1,
+      "totalEdges": 9,
+      "density": 0.1111111111111111
+    },
+    "CLAUDE.md": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "README.md": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "prompt.txt": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "quick_guide.md": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "代码走读说明.md": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "阅读文档.md": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "__init__.py": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    ".ua": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "Script": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    }
+  },
+  "patternMatches": {
+    "App": null,
+    "Chan.py": null,
+    "ChanConfig.py": null,
+    "ChanModel": null,
+    "Common": "utility",
+    "DataAPI": null,
+    "Debug": null,
+    "Math": null,
+    "Plot": null,
+    "ZS": null,
+    "main.py": null,
+    "Bi": null,
+    "BuySellPoint": null,
+    "KLine": null,
+    "Seg": null,
+    "Combiner": null,
+    "CLAUDE.md": null,
+    "README.md": null,
+    "prompt.txt": null,
+    "quick_guide.md": null,
+    "代码走读说明.md": null,
+    "阅读文档.md": null,
+    "__init__.py": null,
+    ".ua": null,
+    "Script": null
+  },
+  "deploymentTopology": {
+    "hasDockerfile": false,
+    "hasCompose": false,
+    "hasK8s": false,
+    "hasTerraform": false,
+    "hasCI": false,
+    "infraFiles": []
+  },
+  "dataPipeline": {
+    "schemaFiles": [],
+    "migrationFiles": [],
+    "dataModelFiles": [
+      "file:ChanModel/Features.py",
+      "file:Math/TrendModel.py"
+    ],
+    "apiHandlerFiles": []
+  },
+  "docCoverage": {
+    "groupsWithDocs": 7,
+    "totalGroups": 25,
+    "coverageRatio": 0.28,
+    "undocumentedGroups": [
+      "App",
+      "Chan.py",
+      "ChanConfig.py",
+      "ChanModel",
+      "Common",
+      "DataAPI",
+      "Debug",
+      "Math",
+      "Plot",
+      "ZS",
+      "main.py",
+      "Bi",
+      "BuySellPoint",
+      "KLine",
+      "Seg",
+      "Combiner",
+      "__init__.py",
+      ".ua"
+    ]
+  },
+  "dependencyDirection": [
+    {
+      "dependent": "App",
+      "dependsOn": "Chan.py"
+    },
+    {
+      "dependent": "App",
+      "dependsOn": "ChanConfig.py"
+    },
+    {
+      "dependent": "App",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "Chan.py",
+      "dependsOn": "BuySellPoint"
+    },
+    {
+      "dependent": "Chan.py",
+      "dependsOn": "ChanConfig.py"
+    },
+    {
+      "dependent": "Chan.py",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "Chan.py",
+      "dependsOn": "DataAPI"
+    },
+    {
+      "dependent": "Chan.py",
+      "dependsOn": "KLine"
+    },
+    {
+      "dependent": "ChanConfig.py",
+      "dependsOn": "Bi"
+    },
+    {
+      "dependent": "ChanConfig.py",
+      "dependsOn": "BuySellPoint"
+    },
+    {
+      "dependent": "ChanConfig.py",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "ChanConfig.py",
+      "dependsOn": "Math"
+    },
+    {
+      "dependent": "ChanConfig.py",
+      "dependsOn": "Seg"
+    },
+    {
+      "dependent": "ChanConfig.py",
+      "dependsOn": "ZS"
+    },
+    {
+      "dependent": "DataAPI",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "DataAPI",
+      "dependsOn": "KLine"
+    },
+    {
+      "dependent": "Debug",
+      "dependsOn": "Chan.py"
+    },
+    {
+      "dependent": "Debug",
+      "dependsOn": "ChanConfig.py"
+    },
+    {
+      "dependent": "Debug",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "Debug",
+      "dependsOn": "DataAPI"
+    },
+    {
+      "dependent": "Debug",
+      "dependsOn": "KLine"
+    },
+    {
+      "dependent": "Debug",
+      "dependsOn": "ChanModel"
+    },
+    {
+      "dependent": "Debug",
+      "dependsOn": "Plot"
+    },
+    {
+      "dependent": "Debug",
+      "dependsOn": "BuySellPoint"
+    },
+    {
+      "dependent": "Math",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "Plot",
+      "dependsOn": "Chan.py"
+    },
+    {
+      "dependent": "Plot",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "Plot",
+      "dependsOn": "Math"
+    },
+    {
+      "dependent": "Plot",
+      "dependsOn": "Bi"
+    },
+    {
+      "dependent": "Plot",
+      "dependsOn": "BuySellPoint"
+    },
+    {
+      "dependent": "Plot",
+      "dependsOn": "KLine"
+    },
+    {
+      "dependent": "Plot",
+      "dependsOn": "Seg"
+    },
+    {
+      "dependent": "Plot",
+      "dependsOn": "ZS"
+    },
+    {
+      "dependent": "main.py",
+      "dependsOn": "Chan.py"
+    },
+    {
+      "dependent": "main.py",
+      "dependsOn": "ChanConfig.py"
+    },
+    {
+      "dependent": "main.py",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "main.py",
+      "dependsOn": "Plot"
+    },
+    {
+      "dependent": "Bi",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "Bi",
+      "dependsOn": "KLine"
+    },
+    {
+      "dependent": "BuySellPoint",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "BuySellPoint",
+      "dependsOn": "Bi"
+    },
+    {
+      "dependent": "BuySellPoint",
+      "dependsOn": "Seg"
+    },
+    {
+      "dependent": "BuySellPoint",
+      "dependsOn": "ChanModel"
+    },
+    {
+      "dependent": "KLine",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "KLine",
+      "dependsOn": "BuySellPoint"
+    },
+    {
+      "dependent": "KLine",
+      "dependsOn": "ChanConfig.py"
+    },
+    {
+      "dependent": "KLine",
+      "dependsOn": "Seg"
+    },
+    {
+      "dependent": "KLine",
+      "dependsOn": "Math"
+    },
+    {
+      "dependent": "Seg",
+      "dependsOn": "Bi"
+    },
+    {
+      "dependent": "Seg",
+      "dependsOn": "Combiner"
+    },
+    {
+      "dependent": "Seg",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "Seg",
+      "dependsOn": "Math"
+    },
+    {
+      "dependent": "ZS",
+      "dependsOn": "Bi"
+    },
+    {
+      "dependent": "ZS",
+      "dependsOn": "Common"
+    },
+    {
+      "dependent": "ZS",
+      "dependsOn": "Seg"
+    },
+    {
+      "dependent": "Combiner",
+      "dependsOn": "Common"
+    }
+  ],
+  "fileStats": {
+    "totalFileNodes": 73,
+    "filesPerGroup": {
+      "App": 1,
+      "Chan.py": 1,
+      "ChanConfig.py": 1,
+      "ChanModel": 1,
+      "Common": 6,
+      "DataAPI": 6,
+      "Debug": 6,
+      "Math": 8,
+      "Plot": 4,
+      "ZS": 4,
+      "main.py": 1,
+      "Bi": 3,
+      "BuySellPoint": 4,
+      "KLine": 5,
+      "Seg": 9,
+      "Combiner": 3,
+      "CLAUDE.md": 1,
+      "README.md": 1,
+      "prompt.txt": 1,
+      "quick_guide.md": 1,
+      "代码走读说明.md": 1,
+      "阅读文档.md": 1,
+      "__init__.py": 1,
+      ".ua": 2,
+      "Script": 1
+    },
+    "nodeTypeCounts": {
+      "file": 65,
+      "document": 7,
+      "config": 1
+    }
+  },
+  "fileFanIn": {
+    "file:App/ashare_bsp_scanner_gui.py": 0,
+    "file:Chan.py": 10,
+    "file:ChanConfig.py": 10,
+    "file:ChanModel/Features.py": 3,
+    "file:Common/CEnum.py": 39,
+    "file:DataAPI/BaoStockAPI.py": 3,
+    "file:Debug/strategy_demo.py": 0,
+    "file:Debug/strategy_demo2.py": 0,
+    "file:Debug/strategy_demo3.py": 0,
+    "file:Debug/strategy_demo4.py": 0,
+    "file:Debug/strategy_demo5.py": 1,
+    "file:Debug/strategy_demo6.py": 0,
+    "file:Math/BOLL.py": 2,
+    "file:Math/Demark.py": 3,
+    "file:Math/KDJ.py": 2,
+    "file:Math/MACD.py": 2,
+    "file:Math/RSI.py": 2,
+    "file:Math/TrendLine.py": 1,
+    "file:Math/TrendModel.py": 2,
+    "file:Plot/AnimatePlotDriver.py": 1,
+    "file:Plot/PlotDriver.py": 3,
+    "file:ZS/ZSConfig.py": 2,
+    "file:main.py": 0,
+    "file:Bi/Bi.py": 11,
+    "file:BuySellPoint/BSPointConfig.py": 3,
+    "file:BuySellPoint/BSPointList.py": 1,
+    "file:BuySellPoint/BS_Point.py": 4,
+    "file:Common/func_util.py": 12,
+    "file:KLine/KLine.py": 4,
+    "file:KLine/KLine_List.py": 2,
+    "file:Plot/PlotMeta.py": 1,
+    "file:Seg/Eigen.py": 2,
+    "file:Seg/EigenFX.py": 3,
+    "file:Seg/Seg.py": 7,
+    "file:ZS/ZS.py": 3,
+    "file:ZS/ZSList.py": 1,
+    "file:Common/CTime.py": 9,
+    "file:DataAPI/AkshareAPI.py": 0,
+    "file:DataAPI/CommonStockAPI.py": 5,
+    "file:DataAPI/ccxt.py": 0,
+    "file:DataAPI/csvAPI.py": 0,
+    "file:KLine/KLine_Unit.py": 13,
+    "file:KLine/TradeInfo.py": 1,
+    "file:Bi/BiList.py": 8,
+    "file:Seg/SegConfig.py": 6,
+    "file:Seg/SegListChan.py": 0,
+    "file:Seg/SegListComm.py": 6,
+    "file:Seg/SegListDYH.py": 0,
+    "file:Seg/SegListDef.py": 0,
+    "file:Bi/BiConfig.py": 2,
+    "file:Combiner/Combine_Item.py": 1,
+    "file:Combiner/KLine_Combiner.py": 2,
+    "file:Common/ChanException.py": 17,
+    "file:Common/cache.py": 2,
+    "document:CLAUDE.md": 0,
+    "document:README.md": 0,
+    "document:prompt.txt": 0,
+    "document:quick_guide.md": 0,
+    "document:代码走读说明.md": 0,
+    "document:阅读文档.md": 0,
+    "file:__init__.py": 0,
+    "file:.ua/.understandignore": 0,
+    "config:.ua/config.json": 0,
+    "file:BuySellPoint/__init__.py": 0,
+    "file:Combiner/__init__.py": 0,
+    "file:Common/__init__.py": 0,
+    "file:DataAPI/__init__.py": 0,
+    "file:KLine/__init__.py": 0,
+    "file:Math/__init__.py": 0,
+    "file:Plot/__init__.py": 0,
+    "document:Script/requirements.txt": 0,
+    "file:Seg/__init__.py": 0,
+    "file:ZS/__init__.py": 0
+  },
+  "fileFanOut": {
+    "file:App/ashare_bsp_scanner_gui.py": 3,
+    "file:Chan.py": 9,
+    "file:ChanConfig.py": 13,
+    "file:ChanModel/Features.py": 0,
+    "file:Common/CEnum.py": 0,
+    "file:DataAPI/BaoStockAPI.py": 5,
+    "file:Debug/strategy_demo.py": 3,
+    "file:Debug/strategy_demo2.py": 4,
+    "file:Debug/strategy_demo3.py": 5,
+    "file:Debug/strategy_demo4.py": 4,
+    "file:Debug/strategy_demo5.py": 6,
+    "file:Debug/strategy_demo6.py": 7,
+    "file:Math/BOLL.py": 0,
+    "file:Math/Demark.py": 1,
+    "file:Math/KDJ.py": 0,
+    "file:Math/MACD.py": 0,
+    "file:Math/RSI.py": 0,
+    "file:Math/TrendLine.py": 1,
+    "file:Math/TrendModel.py": 2,
+    "file:Plot/AnimatePlotDriver.py": 2,
+    "file:Plot/PlotDriver.py": 6,
+    "file:ZS/ZSConfig.py": 0,
+    "file:main.py": 5,
+    "file:Bi/Bi.py": 5,
+    "file:BuySellPoint/BSPointConfig.py": 2,
+    "file:BuySellPoint/BSPointList.py": 9,
+    "file:BuySellPoint/BS_Point.py": 4,
+    "file:Common/func_util.py": 1,
+    "file:KLine/KLine.py": 5,
+    "file:KLine/KLine_List.py": 12,
+    "file:Plot/PlotMeta.py": 9,
+    "file:Seg/Eigen.py": 3,
+    "file:Seg/EigenFX.py": 6,
+    "file:Seg/Seg.py": 6,
+    "file:ZS/ZS.py": 6,
+    "file:ZS/ZSList.py": 7,
+    "file:Common/CTime.py": 0,
+    "file:DataAPI/AkshareAPI.py": 5,
+    "file:DataAPI/CommonStockAPI.py": 1,
+    "file:DataAPI/ccxt.py": 5,
+    "file:DataAPI/csvAPI.py": 6,
+    "file:KLine/KLine_Unit.py": 10,
+    "file:KLine/TradeInfo.py": 1,
+    "file:Bi/BiList.py": 4,
+    "file:Seg/SegConfig.py": 2,
+    "file:Seg/SegListChan.py": 5,
+    "file:Seg/SegListComm.py": 6,
+    "file:Seg/SegListDYH.py": 4,
+    "file:Seg/SegListDef.py": 4,
+    "file:Bi/BiConfig.py": 2,
+    "file:Combiner/Combine_Item.py": 1,
+    "file:Combiner/KLine_Combiner.py": 5,
+    "file:Common/ChanException.py": 0,
+    "file:Common/cache.py": 0,
+    "document:CLAUDE.md": 0,
+    "document:README.md": 0,
+    "document:prompt.txt": 0,
+    "document:quick_guide.md": 0,
+    "document:代码走读说明.md": 0,
+    "document:阅读文档.md": 0,
+    "file:__init__.py": 0,
+    "file:.ua/.understandignore": 0,
+    "config:.ua/config.json": 0,
+    "file:BuySellPoint/__init__.py": 0,
+    "file:Combiner/__init__.py": 0,
+    "file:Common/__init__.py": 0,
+    "file:DataAPI/__init__.py": 0,
+    "file:KLine/__init__.py": 0,
+    "file:Math/__init__.py": 0,
+    "file:Plot/__init__.py": 0,
+    "document:Script/requirements.txt": 0,
+    "file:Seg/__init__.py": 0,
+    "file:ZS/__init__.py": 0
+  }
+}

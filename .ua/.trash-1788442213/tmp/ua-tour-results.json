@@ -1,0 +1,1632 @@
+{
+  "scriptCompleted": true,
+  "entryPointCandidates": [
+    {
+      "id": "file:main.py",
+      "score": 5,
+      "name": "main.py",
+      "summary": "项目主入口脚本，计算sz.000001（平安银行）日线缠论数据并绘制完整技术分析图表，支持动画/静态两种模式。"
+    },
+    {
+      "id": "document:README.md",
+      "score": 5,
+      "name": "README.md",
+      "summary": "缠论框架完整使用文档（约1500行），涵盖功能介绍（基本元素计算、策略买卖点、ML对接、线上交易）、目录结构、CChan/CChanConfig 使用详解、画图配置、中枢算法、模型特征、交易系统、自定义开发（数据接入、笔/线段/买卖点/模型扩展）、COS/Notion 集成等，是项目最全面的参考文档。"
+    },
+    {
+      "id": "file:App/ashare_bsp_scanner_gui.py",
+      "score": 3,
+      "name": "ashare_bsp_scanner_gui.py",
+      "summary": "A股买卖点扫描器GUI应用，基于PyQt6+matplotlib实现，支持全市场扫描缠论买卖点、单股分析及K线图表可视化。"
+    },
+    {
+      "id": "file:Debug/strategy_demo5.py",
+      "score": 3,
+      "name": "strategy_demo5.py",
+      "summary": "ML特征生成与XGBoost训练演示脚本，从缠论买卖点提取特征并训练XGBoost分类器，支持模型保存与图表绘制。"
+    },
+    {
+      "id": "file:Debug/strategy_demo6.py",
+      "score": 3,
+      "name": "strategy_demo6.py",
+      "summary": "模型预测演示脚本，加载训练好的XGBoost模型对最新买卖点进行预测，验证ML管线的推理环节。"
+    }
+  ],
+  "fanInRanking": [
+    {
+      "id": "file:Common/CEnum.py",
+      "fanIn": 41,
+      "name": "CEnum.py"
+    },
+    {
+      "id": "file:Chan.py",
+      "fanIn": 21,
+      "name": "Chan.py"
+    },
+    {
+      "id": "file:Common/ChanException.py",
+      "fanIn": 19,
+      "name": "ChanException.py"
+    },
+    {
+      "id": "file:ChanConfig.py",
+      "fanIn": 15,
+      "name": "ChanConfig.py"
+    },
+    {
+      "id": "file:KLine/KLine_Unit.py",
+      "fanIn": 14,
+      "name": "KLine_Unit.py"
+    },
+    {
+      "id": "file:Bi/Bi.py",
+      "fanIn": 12,
+      "name": "Bi.py"
+    },
+    {
+      "id": "file:Common/func_util.py",
+      "fanIn": 12,
+      "name": "func_util.py"
+    },
+    {
+      "id": "class:Bi/Bi.py:CBi",
+      "fanIn": 12,
+      "name": "CBi"
+    },
+    {
+      "id": "file:Common/CTime.py",
+      "fanIn": 10,
+      "name": "CTime.py"
+    },
+    {
+      "id": "file:Bi/BiList.py",
+      "fanIn": 10,
+      "name": "BiList.py"
+    },
+    {
+      "id": "class:Chan.py:CChan",
+      "fanIn": 9,
+      "name": "CChan"
+    },
+    {
+      "id": "file:DataAPI/CommonStockAPI.py",
+      "fanIn": 9,
+      "name": "CommonStockAPI.py"
+    },
+    {
+      "id": "file:Seg/Seg.py",
+      "fanIn": 8,
+      "name": "Seg.py"
+    },
+    {
+      "id": "class:Seg/Seg.py:CSeg",
+      "fanIn": 8,
+      "name": "CSeg"
+    },
+    {
+      "id": "file:Seg/SegListComm.py",
+      "fanIn": 8,
+      "name": "SegListComm.py"
+    },
+    {
+      "id": "class:Common/ChanException.py:CChanException",
+      "fanIn": 7,
+      "name": "CChanException"
+    },
+    {
+      "id": "function:Common/func_util.py:has_overlap",
+      "fanIn": 6,
+      "name": "has_overlap"
+    },
+    {
+      "id": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "fanIn": 6,
+      "name": "CKLine_Unit"
+    },
+    {
+      "id": "file:Seg/SegConfig.py",
+      "fanIn": 6,
+      "name": "SegConfig.py"
+    },
+    {
+      "id": "file:Plot/PlotDriver.py",
+      "fanIn": 5,
+      "name": "PlotDriver.py"
+    }
+  ],
+  "fanOutRanking": [
+    {
+      "id": "file:Plot/PlotMeta.py",
+      "fanOut": 32,
+      "name": "PlotMeta.py"
+    },
+    {
+      "id": "file:KLine/KLine_List.py",
+      "fanOut": 26,
+      "name": "KLine_List.py"
+    },
+    {
+      "id": "file:BuySellPoint/BSPointList.py",
+      "fanOut": 25,
+      "name": "BSPointList.py"
+    },
+    {
+      "id": "file:Plot/PlotDriver.py",
+      "fanOut": 19,
+      "name": "PlotDriver.py"
+    },
+    {
+      "id": "file:ChanConfig.py",
+      "fanOut": 17,
+      "name": "ChanConfig.py"
+    },
+    {
+      "id": "file:App/ashare_bsp_scanner_gui.py",
+      "fanOut": 15,
+      "name": "ashare_bsp_scanner_gui.py"
+    },
+    {
+      "id": "file:Common/func_util.py",
+      "fanOut": 15,
+      "name": "func_util.py"
+    },
+    {
+      "id": "file:Debug/strategy_demo5.py",
+      "fanOut": 14,
+      "name": "strategy_demo5.py"
+    },
+    {
+      "id": "file:Debug/strategy_demo6.py",
+      "fanOut": 14,
+      "name": "strategy_demo6.py"
+    },
+    {
+      "id": "document:代码走读说明.md",
+      "fanOut": 14,
+      "name": "代码走读说明.md"
+    },
+    {
+      "id": "document:阅读文档.md",
+      "fanOut": 14,
+      "name": "阅读文档.md"
+    },
+    {
+      "id": "file:DataAPI/BaoStockAPI.py",
+      "fanOut": 13,
+      "name": "BaoStockAPI.py"
+    },
+    {
+      "id": "file:ZS/ZSList.py",
+      "fanOut": 13,
+      "name": "ZSList.py"
+    },
+    {
+      "id": "class:Bi/BiList.py:CBiList",
+      "fanOut": 13,
+      "name": "CBiList"
+    },
+    {
+      "id": "file:DataAPI/csvAPI.py",
+      "fanOut": 12,
+      "name": "csvAPI.py"
+    },
+    {
+      "id": "file:KLine/KLine_Unit.py",
+      "fanOut": 12,
+      "name": "KLine_Unit.py"
+    },
+    {
+      "id": "file:Seg/SegListComm.py",
+      "fanOut": 12,
+      "name": "SegListComm.py"
+    },
+    {
+      "id": "file:Chan.py",
+      "fanOut": 11,
+      "name": "Chan.py"
+    },
+    {
+      "id": "file:Math/TrendLine.py",
+      "fanOut": 11,
+      "name": "TrendLine.py"
+    },
+    {
+      "id": "file:Seg/EigenFX.py",
+      "fanOut": 11,
+      "name": "EigenFX.py"
+    }
+  ],
+  "bfsTraversal": {
+    "startNode": "file:main.py",
+    "order": [
+      "file:main.py",
+      "file:Chan.py",
+      "file:ChanConfig.py",
+      "file:Common/CEnum.py",
+      "file:Plot/AnimatePlotDriver.py",
+      "file:Plot/PlotDriver.py",
+      "file:BuySellPoint/BS_Point.py",
+      "file:Common/ChanException.py",
+      "file:Common/CTime.py",
+      "file:Common/func_util.py",
+      "file:DataAPI/CommonStockAPI.py",
+      "file:KLine/KLine_List.py",
+      "file:KLine/KLine_Unit.py",
+      "file:Bi/BiConfig.py",
+      "file:BuySellPoint/BSPointConfig.py",
+      "file:Math/BOLL.py",
+      "file:Math/Demark.py",
+      "file:Math/KDJ.py",
+      "file:Math/MACD.py",
+      "file:Math/RSI.py",
+      "file:Math/TrendModel.py",
+      "file:Seg/SegConfig.py",
+      "file:ZS/ZSConfig.py",
+      "file:Plot/PlotMeta.py",
+      "file:Bi/Bi.py",
+      "file:ChanModel/Features.py",
+      "file:Seg/Seg.py",
+      "class:Bi/Bi.py:CBi",
+      "file:Bi/BiList.py",
+      "file:BuySellPoint/BSPointList.py",
+      "file:KLine/KLine.py",
+      "file:Seg/SegListComm.py",
+      "file:ZS/ZSList.py",
+      "class:KLine/KLine.py:CKLine",
+      "class:BuySellPoint/BSPointList.py:CBSPointList",
+      "class:ZS/ZSList.py:CZSList",
+      "class:Seg/Seg.py:CSeg",
+      "function:Common/func_util.py:revert_bi_dir",
+      "file:KLine/TradeInfo.py",
+      "function:Common/func_util.py:_parse_inf",
+      "file:Seg/Eigen.py",
+      "file:Seg/EigenFX.py",
+      "file:ZS/ZS.py",
+      "class:BuySellPoint/BS_Point.py:CBS_Point",
+      "class:Seg/Eigen.py:CEigen",
+      "class:Seg/EigenFX.py:CEigenFX",
+      "class:ZS/ZS.py:CZS",
+      "file:Common/cache.py",
+      "function:Common/func_util.py:has_overlap",
+      "file:Math/TrendLine.py",
+      "class:BuySellPoint/BSPointConfig.py:CBSPointConfig",
+      "file:Combiner/KLine_Combiner.py",
+      "file:Combiner/Combine_Item.py"
+    ],
+    "depthMap": {
+      "file:main.py": 0,
+      "file:Chan.py": 1,
+      "file:ChanConfig.py": 1,
+      "file:Common/CEnum.py": 1,
+      "file:Plot/AnimatePlotDriver.py": 1,
+      "file:Plot/PlotDriver.py": 1,
+      "file:BuySellPoint/BS_Point.py": 2,
+      "file:Common/ChanException.py": 2,
+      "file:Common/CTime.py": 2,
+      "file:Common/func_util.py": 2,
+      "file:DataAPI/CommonStockAPI.py": 2,
+      "file:KLine/KLine_List.py": 2,
+      "file:KLine/KLine_Unit.py": 2,
+      "file:Bi/BiConfig.py": 2,
+      "file:BuySellPoint/BSPointConfig.py": 2,
+      "file:Math/BOLL.py": 2,
+      "file:Math/Demark.py": 2,
+      "file:Math/KDJ.py": 2,
+      "file:Math/MACD.py": 2,
+      "file:Math/RSI.py": 2,
+      "file:Math/TrendModel.py": 2,
+      "file:Seg/SegConfig.py": 2,
+      "file:ZS/ZSConfig.py": 2,
+      "file:Plot/PlotMeta.py": 2,
+      "file:Bi/Bi.py": 3,
+      "file:ChanModel/Features.py": 3,
+      "file:Seg/Seg.py": 3,
+      "class:Bi/Bi.py:CBi": 3,
+      "file:Bi/BiList.py": 3,
+      "file:BuySellPoint/BSPointList.py": 3,
+      "file:KLine/KLine.py": 3,
+      "file:Seg/SegListComm.py": 3,
+      "file:ZS/ZSList.py": 3,
+      "class:KLine/KLine.py:CKLine": 3,
+      "class:BuySellPoint/BSPointList.py:CBSPointList": 3,
+      "class:ZS/ZSList.py:CZSList": 3,
+      "class:Seg/Seg.py:CSeg": 3,
+      "function:Common/func_util.py:revert_bi_dir": 3,
+      "file:KLine/TradeInfo.py": 3,
+      "function:Common/func_util.py:_parse_inf": 3,
+      "file:Seg/Eigen.py": 3,
+      "file:Seg/EigenFX.py": 3,
+      "file:ZS/ZS.py": 3,
+      "class:BuySellPoint/BS_Point.py:CBS_Point": 3,
+      "class:Seg/Eigen.py:CEigen": 3,
+      "class:Seg/EigenFX.py:CEigenFX": 3,
+      "class:ZS/ZS.py:CZS": 3,
+      "file:Common/cache.py": 4,
+      "function:Common/func_util.py:has_overlap": 4,
+      "file:Math/TrendLine.py": 4,
+      "class:BuySellPoint/BSPointConfig.py:CBSPointConfig": 4,
+      "file:Combiner/KLine_Combiner.py": 4,
+      "file:Combiner/Combine_Item.py": 5
+    },
+    "byDepth": {
+      "0": [
+        "file:main.py"
+      ],
+      "1": [
+        "file:Chan.py",
+        "file:ChanConfig.py",
+        "file:Common/CEnum.py",
+        "file:Plot/AnimatePlotDriver.py",
+        "file:Plot/PlotDriver.py"
+      ],
+      "2": [
+        "file:BuySellPoint/BS_Point.py",
+        "file:Common/ChanException.py",
+        "file:Common/CTime.py",
+        "file:Common/func_util.py",
+        "file:DataAPI/CommonStockAPI.py",
+        "file:KLine/KLine_List.py",
+        "file:KLine/KLine_Unit.py",
+        "file:Bi/BiConfig.py",
+        "file:BuySellPoint/BSPointConfig.py",
+        "file:Math/BOLL.py",
+        "file:Math/Demark.py",
+        "file:Math/KDJ.py",
+        "file:Math/MACD.py",
+        "file:Math/RSI.py",
+        "file:Math/TrendModel.py",
+        "file:Seg/SegConfig.py",
+        "file:ZS/ZSConfig.py",
+        "file:Plot/PlotMeta.py"
+      ],
+      "3": [
+        "file:Bi/Bi.py",
+        "file:ChanModel/Features.py",
+        "file:Seg/Seg.py",
+        "class:Bi/Bi.py:CBi",
+        "file:Bi/BiList.py",
+        "file:BuySellPoint/BSPointList.py",
+        "file:KLine/KLine.py",
+        "file:Seg/SegListComm.py",
+        "file:ZS/ZSList.py",
+        "class:KLine/KLine.py:CKLine",
+        "class:BuySellPoint/BSPointList.py:CBSPointList",
+        "class:ZS/ZSList.py:CZSList",
+        "class:Seg/Seg.py:CSeg",
+        "function:Common/func_util.py:revert_bi_dir",
+        "file:KLine/TradeInfo.py",
+        "function:Common/func_util.py:_parse_inf",
+        "file:Seg/Eigen.py",
+        "file:Seg/EigenFX.py",
+        "file:ZS/ZS.py",
+        "class:BuySellPoint/BS_Point.py:CBS_Point",
+        "class:Seg/Eigen.py:CEigen",
+        "class:Seg/EigenFX.py:CEigenFX",
+        "class:ZS/ZS.py:CZS"
+      ],
+      "4": [
+        "file:Common/cache.py",
+        "function:Common/func_util.py:has_overlap",
+        "file:Math/TrendLine.py",
+        "class:BuySellPoint/BSPointConfig.py:CBSPointConfig",
+        "file:Combiner/KLine_Combiner.py"
+      ],
+      "5": [
+        "file:Combiner/Combine_Item.py"
+      ]
+    }
+  },
+  "nonCodeFiles": {
+    "documentation": [
+      {
+        "id": "document:CLAUDE.md",
+        "name": "CLAUDE.md",
+        "summary": "Claude Code 项目配置文件，提供项目概述、常用命令、核心架构、配置系统、关键实现细节（缓存机制、序列化陷阱、段算法、绘图、指标）及目录结构速查，是 AI 辅助开发的基础参考文档。"
+      },
+      {
+        "id": "document:README.md",
+        "name": "README.md",
+        "summary": "缠论框架完整使用文档（约1500行），涵盖功能介绍（基本元素计算、策略买卖点、ML对接、线上交易）、目录结构、CChan/CChanConfig 使用详解、画图配置、中枢算法、模型特征、交易系统、自定义开发（数据接入、笔/线段/买卖点/模型扩展）、COS/Notion 集成等，是项目最全面的参考文档。"
+      },
+      {
+        "id": "document:prompt.txt",
+        "name": "prompt.txt",
+        "summary": "用于生成阅读文档.md 和代码走读说明.md 的提示词文件，描述了对文档生成的需求：项目架构描述、模块化拆解、方法级别说明、缠论知识注释、Java 对比注释，以及按阅读顺序的代码走读脉络。"
+      },
+      {
+        "id": "document:quick_guide.md",
+        "name": "quick_guide.md",
+        "summary": "快速上手指南（约570行），涵盖写在前面、如何开始、框架核心能力（当前帧、is_sure标记）、常见问题排查（报错、信号消失、递归溢出等）、不可绕过的步骤、CChanConfig 重点配置、取出缠论元素（合并K线、笔、线段、中枢、买卖点）、数据接入速成、线段/中枢详细说明、策略回测、指标添加、机器学习接入等。"
+      },
+      {
+        "id": "document:代码走读说明.md",
+        "name": "代码走读说明.md",
+        "summary": "按阅读顺序组织的代码导读文档（约800行），将代码学习分为十个阶段：建立概念地基（枚举/时间/异常/缓存/工具函数）→核心计算流水线（K线/合并器）→分形到笔→笔到线段（特征序列分型）→中枢与背驰→买卖点计算→主入口与配置→数据源与绘图→技术指标→实战演示，每个阶段给出阅读顺序和重点文件说明。"
+      },
+      {
+        "id": "document:阅读文档.md",
+        "name": "阅读文档.md",
+        "summary": "面向初学者的缠论 Python 实现快速上手指南（约1500行），分为六大部分：项目概述（开源版/完整版区别、环境要求、快速体验）、缠论核心概念速览（K线包含处理、分形、笔、线段、中枢、买卖点、背驰）、整体架构与调用关系（计算流水线、多级别递归、运行模式、数据流图、继承关系）、模块与方法级别拆解（覆盖 Common/KLine/Combiner/Bi/Seg/ZS/BuySellPoint/Math/DataAPI/Plot/Chan/ChanConfig/ChanModel 共13个模块）、完整计算流水线详解（批量/步进/外部喂K线三种模式）、实战示例。"
+      },
+      {
+        "id": "document:Script/requirements.txt",
+        "name": "requirements.txt",
+        "summary": "项目 Python 依赖清单，指定 baostock、matplotlib、numpy、pandas、requests 等核心依赖的最低版本要求。"
+      }
+    ],
+    "infrastructure": [],
+    "data": [],
+    "config": [
+      {
+        "id": "config:.ua/config.json",
+        "name": "config.json",
+        "summary": "Understand-Anything 插件配置文件，设置输出语言为中文。"
+      }
+    ]
+  },
+  "clusters": [],
+  "layers": {
+    "count": 8,
+    "list": [
+      {
+        "id": "layer:entry-facade",
+        "name": "入口/门面层",
+        "description": "缠论框架的用户入口与门面，封装多级别K线加载、计算流水线调度及配置组装，提供批量模式与步进模式两种运行接口，供外部程序直接调用。"
+      },
+      {
+        "id": "layer:core-calculation",
+        "name": "缠论核心计算层",
+        "description": "缠论核心计算流水线，包含K线包含处理（Combiner）、笔的构建与管理（Bi）、特征序列与段划分（Seg）、中枢构建与合并（ZS）、买卖点检测（BuySellPoint）以及ML特征容器（ChanModel），实现从原始K线到缠论元素的完整递推计算。"
+      },
+      {
+        "id": "layer:indicators",
+        "name": "技术指标层",
+        "description": "手写技术指标计算引擎，包含MACD、BOLL、RSI、KDJ、DeMark序列、趋势线拟合及趋势模型等指标，为K线单元和核心计算层提供量化的技术分析数据。"
+      },
+      {
+        "id": "layer:foundation",
+        "name": "基础公共层",
+        "description": "项目级基础公共设施，提供全局枚举定义（K线级别、方向、买卖点类型等15个核心枚举）、异常处理体系（30+错误码）、实例级缓存装饰器、时间包装工具及通用辅助函数，是整个项目的底层依赖。"
+      },
+      {
+        "id": "layer:data-adapter",
+        "name": "数据适配层",
+        "description": "多数据源适配器集合，通过统一抽象基类（CommonStockAPI）封装BaoStock、Akshare、CCXT加密货币以及CSV文件等不同数据源的K线获取逻辑，将外部数据统一转换为缠论框架的标准K线格式。"
+      },
+      {
+        "id": "layer:visualization",
+        "name": "可视化层",
+        "description": "基于matplotlib的缠论图表渲染引擎，支持静态绘图（K线、笔、段、中枢、买卖点）与步进动画回放，可嵌入Jupyter Notebook，为缠论计算结果提供完整的可视化输出。"
+      },
+      {
+        "id": "layer:demo",
+        "name": "演示与测试层",
+        "description": "策略演示与手动冒烟测试脚本集，涵盖步进回放、外部推送、多级别联立、区间套、ML特征生成与XGBoost训练/预测等多种使用模式的演示代码，作为项目的实际验证手段。"
+      },
+      {
+        "id": "layer:documentation",
+        "name": "文档与配置层",
+        "description": "项目文档、开发指南、依赖清单及工具配置，包含README、快速上手指南、代码走读说明、AI辅助开发参考文档、Python依赖清单以及Understand-Anything工具的内部配置文件。"
+      }
+    ]
+  },
+  "nodeSummaryIndex": {
+    "file:App/ashare_bsp_scanner_gui.py": {
+      "name": "ashare_bsp_scanner_gui.py",
+      "type": "file",
+      "summary": "A股买卖点扫描器GUI应用，基于PyQt6+matplotlib实现，支持全市场扫描缠论买卖点、单股分析及K线图表可视化。"
+    },
+    "file:Chan.py": {
+      "name": "Chan.py",
+      "type": "file",
+      "summary": "缠论主入口类CChan，门面模式封装多级别K线加载、递归计算流水线（笔、段、中枢、买卖点）及序列化，支持批量与步进两种运行模式。"
+    },
+    "file:ChanConfig.py": {
+      "name": "ChanConfig.py",
+      "type": "file",
+      "summary": "缠论配置系统，CChanConfig组装笔/段/中枢/买卖点子配置，ConfigWithCheck提供严格的配置key校验机制，支持按买卖点类型的参数覆盖。"
+    },
+    "file:ChanModel/Features.py": {
+      "name": "Features.py",
+      "type": "file",
+      "summary": "ML特征容器CFeatures，提供字典式特征存取接口，用于买卖点样本的特征存储与批量更新。"
+    },
+    "file:Common/CEnum.py": {
+      "name": "CEnum.py",
+      "type": "file",
+      "summary": "缠论全局枚举定义模块，包含K线级别、方向、分形类型、笔类型、买卖点类型、MACD算法等15个核心枚举类。"
+    },
+    "file:DataAPI/BaoStockAPI.py": {
+      "name": "BaoStockAPI.py",
+      "type": "file",
+      "summary": "BaoStock数据源适配器，实现CCommonStockApi接口，提供K线数据查询、时间列解析及字段名映射等工具函数。"
+    },
+    "file:Debug/strategy_demo.py": {
+      "name": "strategy_demo.py",
+      "type": "file",
+      "summary": "步进回放策略演示脚本，使用trigger_step模式逐根K线推送并捕获买卖点信号，验证缠论步进计算逻辑。"
+    },
+    "file:Debug/strategy_demo2.py": {
+      "name": "strategy_demo2.py",
+      "type": "file",
+      "summary": "外部推送回测策略演示脚本，通过BaoStock数据源加载历史数据后批量推送K线，验证外部驱动模式下的买卖点计算。"
+    },
+    "function:App/ashare_bsp_scanner_gui.py:get_tradable_stocks": {
+      "name": "get_tradable_stocks",
+      "type": "function",
+      "summary": "通过akshare获取A股实时行情，过滤ST、新股、科创板、北交所等非目标股票，返回可交易股票列表。"
+    },
+    "function:App/ashare_bsp_scanner_gui.py:main": {
+      "name": "main",
+      "type": "function",
+      "summary": "GUI应用入口函数，创建QApplication实例并启动AkshareGUI主窗口。"
+    },
+    "class:App/ashare_bsp_scanner_gui.py:ScanThread": {
+      "name": "ScanThread",
+      "type": "class",
+      "summary": "全市场扫描工作线程，继承QThread，遍历股票列表对每只股票实例化CChan计算买卖点，通过信号机制实时通知GUI。"
+    },
+    "class:App/ashare_bsp_scanner_gui.py:SingleAnalysisThread": {
+      "name": "SingleAnalysisThread",
+      "type": "class",
+      "summary": "单股分析工作线程，继承QThread，对指定股票代码执行缠论计算并返回结果。"
+    },
+    "class:App/ashare_bsp_scanner_gui.py:ChanPlotCanvas": {
+      "name": "ChanPlotCanvas",
+      "type": "class",
+      "summary": "matplotlib FigureCanvas封装，嵌入PyQt6窗口用于缠论图表的显示与清除。"
+    },
+    "class:App/ashare_bsp_scanner_gui.py:AkshareGUI": {
+      "name": "AkshareGUI",
+      "type": "class",
+      "summary": "PyQt6主窗口类，管理扫描/单股分析/图表三个面板，协调多线程扫描、买卖点展示列表和K线图绘制。"
+    },
+    "class:Chan.py:CChan": {
+      "name": "CChan",
+      "type": "class",
+      "summary": "缠论计算门面类，封装多级别K线加载、递归流水线、步进/批量模式、序列化及跨级别K线关系管理。"
+    },
+    "class:ChanConfig.py:CChanConfig": {
+      "name": "CChanConfig",
+      "type": "class",
+      "summary": "缠论总配置类，组装笔/段/中枢/买卖点/指标子配置，GetMetricModel工厂方法创建指标计算器实例。"
+    },
+    "class:ChanConfig.py:ConfigWithCheck": {
+      "name": "ConfigWithCheck",
+      "type": "class",
+      "summary": "配置键校验包装器，在配置消费完成后检测未使用的key并抛出异常，实现严格的配置校验。"
+    },
+    "class:ChanModel/Features.py:CFeatures": {
+      "name": "CFeatures",
+      "type": "class",
+      "summary": "ML特征容器，支持字典式特征存取、批量更新及迭代，为买卖点样本提供结构化的特征数据存储。"
+    },
+    "class:Common/CEnum.py:KL_TYPE": {
+      "name": "KL_TYPE",
+      "type": "class",
+      "summary": "K线级别枚举，定义从1分钟到年线的所有时间周期及其名称映射。"
+    },
+    "class:Common/CEnum.py:BSP_TYPE": {
+      "name": "BSP_TYPE",
+      "type": "class",
+      "summary": "买卖点类型枚举，定义T1/T1P/T2/T2S/T3A/T3B六种买卖点及其大类归属。"
+    },
+    "class:Common/CEnum.py:MACD_ALGO": {
+      "name": "MACD_ALGO",
+      "type": "class",
+      "summary": "MACD算法枚举，定义面积/极值/红绿柱三种MACD计算方式。"
+    },
+    "class:Common/CEnum.py:DATA_FIELD": {
+      "name": "DATA_FIELD",
+      "type": "class",
+      "summary": "数据字段枚举，映射K线OHLCV及技术指标字段到统一名称。"
+    },
+    "function:DataAPI/BaoStockAPI.py:create_item_dict": {
+      "name": "create_item_dict",
+      "type": "function",
+      "summary": "将BaoStock返回的原始数据行转换为结构化字典，处理时间解析和浮点数转换。"
+    },
+    "function:DataAPI/BaoStockAPI.py:parse_time_column": {
+      "name": "parse_time_column",
+      "type": "function",
+      "summary": "解析BaoStock时间列字符串，根据长度判断日/分钟级别格式，返回CTime对象。"
+    },
+    "function:DataAPI/BaoStockAPI.py:GetColumnNameFromFieldList": {
+      "name": "GetColumnNameFromFieldList",
+      "type": "function",
+      "summary": "根据字段列表字符串解析BaoStock数据列名映射，返回字段名列表。"
+    },
+    "class:DataAPI/BaoStockAPI.py:CBaoStock": {
+      "name": "CBaoStock",
+      "type": "class",
+      "summary": "BaoStock数据源适配器类，继承CCommonStockApi，实现登录/登出、K线数据查询与CKLine_Unit转换。"
+    },
+    "file:Debug/strategy_demo3.py": {
+      "name": "strategy_demo3.py",
+      "type": "file",
+      "summary": "小级别触发大级别重算演示脚本，展示15分钟K线合成60分钟K线，并在步进模式下验证子级别变化触发父级别重算的区间套机制。"
+    },
+    "file:Debug/strategy_demo4.py": {
+      "name": "strategy_demo4.py",
+      "type": "file",
+      "summary": "多级别无时间对齐推送演示脚本，测试不同级别K线以不同频率到达时缠论引擎的正确性。"
+    },
+    "file:Debug/strategy_demo5.py": {
+      "name": "strategy_demo5.py",
+      "type": "file",
+      "summary": "ML特征生成与XGBoost训练演示脚本，从缠论买卖点提取特征并训练XGBoost分类器，支持模型保存与图表绘制。"
+    },
+    "file:Debug/strategy_demo6.py": {
+      "name": "strategy_demo6.py",
+      "type": "file",
+      "summary": "模型预测演示脚本，加载训练好的XGBoost模型对最新买卖点进行预测，验证ML管线的推理环节。"
+    },
+    "file:Math/BOLL.py": {
+      "name": "BOLL.py",
+      "type": "file",
+      "summary": "布林带（BOLL）指标的手写实现，包含BOLL_Metric指标项和BollModel滑动窗口计算器，支持中轨/上轨/下轨计算。"
+    },
+    "file:Math/Demark.py": {
+      "name": "Demark.py",
+      "type": "file",
+      "summary": "DeMark序列指标的手写实现，包含Setup和Countdown两阶段计数引擎，支持TDST压力/支撑线计算及多序列管理。"
+    },
+    "file:Math/KDJ.py": {
+      "name": "KDJ.py",
+      "type": "file",
+      "summary": "KDJ随机指标的手写实现，基于滑动窗口内最高/最低价计算RSV、K、D、J值。"
+    },
+    "file:Math/MACD.py": {
+      "name": "MACD.py",
+      "type": "file",
+      "summary": "MACD指标的手写实现，支持三种算法（面积/极值/红绿柱），计算DIF、DEA和MACD柱。"
+    },
+    "file:Math/RSI.py": {
+      "name": "RSI.py",
+      "type": "file",
+      "summary": "RSI相对强弱指标的手写实现，基于滑动窗口涨跌幅计算超买超卖信号。"
+    },
+    "function:Debug/strategy_demo3.py:combine_60m_klu_form_15m": {
+      "name": "combine_60m_klu_form_15m",
+      "type": "function",
+      "summary": "将4根15分钟K线合成为1根60分钟K线，取首K开盘价、尾K收盘价及区间最高/最低价。"
+    },
+    "function:Debug/strategy_demo5.py:plot": {
+      "name": "plot",
+      "type": "function",
+      "summary": "使用CPlotDriver绘制缠论K线图并保存为PNG图片，支持标注买卖点标记。"
+    },
+    "function:Debug/strategy_demo5.py:stragety_feature": {
+      "name": "stragety_feature",
+      "type": "function",
+      "summary": "从最后一根K线提取策略特征，包括MACD指标、布林带位置、趋势线等特征值。"
+    },
+    "class:Debug/strategy_demo5.py:T_SAMPLE_INFO": {
+      "name": "T_SAMPLE_INFO",
+      "type": "class",
+      "summary": "训练样本数据结构，包含特征字典、是否买入标签和开仓时间。"
+    },
+    "function:Debug/strategy_demo6.py:predict_bsp": {
+      "name": "predict_bsp",
+      "type": "function",
+      "summary": "使用训练好的XGBoost模型对买卖点进行预测，从特征字典构建DMatrix并返回预测结果。"
+    },
+    "class:Debug/strategy_demo6.py:T_SAMPLE_INFO": {
+      "name": "T_SAMPLE_INFO",
+      "type": "class",
+      "summary": "训练样本数据结构，包含特征字典、是否买入标签和开仓时间。"
+    },
+    "function:Math/BOLL.py:_truncate": {
+      "name": "_truncate",
+      "type": "function",
+      "summary": "数值截断辅助函数，将浮点数保留指定位小数。"
+    },
+    "class:Math/BOLL.py:BOLL_Metric": {
+      "name": "BOLL_Metric",
+      "type": "class",
+      "summary": "布林带单点指标数据类，存储中轨、上轨、下轨值。"
+    },
+    "class:Math/BOLL.py:BollModel": {
+      "name": "BollModel",
+      "type": "class",
+      "summary": "布林带滑动窗口计算器，基于收盘价序列计算移动平均、标准差及上下轨。"
+    },
+    "class:Math/Demark.py:CDemarkEngine": {
+      "name": "CDemarkEngine",
+      "type": "class",
+      "summary": "DeMark序列引擎主类，管理Setup/Countdown两阶段计数、多序列合并及结果计算，是整个DeMark指标的核心调度器。"
+    },
+    "class:Math/Demark.py:CDemarkSetup": {
+      "name": "CDemarkSetup",
+      "type": "class",
+      "summary": "DeMark Setup阶段计数器，检测连续9根K线的价格比较关系，计算TDST压力/支撑线。"
+    },
+    "class:Math/Demark.py:CDemarkCountdown": {
+      "name": "CDemarkCountdown",
+      "type": "class",
+      "summary": "DeMark Countdown阶段计数器，在Setup完成后检测连续13根K线的收盘价比较关系，完成序列倒计时。"
+    },
+    "class:Math/Demark.py:CDemarkIndex": {
+      "name": "CDemarkIndex",
+      "type": "class",
+      "summary": "DeMark指标数据容器，存储单个序列的Setup/Countdown索引及方向信息。"
+    },
+    "class:Math/KDJ.py:KDJ": {
+      "name": "KDJ",
+      "type": "class",
+      "summary": "KDJ指标计算器，基于滑动窗口内最高/最低价计算RSV并递推K/D/J值。"
+    },
+    "class:Math/MACD.py:CMACD": {
+      "name": "CMACD",
+      "type": "class",
+      "summary": "MACD指标计算器，支持三种算法模式，计算DIF/DEA/MACD柱并存储历史序列。"
+    },
+    "class:Math/RSI.py:RSI": {
+      "name": "RSI",
+      "type": "class",
+      "summary": "RSI指标计算器，基于收盘价涨跌幅滑动窗口计算相对强弱值。"
+    },
+    "file:Math/TrendLine.py": {
+      "name": "TrendLine.py",
+      "type": "file",
+      "summary": "趋势线计算模块，基于笔的端点计算趋势线斜率与距离，支持上/下趋势线及峰值斜率初始化。"
+    },
+    "file:Math/TrendModel.py": {
+      "name": "TrendModel.py",
+      "type": "file",
+      "summary": "趋势模型（均值回归）指标计算器，基于滑动窗口计算收盘价的均值、最大值和最小值。"
+    },
+    "file:Plot/AnimatePlotDriver.py": {
+      "name": "AnimatePlotDriver.py",
+      "type": "file",
+      "summary": "缠论步进回放动画驱动，继承CPlotDriver，在Jupyter Notebook中逐K线展示缠论计算过程的动画效果。"
+    },
+    "file:Plot/PlotDriver.py": {
+      "name": "PlotDriver.py",
+      "type": "file",
+      "summary": "缠论matplotlib绘图核心驱动，包含图形创建、K线/笔/段/中枢/买卖点/指标绘制、配置解析及图表保存等完整绘图流水线。"
+    },
+    "file:ZS/ZSConfig.py": {
+      "name": "ZSConfig.py",
+      "type": "file",
+      "summary": "中枢配置类CZSConfig，定义中枢计算的参数，包括中枢是否需要重叠确认等选项。"
+    },
+    "file:main.py": {
+      "name": "main.py",
+      "type": "file",
+      "summary": "项目主入口脚本，计算sz.000001（平安银行）日线缠论数据并绘制完整技术分析图表，支持动画/静态两种模式。"
+    },
+    "function:Math/TrendLine.py:init_peak_slope": {
+      "name": "init_peak_slope",
+      "type": "function",
+      "summary": "初始化趋势线峰值斜率，根据方向和侧边计算起始斜率极值。"
+    },
+    "function:Math/TrendLine.py:cal_tl": {
+      "name": "cal_tl",
+      "type": "function",
+      "summary": "计算趋势线，遍历候选点集寻找最佳拟合趋势线。"
+    },
+    "class:Math/TrendLine.py:Point": {
+      "name": "Point",
+      "type": "class",
+      "summary": "二维点数据结构，支持斜率计算。"
+    },
+    "class:Math/TrendLine.py:Line": {
+      "name": "Line",
+      "type": "class",
+      "summary": "直线数据结构，由点和斜率定义，支持点到直线的距离计算。"
+    },
+    "class:Math/TrendLine.py:CTrendLine": {
+      "name": "CTrendLine",
+      "type": "class",
+      "summary": "趋势线计算器，基于笔的端点计算上下趋势线。"
+    },
+    "class:Math/TrendModel.py:CTrendModel": {
+      "name": "CTrendModel",
+      "type": "class",
+      "summary": "趋势模型（均值回归）指标计算器，基于滑动窗口计算收盘价的均值、最大值和最小值。"
+    },
+    "class:Plot/AnimatePlotDriver.py:CAnimateDriver": {
+      "name": "CAnimateDriver",
+      "type": "class",
+      "summary": "缠论动画驱动，继承CPlotDriver，在Jupyter Notebook中逐K线步进展示缠论计算动画。"
+    },
+    "function:Plot/PlotDriver.py:reformat_plot_config": {
+      "name": "reformat_plot_config",
+      "type": "function",
+      "summary": "格式化绘图配置，去除键名前缀下划线。"
+    },
+    "function:Plot/PlotDriver.py:parse_single_lv_plot_config": {
+      "name": "parse_single_lv_plot_config",
+      "type": "function",
+      "summary": "解析单个级别的绘图配置，支持字典和字符串两种格式。"
+    },
+    "function:Plot/PlotDriver.py:parse_plot_config": {
+      "name": "parse_plot_config",
+      "type": "function",
+      "summary": "解析多级别绘图配置，处理全局配置和按级别覆盖配置。"
+    },
+    "function:Plot/PlotDriver.py:create_figure": {
+      "name": "create_figure",
+      "type": "function",
+      "summary": "创建matplotlib图表，根据级别数量和是否显示MACD确定子图布局。"
+    },
+    "function:Plot/PlotDriver.py:GetPlotMeta": {
+      "name": "GetPlotMeta",
+      "type": "function",
+      "summary": "获取绘图元数据，从CChan实例中提取各级别K线、笔、段、中枢等绘图所需数据。"
+    },
+    "class:Plot/PlotDriver.py:CPlotDriver": {
+      "name": "CPlotDriver",
+      "type": "class",
+      "summary": "缠论绘图核心驱动类，负责K线/合并K线/笔/段/特征序列/中枢/买卖点/指标/DeMark的完整绘制流程及图表保存。"
+    },
+    "class:ZS/ZSConfig.py:CZSConfig": {
+      "name": "CZSConfig",
+      "type": "class",
+      "summary": "中枢配置类，定义中枢计算参数如是否需要重叠确认等。"
+    },
+    "file:Bi/Bi.py": {
+      "name": "Bi.py",
+      "type": "file",
+      "summary": "定义缠论中的笔（CBi）类，封装笔的方向、起止端点、合并K线列表、MACD指标计算及虚实笔切换等核心逻辑，是所有缠论元素的起点。"
+    },
+    "file:BuySellPoint/BSPointConfig.py": {
+      "name": "BSPointConfig.py",
+      "type": "file",
+      "summary": "买卖点配置系统，包含 CBSPointConfig（顶层配置）和 CPointConfig（单类型配置），支持按买卖点类型差异化参数覆盖。"
+    },
+    "file:BuySellPoint/BSPointList.py": {
+      "name": "BSPointList.py",
+      "type": "file",
+      "summary": "买卖点列表管理的核心模块，实现 BSP1（一买/一卖）、BSP2（二买/二卖）、BSP3（三买/三卖）的检测与生成逻辑，以及盘整背驰、类二买等特殊买卖点的处理。"
+    },
+    "file:BuySellPoint/BS_Point.py": {
+      "name": "BS_Point.py",
+      "type": "file",
+      "summary": "单个买卖点实体类 CBS_Point，封装买卖点类型、关联笔、特征信息及属性叠加逻辑，支持一个 K 线位置同时触发多种买卖点类型。"
+    },
+    "file:Common/func_util.py": {
+      "name": "func_util.py",
+      "type": "file",
+      "summary": "通用工具函数集，提供 K 线周期比较、笔方向反转、区间重叠判断、字符串转浮点数及无穷值解析等基础功能，被全项目广泛引用。"
+    },
+    "file:KLine/KLine.py": {
+      "name": "KLine.py",
+      "type": "file",
+      "summary": "合并 K 线（CKLine）类，管理一组 K 线单元的包含处理后的合并结果，并提供分形有效性校验、子级别 K 线查询及缺口检测功能。"
+    },
+    "file:KLine/KLine_List.py": {
+      "name": "KLine_List.py",
+      "type": "file",
+      "summary": "K 线列表容器，协调笔、段、中枢、买卖点的完整计算流程，支持步进模式逐根添加 K 线并触发增量重算，是单个级别的计算编排器。"
+    },
+    "class:Bi/Bi.py:CBi": {
+      "name": "CBi",
+      "type": "class",
+      "summary": "缠论笔的实体类，记录笔的方向、起止合并 K 线、虚实端点状态，并提供 MACD 面积/峰值/半衰/斜率/振幅等多项指标的计算方法。"
+    },
+    "class:BuySellPoint/BSPointConfig.py:CBSPointConfig": {
+      "name": "CBSPointConfig",
+      "type": "class",
+      "summary": "买卖点顶层配置，管理各类买卖点的启停开关和参数，为 BSP1/BSP2/BSP3 分别实例化 CPointConfig。"
+    },
+    "class:BuySellPoint/BSPointConfig.py:CPointConfig": {
+      "name": "CPointConfig",
+      "type": "class",
+      "summary": "单类型买卖点配置，支持目标类型解析、MACD 算法选择、动态参数注入（exec），实现按买卖点类型的差异化配置。"
+    },
+    "class:BuySellPoint/BSPointList.py:CBSPointList": {
+      "name": "CBSPointList",
+      "type": "class",
+      "summary": "买卖点列表管理器，负责遍历段列表计算三类买卖点，包括 BSP1（背驰一买/一卖）、盘整背驰、BSP2（二买/二卖及类二买）、BSP3（三买/三卖）的完整检测逻辑。"
+    },
+    "function:BuySellPoint/BSPointList.py:bsp2s_break_bsp1": {
+      "name": "bsp2s_break_bsp1",
+      "type": "function",
+      "summary": "判断类二买/类二卖（BSP2S）是否突破前一笔的端点，用于确认类二买卖点的有效性。"
+    },
+    "function:BuySellPoint/BSPointList.py:bsp3_back2zs": {
+      "name": "bsp3_back2zs",
+      "type": "function",
+      "summary": "判断三买/三卖回调笔是否回到中枢区间内，用于确认 BSP3 的成立条件。"
+    },
+    "function:BuySellPoint/BSPointList.py:bsp3_break_zspeak": {
+      "name": "bsp3_break_zspeak",
+      "type": "function",
+      "summary": "判断三买/三卖笔是否突破中枢的高低点，是 BSP3 成立的另一关键条件。"
+    },
+    "function:BuySellPoint/BSPointList.py:cal_bsp3_bi_end_idx": {
+      "name": "cal_bsp3_bi_end_idx",
+      "type": "function",
+      "summary": "计算 BSP3 在段内笔列表中的结束索引，依据中枢类型（单笔/多笔中枢）按比例确定。"
+    },
+    "class:BuySellPoint/BS_Point.py:CBS_Point": {
+      "name": "CBS_Point",
+      "type": "class",
+      "summary": "单个买卖点实体，存储买卖点类型列表、关联的笔、K 线位置、特征信息，支持多类型叠加和特征初始化。"
+    },
+    "function:Common/func_util.py:kltype_lt_day": {
+      "name": "kltype_lt_day",
+      "type": "function",
+      "summary": "判断 K 线周期是否小于日线级别，用于多级别联立计算中的周期比较。"
+    },
+    "function:Common/func_util.py:kltype_lte_day": {
+      "name": "kltype_lte_day",
+      "type": "function",
+      "summary": "判断 K 线周期是否小于等于日线级别，kltype_lt_day 的变体版本。"
+    },
+    "function:Common/func_util.py:check_kltype_order": {
+      "name": "check_kltype_order",
+      "type": "function",
+      "summary": "校验 K 线周期列表是否按从大到小的顺序排列，确保多级别数据组织的正确性。"
+    },
+    "function:Common/func_util.py:revert_bi_dir": {
+      "name": "revert_bi_dir",
+      "type": "function",
+      "summary": "反转笔的方向（向上变向下，向下变向上），用于特征序列分形等需要反向处理笔的场景。"
+    },
+    "function:Common/func_util.py:has_overlap": {
+      "name": "has_overlap",
+      "type": "function",
+      "summary": "判断两个价格区间 [l1, h1] 和 [l2, h2] 是否重叠，广泛用于中枢区间判断和 K 线包含处理。"
+    },
+    "function:Common/func_util.py:str2float": {
+      "name": "str2float",
+      "type": "function",
+      "summary": "将字符串安全转换为浮点数，支持百分号格式和千分位逗号处理。"
+    },
+    "function:Common/func_util.py:_parse_inf": {
+      "name": "_parse_inf",
+      "type": "function",
+      "summary": "解析配置中的无穷值参数，将字符串 'inf' 或 '-inf' 转换为 Python 浮点无穷大。"
+    },
+    "class:KLine/KLine.py:CKLine": {
+      "name": "CKLine",
+      "type": "class",
+      "summary": "合并 K 线类，继承自 CKLine_Combiner，管理一组 K 线单元经包含处理后的结果，提供分形校验、子级别 K 线查询及与下一 K 线的缺口检测。"
+    },
+    "class:KLine/KLine_List.py:CKLine_List": {
+      "name": "CKLine_List",
+      "type": "class",
+      "summary": "单个级别的 K 线列表容器，管理该级别的 K 线、合并 K 线、笔列表、段列表、中枢列表和买卖点列表，是计算编排的核心枢纽。"
+    },
+    "function:KLine/KLine_List.py:get_seglist_instance": {
+      "name": "get_seglist_instance",
+      "type": "function",
+      "summary": "工厂函数，根据段算法类型（chan/1+1/break）创建对应的段列表实例，并处理已弃用算法类型的提醒。"
+    },
+    "function:KLine/KLine_List.py:cal_seg": {
+      "name": "cal_seg",
+      "type": "function",
+      "summary": "执行段计算的核心函数，遍历笔列表更新段列表，处理已确认段和非确认段的索引分配。"
+    },
+    "function:KLine/KLine_List.py:update_zs_in_seg": {
+      "name": "update_zs_in_seg",
+      "type": "function",
+      "summary": "将中枢关联到对应的段上，遍历中枢列表判断每个中枢落在哪个段范围内，并设置段的 bi_in/bi_out 关系。"
+    },
+    "file:Plot/PlotMeta.py": {
+      "name": "PlotMeta.py",
+      "type": "file",
+      "summary": "绘图元数据模块，将缠论计算元素（笔、段、特征序列、特征序列分形、中枢、买卖点）转换为用于 matplotlib 绘制的结构化元数据对象，并管理子级别 K 线范围的索引计算。"
+    },
+    "file:Seg/Eigen.py": {
+      "name": "Eigen.py",
+      "type": "file",
+      "summary": "段特征序列元素（CEigen）类，继承自 CKLine_Combiner，封装单个特征序列 K 线的分形更新与峰值笔索引查询功能，是段算法的基本构建块。"
+    },
+    "file:Seg/EigenFX.py": {
+      "name": "EigenFX.py",
+      "type": "file",
+      "summary": "特征序列分形（CEigenFX）类，管理一组特征序列元素并检测分形，是段算法中判断段结束的核心逻辑，处理第一/二/三元素的添加、重置和有效突破判断。"
+    },
+    "file:Seg/Seg.py": {
+      "name": "Seg.py",
+      "type": "file",
+      "summary": "段（CSeg）实体类，封装段的起止笔、中枢列表、斜率/振幅/MACD 指标计算，以及多笔中枢的查询与统计方法，是段级别计算的核心数据模型。"
+    },
+    "file:ZS/ZS.py": {
+      "name": "ZS.py",
+      "type": "file",
+      "summary": "中枢（CZS）实体类，管理中枢的区间范围、进入/离开笔、子中枢合并、背驰判断及复制功能，是缠论中枢分析的核心实现。"
+    },
+    "file:ZS/ZSList.py": {
+      "name": "ZSList.py",
+      "type": "file",
+      "summary": "中枢列表管理器（CZSList），负责从笔列表中构建、更新和合并中枢，支持步进模式下增量更新中枢列表，并管理基于段的中枢归类。"
+    },
+    "class:Plot/PlotMeta.py:Cklc_meta": {
+      "name": "Cklc_meta",
+      "type": "class",
+      "summary": "合并 K 线绘图元数据，记录 K 线的位置（x 坐标）和颜色（红/绿/蓝），用于 matplotlib 蜡烛图渲染。"
+    },
+    "class:Plot/PlotMeta.py:CBi_meta": {
+      "name": "CBi_meta",
+      "type": "class",
+      "summary": "笔绘图元数据，记录笔的起止点坐标和端点值，用于在图表上绘制笔的连线。"
+    },
+    "class:Plot/PlotMeta.py:CSeg_meta": {
+      "name": "CSeg_meta",
+      "type": "class",
+      "summary": "段绘图元数据，记录段的起止坐标、趋势线信息，支持绘制段的实线和虚线（区分已确认段和未确认段）。"
+    },
+    "class:Plot/PlotMeta.py:CEigen_meta": {
+      "name": "CEigen_meta",
+      "type": "class",
+      "summary": "特征序列绘图元数据，记录一组特征序列元素的起止点，用于在图表上标注特征序列。"
+    },
+    "class:Plot/PlotMeta.py:CEigenFX_meta": {
+      "name": "CEigenFX_meta",
+      "type": "class",
+      "summary": "特征序列分形绘图元数据，记录分形中各元素的起止坐标，用于在图表上标注特征序列分形。"
+    },
+    "class:Plot/PlotMeta.py:CZS_meta": {
+      "name": "CZS_meta",
+      "type": "class",
+      "summary": "中枢绘图元数据，记录中枢的矩形区域坐标、颜色和是否为一笔中枢的标记，用于绘制中枢箱体。"
+    },
+    "class:Plot/PlotMeta.py:CBS_Point_meta": {
+      "name": "CBS_Point_meta",
+      "type": "class",
+      "summary": "买卖点绘图元数据，记录买卖点的位置坐标、类型描述和方向，用于在图表上标注买卖点标记。"
+    },
+    "class:Plot/PlotMeta.py:CChanPlotMeta": {
+      "name": "CChanPlotMeta",
+      "type": "class",
+      "summary": "绘图元数据总容器，遍历 K 线列表收集所有级别的笔、段、特征序列分形、中枢和买卖点元数据，并提供子级别 K 线范围索引查询。"
+    },
+    "class:Seg/Eigen.py:CEigen": {
+      "name": "CEigen",
+      "type": "class",
+      "summary": "特征序列元素类，继承 CKLine_Combiner，支持分形方向更新和获取峰值笔索引，是段算法中特征序列的基本单元。"
+    },
+    "class:Seg/EigenFX.py:CEigenFX": {
+      "name": "CEigenFX",
+      "type": "class",
+      "summary": "特征序列分形类，处理第一/二/三元素的添加和分形检测，支持重置、是否为有效端点、实际突破判断及反向分形查找，是段结束判断的核心逻辑。"
+    },
+    "class:Seg/Seg.py:CSeg": {
+      "name": "CSeg",
+      "type": "class",
+      "summary": "段实体类，记录段的起止笔、方向、中枢列表，支持斜率/振幅/MACD 指标计算、笔列表更新及多笔中枢查询，是段级别分析的核心数据模型。"
+    },
+    "class:ZS/ZS.py:CZS": {
+      "name": "CZS",
+      "type": "class",
+      "summary": "中枢实体类，管理中枢的高低区间、进入/离开笔、子中枢列表，支持中枢合并、背驰判断、区间内检测及复制，是缠论中枢分析的核心实现。"
+    },
+    "class:ZS/ZSList.py:CZSList": {
+      "name": "CZSList",
+      "type": "class",
+      "summary": "中枢列表管理器，从笔列表中构建中枢序列，支持步进更新、中枢合并、自由项缓冲区管理及基于段的中枢归类，是中枢计算流程的编排器。"
+    },
+    "file:Common/CTime.py": {
+      "name": "CTime.py",
+      "type": "file",
+      "summary": "时间包装类，提供日期时间字符串格式化、时间戳设置、日期比较等基础时间操作功能，是缠论框架中处理K线时间戳的统一入口。"
+    },
+    "file:DataAPI/AkshareAPI.py": {
+      "name": "AkshareAPI.py",
+      "type": "file",
+      "summary": "Akshare 数据源适配器，从 Akshare 库获取A股和指数日线K线数据，包含复权类型转换、行情字段映射和 DataFrame 解析逻辑。"
+    },
+    "file:DataAPI/CommonStockAPI.py": {
+      "name": "CommonStockAPI.py",
+      "type": "file",
+      "summary": "股票数据API抽象基类，定义数据源适配器的统一接口（get_kl_data、SetBasciInfo、do_init、do_close），所有具体数据源适配器均继承此类。"
+    },
+    "file:DataAPI/ccxt.py": {
+      "name": "ccxt.py",
+      "type": "file",
+      "summary": "CCXT 加密货币交易所数据适配器，通过 CCXT 库从 Binance 等交易所获取K线数据，支持时间列解析、多字段映射和K线单位构造。"
+    },
+    "file:DataAPI/csvAPI.py": {
+      "name": "csvAPI.py",
+      "type": "file",
+      "summary": "CSV 文件数据源适配器，从本地CSV文本文件读取K线数据，支持自定义列名映射、时间列解析和异常处理。"
+    },
+    "file:KLine/KLine_Unit.py": {
+      "name": "KLine_Unit.py",
+      "type": "file",
+      "summary": "缠论K线单元核心数据结构，封装单根K线的所有属性（OHLCV、时间、指标），管理多级别父子K线关系，支持深拷贝、指标计算和DeMark引擎集成。"
+    },
+    "file:KLine/TradeInfo.py": {
+      "name": "TradeInfo.py",
+      "type": "file",
+      "summary": "交易信息容器，存储K线关联的技术指标数据（如MACD、RSI、KDJ等），以字典形式灵活管理指标键值对。"
+    },
+    "class:Common/CTime.py:CTime": {
+      "name": "CTime",
+      "type": "class",
+      "summary": "时间包装类，封装 datetime 对象并支持字符串格式化（to_str、toDateStr）、日期转换（toDate）、时间戳设置（set_timestamp）和比较运算符重载。"
+    },
+    "function:DataAPI/AkshareAPI.py:create_item_dict": {
+      "name": "create_item_dict",
+      "type": "function",
+      "summary": "将 Akshare 返回的原始数据行转换为标准 K 线字典，处理时间字段、复权类型和 OHLCV 数据映射。"
+    },
+    "class:DataAPI/AkshareAPI.py:CAkshare": {
+      "name": "CAkshare",
+      "type": "class",
+      "summary": "Akshare 数据源适配器类，继承 CCommonStockApi，实现 A 股和指数日线数据的获取、复权类型转换和 DataFrame 解析。"
+    },
+    "class:DataAPI/CommonStockAPI.py:CCommonStockApi": {
+      "name": "CCommonStockApi",
+      "type": "class",
+      "summary": "股票数据API抽象基类，定义 get_kl_data、SetBasciInfo、do_init、do_close 等统一接口，派生类只需实现具体数据获取逻辑。"
+    },
+    "function:DataAPI/ccxt.py:GetColumnNameFromFieldList": {
+      "name": "GetColumnNameFromFieldList",
+      "type": "function",
+      "summary": "将字段名字符串按逗号分割为列名列表，用于解析 CCXT 数据源的字段映射配置。"
+    },
+    "class:DataAPI/ccxt.py:CCXT": {
+      "name": "CCXT",
+      "type": "class",
+      "summary": "CCXT 加密货币交易所适配器类，继承 CCommonStockApi，通过 CCXT 库从 Binance 等交易所获取K线数据，支持时间列解析和多字段构造。"
+    },
+    "function:DataAPI/csvAPI.py:create_item_dict": {
+      "name": "create_item_dict",
+      "type": "function",
+      "summary": "将 CSV 文件解析后的数据行转换为标准 K 线字典，调用 parse_time_column 解析时间字段并映射数值列。"
+    },
+    "function:DataAPI/csvAPI.py:parse_time_column": {
+      "name": "parse_time_column",
+      "type": "function",
+      "summary": "解析CSV文件中的时间列字符串，支持多种格式（YYYYMMDD、YYYY-MM-DD、YYYYMMDDHHMMSS等），返回 CTime 对象。"
+    },
+    "class:DataAPI/csvAPI.py:CSV_API": {
+      "name": "CSV_API",
+      "type": "class",
+      "summary": "CSV 文件数据源适配器类，继承 CCommonStockApi，从本地 CSV 文件读取K线数据，支持自定义列名映射和文件路径解析。"
+    },
+    "class:KLine/KLine_Unit.py:CKLine_Unit": {
+      "name": "CKLine_Unit",
+      "type": "class",
+      "summary": "缠论K线单元核心类，封装单根K线的所有属性（时间、OHLCV、交易信息、DeMark指标），管理多级别父子K线关系（sub_kl_list、sup_kl），支持指标集成和深拷贝。"
+    },
+    "class:KLine/TradeInfo.py:CTradeInfo": {
+      "name": "CTradeInfo",
+      "type": "class",
+      "summary": "交易信息容器类，以字典形式存储K线关联的技术指标数据（metric），支持灵活添加和字符串化输出。"
+    },
+    "file:Bi/BiList.py": {
+      "name": "BiList.py",
+      "type": "file",
+      "summary": "笔列表管理器，负责从K线合并序列中检测分形、构建笔、管理笔的确认与虚拟笔的添加删除，是缠论笔计算的核心模块。"
+    },
+    "class:Bi/BiList.py:CBiList": {
+      "name": "CBiList",
+      "type": "class",
+      "summary": "笔列表核心类，管理笔的完整生命周期：从首次笔创建、笔的确认更新、虚拟笔的添加删除，到笔的端点有效性检查和K线跨度计算。"
+    },
+    "function:Bi/BiList.py:end_is_peak": {
+      "name": "end_is_peak",
+      "type": "function",
+      "summary": "判断当前K线端点相对于上一个端点是否为极值点（峰或谷），用于笔的端点更新验证。"
+    },
+    "function:Bi/BiList.py:CBiList.__init__": {
+      "name": "CBiList.__init__",
+      "type": "function",
+      "summary": "初始化笔列表，接收笔配置CBiConfig，设置笔列表、自由K线合并列表等数据结构。"
+    },
+    "function:Bi/BiList.py:CBiList.try_create_first_bi": {
+      "name": "CBiList.try_create_first_bi",
+      "type": "function",
+      "summary": "尝试创建第一笔，在满足笔的生成条件时调用add_new_bi创建首笔，否则将K线合并加入自由列表。"
+    },
+    "function:Bi/BiList.py:CBiList.update_bi": {
+      "name": "CBiList.update_bi",
+      "type": "function",
+      "summary": "笔更新的主入口方法，依次调用update_bi_sure确认已完成的笔，再调用try_add_virtual_bi处理虚拟笔。"
+    },
+    "function:Bi/BiList.py:CBiList.can_update_peak": {
+      "name": "CBiList.can_update_peak",
+      "type": "function",
+      "summary": "检查是否可以更新笔的端点（极值），根据最后一笔的方向和价格比较来判断是否形成了新的极值点。"
+    },
+    "function:Bi/BiList.py:CBiList.update_peak": {
+      "name": "CBiList.update_peak",
+      "type": "function",
+      "summary": "更新笔的端点极值，移除旧端点、尝试更新新端点、重新添加笔，并追加确认端点。"
+    },
+    "function:Bi/BiList.py:CBiList.update_bi_sure": {
+      "name": "CBiList.update_bi_sure",
+      "type": "function",
+      "summary": "确认笔的完成状态，处理虚拟笔删除、首笔创建、端点更新、新笔添加等完整流程，是笔确认的核心逻辑。"
+    },
+    "function:Bi/BiList.py:CBiList.delete_virtual_bi": {
+      "name": "CBiList.delete_virtual_bi",
+      "type": "function",
+      "summary": "删除虚拟笔，恢复被虚拟笔覆盖的端点，并根据恢复后的状态决定是否添加新笔。"
+    },
+    "function:Bi/BiList.py:CBiList.try_add_virtual_bi": {
+      "name": "CBiList.try_add_virtual_bi",
+      "type": "function",
+      "summary": "尝试添加虚拟笔，先删除已有虚拟笔，然后根据最后一笔的方向和价格更新虚拟端点或创建新笔。"
+    },
+    "function:Bi/BiList.py:CBiList.add_new_bi": {
+      "name": "CBiList.add_new_bi",
+      "type": "function",
+      "summary": "创建新的CBi笔对象并添加到笔列表，同时设置新笔与已有笔的pre/next链表关系。"
+    },
+    "function:Bi/BiList.py:CBiList.satisfy_bi_span": {
+      "name": "CBiList.satisfy_bi_span",
+      "type": "function",
+      "summary": "检查笔的跨度是否满足要求，通过计算K线合并跨度并与配置中的最小跨度比较。"
+    },
+    "function:Bi/BiList.py:CBiList.get_klc_span": {
+      "name": "CBiList.get_klc_span",
+      "type": "function",
+      "summary": "计算K线合并列表的跨度，遍历K线合并序列并统计有跳空缺口的合并数量。"
+    },
+    "function:Bi/BiList.py:CBiList.can_make_bi": {
+      "name": "CBiList.can_make_bi",
+      "type": "function",
+      "summary": "判断是否可以生成新笔，综合检查跨度条件、分形有效性、端点极值关系等多项条件。"
+    },
+    "function:Bi/BiList.py:CBiList.try_update_end": {
+      "name": "CBiList.try_update_end",
+      "type": "function",
+      "summary": "尝试更新最后一笔的端点，根据笔的方向和价格比较判断是否更新虚拟端点或确认端点。"
+    },
+    "file:Seg/SegConfig.py": {
+      "name": "SegConfig.py",
+      "type": "file",
+      "summary": "段算法配置类，定义段计算所需的参数如段类型、左段算法方法等，继承自ConfigWithCheck进行严格配置校验。"
+    },
+    "class:Seg/SegConfig.py:CSegConfig": {
+      "name": "CSegConfig",
+      "type": "class",
+      "summary": "段算法配置类，封装段类型(SEG_TYPE)、左段算法(LEFT_SEG_METHOD)等参数，并在构造函数中进行参数有效性校验。"
+    },
+    "function:Seg/SegConfig.py:CSegConfig.__init__": {
+      "name": "CSegConfig.__init__",
+      "type": "function",
+      "summary": "初始化段配置，校验seg_type和left_seg_method参数的有效性，无效时抛出CChanException。"
+    },
+    "file:Seg/SegListChan.py": {
+      "name": "SegListChan.py",
+      "type": "file",
+      "summary": "默认段算法实现（特征序列分形法），通过构建向上/向下特征序列分形来检测和确认段，是缠论中最核心的段计算算法。"
+    },
+    "class:Seg/SegListChan.py:CSegListChan": {
+      "name": "CSegListChan",
+      "type": "class",
+      "summary": "特征序列分形段算法类，继承自CSegListComm，通过遍历笔列表构建向上和向下特征序列分形(CEigenFX)，检测分形破坏来确认段。"
+    },
+    "function:Seg/SegListChan.py:CSegListChan.__init__": {
+      "name": "CSegListChan.__init__",
+      "type": "function",
+      "summary": "初始化特征序列段列表，设置段配置并调用父类初始化。"
+    },
+    "function:Seg/SegListChan.py:CSegListChan.do_init": {
+      "name": "CSegListChan.do_init",
+      "type": "function",
+      "summary": "数据初始化方法，清理段列表中已确认段之前的笔数据，保留最后一段相关的笔用于后续计算。"
+    },
+    "function:Seg/SegListChan.py:CSegListChan.update": {
+      "name": "CSegListChan.update",
+      "type": "function",
+      "summary": "段更新入口方法，调用do_init初始化数据，然后根据笔列表长度执行cal_seg_sure计算确认段，最后收集左侧剩余段。"
+    },
+    "function:Seg/SegListChan.py:CSegListChan.cal_seg_sure": {
+      "name": "CSegListChan.cal_seg_sure",
+      "type": "function",
+      "summary": "计算确认段的核心方法，遍历笔列表构建向上和向下特征序列分形，检测分形被反向笔破坏时调用treat_fx_eigen处理段确认。"
+    },
+    "function:Seg/SegListChan.py:CSegListChan.treat_fx_eigen": {
+      "name": "CSegListChan.treat_fx_eigen",
+      "type": "function",
+      "summary": "处理特征序列分形，检查分形是否可以成为段结束点，确认后添加新段，并递归检查剩余分形。"
+    },
+    "file:Seg/SegListComm.py": {
+      "name": "SegListComm.py",
+      "type": "file",
+      "summary": "段列表公共基类，提供所有段算法的共享逻辑，包括段收集、左段处理、新增段、极值笔查找等核心方法，以及未确认段的复杂处理。"
+    },
+    "class:Seg/SegListComm.py:CSegListComm": {
+      "name": "CSegListComm",
+      "type": "class",
+      "summary": "段列表公共基类，封装了段计算的通用流程：初始化、左段收集（多种策略）、段的新增与确认、未确认段处理等，为三种段算法提供统一框架。"
+    },
+    "function:Seg/SegListComm.py:FindPeakBi": {
+      "name": "FindPeakBi",
+      "type": "function",
+      "summary": "在笔列表中查找极值笔（最高或最低），根据is_high参数在指定范围内搜索价格极值，跳过前两个笔的检查。"
+    },
+    "function:Seg/SegListComm.py:CSegListComm.__init__": {
+      "name": "CSegListComm.__init__",
+      "type": "function",
+      "summary": "初始化段列表基类，设置段配置CSegConfig和笔列表引用，调用do_init进行数据初始化。"
+    },
+    "function:Seg/SegListComm.py:CSegListComm.do_init": {
+      "name": "CSegListComm.do_init",
+      "type": "function",
+      "summary": "数据初始化，清理段列表并重置确认段索引，设置段列表的起始笔索引。"
+    },
+    "function:Seg/SegListComm.py:CSegListComm.left_bi_break": {
+      "name": "CSegListComm.left_bi_break",
+      "type": "function",
+      "summary": "检查左侧笔是否被突破，判断最后一段结束笔之后的新笔是否突破了段的极值范围。"
+    },
+    "function:Seg/SegListComm.py:CSegListComm.collect_first_seg": {
+      "name": "CSegListComm.collect_first_seg",
+      "type": "function",
+      "summary": "收集第一段，根据笔列表的极值方向确定首段方向，调用FindPeakBi查找极值笔并add_new_seg创建段。"
+    },
+    "function:Seg/SegListComm.py:CSegListComm.collect_left_seg_peak_method": {
+      "name": "CSegListComm.collect_left_seg_peak_method",
+      "type": "function",
+      "summary": "使用极值方法收集左侧剩余段，根据最后一段结束笔的方向查找极值笔并添加段，递归处理直到无法继续。"
+    },
+    "function:Seg/SegListComm.py:CSegListComm.collect_segs": {
+      "name": "CSegListComm.collect_segs",
+      "type": "function",
+      "summary": "收集段的主方法，根据左段算法配置选择不同的收集策略（极值方法或定义方法），处理段的方向判断和添加。"
+    },
+    "function:Seg/SegListComm.py:CSegListComm.collect_left_seg": {
+      "name": "CSegListComm.collect_left_seg",
+      "type": "function",
+      "summary": "收集左侧剩余段的入口方法，根据段列表状态决定调用collect_first_seg收集首段还是collect_segs收集后续段。"
+    },
+    "function:Seg/SegListComm.py:CSegListComm.collect_left_as_seg": {
+      "name": "CSegListComm.collect_left_as_seg",
+      "type": "function",
+      "summary": "将剩余未处理的笔作为最后一个段处理，在无法继续收集段时，将剩余笔直接封装为段并添加到列表中。"
+    },
+    "function:Seg/SegListComm.py:CSegListComm.try_add_new_seg": {
+      "name": "CSegListComm.try_add_new_seg",
+      "type": "function",
+      "summary": "尝试添加新段，验证极值笔是否满足段的条件（方向一致且价格突破），创建CSeg对象并更新笔列表关联。"
+    },
+    "function:Seg/SegListComm.py:CSegListComm.add_new_seg": {
+      "name": "CSegListComm.add_new_seg",
+      "type": "function",
+      "summary": "添加新段到列表的简化入口，调用try_add_new_seg执行实际添加，并检查添加后段列表长度变化。"
+    },
+    "function:Seg/SegListComm.py:CSegListComm.update": {
+      "name": "CSegListComm.update",
+      "type": "function",
+      "summary": "段更新方法，调用do_init初始化后收集左侧段，子类可重写以实现不同的段计算逻辑。"
+    },
+    "file:Seg/SegListDYH.py": {
+      "name": "SegListDYH.py",
+      "type": "file",
+      "summary": "都业华版段算法实现（已弃用），使用situation1/situation2判定逻辑替代特征序列分形法，通过相邻三笔的位置关系判断段是否成立。"
+    },
+    "class:Seg/SegListDYH.py:CSegListDYH": {
+      "name": "CSegListDYH",
+      "type": "class",
+      "summary": "都业华版段算法类，继承自CSegListComm，使用situation1/situation2三笔关系判定逻辑来确定段，已弃用。"
+    },
+    "function:Seg/SegListDYH.py:situation1": {
+      "name": "situation1",
+      "type": "function",
+      "summary": "判定情况1：当前笔被前一笔和下一笔夹在中间，即cur_bi的高低点均在前一笔和下一笔的范围内，表示段延续。"
+    },
+    "function:Seg/SegListDYH.py:situation2": {
+      "name": "situation2",
+      "type": "function",
+      "summary": "判定情况2：前一笔和下一笔的高低点均在当前笔的范围内，即cur_bi包含前后两笔，表示段可能转折。"
+    },
+    "function:Seg/SegListDYH.py:CSegListDYH.__init__": {
+      "name": "CSegListDYH.__init__",
+      "type": "function",
+      "summary": "初始化都业华段列表，设置段配置并调用父类初始化。"
+    },
+    "function:Seg/SegListDYH.py:CSegListDYH.update": {
+      "name": "CSegListDYH.update",
+      "type": "function",
+      "summary": "段更新入口方法，依次执行数据初始化、确认段计算、最后段更新、左侧突破检查和未确认段计算。"
+    },
+    "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_sure": {
+      "name": "CSegListDYH.cal_bi_sure",
+      "type": "function",
+      "summary": "计算确认笔对应的段，遍历笔列表，使用situation1/situation2判定三笔关系，满足条件时添加新段。"
+    },
+    "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_unsure": {
+      "name": "CSegListDYH.cal_bi_unsure",
+      "type": "function",
+      "summary": "计算未确认笔对应的段，处理剩余笔列表中无法通过situation1/situation2确认的笔，查找极值并添加段。"
+    },
+    "function:Seg/SegListDYH.py:CSegListDYH.try_update_last_seg": {
+      "name": "CSegListDYH.try_update_last_seg",
+      "type": "function",
+      "summary": "尝试更新最后一个段，检查最后一段结束笔之后的新笔是否突破了段的极值范围，若突破则更新段。"
+    },
+    "file:Seg/SegListDef.py": {
+      "name": "SegListDef.py",
+      "type": "file",
+      "summary": "定义版段算法实现（已弃用），使用is_up_seg/is_down_seg简单判定逻辑，通过相邻笔的价格比较来判断段方向和创建段。"
+    },
+    "class:Seg/SegListDef.py:CSegListDef": {
+      "name": "CSegListDef",
+      "type": "class",
+      "summary": "定义版段算法类，继承自CSegListComm，使用最简单的价格比较逻辑（高点上移=向上段，低点下移=向下段）来判定和创建段，已弃用。"
+    },
+    "function:Seg/SegListDef.py:is_up_seg": {
+      "name": "is_up_seg",
+      "type": "function",
+      "summary": "判断是否为向上段，通过比较当前笔与前一笔的高点，若当前笔高点更高且满足方向条件则返回True。"
+    },
+    "function:Seg/SegListDef.py:is_down_seg": {
+      "name": "is_down_seg",
+      "type": "function",
+      "summary": "判断是否为向下段，通过比较当前笔与前一笔的低点，若当前笔低点更低且满足方向条件则返回True。"
+    },
+    "function:Seg/SegListDef.py:CSegListDef.__init__": {
+      "name": "CSegListDef.__init__",
+      "type": "function",
+      "summary": "初始化定义版段列表，设置段配置并调用父类初始化。"
+    },
+    "function:Seg/SegListDef.py:CSegListDef.update": {
+      "name": "CSegListDef.update",
+      "type": "function",
+      "summary": "段更新入口方法，依次执行数据初始化、确认段计算和左侧段收集。"
+    },
+    "function:Seg/SegListDef.py:CSegListDef.update_last_end": {
+      "name": "CSegListDef.update_last_end",
+      "type": "function",
+      "summary": "更新最后一个段的结束笔，将新的笔数据更新到最后一个段的笔列表中。"
+    },
+    "function:Seg/SegListDef.py:CSegListDef.cal_bi_sure": {
+      "name": "CSegListDef.cal_bi_sure",
+      "type": "function",
+      "summary": "计算确认笔对应的段，遍历笔列表，使用is_up_seg/is_down_seg判断段方向，保持极值笔并在方向改变或段成立时添加新段。"
+    },
+    "file:Bi/BiConfig.py": {
+      "name": "BiConfig.py",
+      "type": "file",
+      "summary": "笔计算的配置参数类，定义笔算法、严格模式、分型验证方法、跳空处理等配置项，并提供字符串到枚举值的转换逻辑，未知配置时抛出 CChanException 异常。"
+    },
+    "file:Combiner/Combine_Item.py": {
+      "name": "Combine_Item.py",
+      "type": "file",
+      "summary": "适配器包装类，将 CBi、CKLine_Unit、CSeg 三种类型统一包装，提供 time_begin、time_end、high、low 四个统一属性，使 CKLine_Combiner 可以共用同一套合并逻辑处理不同层级元素。"
+    },
+    "file:Combiner/KLine_Combiner.py": {
+      "name": "KLine_Combiner.py",
+      "type": "file",
+      "summary": "K线合并器核心基类，实现缠论中的K线包含处理逻辑，包括包含关系判断、合并高低点、分形检测、前后链表管理，被 CKLine 和 CEigen 继承使用，是项目中最关键的基类之一。"
+    },
+    "file:Common/ChanException.py": {
+      "name": "ChanException.py",
+      "type": "file",
+      "summary": "异常类定义模块，包含 ErrCode 错误码枚举（按缠论错误、交易错误、K线数据错误分为三段，共30+个错误码）和 CChanException 自定义异常类，提供 is_kldata_err 和 is_chan_err 错误类型判断方法。"
+    },
+    "file:Common/cache.py": {
+      "name": "cache.py",
+      "type": "file",
+      "summary": "实例方法级别的备忘录缓存装饰器，通过 Python 描述器协议实现，将缓存绑定到实例的 _memoize_cache 字典上，支持 clean_cache 清空缓存使计算属性重新求值，被 CBi 和 CKLine_Combiner 大量使用。"
+    },
+    "class:Bi/BiConfig.py:CBiConfig": {
+      "name": "CBiConfig",
+      "type": "class",
+      "summary": "笔的配置参数类，封装笔算法、严格模式、分型验证方法、跳空处理、端点极值要求、次高低点允许等配置，将字符串配置转换为 FX_CHECK_METHOD 枚举值。"
+    },
+    "class:Combiner/Combine_Item.py:CCombine_Item": {
+      "name": "CCombine_Item",
+      "type": "class",
+      "summary": "合并元素适配器包装器，通过延迟导入和 isinstance 类型判断，将 CBi、CKLine_Unit、CSeg 三种类型统一包装为 time_begin、time_end、high、low 四个属性，实现适配器模式。"
+    },
+    "class:Combiner/KLine_Combiner.py:CKLine_Combiner": {
+      "name": "CKLine_Combiner",
+      "type": "class",
+      "summary": "K线合并器泛型基类，实现缠论K线包含处理的核心逻辑：包含关系判断（test_combine）、合并计算（try_add）、分形检测（set_fx/update_fx）、极值点查找（get_peak_klu），以及前后链表管理（set_pre/set_next），被 CKLine 和 CEigen 继承。"
+    },
+    "class:Common/ChanException.py:ErrCode": {
+      "name": "ErrCode",
+      "type": "class",
+      "summary": "错误码 IntEnum 枚举，将错误码分为三段：0-99 缠论计算错误（COMMON_ERROR、PARA_ERROR、BI_ERR 等），100-199 交易错误（SIGNAL_EXISTED、PLACE_ORDER_FAIL 等），200-299 K线数据错误（PRICE_BELOW_ZERO、KL_DATA_INVALID 等），共30+个错误码。"
+    },
+    "class:Common/ChanException.py:CChanException": {
+      "name": "CChanException",
+      "type": "class",
+      "summary": "缠论自定义异常类，继承 Exception，包含 errcode 错误码和 msg 错误消息，提供 is_kldata_err 和 is_chan_err 方法判断错误属于 K 线数据错误还是缠论计算错误。"
+    },
+    "class:Common/cache.py:make_cache": {
+      "name": "make_cache",
+      "type": "class",
+      "summary": "实例方法级别的备忘录缓存装饰器类，通过描述器协议实现，在 __get__ 中为实例创建 _memoize_cache 字典，在 __call__ 中查缓存并返回缓存值或执行原函数并缓存结果，仅支持无参方法。"
+    },
+    "document:CLAUDE.md": {
+      "name": "CLAUDE.md",
+      "type": "document",
+      "summary": "Claude Code 项目配置文件，提供项目概述、常用命令、核心架构、配置系统、关键实现细节（缓存机制、序列化陷阱、段算法、绘图、指标）及目录结构速查，是 AI 辅助开发的基础参考文档。"
+    },
+    "document:README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "缠论框架完整使用文档（约1500行），涵盖功能介绍（基本元素计算、策略买卖点、ML对接、线上交易）、目录结构、CChan/CChanConfig 使用详解、画图配置、中枢算法、模型特征、交易系统、自定义开发（数据接入、笔/线段/买卖点/模型扩展）、COS/Notion 集成等，是项目最全面的参考文档。"
+    },
+    "document:prompt.txt": {
+      "name": "prompt.txt",
+      "type": "document",
+      "summary": "用于生成阅读文档.md 和代码走读说明.md 的提示词文件，描述了对文档生成的需求：项目架构描述、模块化拆解、方法级别说明、缠论知识注释、Java 对比注释，以及按阅读顺序的代码走读脉络。"
+    },
+    "document:quick_guide.md": {
+      "name": "quick_guide.md",
+      "type": "document",
+      "summary": "快速上手指南（约570行），涵盖写在前面、如何开始、框架核心能力（当前帧、is_sure标记）、常见问题排查（报错、信号消失、递归溢出等）、不可绕过的步骤、CChanConfig 重点配置、取出缠论元素（合并K线、笔、线段、中枢、买卖点）、数据接入速成、线段/中枢详细说明、策略回测、指标添加、机器学习接入等。"
+    },
+    "document:代码走读说明.md": {
+      "name": "代码走读说明.md",
+      "type": "document",
+      "summary": "按阅读顺序组织的代码导读文档（约800行），将代码学习分为十个阶段：建立概念地基（枚举/时间/异常/缓存/工具函数）→核心计算流水线（K线/合并器）→分形到笔→笔到线段（特征序列分型）→中枢与背驰→买卖点计算→主入口与配置→数据源与绘图→技术指标→实战演示，每个阶段给出阅读顺序和重点文件说明。"
+    },
+    "document:阅读文档.md": {
+      "name": "阅读文档.md",
+      "type": "document",
+      "summary": "面向初学者的缠论 Python 实现快速上手指南（约1500行），分为六大部分：项目概述（开源版/完整版区别、环境要求、快速体验）、缠论核心概念速览（K线包含处理、分形、笔、线段、中枢、买卖点、背驰）、整体架构与调用关系（计算流水线、多级别递归、运行模式、数据流图、继承关系）、模块与方法级别拆解（覆盖 Common/KLine/Combiner/Bi/Seg/ZS/BuySellPoint/Math/DataAPI/Plot/Chan/ChanConfig/ChanModel 共13个模块）、完整计算流水线详解（批量/步进/外部喂K线三种模式）、实战示例。"
+    },
+    "file:__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "项目根目录的空包标记文件，使 chan.py 成为可导入的 Python 包。"
+    },
+    "file:.ua/.understandignore": {
+      "name": ".understandignore",
+      "type": "file",
+      "summary": "Understand-Anything 分析忽略模式文件，定义应从代码分析中排除的文件和目录匹配规则，语法兼容 .gitignore。"
+    },
+    "config:.ua/config.json": {
+      "name": "config.json",
+      "type": "config",
+      "summary": "Understand-Anything 插件配置文件，设置输出语言为中文。"
+    },
+    "file:BuySellPoint/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "买卖点模块的包标记文件，使 BuySellPoint 成为可导入的 Python 子包。"
+    },
+    "file:Combiner/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "K线合并模块的包标记文件，使 Combiner 成为可导入的 Python 子包。"
+    },
+    "file:Common/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "公共工具模块的包标记文件，使 Common 成为可导入的 Python 子包。"
+    },
+    "file:DataAPI/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "数据API模块的包标记文件，使 DataAPI 成为可导入的 Python 子包。"
+    },
+    "file:KLine/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "K线数据结构模块的包标记文件，使 KLine 成为可导入的 Python 子包。"
+    },
+    "file:Math/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "技术指标数学模块的包标记文件，使 Math 成为可导入的 Python 子包。"
+    },
+    "file:Plot/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "绘图模块的包标记文件，使 Plot 成为可导入的 Python 子包。"
+    },
+    "document:Script/requirements.txt": {
+      "name": "requirements.txt",
+      "type": "document",
+      "summary": "项目 Python 依赖清单，指定 baostock、matplotlib、numpy、pandas、requests 等核心依赖的最低版本要求。"
+    },
+    "file:Seg/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "线段算法模块的包标记文件，使 Seg 成为可导入的 Python 子包。"
+    },
+    "file:ZS/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "中枢计算模块的包标记文件，使 ZS 成为可导入的 Python 子包。"
+    }
+  },
+  "totalNodes": 223,
+  "totalEdges": 651
+}

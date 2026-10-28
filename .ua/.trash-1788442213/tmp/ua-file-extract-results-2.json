@@ -1,0 +1,4098 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 13,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "Bi/Bi.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 562,
+      "nonEmptyLines": 477,
+      "classes": [
+        {
+          "name": "CBi",
+          "startLine": 21,
+          "endLine": 562,
+          "methods": [
+            "__init__",
+            "clean_cache",
+            "begin_klc",
+            "end_klc",
+            "dir",
+            "idx",
+            "type",
+            "is_sure",
+            "used_to_be_sure",
+            "is_used_to_be_sure",
+            "sure_end",
+            "klc_lst",
+            "klc_lst_re",
+            "seg_idx",
+            "set_seg_idx",
+            "__str__",
+            "check",
+            "set",
+            "get_begin_val",
+            "get_end_val",
+            "get_begin_klu",
+            "get_end_klu",
+            "amp",
+            "get_klu_cnt",
+            "get_klc_cnt",
+            "_high",
+            "_low",
+            "_mid",
+            "is_down",
+            "is_up",
+            "update_virtual_end",
+            "restore_from_virtual_end",
+            "append_sure_end",
+            "update_new_end",
+            "cal_macd_metric",
+            "Cal_Rsi",
+            "Cal_MACD_area",
+            "Cal_MACD_peak",
+            "Cal_MACD_half",
+            "Cal_MACD_half_obverse",
+            "Cal_MACD_half_reverse",
+            "Cal_MACD_diff",
+            "Cal_MACD_slope",
+            "Cal_MACD_amp",
+            "Cal_MACD_trade_metric"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CBi",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "self.set",
+          "lineNumber": 58
+        },
+        {
+          "caller": "check",
+          "callee": "self.is_down",
+          "lineNumber": 155
+        },
+        {
+          "caller": "check",
+          "callee": "CChanException",
+          "lineNumber": 160
+        },
+        {
+          "caller": "set",
+          "callee": "CChanException",
+          "lineNumber": 177
+        },
+        {
+          "caller": "set",
+          "callee": "self.check",
+          "lineNumber": 178
+        },
+        {
+          "caller": "set",
+          "callee": "self.clean_cache",
+          "lineNumber": 179
+        },
+        {
+          "caller": "get_begin_val",
+          "callee": "self.is_up",
+          "lineNumber": 188
+        },
+        {
+          "caller": "get_end_val",
+          "callee": "self.is_up",
+          "lineNumber": 197
+        },
+        {
+          "caller": "get_begin_klu",
+          "callee": "self.is_up",
+          "lineNumber": 207
+        },
+        {
+          "caller": "get_begin_klu",
+          "callee": "self.begin_klc.get_peak_klu",
+          "lineNumber": 208
+        },
+        {
+          "caller": "get_begin_klu",
+          "callee": "self.begin_klc.get_peak_klu",
+          "lineNumber": 210
+        },
+        {
+          "caller": "get_end_klu",
+          "callee": "self.is_up",
+          "lineNumber": 219
+        },
+        {
+          "caller": "get_end_klu",
+          "callee": "self.end_klc.get_peak_klu",
+          "lineNumber": 220
+        },
+        {
+          "caller": "get_end_klu",
+          "callee": "self.end_klc.get_peak_klu",
+          "lineNumber": 222
+        },
+        {
+          "caller": "amp",
+          "callee": "abs",
+          "lineNumber": 231
+        },
+        {
+          "caller": "amp",
+          "callee": "self.get_end_val",
+          "lineNumber": 231
+        },
+        {
+          "caller": "amp",
+          "callee": "self.get_begin_val",
+          "lineNumber": 231
+        },
+        {
+          "caller": "get_klu_cnt",
+          "callee": "self.get_end_klu",
+          "lineNumber": 236
+        },
+        {
+          "caller": "get_klu_cnt",
+          "callee": "self.get_begin_klu",
+          "lineNumber": 236
+        },
+        {
+          "caller": "get_klc_cnt",
+          "callee": "self.get_end_klu",
+          "lineNumber": 241
+        },
+        {
+          "caller": "get_klc_cnt",
+          "callee": "self.get_begin_klu",
+          "lineNumber": 242
+        },
+        {
+          "caller": "_high",
+          "callee": "self.is_up",
+          "lineNumber": 252
+        },
+        {
+          "caller": "_low",
+          "callee": "self.is_up",
+          "lineNumber": 261
+        },
+        {
+          "caller": "_mid",
+          "callee": "self._high",
+          "lineNumber": 266
+        },
+        {
+          "caller": "_mid",
+          "callee": "self._low",
+          "lineNumber": 266
+        },
+        {
+          "caller": "update_virtual_end",
+          "callee": "self.append_sure_end",
+          "lineNumber": 291
+        },
+        {
+          "caller": "update_virtual_end",
+          "callee": "self.update_new_end",
+          "lineNumber": 292
+        },
+        {
+          "caller": "restore_from_virtual_end",
+          "callee": "self.update_new_end",
+          "lineNumber": 305
+        },
+        {
+          "caller": "append_sure_end",
+          "callee": "self.__sure_end.append",
+          "lineNumber": 310
+        },
+        {
+          "caller": "update_new_end",
+          "callee": "self.check",
+          "lineNumber": 317
+        },
+        {
+          "caller": "update_new_end",
+          "callee": "self.clean_cache",
+          "lineNumber": 318
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_half",
+          "lineNumber": 341
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_peak",
+          "lineNumber": 343
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_area",
+          "lineNumber": 345
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_diff",
+          "lineNumber": 347
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_slope",
+          "lineNumber": 349
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_amp",
+          "lineNumber": 351
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_trade_metric",
+          "lineNumber": 353
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_trade_metric",
+          "lineNumber": 355
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_trade_metric",
+          "lineNumber": 357
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_trade_metric",
+          "lineNumber": 359
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_trade_metric",
+          "lineNumber": 361
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_Rsi",
+          "lineNumber": 363
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "CChanException",
+          "lineNumber": 365
+        },
+        {
+          "caller": "Cal_Rsi",
+          "callee": "rsi_lst.extend",
+          "lineNumber": 378
+        },
+        {
+          "caller": "Cal_Rsi",
+          "callee": "min",
+          "lineNumber": 379
+        },
+        {
+          "caller": "Cal_Rsi",
+          "callee": "self.is_down",
+          "lineNumber": 379
+        },
+        {
+          "caller": "Cal_Rsi",
+          "callee": "max",
+          "lineNumber": 379
+        },
+        {
+          "caller": "Cal_MACD_area",
+          "callee": "self.get_begin_klu",
+          "lineNumber": 393
+        },
+        {
+          "caller": "Cal_MACD_area",
+          "callee": "self.get_end_klu",
+          "lineNumber": 394
+        },
+        {
+          "caller": "Cal_MACD_area",
+          "callee": "self.is_down",
+          "lineNumber": 399
+        },
+        {
+          "caller": "Cal_MACD_area",
+          "callee": "self.is_up",
+          "lineNumber": 399
+        },
+        {
+          "caller": "Cal_MACD_area",
+          "callee": "abs",
+          "lineNumber": 400
+        },
+        {
+          "caller": "Cal_MACD_peak",
+          "callee": "abs",
+          "lineNumber": 417
+        },
+        {
+          "caller": "Cal_MACD_peak",
+          "callee": "self.is_down",
+          "lineNumber": 418
+        },
+        {
+          "caller": "Cal_MACD_peak",
+          "callee": "abs",
+          "lineNumber": 419
+        },
+        {
+          "caller": "Cal_MACD_peak",
+          "callee": "self.is_up",
+          "lineNumber": 420
+        },
+        {
+          "caller": "Cal_MACD_peak",
+          "callee": "abs",
+          "lineNumber": 421
+        },
+        {
+          "caller": "Cal_MACD_half",
+          "callee": "self.Cal_MACD_half_reverse",
+          "lineNumber": 437
+        },
+        {
+          "caller": "Cal_MACD_half",
+          "callee": "self.Cal_MACD_half_obverse",
+          "lineNumber": 439
+        },
+        {
+          "caller": "Cal_MACD_half_obverse",
+          "callee": "self.get_begin_klu",
+          "lineNumber": 454
+        },
+        {
+          "caller": "Cal_MACD_half_obverse",
+          "callee": "abs",
+          "lineNumber": 461
+        },
+        {
+          "caller": "Cal_MACD_half_reverse",
+          "callee": "self.get_end_klu",
+          "lineNumber": 478
+        },
+        {
+          "caller": "Cal_MACD_half_reverse",
+          "callee": "abs",
+          "lineNumber": 485
+        },
+        {
+          "caller": "Cal_MACD_diff",
+          "callee": "float",
+          "lineNumber": 501
+        },
+        {
+          "caller": "Cal_MACD_diff",
+          "callee": "float",
+          "lineNumber": 501
+        },
+        {
+          "caller": "Cal_MACD_slope",
+          "callee": "self.get_begin_klu",
+          "lineNumber": 521
+        },
+        {
+          "caller": "Cal_MACD_slope",
+          "callee": "self.get_end_klu",
+          "lineNumber": 522
+        },
+        {
+          "caller": "Cal_MACD_slope",
+          "callee": "self.is_up",
+          "lineNumber": 523
+        },
+        {
+          "caller": "Cal_MACD_amp",
+          "callee": "self.get_begin_klu",
+          "lineNumber": 538
+        },
+        {
+          "caller": "Cal_MACD_amp",
+          "callee": "self.get_end_klu",
+          "lineNumber": 539
+        },
+        {
+          "caller": "Cal_MACD_amp",
+          "callee": "self.is_down",
+          "lineNumber": 540
+        },
+        {
+          "caller": "Cal_MACD_trade_metric",
+          "callee": "self.get_klu_cnt",
+          "lineNumber": 562
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "BuySellPoint/BSPointConfig.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 160,
+      "nonEmptyLines": 138,
+      "classes": [
+        {
+          "name": "CBSPointConfig",
+          "startLine": 19,
+          "endLine": 56,
+          "methods": [
+            "__init__",
+            "GetBSConfig"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CPointConfig",
+          "startLine": 59,
+          "endLine": 160,
+          "methods": [
+            "__init__",
+            "parse_target_type",
+            "SetMacdAlgo",
+            "set"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CBSPointConfig",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "CPointConfig",
+          "line": 59,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "CPointConfig",
+          "lineNumber": 43
+        },
+        {
+          "caller": "__init__",
+          "callee": "CPointConfig",
+          "lineNumber": 44
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.SetMacdAlgo",
+          "lineNumber": 101
+        },
+        {
+          "caller": "parse_target_type",
+          "callee": "isinstance",
+          "lineNumber": 125
+        },
+        {
+          "caller": "parse_target_type",
+          "callee": "t.strip",
+          "lineNumber": 126
+        },
+        {
+          "caller": "parse_target_type",
+          "callee": "self.tmp_target_types.split",
+          "lineNumber": 126
+        },
+        {
+          "caller": "set",
+          "callee": "_parse_inf",
+          "lineNumber": 156
+        },
+        {
+          "caller": "set",
+          "callee": "self.SetMacdAlgo",
+          "lineNumber": 158
+        },
+        {
+          "caller": "set",
+          "callee": "exec",
+          "lineNumber": 160
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "BuySellPoint/BSPointList.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 696,
+      "nonEmptyLines": 605,
+      "functions": [
+        {
+          "name": "bsp2s_break_bsp1",
+          "startLine": 645,
+          "endLine": 653,
+          "params": [
+            "bsp2s_bi",
+            "bsp2_break_bi"
+          ]
+        },
+        {
+          "name": "bsp3_back2zs",
+          "startLine": 656,
+          "endLine": 664,
+          "params": [
+            "bsp3_bi",
+            "zs"
+          ]
+        },
+        {
+          "name": "bsp3_break_zspeak",
+          "startLine": 667,
+          "endLine": 675,
+          "params": [
+            "bsp3_bi",
+            "zs"
+          ]
+        },
+        {
+          "name": "cal_bsp3_bi_end_idx",
+          "startLine": 678,
+          "endLine": 696,
+          "params": [
+            "seg"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CBSPointList",
+          "startLine": 31,
+          "endLine": 642,
+          "methods": [
+            "__init__",
+            "store_add_bsp",
+            "add_bsp1",
+            "clear_store_end",
+            "clear_bsp1_end",
+            "bsp_iter",
+            "bsp_iter_v2",
+            "__len__",
+            "cal",
+            "update_last_pos",
+            "seg_need_cal",
+            "add_bs",
+            "cal_seg_bs1point",
+            "cal_single_bs1point",
+            "treat_bsp1",
+            "treat_pz_bsp1",
+            "cal_seg_bs2point",
+            "treat_bsp2",
+            "treat_bsp2s",
+            "cal_seg_bs3point",
+            "treat_bsp3_after",
+            "treat_bsp3_before",
+            "getSortedBspList",
+            "get_latest_bsp"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CBSPointList",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "bsp2s_break_bsp1",
+          "line": 645,
+          "isDefault": false
+        },
+        {
+          "name": "bsp3_back2zs",
+          "line": 656,
+          "isDefault": false
+        },
+        {
+          "name": "bsp3_break_zspeak",
+          "line": 667,
+          "isDefault": false
+        },
+        {
+          "name": "cal_bsp3_bi_end_idx",
+          "line": 678,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "store_add_bsp",
+          "callee": "len",
+          "lineNumber": 88
+        },
+        {
+          "caller": "store_add_bsp",
+          "callee": "self.bsp_store_dict[bsp_type][bsp.is_buy].append",
+          "lineNumber": 91
+        },
+        {
+          "caller": "add_bsp1",
+          "callee": "len",
+          "lineNumber": 96
+        },
+        {
+          "caller": "add_bsp1",
+          "callee": "self.bsp1_list.append",
+          "lineNumber": 98
+        },
+        {
+          "caller": "clear_store_end",
+          "callee": "self.bsp_store_dict.values",
+          "lineNumber": 110
+        },
+        {
+          "caller": "clear_store_end",
+          "callee": "len",
+          "lineNumber": 112
+        },
+        {
+          "caller": "clear_store_end",
+          "callee": "bsp_list[is_buy][-1].bi.get_end_klu",
+          "lineNumber": 113
+        },
+        {
+          "caller": "clear_store_end",
+          "callee": "bsp_list[is_buy].pop",
+          "lineNumber": 117
+        },
+        {
+          "caller": "clear_bsp1_end",
+          "callee": "len",
+          "lineNumber": 121
+        },
+        {
+          "caller": "clear_bsp1_end",
+          "callee": "self.bsp1_list[-1].bi.get_end_klu",
+          "lineNumber": 122
+        },
+        {
+          "caller": "clear_bsp1_end",
+          "callee": "self.bsp1_list.pop",
+          "lineNumber": 125
+        },
+        {
+          "caller": "bsp_iter",
+          "callee": "self.bsp_store_dict.values",
+          "lineNumber": 134
+        },
+        {
+          "caller": "bsp_iter_v2",
+          "callee": "self.bsp_store_dict.items",
+          "lineNumber": 148
+        },
+        {
+          "caller": "bsp_iter_v2",
+          "callee": "list_indices.append",
+          "lineNumber": 150
+        },
+        {
+          "caller": "bsp_iter_v2",
+          "callee": "len",
+          "lineNumber": 150
+        },
+        {
+          "caller": "bsp_iter_v2",
+          "callee": "list_indices.append",
+          "lineNumber": 152
+        },
+        {
+          "caller": "bsp_iter_v2",
+          "callee": "len",
+          "lineNumber": 152
+        },
+        {
+          "caller": "bsp_iter_v2",
+          "callee": "enumerate",
+          "lineNumber": 160
+        },
+        {
+          "caller": "bsp_iter_v2",
+          "callee": "list_indices.pop",
+          "lineNumber": 174
+        },
+        {
+          "caller": "__len__",
+          "callee": "len",
+          "lineNumber": 177
+        },
+        {
+          "caller": "cal",
+          "callee": "self.clear_store_end",
+          "lineNumber": 194
+        },
+        {
+          "caller": "cal",
+          "callee": "self.clear_bsp1_end",
+          "lineNumber": 195
+        },
+        {
+          "caller": "cal",
+          "callee": "self.cal_seg_bs1point",
+          "lineNumber": 196
+        },
+        {
+          "caller": "cal",
+          "callee": "self.cal_seg_bs2point",
+          "lineNumber": 197
+        },
+        {
+          "caller": "cal",
+          "callee": "self.cal_seg_bs3point",
+          "lineNumber": 198
+        },
+        {
+          "caller": "cal",
+          "callee": "self.update_last_pos",
+          "lineNumber": 200
+        },
+        {
+          "caller": "update_last_pos",
+          "callee": "len",
+          "lineNumber": 206
+        },
+        {
+          "caller": "update_last_pos",
+          "callee": "seg.end_bi.get_begin_klu",
+          "lineNumber": 210
+        },
+        {
+          "caller": "seg_need_cal",
+          "callee": "seg.end_bi.get_end_klu",
+          "lineNumber": 217
+        },
+        {
+          "caller": "add_bs",
+          "callee": "bi.is_down",
+          "lineNumber": 242
+        },
+        {
+          "caller": "add_bs",
+          "callee": "self.bsp_store_flat_dict.get",
+          "lineNumber": 243
+        },
+        {
+          "caller": "add_bs",
+          "callee": "exist_bsp.add_another_bsp_prop",
+          "lineNumber": 246
+        },
+        {
+          "caller": "add_bs",
+          "callee": "exist_bsp.add_feat",
+          "lineNumber": 248
+        },
+        {
+          "caller": "add_bs",
+          "callee": "self.config.GetBSConfig",
+          "lineNumber": 250
+        },
+        {
+          "caller": "add_bs",
+          "callee": "self.store_add_bsp",
+          "lineNumber": 264
+        },
+        {
+          "caller": "add_bs",
+          "callee": "self.add_bsp1",
+          "lineNumber": 268
+        },
+        {
+          "caller": "cal_seg_bs1point",
+          "callee": "self.seg_need_cal",
+          "lineNumber": 277
+        },
+        {
+          "caller": "cal_seg_bs1point",
+          "callee": "self.cal_single_bs1point",
+          "lineNumber": 279
+        },
+        {
+          "caller": "cal_single_bs1point",
+          "callee": "self.config.GetBSConfig",
+          "lineNumber": 297
+        },
+        {
+          "caller": "cal_single_bs1point",
+          "callee": "seg.is_down",
+          "lineNumber": 297
+        },
+        {
+          "caller": "cal_single_bs1point",
+          "callee": "seg.get_multi_bi_zs_cnt",
+          "lineNumber": 298
+        },
+        {
+          "caller": "cal_single_bs1point",
+          "callee": "len",
+          "lineNumber": 298
+        },
+        {
+          "caller": "cal_single_bs1point",
+          "callee": "len",
+          "lineNumber": 300
+        },
+        {
+          "caller": "cal_single_bs1point",
+          "callee": "seg.zs_lst[-1].is_one_bi_zs",
+          "lineNumber": 301
+        },
+        {
+          "caller": "cal_single_bs1point",
+          "callee": "seg.zs_lst[-1].get_bi_in",
+          "lineNumber": 304
+        },
+        {
+          "caller": "cal_single_bs1point",
+          "callee": "self.treat_bsp1",
+          "lineNumber": 306
+        },
+        {
+          "caller": "cal_single_bs1point",
+          "callee": "self.treat_pz_bsp1",
+          "lineNumber": 309
+        },
+        {
+          "caller": "treat_bsp1",
+          "callee": "last_zs.out_bi_is_peak",
+          "lineNumber": 321
+        },
+        {
+          "caller": "treat_bsp1",
+          "callee": "last_zs.is_divergence",
+          "lineNumber": 324
+        },
+        {
+          "caller": "treat_bsp1",
+          "callee": "len",
+          "lineNumber": 329
+        },
+        {
+          "caller": "treat_bsp1",
+          "callee": "self.add_bs",
+          "lineNumber": 331
+        },
+        {
+          "caller": "treat_pz_bsp1",
+          "callee": "last_bi.is_down",
+          "lineNumber": 349
+        },
+        {
+          "caller": "treat_pz_bsp1",
+          "callee": "last_bi._low",
+          "lineNumber": 349
+        },
+        {
+          "caller": "treat_pz_bsp1",
+          "callee": "pre_bi._low",
+          "lineNumber": 349
+        },
+        {
+          "caller": "treat_pz_bsp1",
+          "callee": "last_bi.is_up",
+          "lineNumber": 351
+        },
+        {
+          "caller": "treat_pz_bsp1",
+          "callee": "last_bi._high",
+          "lineNumber": 351
+        },
+        {
+          "caller": "treat_pz_bsp1",
+          "callee": "pre_bi._high",
+          "lineNumber": 351
+        },
+        {
+          "caller": "treat_pz_bsp1",
+          "callee": "pre_bi.cal_macd_metric",
+          "lineNumber": 353
+        },
+        {
+          "caller": "treat_pz_bsp1",
+          "callee": "last_bi.cal_macd_metric",
+          "lineNumber": 354
+        },
+        {
+          "caller": "treat_pz_bsp1",
+          "callee": "last_bi.amp",
+          "lineNumber": 360
+        },
+        {
+          "caller": "treat_pz_bsp1",
+          "callee": "self.add_bs",
+          "lineNumber": 362
+        },
+        {
+          "caller": "cal_seg_bs2point",
+          "callee": "self.config.GetBSConfig",
+          "lineNumber": 373
+        },
+        {
+          "caller": "cal_seg_bs2point",
+          "callee": "seg.is_down",
+          "lineNumber": 373
+        },
+        {
+          "caller": "cal_seg_bs2point",
+          "callee": "self.seg_need_cal",
+          "lineNumber": 376
+        },
+        {
+          "caller": "cal_seg_bs2point",
+          "callee": "self.treat_bsp2",
+          "lineNumber": 378
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "len",
+          "lineNumber": 396
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "self.config.GetBSConfig",
+          "lineNumber": 397
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "seg.is_down",
+          "lineNumber": 397
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "self.bsp1_dict.get",
+          "lineNumber": 399
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "len",
+          "lineNumber": 400
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "self.config.GetBSConfig",
+          "lineNumber": 406
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "seg.is_up",
+          "lineNumber": 406
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "len",
+          "lineNumber": 408
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "bsp2_bi.amp",
+          "lineNumber": 416
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "break_bi.amp",
+          "lineNumber": 416
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "break_bi.amp",
+          "lineNumber": 422
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "bsp2_bi.amp",
+          "lineNumber": 423
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "self.add_bs",
+          "lineNumber": 425
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "self.config.GetBSConfig",
+          "lineNumber": 429
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "seg.is_down",
+          "lineNumber": 429
+        },
+        {
+          "caller": "treat_bsp2",
+          "callee": "self.treat_bsp2s",
+          "lineNumber": 431
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "len",
+          "lineNumber": 459
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "len",
+          "lineNumber": 465
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "has_overlap",
+          "lineNumber": 468
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2_bi._low",
+          "lineNumber": 468
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2_bi._high",
+          "lineNumber": 468
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2s_bi._low",
+          "lineNumber": 468
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2s_bi._high",
+          "lineNumber": 468
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "max",
+          "lineNumber": 470
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2_bi._low",
+          "lineNumber": 470
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2s_bi._low",
+          "lineNumber": 470
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "min",
+          "lineNumber": 471
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2_bi._high",
+          "lineNumber": 471
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2s_bi._high",
+          "lineNumber": 471
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "has_overlap",
+          "lineNumber": 472
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2s_bi._low",
+          "lineNumber": 472
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2s_bi._high",
+          "lineNumber": 472
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2s_break_bsp1",
+          "lineNumber": 475
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "abs",
+          "lineNumber": 477
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2s_bi.get_end_val",
+          "lineNumber": 477
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "break_bi.get_end_val",
+          "lineNumber": 477
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "break_bi.amp",
+          "lineNumber": 477
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "break_bi.amp",
+          "lineNumber": 482
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "bsp2s_bi.amp",
+          "lineNumber": 483
+        },
+        {
+          "caller": "treat_bsp2s",
+          "callee": "self.add_bs",
+          "lineNumber": 486
+        },
+        {
+          "caller": "cal_seg_bs3point",
+          "callee": "self.seg_need_cal",
+          "lineNumber": 501
+        },
+        {
+          "caller": "cal_seg_bs3point",
+          "callee": "self.config.GetBSConfig",
+          "lineNumber": 503
+        },
+        {
+          "caller": "cal_seg_bs3point",
+          "callee": "seg.is_down",
+          "lineNumber": 503
+        },
+        {
+          "caller": "cal_seg_bs3point",
+          "callee": "len",
+          "lineNumber": 506
+        },
+        {
+          "caller": "cal_seg_bs3point",
+          "callee": "self.config.GetBSConfig",
+          "lineNumber": 509
+        },
+        {
+          "caller": "cal_seg_bs3point",
+          "callee": "seg.is_down",
+          "lineNumber": 509
+        },
+        {
+          "caller": "cal_seg_bs3point",
+          "callee": "self.bsp1_dict.get",
+          "lineNumber": 510
+        },
+        {
+          "caller": "cal_seg_bs3point",
+          "callee": "self.config.GetBSConfig",
+          "lineNumber": 518
+        },
+        {
+          "caller": "cal_seg_bs3point",
+          "callee": "seg.is_up",
+          "lineNumber": 518
+        },
+        {
+          "caller": "cal_seg_bs3point",
+          "callee": "self.treat_bsp3_after",
+          "lineNumber": 522
+        },
+        {
+          "caller": "cal_seg_bs3point",
+          "callee": "self.treat_bsp3_before",
+          "lineNumber": 523
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "next_seg.get_first_multi_bi_zs",
+          "lineNumber": 543
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "first_zs.get_bi_in",
+          "lineNumber": 546
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "self.config.GetBSConfig",
+          "lineNumber": 549
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "next_seg.is_down",
+          "lineNumber": 549
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "enumerate",
+          "lineNumber": 551
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "next_seg.get_multi_bi_zs_lst",
+          "lineNumber": 551
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "len",
+          "lineNumber": 554
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "len",
+          "lineNumber": 558
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "len",
+          "lineNumber": 561
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "len",
+          "lineNumber": 565
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "bsp3_back2zs",
+          "lineNumber": 567
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "bsp3_break_zspeak",
+          "lineNumber": 569
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "bsp3_bi.amp",
+          "lineNumber": 574
+        },
+        {
+          "caller": "treat_bsp3_after",
+          "callee": "self.add_bs",
+          "lineNumber": 576
+        },
+        {
+          "caller": "treat_bsp3_before",
+          "callee": "seg.get_final_multi_bi_zs",
+          "lineNumber": 595
+        },
+        {
+          "caller": "treat_bsp3_before",
+          "callee": "cal_bsp3_bi_end_idx",
+          "lineNumber": 602
+        },
+        {
+          "caller": "treat_bsp3_before",
+          "callee": "len",
+          "lineNumber": 607
+        },
+        {
+          "caller": "treat_bsp3_before",
+          "callee": "bsp3_back2zs",
+          "lineNumber": 609
+        },
+        {
+          "caller": "treat_bsp3_before",
+          "callee": "bsp3_bi.amp",
+          "lineNumber": 613
+        },
+        {
+          "caller": "treat_bsp3_before",
+          "callee": "self.add_bs",
+          "lineNumber": 615
+        },
+        {
+          "caller": "getSortedBspList",
+          "callee": "sorted",
+          "lineNumber": 625
+        },
+        {
+          "caller": "getSortedBspList",
+          "callee": "self.bsp_iter",
+          "lineNumber": 625
+        },
+        {
+          "caller": "get_latest_bsp",
+          "callee": "self.bsp_iter_v2",
+          "lineNumber": 638
+        },
+        {
+          "caller": "get_latest_bsp",
+          "callee": "res.append",
+          "lineNumber": 639
+        },
+        {
+          "caller": "get_latest_bsp",
+          "callee": "len",
+          "lineNumber": 640
+        },
+        {
+          "caller": "bsp2s_break_bsp1",
+          "callee": "bsp2s_bi.is_down",
+          "lineNumber": 652
+        },
+        {
+          "caller": "bsp2s_break_bsp1",
+          "callee": "bsp2s_bi._low",
+          "lineNumber": 652
+        },
+        {
+          "caller": "bsp2s_break_bsp1",
+          "callee": "bsp2_break_bi._low",
+          "lineNumber": 652
+        },
+        {
+          "caller": "bsp2s_break_bsp1",
+          "callee": "bsp2s_bi.is_up",
+          "lineNumber": 653
+        },
+        {
+          "caller": "bsp2s_break_bsp1",
+          "callee": "bsp2s_bi._high",
+          "lineNumber": 653
+        },
+        {
+          "caller": "bsp2s_break_bsp1",
+          "callee": "bsp2_break_bi._high",
+          "lineNumber": 653
+        },
+        {
+          "caller": "bsp3_back2zs",
+          "callee": "bsp3_bi.is_down",
+          "lineNumber": 663
+        },
+        {
+          "caller": "bsp3_back2zs",
+          "callee": "bsp3_bi._low",
+          "lineNumber": 663
+        },
+        {
+          "caller": "bsp3_back2zs",
+          "callee": "bsp3_bi.is_up",
+          "lineNumber": 664
+        },
+        {
+          "caller": "bsp3_back2zs",
+          "callee": "bsp3_bi._high",
+          "lineNumber": 664
+        },
+        {
+          "caller": "bsp3_break_zspeak",
+          "callee": "bsp3_bi.is_down",
+          "lineNumber": 674
+        },
+        {
+          "caller": "bsp3_break_zspeak",
+          "callee": "bsp3_bi._high",
+          "lineNumber": 674
+        },
+        {
+          "caller": "bsp3_break_zspeak",
+          "callee": "bsp3_bi.is_up",
+          "lineNumber": 675
+        },
+        {
+          "caller": "bsp3_break_zspeak",
+          "callee": "bsp3_bi._low",
+          "lineNumber": 675
+        },
+        {
+          "caller": "cal_bsp3_bi_end_idx",
+          "callee": "float",
+          "lineNumber": 686
+        },
+        {
+          "caller": "cal_bsp3_bi_end_idx",
+          "callee": "seg.get_multi_bi_zs_cnt",
+          "lineNumber": 687
+        },
+        {
+          "caller": "cal_bsp3_bi_end_idx",
+          "callee": "float",
+          "lineNumber": 688
+        },
+        {
+          "caller": "cal_bsp3_bi_end_idx",
+          "callee": "zs.is_one_bi_zs",
+          "lineNumber": 691
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 5,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "BuySellPoint/BS_Point.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 110,
+      "nonEmptyLines": 88,
+      "classes": [
+        {
+          "name": "CBS_Point",
+          "startLine": 21,
+          "endLine": 110,
+          "methods": [
+            "__init__",
+            "add_type",
+            "type2str",
+            "add_another_bsp_prop",
+            "add_feat",
+            "init_common_feature"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CBS_Point",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "bi.get_end_klu",
+          "lineNumber": 54
+        },
+        {
+          "caller": "__init__",
+          "callee": "CFeatures",
+          "lineNumber": 60
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.init_common_feature",
+          "lineNumber": 64
+        },
+        {
+          "caller": "add_type",
+          "callee": "self.type.append",
+          "lineNumber": 72
+        },
+        {
+          "caller": "type2str",
+          "callee": "\",\".join",
+          "lineNumber": 76
+        },
+        {
+          "caller": "add_another_bsp_prop",
+          "callee": "self.add_type",
+          "lineNumber": 86
+        },
+        {
+          "caller": "add_feat",
+          "callee": "self.features.add_feat",
+          "lineNumber": 100
+        },
+        {
+          "caller": "init_common_feature",
+          "callee": "self.add_feat",
+          "lineNumber": 108
+        },
+        {
+          "caller": "init_common_feature",
+          "callee": "self.bi.amp",
+          "lineNumber": 109
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Common/func_util.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 116,
+      "nonEmptyLines": 100,
+      "functions": [
+        {
+          "name": "kltype_lt_day",
+          "startLine": 14,
+          "endLine": 23,
+          "params": [
+            "_type"
+          ]
+        },
+        {
+          "name": "kltype_lte_day",
+          "startLine": 26,
+          "endLine": 35,
+          "params": [
+            "_type"
+          ]
+        },
+        {
+          "name": "check_kltype_order",
+          "startLine": 38,
+          "endLine": 51,
+          "params": [
+            "type_list"
+          ]
+        },
+        {
+          "name": "revert_bi_dir",
+          "startLine": 54,
+          "endLine": 64,
+          "params": [
+            "dir"
+          ]
+        },
+        {
+          "name": "has_overlap",
+          "startLine": 67,
+          "endLine": 82,
+          "params": [
+            "l1",
+            "h1",
+            "l2",
+            "h2",
+            "equal"
+          ]
+        },
+        {
+          "name": "str2float",
+          "startLine": 85,
+          "endLine": 98,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "_parse_inf",
+          "startLine": 101,
+          "endLine": 116,
+          "params": [
+            "v"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "kltype_lt_day",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "kltype_lte_day",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "check_kltype_order",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "revert_bi_dir",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "has_overlap",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "str2float",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "_parse_inf",
+          "line": 101,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "str2float",
+          "callee": "float",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_parse_inf",
+          "callee": "isinstance",
+          "lineNumber": 111
+        },
+        {
+          "caller": "_parse_inf",
+          "callee": "float",
+          "lineNumber": 112
+        },
+        {
+          "caller": "_parse_inf",
+          "callee": "float",
+          "lineNumber": 114
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 7,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "KLine/KLine.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 205,
+      "nonEmptyLines": 175,
+      "classes": [
+        {
+          "name": "CKLine",
+          "startLine": 21,
+          "endLine": 205,
+          "methods": [
+            "__init__",
+            "__str__",
+            "GetSubKLC",
+            "get_klu_max_high",
+            "get_klu_min_low",
+            "has_gap_with_next",
+            "check_fx_valid"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CKLine",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super(CKLine, self).__init__",
+          "lineNumber": 46
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 46
+        },
+        {
+          "caller": "__init__",
+          "callee": "kl_unit.set_klc",
+          "lineNumber": 49
+        },
+        {
+          "caller": "__str__",
+          "callee": "len",
+          "lineNumber": 63
+        },
+        {
+          "caller": "GetSubKLC",
+          "callee": "klu.get_children",
+          "lineNumber": 82
+        },
+        {
+          "caller": "get_klu_max_high",
+          "callee": "max",
+          "lineNumber": 93
+        },
+        {
+          "caller": "get_klu_min_low",
+          "callee": "min",
+          "lineNumber": 99
+        },
+        {
+          "caller": "has_gap_with_next",
+          "callee": "has_overlap",
+          "lineNumber": 115
+        },
+        {
+          "caller": "has_gap_with_next",
+          "callee": "self.get_klu_min_low",
+          "lineNumber": 115
+        },
+        {
+          "caller": "has_gap_with_next",
+          "callee": "self.get_klu_max_high",
+          "lineNumber": 115
+        },
+        {
+          "caller": "has_gap_with_next",
+          "callee": "self.next.get_klu_min_low",
+          "lineNumber": 115
+        },
+        {
+          "caller": "has_gap_with_next",
+          "callee": "self.next.get_klu_max_high",
+          "lineNumber": 115
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "max",
+          "lineNumber": 154
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "min",
+          "lineNumber": 155
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "max",
+          "lineNumber": 163
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "max",
+          "lineNumber": 166
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "min",
+          "lineNumber": 167
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "CChanException",
+          "lineNumber": 169
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "min",
+          "lineNumber": 185
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "max",
+          "lineNumber": 186
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "min",
+          "lineNumber": 192
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "min",
+          "lineNumber": 195
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "max",
+          "lineNumber": 196
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "CChanException",
+          "lineNumber": 198
+        },
+        {
+          "caller": "check_fx_valid",
+          "callee": "CChanException",
+          "lineNumber": 205
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "KLine/KLine_List.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 395,
+      "nonEmptyLines": 327,
+      "functions": [
+        {
+          "name": "get_seglist_instance",
+          "startLine": 33,
+          "endLine": 64,
+          "params": [
+            "seg_config",
+            "lv"
+          ]
+        },
+        {
+          "name": "cal_seg",
+          "startLine": 283,
+          "endLine": 340,
+          "params": [
+            "bi_list",
+            "seg_list",
+            "last_sure_seg_start_bi_idx"
+          ]
+        },
+        {
+          "name": "update_zs_in_seg",
+          "startLine": 343,
+          "endLine": 395,
+          "params": [
+            "bi_list",
+            "seg_list",
+            "zs_list"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CKLine_List",
+          "startLine": 67,
+          "endLine": 280,
+          "methods": [
+            "__init__",
+            "__deepcopy__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "__len__",
+            "cal_seg_and_zs",
+            "need_cal_step_by_step",
+            "add_single_klu",
+            "klu_iter"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "get_seglist_instance",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "CKLine_List",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "cal_seg",
+          "line": 283,
+          "isDefault": false
+        },
+        {
+          "name": "update_zs_in_seg",
+          "line": 343,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "get_seglist_instance",
+          "callee": "CSegListChan",
+          "lineNumber": 54
+        },
+        {
+          "caller": "get_seglist_instance",
+          "callee": "print",
+          "lineNumber": 56
+        },
+        {
+          "caller": "get_seglist_instance",
+          "callee": "CSegListDYH",
+          "lineNumber": 58
+        },
+        {
+          "caller": "get_seglist_instance",
+          "callee": "print",
+          "lineNumber": 60
+        },
+        {
+          "caller": "get_seglist_instance",
+          "callee": "CSegListDef",
+          "lineNumber": 62
+        },
+        {
+          "caller": "get_seglist_instance",
+          "callee": "CChanException",
+          "lineNumber": 64
+        },
+        {
+          "caller": "__init__",
+          "callee": "CBiList",
+          "lineNumber": 97
+        },
+        {
+          "caller": "__init__",
+          "callee": "get_seglist_instance",
+          "lineNumber": 98
+        },
+        {
+          "caller": "__init__",
+          "callee": "get_seglist_instance",
+          "lineNumber": 99
+        },
+        {
+          "caller": "__init__",
+          "callee": "CZSList",
+          "lineNumber": 101
+        },
+        {
+          "caller": "__init__",
+          "callee": "CZSList",
+          "lineNumber": 102
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.GetMetricModel",
+          "lineNumber": 107
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.need_cal_step_by_step",
+          "lineNumber": 109
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "CKLine_List",
+          "lineNumber": 127
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "id",
+          "lineNumber": 128
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 134
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "id",
+          "lineNumber": 135
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "new_klu.set_pre_klu",
+          "lineNumber": 137
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "id",
+          "lineNumber": 137
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "klus_new.append",
+          "lineNumber": 138
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "CKLine",
+          "lineNumber": 141
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "new_klc.set_fx",
+          "lineNumber": 142
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "enumerate",
+          "lineNumber": 144
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "klu.set_klc",
+          "lineNumber": 145
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "new_klc.try_add",
+          "lineNumber": 147
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "id",
+          "lineNumber": 148
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "new_obj.lst[-1].set_next",
+          "lineNumber": 152
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "new_klc.set_pre",
+          "lineNumber": 153
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "new_obj.lst.append",
+          "lineNumber": 154
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 157
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 158
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 159
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 160
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 161
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 162
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 163
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 164
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 165
+        },
+        {
+          "caller": "__len__",
+          "callee": "len",
+          "lineNumber": 184
+        },
+        {
+          "caller": "cal_seg_and_zs",
+          "callee": "self.bi_list.try_add_virtual_bi",
+          "lineNumber": 206
+        },
+        {
+          "caller": "cal_seg_and_zs",
+          "callee": "cal_seg",
+          "lineNumber": 209
+        },
+        {
+          "caller": "cal_seg_and_zs",
+          "callee": "self.zs_list.cal_bi_zs",
+          "lineNumber": 210
+        },
+        {
+          "caller": "cal_seg_and_zs",
+          "callee": "update_zs_in_seg",
+          "lineNumber": 211
+        },
+        {
+          "caller": "cal_seg_and_zs",
+          "callee": "cal_seg",
+          "lineNumber": 214
+        },
+        {
+          "caller": "cal_seg_and_zs",
+          "callee": "self.segzs_list.cal_bi_zs",
+          "lineNumber": 215
+        },
+        {
+          "caller": "cal_seg_and_zs",
+          "callee": "update_zs_in_seg",
+          "lineNumber": 216
+        },
+        {
+          "caller": "cal_seg_and_zs",
+          "callee": "self.seg_bs_point_lst.cal",
+          "lineNumber": 219
+        },
+        {
+          "caller": "cal_seg_and_zs",
+          "callee": "self.bs_point_lst.cal",
+          "lineNumber": 220
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "klu.set_metric",
+          "lineNumber": 247
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "len",
+          "lineNumber": 249
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "self.lst.append",
+          "lineNumber": 251
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "CKLine",
+          "lineNumber": 251
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "self.lst[-1].try_add",
+          "lineNumber": 253
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "self.lst.append",
+          "lineNumber": 255
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "CKLine",
+          "lineNumber": 255
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "len",
+          "lineNumber": 255
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "len",
+          "lineNumber": 256
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "self.lst[-2].update_fx",
+          "lineNumber": 258
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "self.bi_list.update_bi",
+          "lineNumber": 260
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "self.cal_seg_and_zs",
+          "lineNumber": 261
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "self.bi_list.try_add_virtual_bi",
+          "lineNumber": 262
+        },
+        {
+          "caller": "add_single_klu",
+          "callee": "self.cal_seg_and_zs",
+          "lineNumber": 264
+        },
+        {
+          "caller": "cal_seg",
+          "callee": "seg_list.update",
+          "lineNumber": 304
+        },
+        {
+          "caller": "cal_seg",
+          "callee": "len",
+          "lineNumber": 306
+        },
+        {
+          "caller": "cal_seg",
+          "callee": "bi.set_seg_idx",
+          "lineNumber": 309
+        },
+        {
+          "caller": "cal_seg",
+          "callee": "len",
+          "lineNumber": 315
+        },
+        {
+          "caller": "cal_seg",
+          "callee": "bi.set_seg_idx",
+          "lineNumber": 322
+        },
+        {
+          "caller": "cal_seg",
+          "callee": "bi.set_seg_idx",
+          "lineNumber": 329
+        },
+        {
+          "caller": "update_zs_in_seg",
+          "callee": "len",
+          "lineNumber": 367
+        },
+        {
+          "caller": "update_zs_in_seg",
+          "callee": "seg.clear_zs_lst",
+          "lineNumber": 374
+        },
+        {
+          "caller": "update_zs_in_seg",
+          "callee": "len",
+          "lineNumber": 377
+        },
+        {
+          "caller": "update_zs_in_seg",
+          "callee": "seg.start_bi.get_begin_klu",
+          "lineNumber": 380
+        },
+        {
+          "caller": "update_zs_in_seg",
+          "callee": "zs.is_inside",
+          "lineNumber": 382
+        },
+        {
+          "caller": "update_zs_in_seg",
+          "callee": "seg.add_zs",
+          "lineNumber": 383
+        },
+        {
+          "caller": "update_zs_in_seg",
+          "callee": "zs.set_bi_in",
+          "lineNumber": 386
+        },
+        {
+          "caller": "update_zs_in_seg",
+          "callee": "len",
+          "lineNumber": 387
+        },
+        {
+          "caller": "update_zs_in_seg",
+          "callee": "zs.set_bi_out",
+          "lineNumber": 388
+        },
+        {
+          "caller": "update_zs_in_seg",
+          "callee": "zs.set_bi_lst",
+          "lineNumber": 389
+        },
+        {
+          "caller": "update_zs_in_seg",
+          "callee": "list",
+          "lineNumber": 389
+        }
+      ],
+      "metrics": {
+        "importCount": 12,
+        "exportCount": 4,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Plot/PlotMeta.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 340,
+      "nonEmptyLines": 273,
+      "classes": [
+        {
+          "name": "Cklc_meta",
+          "startLine": 27,
+          "endLine": 44,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CBi_meta",
+          "startLine": 47,
+          "endLine": 64,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CSeg_meta",
+          "startLine": 67,
+          "endLine": 129,
+          "methods": [
+            "__init__",
+            "format_tl"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CEigen_meta",
+          "startLine": 132,
+          "endLine": 147,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CEigenFX_meta",
+          "startLine": 150,
+          "endLine": 166,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CZS_meta",
+          "startLine": 169,
+          "endLine": 188,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CBS_Point_meta",
+          "startLine": 191,
+          "endLine": 225,
+          "methods": [
+            "__init__",
+            "desc"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CChanPlotMeta",
+          "startLine": 228,
+          "endLine": 340,
+          "methods": [
+            "__init__",
+            "klu_iter",
+            "sub_last_kseg_start_idx",
+            "sub_last_kbi_start_idx",
+            "sub_range_start_idx"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Cklc_meta",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "CBi_meta",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "CSeg_meta",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "CEigen_meta",
+          "line": 132,
+          "isDefault": false
+        },
+        {
+          "name": "CEigenFX_meta",
+          "line": 150,
+          "isDefault": false
+        },
+        {
+          "name": "CZS_meta",
+          "line": 169,
+          "isDefault": false
+        },
+        {
+          "name": "CBS_Point_meta",
+          "line": 191,
+          "isDefault": false
+        },
+        {
+          "name": "CChanPlotMeta",
+          "line": 228,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "list",
+          "lineNumber": 44
+        },
+        {
+          "caller": "__init__",
+          "callee": "bi.get_begin_klu",
+          "lineNumber": 60
+        },
+        {
+          "caller": "__init__",
+          "callee": "bi.get_end_klu",
+          "lineNumber": 61
+        },
+        {
+          "caller": "__init__",
+          "callee": "bi.get_begin_val",
+          "lineNumber": 62
+        },
+        {
+          "caller": "__init__",
+          "callee": "bi.get_end_val",
+          "lineNumber": 63
+        },
+        {
+          "caller": "__init__",
+          "callee": "isinstance",
+          "lineNumber": 83
+        },
+        {
+          "caller": "__init__",
+          "callee": "seg.start_bi.get_begin_klu",
+          "lineNumber": 84
+        },
+        {
+          "caller": "__init__",
+          "callee": "seg.start_bi.get_begin_val",
+          "lineNumber": 85
+        },
+        {
+          "caller": "__init__",
+          "callee": "seg.end_bi.get_end_klu",
+          "lineNumber": 86
+        },
+        {
+          "caller": "__init__",
+          "callee": "seg.end_bi.get_end_val",
+          "lineNumber": 87
+        },
+        {
+          "caller": "__init__",
+          "callee": "isinstance",
+          "lineNumber": 90
+        },
+        {
+          "caller": "__init__",
+          "callee": "seg.start_bi.start_bi.get_begin_klu",
+          "lineNumber": 91
+        },
+        {
+          "caller": "__init__",
+          "callee": "seg.start_bi.start_bi.get_begin_val",
+          "lineNumber": 92
+        },
+        {
+          "caller": "__init__",
+          "callee": "seg.end_bi.end_bi.get_end_klu",
+          "lineNumber": 93
+        },
+        {
+          "caller": "__init__",
+          "callee": "seg.end_bi.end_bi.get_end_val",
+          "lineNumber": 94
+        },
+        {
+          "caller": "__init__",
+          "callee": "eigen.lst[0].get_begin_klu",
+          "lineNumber": 142
+        },
+        {
+          "caller": "__init__",
+          "callee": "eigen.lst[-1].get_end_klu",
+          "lineNumber": 143
+        },
+        {
+          "caller": "__init__",
+          "callee": "CEigen_meta",
+          "lineNumber": 162
+        },
+        {
+          "caller": "__init__",
+          "callee": "len",
+          "lineNumber": 163
+        },
+        {
+          "caller": "__init__",
+          "callee": "CZS_meta",
+          "lineNumber": 187
+        },
+        {
+          "caller": "__init__",
+          "callee": "zs.is_one_bi_zs",
+          "lineNumber": 188
+        },
+        {
+          "caller": "__init__",
+          "callee": "bsp.type2str",
+          "lineNumber": 209
+        },
+        {
+          "caller": "__init__",
+          "callee": "Cklc_meta",
+          "lineNumber": 246
+        },
+        {
+          "caller": "__init__",
+          "callee": "klu.time.to_str",
+          "lineNumber": 248
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.klu_iter",
+          "lineNumber": 248
+        },
+        {
+          "caller": "__init__",
+          "callee": "sum",
+          "lineNumber": 250
+        },
+        {
+          "caller": "__init__",
+          "callee": "len",
+          "lineNumber": 250
+        },
+        {
+          "caller": "__init__",
+          "callee": "CBi_meta",
+          "lineNumber": 253
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.seg_list.append",
+          "lineNumber": 259
+        },
+        {
+          "caller": "__init__",
+          "callee": "CSeg_meta",
+          "lineNumber": 259
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.eigenfx_lst.append",
+          "lineNumber": 261
+        },
+        {
+          "caller": "__init__",
+          "callee": "CEigenFX_meta",
+          "lineNumber": 261
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.segseg_list.append",
+          "lineNumber": 267
+        },
+        {
+          "caller": "__init__",
+          "callee": "CSeg_meta",
+          "lineNumber": 267
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.seg_eigenfx_lst.append",
+          "lineNumber": 269
+        },
+        {
+          "caller": "__init__",
+          "callee": "CEigenFX_meta",
+          "lineNumber": 269
+        },
+        {
+          "caller": "__init__",
+          "callee": "CZS_meta",
+          "lineNumber": 272
+        },
+        {
+          "caller": "__init__",
+          "callee": "CZS_meta",
+          "lineNumber": 273
+        },
+        {
+          "caller": "__init__",
+          "callee": "CBS_Point_meta",
+          "lineNumber": 276
+        },
+        {
+          "caller": "__init__",
+          "callee": "kl_list.bs_point_lst.bsp_iter",
+          "lineNumber": 276
+        },
+        {
+          "caller": "__init__",
+          "callee": "CBS_Point_meta",
+          "lineNumber": 277
+        },
+        {
+          "caller": "__init__",
+          "callee": "kl_list.seg_bs_point_lst.bsp_iter",
+          "lineNumber": 277
+        },
+        {
+          "caller": "sub_last_kseg_start_idx",
+          "callee": "len",
+          "lineNumber": 302
+        },
+        {
+          "caller": "sub_last_kseg_start_idx",
+          "callee": "self.data.seg_list[-seg_cnt].get_begin_klu",
+          "lineNumber": 305
+        },
+        {
+          "caller": "sub_last_kbi_start_idx",
+          "callee": "len",
+          "lineNumber": 317
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 8,
+        "functionCount": 0,
+        "classCount": 8
+      }
+    },
+    {
+      "path": "Seg/Eigen.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 90,
+      "nonEmptyLines": 73,
+      "classes": [
+        {
+          "name": "CEigen",
+          "startLine": 20,
+          "endLine": 90,
+          "methods": [
+            "__init__",
+            "update_fx",
+            "__str__",
+            "GetPeakBiIdx"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CEigen",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super(CEigen, self).__init__",
+          "lineNumber": 48
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 48
+        },
+        {
+          "caller": "update_fx",
+          "callee": "super(CEigen, self).update_fx",
+          "lineNumber": 63
+        },
+        {
+          "caller": "update_fx",
+          "callee": "super",
+          "lineNumber": 63
+        },
+        {
+          "caller": "GetPeakBiIdx",
+          "callee": "self.get_peak_klu",
+          "lineNumber": 88
+        },
+        {
+          "caller": "GetPeakBiIdx",
+          "callee": "self.get_peak_klu",
+          "lineNumber": 90
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Seg/EigenFX.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 430,
+      "nonEmptyLines": 363,
+      "classes": [
+        {
+          "name": "CEigenFX",
+          "startLine": 47,
+          "endLine": 430,
+          "methods": [
+            "__init__",
+            "treat_first_ele",
+            "treat_second_ele",
+            "treat_third_ele",
+            "add",
+            "reset",
+            "can_be_end",
+            "is_down",
+            "is_up",
+            "GetPeakBiIdx",
+            "all_bi_is_sure",
+            "clear",
+            "__str__",
+            "actual_break",
+            "find_revert_fx"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CEigenFX",
+          "line": 47,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "treat_first_ele",
+          "callee": "CEigen",
+          "lineNumber": 101
+        },
+        {
+          "caller": "treat_second_ele",
+          "callee": "self.ele[0].try_add",
+          "lineNumber": 123
+        },
+        {
+          "caller": "treat_second_ele",
+          "callee": "CEigen",
+          "lineNumber": 125
+        },
+        {
+          "caller": "treat_second_ele",
+          "callee": "self.is_up",
+          "lineNumber": 126
+        },
+        {
+          "caller": "treat_second_ele",
+          "callee": "self.is_down",
+          "lineNumber": 127
+        },
+        {
+          "caller": "treat_second_ele",
+          "callee": "self.reset",
+          "lineNumber": 128
+        },
+        {
+          "caller": "treat_third_ele",
+          "callee": "bi.is_down",
+          "lineNumber": 159
+        },
+        {
+          "caller": "treat_third_ele",
+          "callee": "self.ele[1].try_add",
+          "lineNumber": 160
+        },
+        {
+          "caller": "treat_third_ele",
+          "callee": "CEigen",
+          "lineNumber": 163
+        },
+        {
+          "caller": "treat_third_ele",
+          "callee": "self.actual_break",
+          "lineNumber": 164
+        },
+        {
+          "caller": "treat_third_ele",
+          "callee": "self.reset",
+          "lineNumber": 165
+        },
+        {
+          "caller": "treat_third_ele",
+          "callee": "self.ele[1].update_fx",
+          "lineNumber": 167
+        },
+        {
+          "caller": "treat_third_ele",
+          "callee": "self.is_up",
+          "lineNumber": 169
+        },
+        {
+          "caller": "treat_third_ele",
+          "callee": "self.is_down",
+          "lineNumber": 169
+        },
+        {
+          "caller": "treat_third_ele",
+          "callee": "self.reset",
+          "lineNumber": 170
+        },
+        {
+          "caller": "add",
+          "callee": "self.lst.append",
+          "lineNumber": 189
+        },
+        {
+          "caller": "add",
+          "callee": "self.treat_first_ele",
+          "lineNumber": 191
+        },
+        {
+          "caller": "add",
+          "callee": "self.treat_second_ele",
+          "lineNumber": 193
+        },
+        {
+          "caller": "add",
+          "callee": "self.treat_third_ele",
+          "lineNumber": 195
+        },
+        {
+          "caller": "add",
+          "callee": "CChanException",
+          "lineNumber": 197
+        },
+        {
+          "caller": "add",
+          "callee": "str",
+          "lineNumber": 197
+        },
+        {
+          "caller": "reset",
+          "callee": "list",
+          "lineNumber": 217
+        },
+        {
+          "caller": "reset",
+          "callee": "self.clear",
+          "lineNumber": 220
+        },
+        {
+          "caller": "reset",
+          "callee": "self.add",
+          "lineNumber": 222
+        },
+        {
+          "caller": "can_be_end",
+          "callee": "self.GetPeakBiIdx",
+          "lineNumber": 264
+        },
+        {
+          "caller": "can_be_end",
+          "callee": "bi_lst[end_bi_idx].get_end_val",
+          "lineNumber": 265
+        },
+        {
+          "caller": "can_be_end",
+          "callee": "self.is_up",
+          "lineNumber": 266
+        },
+        {
+          "caller": "can_be_end",
+          "callee": "self.find_revert_fx",
+          "lineNumber": 267
+        },
+        {
+          "caller": "GetPeakBiIdx",
+          "callee": "self.ele[1].GetPeakBiIdx",
+          "lineNumber": 283
+        },
+        {
+          "caller": "all_bi_is_sure",
+          "callee": "next",
+          "lineNumber": 293
+        },
+        {
+          "caller": "__str__",
+          "callee": "','.join",
+          "lineNumber": 302
+        },
+        {
+          "caller": "__str__",
+          "callee": "str",
+          "lineNumber": 302
+        },
+        {
+          "caller": "__str__",
+          "callee": "\" | \".join",
+          "lineNumber": 303
+        },
+        {
+          "caller": "actual_break",
+          "callee": "self.is_up",
+          "lineNumber": 334
+        },
+        {
+          "caller": "actual_break",
+          "callee": "self.ele[1][-1]._low",
+          "lineNumber": 334
+        },
+        {
+          "caller": "actual_break",
+          "callee": "self.is_down",
+          "lineNumber": 335
+        },
+        {
+          "caller": "actual_break",
+          "callee": "self.ele[1][-1]._high",
+          "lineNumber": 335
+        },
+        {
+          "caller": "actual_break",
+          "callee": "len",
+          "lineNumber": 339
+        },
+        {
+          "caller": "actual_break",
+          "callee": "ele2_bi.is_down",
+          "lineNumber": 343
+        },
+        {
+          "caller": "actual_break",
+          "callee": "ele2_bi.next.next._low",
+          "lineNumber": 344
+        },
+        {
+          "caller": "actual_break",
+          "callee": "ele2_bi._low",
+          "lineNumber": 344
+        },
+        {
+          "caller": "actual_break",
+          "callee": "ele2_bi.is_up",
+          "lineNumber": 353
+        },
+        {
+          "caller": "actual_break",
+          "callee": "ele2_bi.next.next._high",
+          "lineNumber": 354
+        },
+        {
+          "caller": "actual_break",
+          "callee": "ele2_bi._high",
+          "lineNumber": 354
+        },
+        {
+          "caller": "actual_break",
+          "callee": "self.is_up",
+          "lineNumber": 364
+        },
+        {
+          "caller": "actual_break",
+          "callee": "ele2_bi.next._high",
+          "lineNumber": 364
+        },
+        {
+          "caller": "actual_break",
+          "callee": "self.is_down",
+          "lineNumber": 366
+        },
+        {
+          "caller": "actual_break",
+          "callee": "ele2_bi.next._low",
+          "lineNumber": 366
+        },
+        {
+          "caller": "find_revert_fx",
+          "callee": "CEigenFX",
+          "lineNumber": 409
+        },
+        {
+          "caller": "find_revert_fx",
+          "callee": "revert_bi_dir",
+          "lineNumber": 409
+        },
+        {
+          "caller": "find_revert_fx",
+          "callee": "egien_fx.add",
+          "lineNumber": 413
+        },
+        {
+          "caller": "find_revert_fx",
+          "callee": "egien_fx.can_be_end",
+          "lineNumber": 418
+        },
+        {
+          "caller": "find_revert_fx",
+          "callee": "egien_fx.reset",
+          "lineNumber": 427
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Seg/Seg.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 298,
+      "nonEmptyLines": 247,
+      "classes": [
+        {
+          "name": "CSeg",
+          "startLine": 28,
+          "endLine": 298,
+          "methods": [
+            "__init__",
+            "set_seg_idx",
+            "check",
+            "__str__",
+            "add_zs",
+            "cal_klu_slope",
+            "cal_amp",
+            "cal_bi_cnt",
+            "clear_zs_lst",
+            "_low",
+            "_high",
+            "is_down",
+            "is_up",
+            "get_end_val",
+            "get_begin_val",
+            "is_used_to_be_sure",
+            "amp",
+            "get_end_klu",
+            "get_begin_klu",
+            "get_klu_cnt",
+            "cal_macd_metric",
+            "Cal_MACD_slope",
+            "Cal_MACD_amp",
+            "update_bi_list",
+            "get_first_multi_bi_zs",
+            "get_multi_bi_zs_lst",
+            "get_final_multi_bi_zs",
+            "get_multi_bi_zs_cnt"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CSeg",
+          "line": 28,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "self.check",
+          "lineNumber": 95
+        },
+        {
+          "caller": "check",
+          "callee": "self.is_down",
+          "lineNumber": 113
+        },
+        {
+          "caller": "check",
+          "callee": "self.start_bi.get_begin_val",
+          "lineNumber": 114
+        },
+        {
+          "caller": "check",
+          "callee": "self.end_bi.get_end_val",
+          "lineNumber": 114
+        },
+        {
+          "caller": "check",
+          "callee": "CChanException",
+          "lineNumber": 115
+        },
+        {
+          "caller": "check",
+          "callee": "self.start_bi.get_begin_val",
+          "lineNumber": 116
+        },
+        {
+          "caller": "check",
+          "callee": "self.end_bi.get_end_val",
+          "lineNumber": 116
+        },
+        {
+          "caller": "check",
+          "callee": "CChanException",
+          "lineNumber": 117
+        },
+        {
+          "caller": "check",
+          "callee": "CChanException",
+          "lineNumber": 119
+        },
+        {
+          "caller": "cal_klu_slope",
+          "callee": "self.get_end_val",
+          "lineNumber": 136
+        },
+        {
+          "caller": "cal_klu_slope",
+          "callee": "self.get_begin_val",
+          "lineNumber": 136
+        },
+        {
+          "caller": "cal_klu_slope",
+          "callee": "self.get_end_klu",
+          "lineNumber": 136
+        },
+        {
+          "caller": "cal_klu_slope",
+          "callee": "self.get_begin_klu",
+          "lineNumber": 136
+        },
+        {
+          "caller": "cal_klu_slope",
+          "callee": "self.get_begin_val",
+          "lineNumber": 136
+        },
+        {
+          "caller": "cal_amp",
+          "callee": "self.get_end_val",
+          "lineNumber": 143
+        },
+        {
+          "caller": "cal_amp",
+          "callee": "self.get_begin_val",
+          "lineNumber": 143
+        },
+        {
+          "caller": "cal_amp",
+          "callee": "self.get_begin_val",
+          "lineNumber": 143
+        },
+        {
+          "caller": "_low",
+          "callee": "self.end_bi.get_end_klu",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_low",
+          "callee": "self.is_down",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_low",
+          "callee": "self.start_bi.get_begin_klu",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_high",
+          "callee": "self.end_bi.get_end_klu",
+          "lineNumber": 167
+        },
+        {
+          "caller": "_high",
+          "callee": "self.is_up",
+          "lineNumber": 167
+        },
+        {
+          "caller": "_high",
+          "callee": "self.start_bi.get_begin_klu",
+          "lineNumber": 167
+        },
+        {
+          "caller": "get_end_val",
+          "callee": "self.end_bi.get_end_val",
+          "lineNumber": 176
+        },
+        {
+          "caller": "get_begin_val",
+          "callee": "self.start_bi.get_begin_val",
+          "lineNumber": 179
+        },
+        {
+          "caller": "amp",
+          "callee": "abs",
+          "lineNumber": 188
+        },
+        {
+          "caller": "amp",
+          "callee": "self.get_end_val",
+          "lineNumber": 188
+        },
+        {
+          "caller": "amp",
+          "callee": "self.get_begin_val",
+          "lineNumber": 188
+        },
+        {
+          "caller": "get_end_klu",
+          "callee": "self.end_bi.get_end_klu",
+          "lineNumber": 192
+        },
+        {
+          "caller": "get_begin_klu",
+          "callee": "self.start_bi.get_begin_klu",
+          "lineNumber": 196
+        },
+        {
+          "caller": "get_klu_cnt",
+          "callee": "self.get_end_klu",
+          "lineNumber": 200
+        },
+        {
+          "caller": "get_klu_cnt",
+          "callee": "self.get_begin_klu",
+          "lineNumber": 200
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_slope",
+          "lineNumber": 208
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "self.Cal_MACD_amp",
+          "lineNumber": 210
+        },
+        {
+          "caller": "cal_macd_metric",
+          "callee": "CChanException",
+          "lineNumber": 212
+        },
+        {
+          "caller": "Cal_MACD_slope",
+          "callee": "self.get_begin_klu",
+          "lineNumber": 220
+        },
+        {
+          "caller": "Cal_MACD_slope",
+          "callee": "self.get_end_klu",
+          "lineNumber": 221
+        },
+        {
+          "caller": "Cal_MACD_slope",
+          "callee": "self.is_up",
+          "lineNumber": 222
+        },
+        {
+          "caller": "Cal_MACD_amp",
+          "callee": "self.get_begin_klu",
+          "lineNumber": 233
+        },
+        {
+          "caller": "Cal_MACD_amp",
+          "callee": "self.get_end_klu",
+          "lineNumber": 234
+        },
+        {
+          "caller": "Cal_MACD_amp",
+          "callee": "self.is_down",
+          "lineNumber": 235
+        },
+        {
+          "caller": "update_bi_list",
+          "callee": "range",
+          "lineNumber": 251
+        },
+        {
+          "caller": "update_bi_list",
+          "callee": "self.bi_list.append",
+          "lineNumber": 253
+        },
+        {
+          "caller": "update_bi_list",
+          "callee": "len",
+          "lineNumber": 254
+        },
+        {
+          "caller": "update_bi_list",
+          "callee": "CTrendLine",
+          "lineNumber": 255
+        },
+        {
+          "caller": "update_bi_list",
+          "callee": "CTrendLine",
+          "lineNumber": 256
+        },
+        {
+          "caller": "get_first_multi_bi_zs",
+          "callee": "next",
+          "lineNumber": 265
+        },
+        {
+          "caller": "get_first_multi_bi_zs",
+          "callee": "zs.is_one_bi_zs",
+          "lineNumber": 265
+        },
+        {
+          "caller": "get_multi_bi_zs_lst",
+          "callee": "zs.is_one_bi_zs",
+          "lineNumber": 274
+        },
+        {
+          "caller": "get_final_multi_bi_zs",
+          "callee": "len",
+          "lineNumber": 282
+        },
+        {
+          "caller": "get_final_multi_bi_zs",
+          "callee": "zs.is_one_bi_zs",
+          "lineNumber": 285
+        },
+        {
+          "caller": "get_multi_bi_zs_cnt",
+          "callee": "sum",
+          "lineNumber": 298
+        },
+        {
+          "caller": "get_multi_bi_zs_cnt",
+          "callee": "zs.is_one_bi_zs",
+          "lineNumber": 298
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "ZS/ZS.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 413,
+      "nonEmptyLines": 332,
+      "classes": [
+        {
+          "name": "CZS",
+          "startLine": 24,
+          "endLine": 413,
+          "methods": [
+            "__init__",
+            "clean_cache",
+            "is_sure",
+            "sub_zs_lst",
+            "begin",
+            "begin_bi",
+            "low",
+            "high",
+            "mid",
+            "end",
+            "end_bi",
+            "peak_high",
+            "peak_low",
+            "bi_in",
+            "bi_out",
+            "bi_lst",
+            "update_zs_range",
+            "is_one_bi_zs",
+            "update_zs_end",
+            "__str__",
+            "combine",
+            "do_combine",
+            "try_add_to_end",
+            "in_range",
+            "is_inside",
+            "is_divergence",
+            "init_from_zs",
+            "make_copy",
+            "end_bi_break",
+            "out_bi_is_peak",
+            "get_bi_in",
+            "get_bi_out",
+            "set_bi_in",
+            "set_bi_out",
+            "set_bi_lst"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CZS",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "lst[0].get_begin_klu",
+          "lineNumber": 68
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.update_zs_range",
+          "lineNumber": 71
+        },
+        {
+          "caller": "__init__",
+          "callee": "float",
+          "lineNumber": 73
+        },
+        {
+          "caller": "__init__",
+          "callee": "float",
+          "lineNumber": 74
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.update_zs_end",
+          "lineNumber": 76
+        },
+        {
+          "caller": "update_zs_range",
+          "callee": "max",
+          "lineNumber": 140
+        },
+        {
+          "caller": "update_zs_range",
+          "callee": "bi._low",
+          "lineNumber": 140
+        },
+        {
+          "caller": "update_zs_range",
+          "callee": "min",
+          "lineNumber": 141
+        },
+        {
+          "caller": "update_zs_range",
+          "callee": "bi._high",
+          "lineNumber": 141
+        },
+        {
+          "caller": "update_zs_range",
+          "callee": "self.clean_cache",
+          "lineNumber": 143
+        },
+        {
+          "caller": "update_zs_end",
+          "callee": "item.get_end_klu",
+          "lineNumber": 167
+        },
+        {
+          "caller": "update_zs_end",
+          "callee": "item._low",
+          "lineNumber": 169
+        },
+        {
+          "caller": "update_zs_end",
+          "callee": "item._low",
+          "lineNumber": 170
+        },
+        {
+          "caller": "update_zs_end",
+          "callee": "item._high",
+          "lineNumber": 171
+        },
+        {
+          "caller": "update_zs_end",
+          "callee": "item._high",
+          "lineNumber": 172
+        },
+        {
+          "caller": "update_zs_end",
+          "callee": "self.clean_cache",
+          "lineNumber": 173
+        },
+        {
+          "caller": "__str__",
+          "callee": "\",\".join",
+          "lineNumber": 178
+        },
+        {
+          "caller": "__str__",
+          "callee": "str",
+          "lineNumber": 178
+        },
+        {
+          "caller": "combine",
+          "callee": "zs2.is_one_bi_zs",
+          "lineNumber": 207
+        },
+        {
+          "caller": "combine",
+          "callee": "has_overlap",
+          "lineNumber": 212
+        },
+        {
+          "caller": "combine",
+          "callee": "self.do_combine",
+          "lineNumber": 214
+        },
+        {
+          "caller": "combine",
+          "callee": "has_overlap",
+          "lineNumber": 217
+        },
+        {
+          "caller": "combine",
+          "callee": "self.do_combine",
+          "lineNumber": 218
+        },
+        {
+          "caller": "combine",
+          "callee": "CChanException",
+          "lineNumber": 223
+        },
+        {
+          "caller": "do_combine",
+          "callee": "len",
+          "lineNumber": 235
+        },
+        {
+          "caller": "do_combine",
+          "callee": "self.__sub_zs_lst.append",
+          "lineNumber": 236
+        },
+        {
+          "caller": "do_combine",
+          "callee": "self.make_copy",
+          "lineNumber": 236
+        },
+        {
+          "caller": "do_combine",
+          "callee": "self.__sub_zs_lst.append",
+          "lineNumber": 237
+        },
+        {
+          "caller": "do_combine",
+          "callee": "min",
+          "lineNumber": 239
+        },
+        {
+          "caller": "do_combine",
+          "callee": "max",
+          "lineNumber": 240
+        },
+        {
+          "caller": "do_combine",
+          "callee": "min",
+          "lineNumber": 241
+        },
+        {
+          "caller": "do_combine",
+          "callee": "max",
+          "lineNumber": 242
+        },
+        {
+          "caller": "do_combine",
+          "callee": "self.clean_cache",
+          "lineNumber": 246
+        },
+        {
+          "caller": "try_add_to_end",
+          "callee": "self.in_range",
+          "lineNumber": 261
+        },
+        {
+          "caller": "try_add_to_end",
+          "callee": "self.is_one_bi_zs",
+          "lineNumber": 263
+        },
+        {
+          "caller": "try_add_to_end",
+          "callee": "self.update_zs_range",
+          "lineNumber": 264
+        },
+        {
+          "caller": "try_add_to_end",
+          "callee": "self.update_zs_end",
+          "lineNumber": 265
+        },
+        {
+          "caller": "in_range",
+          "callee": "has_overlap",
+          "lineNumber": 274
+        },
+        {
+          "caller": "in_range",
+          "callee": "item._low",
+          "lineNumber": 274
+        },
+        {
+          "caller": "in_range",
+          "callee": "item._high",
+          "lineNumber": 274
+        },
+        {
+          "caller": "is_divergence",
+          "callee": "self.end_bi_break",
+          "lineNumber": 307
+        },
+        {
+          "caller": "is_divergence",
+          "callee": "self.get_bi_in().cal_macd_metric",
+          "lineNumber": 309
+        },
+        {
+          "caller": "is_divergence",
+          "callee": "self.get_bi_in",
+          "lineNumber": 309
+        },
+        {
+          "caller": "is_divergence",
+          "callee": "self.get_bi_out().cal_macd_metric",
+          "lineNumber": 311
+        },
+        {
+          "caller": "is_divergence",
+          "callee": "self.get_bi_out",
+          "lineNumber": 311
+        },
+        {
+          "caller": "is_divergence",
+          "callee": "out_bi.cal_macd_metric",
+          "lineNumber": 313
+        },
+        {
+          "caller": "make_copy",
+          "callee": "CZS",
+          "lineNumber": 342
+        },
+        {
+          "caller": "make_copy",
+          "callee": "copy.init_from_zs",
+          "lineNumber": 343
+        },
+        {
+          "caller": "end_bi_break",
+          "callee": "self.get_bi_out",
+          "lineNumber": 361
+        },
+        {
+          "caller": "end_bi_break",
+          "callee": "end_bi.is_down",
+          "lineNumber": 363
+        },
+        {
+          "caller": "end_bi_break",
+          "callee": "end_bi._low",
+          "lineNumber": 363
+        },
+        {
+          "caller": "end_bi_break",
+          "callee": "end_bi.is_up",
+          "lineNumber": 364
+        },
+        {
+          "caller": "end_bi_break",
+          "callee": "end_bi._high",
+          "lineNumber": 364
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "len",
+          "lineNumber": 380
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "float",
+          "lineNumber": 383
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "self.bi_out.is_down",
+          "lineNumber": 387
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "bi._low",
+          "lineNumber": 387
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "self.bi_out._low",
+          "lineNumber": 387
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "self.bi_out.is_up",
+          "lineNumber": 388
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "bi._high",
+          "lineNumber": 388
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "self.bi_out._high",
+          "lineNumber": 388
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "abs",
+          "lineNumber": 390
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "bi.get_end_val",
+          "lineNumber": 390
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "self.bi_out.get_end_val",
+          "lineNumber": 390
+        },
+        {
+          "caller": "out_bi_is_peak",
+          "callee": "self.bi_out.get_end_val",
+          "lineNumber": 390
+        },
+        {
+          "caller": "set_bi_in",
+          "callee": "self.clean_cache",
+          "lineNumber": 405
+        },
+        {
+          "caller": "set_bi_out",
+          "callee": "self.clean_cache",
+          "lineNumber": 409
+        },
+        {
+          "caller": "set_bi_lst",
+          "callee": "self.clean_cache",
+          "lineNumber": 413
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "ZS/ZSList.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 294,
+      "nonEmptyLines": 246,
+      "classes": [
+        {
+          "name": "CZSList",
+          "startLine": 23,
+          "endLine": 294,
+          "methods": [
+            "__init__",
+            "update_last_pos",
+            "seg_need_cal",
+            "add_to_free_lst",
+            "clear_free_lst",
+            "update",
+            "try_add_to_end",
+            "add_zs_from_bi_range",
+            "try_construct_zs",
+            "cal_bi_zs",
+            "update_overseg_zs",
+            "__iter__",
+            "__len__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "try_combine"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CZSList",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "CZSConfig",
+          "lineNumber": 40
+        },
+        {
+          "caller": "update_last_pos",
+          "callee": "len",
+          "lineNumber": 56
+        },
+        {
+          "caller": "add_to_free_lst",
+          "callee": "len",
+          "lineNumber": 83
+        },
+        {
+          "caller": "add_to_free_lst",
+          "callee": "self.free_item_lst.append",
+          "lineNumber": 86
+        },
+        {
+          "caller": "add_to_free_lst",
+          "callee": "self.try_construct_zs",
+          "lineNumber": 87
+        },
+        {
+          "caller": "add_to_free_lst",
+          "callee": "self.zs_lst.append",
+          "lineNumber": 89
+        },
+        {
+          "caller": "add_to_free_lst",
+          "callee": "self.clear_free_lst",
+          "lineNumber": 90
+        },
+        {
+          "caller": "add_to_free_lst",
+          "callee": "self.try_combine",
+          "lineNumber": 91
+        },
+        {
+          "caller": "update",
+          "callee": "len",
+          "lineNumber": 109
+        },
+        {
+          "caller": "update",
+          "callee": "self.try_add_to_end",
+          "lineNumber": 109
+        },
+        {
+          "caller": "update",
+          "callee": "self.try_combine",
+          "lineNumber": 110
+        },
+        {
+          "caller": "update",
+          "callee": "self.add_to_free_lst",
+          "lineNumber": 112
+        },
+        {
+          "caller": "try_add_to_end",
+          "callee": "len",
+          "lineNumber": 121
+        },
+        {
+          "caller": "try_add_to_end",
+          "callee": "self[-1].try_add_to_end",
+          "lineNumber": 121
+        },
+        {
+          "caller": "add_zs_from_bi_range",
+          "callee": "self.add_to_free_lst",
+          "lineNumber": 142
+        },
+        {
+          "caller": "add_zs_from_bi_range",
+          "callee": "self.update",
+          "lineNumber": 145
+        },
+        {
+          "caller": "try_construct_zs",
+          "callee": "len",
+          "lineNumber": 168
+        },
+        {
+          "caller": "try_construct_zs",
+          "callee": "len",
+          "lineNumber": 173
+        },
+        {
+          "caller": "try_construct_zs",
+          "callee": "min",
+          "lineNumber": 179
+        },
+        {
+          "caller": "try_construct_zs",
+          "callee": "item._high",
+          "lineNumber": 179
+        },
+        {
+          "caller": "try_construct_zs",
+          "callee": "max",
+          "lineNumber": 180
+        },
+        {
+          "caller": "try_construct_zs",
+          "callee": "item._low",
+          "lineNumber": 180
+        },
+        {
+          "caller": "try_construct_zs",
+          "callee": "CZS",
+          "lineNumber": 181
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.zs_lst.pop",
+          "lineNumber": 198
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.seg_need_cal",
+          "lineNumber": 203
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.clear_free_lst",
+          "lineNumber": 205
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.add_zs_from_bi_range",
+          "lineNumber": 207
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "len",
+          "lineNumber": 210
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.clear_free_lst",
+          "lineNumber": 211
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.add_zs_from_bi_range",
+          "lineNumber": 212
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "revert_bi_dir",
+          "lineNumber": 212
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.clear_free_lst",
+          "lineNumber": 217
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.update_overseg_zs",
+          "lineNumber": 220
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "seg_lst.exist_sure_seg",
+          "lineNumber": 225
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.seg_need_cal",
+          "lineNumber": 229
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.clear_free_lst",
+          "lineNumber": 232
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.add_zs_from_bi_range",
+          "lineNumber": 233
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.clear_free_lst",
+          "lineNumber": 236
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.update_overseg_zs",
+          "lineNumber": 238
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "Exception",
+          "lineNumber": 241
+        },
+        {
+          "caller": "cal_bi_zs",
+          "callee": "self.update_last_pos",
+          "lineNumber": 243
+        },
+        {
+          "caller": "update_overseg_zs",
+          "callee": "len",
+          "lineNumber": 255
+        },
+        {
+          "caller": "update_overseg_zs",
+          "callee": "len",
+          "lineNumber": 255
+        },
+        {
+          "caller": "update_overseg_zs",
+          "callee": "self.zs_lst[-1].in_range",
+          "lineNumber": 258
+        },
+        {
+          "caller": "update_overseg_zs",
+          "callee": "self.zs_lst[-1].try_add_to_end",
+          "lineNumber": 258
+        },
+        {
+          "caller": "update_overseg_zs",
+          "callee": "len",
+          "lineNumber": 260
+        },
+        {
+          "caller": "update_overseg_zs",
+          "callee": "len",
+          "lineNumber": 260
+        },
+        {
+          "caller": "update_overseg_zs",
+          "callee": "self.zs_lst[-1].in_range",
+          "lineNumber": 260
+        },
+        {
+          "caller": "update_overseg_zs",
+          "callee": "self.add_to_free_lst",
+          "lineNumber": 262
+        },
+        {
+          "caller": "__len__",
+          "callee": "len",
+          "lineNumber": 268
+        },
+        {
+          "caller": "try_combine",
+          "callee": "len",
+          "lineNumber": 293
+        },
+        {
+          "caller": "try_combine",
+          "callee": "self.zs_lst[-2].combine",
+          "lineNumber": 293
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

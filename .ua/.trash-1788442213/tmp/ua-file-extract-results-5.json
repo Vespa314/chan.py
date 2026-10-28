@@ -1,0 +1,449 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "Bi/BiConfig.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 66,
+      "nonEmptyLines": 57,
+      "classes": [
+        {
+          "name": "CBiConfig",
+          "startLine": 16,
+          "endLine": 66,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CBiConfig",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "CChanException",
+          "lineNumber": 62
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Combiner/Combine_Item.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 53,
+      "classes": [
+        {
+          "name": "CCombine_Item",
+          "startLine": 14,
+          "endLine": 60,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CCombine_Item",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "isinstance",
+          "lineNumber": 41
+        },
+        {
+          "caller": "__init__",
+          "callee": "item._high",
+          "lineNumber": 45
+        },
+        {
+          "caller": "__init__",
+          "callee": "item._low",
+          "lineNumber": 46
+        },
+        {
+          "caller": "__init__",
+          "callee": "isinstance",
+          "lineNumber": 47
+        },
+        {
+          "caller": "__init__",
+          "callee": "isinstance",
+          "lineNumber": 53
+        },
+        {
+          "caller": "__init__",
+          "callee": "item._high",
+          "lineNumber": 57
+        },
+        {
+          "caller": "__init__",
+          "callee": "item._low",
+          "lineNumber": 58
+        },
+        {
+          "caller": "__init__",
+          "callee": "CChanException",
+          "lineNumber": 60
+        },
+        {
+          "caller": "__init__",
+          "callee": "type",
+          "lineNumber": 60
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Combiner/KLine_Combiner.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 334,
+      "nonEmptyLines": 273,
+      "classes": [
+        {
+          "name": "CKLine_Combiner",
+          "startLine": 32,
+          "endLine": 334,
+          "methods": [
+            "__init__",
+            "clean_cache",
+            "time_begin",
+            "time_end",
+            "high",
+            "low",
+            "lst",
+            "dir",
+            "fx",
+            "pre",
+            "next",
+            "get_next",
+            "test_combine",
+            "set_fx",
+            "try_add",
+            "get_peak_klu",
+            "get_high_peak_klu",
+            "get_low_peak_klu",
+            "update_fx",
+            "__str__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "__len__",
+            "__iter__",
+            "set_pre",
+            "set_next"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CKLine_Combiner",
+          "line": 32,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "CCombine_Item",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_combine",
+          "callee": "CChanException",
+          "lineNumber": 164
+        },
+        {
+          "caller": "try_add",
+          "callee": "CCombine_Item",
+          "lineNumber": 191
+        },
+        {
+          "caller": "try_add",
+          "callee": "self.test_combine",
+          "lineNumber": 192
+        },
+        {
+          "caller": "try_add",
+          "callee": "self.__lst.append",
+          "lineNumber": 196
+        },
+        {
+          "caller": "try_add",
+          "callee": "isinstance",
+          "lineNumber": 197
+        },
+        {
+          "caller": "try_add",
+          "callee": "unit_kl.set_klc",
+          "lineNumber": 198
+        },
+        {
+          "caller": "try_add",
+          "callee": "max",
+          "lineNumber": 204
+        },
+        {
+          "caller": "try_add",
+          "callee": "max",
+          "lineNumber": 205
+        },
+        {
+          "caller": "try_add",
+          "callee": "min",
+          "lineNumber": 209
+        },
+        {
+          "caller": "try_add",
+          "callee": "min",
+          "lineNumber": 210
+        },
+        {
+          "caller": "try_add",
+          "callee": "CChanException",
+          "lineNumber": 212
+        },
+        {
+          "caller": "try_add",
+          "callee": "self.clean_cache",
+          "lineNumber": 215
+        },
+        {
+          "caller": "get_peak_klu",
+          "callee": "self.get_high_peak_klu",
+          "lineNumber": 227
+        },
+        {
+          "caller": "get_peak_klu",
+          "callee": "self.get_low_peak_klu",
+          "lineNumber": 227
+        },
+        {
+          "caller": "get_high_peak_klu",
+          "callee": "CCombine_Item",
+          "lineNumber": 237
+        },
+        {
+          "caller": "get_high_peak_klu",
+          "callee": "CChanException",
+          "lineNumber": 239
+        },
+        {
+          "caller": "get_low_peak_klu",
+          "callee": "CCombine_Item",
+          "lineNumber": 248
+        },
+        {
+          "caller": "get_low_peak_klu",
+          "callee": "CChanException",
+          "lineNumber": 250
+        },
+        {
+          "caller": "update_fx",
+          "callee": "self.set_next",
+          "lineNumber": 273
+        },
+        {
+          "caller": "update_fx",
+          "callee": "self.set_pre",
+          "lineNumber": 274
+        },
+        {
+          "caller": "update_fx",
+          "callee": "_next.set_pre",
+          "lineNumber": 275
+        },
+        {
+          "caller": "update_fx",
+          "callee": "self.clean_cache",
+          "lineNumber": 292
+        },
+        {
+          "caller": "__len__",
+          "callee": "len",
+          "lineNumber": 319
+        },
+        {
+          "caller": "set_pre",
+          "callee": "self.clean_cache",
+          "lineNumber": 329
+        },
+        {
+          "caller": "set_next",
+          "callee": "self.clean_cache",
+          "lineNumber": 334
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Common/ChanException.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 136,
+      "nonEmptyLines": 120,
+      "classes": [
+        {
+          "name": "ErrCode",
+          "startLine": 15,
+          "endLine": 81,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "CChanException",
+          "startLine": 84,
+          "endLine": 113,
+          "methods": [
+            "__init__",
+            "is_kldata_err",
+            "is_chan_err"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ErrCode",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "CChanException",
+          "line": 84,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "Exception.__init__",
+          "lineNumber": 100
+        },
+        {
+          "caller": "foo",
+          "callee": "CChanException",
+          "lineNumber": 124
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "Common/cache.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 94,
+      "nonEmptyLines": 79,
+      "classes": [
+        {
+          "name": "make_cache",
+          "startLine": 21,
+          "endLine": 94,
+          "methods": [
+            "__init__",
+            "__get__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "make_cache",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "inspect.getfullargspec",
+          "lineNumber": 44
+        },
+        {
+          "caller": "__init__",
+          "callee": "len",
+          "lineNumber": 45
+        },
+        {
+          "caller": "__init__",
+          "callee": "Exception",
+          "lineNumber": 46
+        },
+        {
+          "caller": "__init__",
+          "callee": "str",
+          "lineNumber": 50
+        },
+        {
+          "caller": "__get__",
+          "callee": "Exception",
+          "lineNumber": 63
+        },
+        {
+          "caller": "__get__",
+          "callee": "hasattr",
+          "lineNumber": 67
+        },
+        {
+          "caller": "__get__",
+          "callee": "setattr",
+          "lineNumber": 68
+        },
+        {
+          "caller": "__get__",
+          "callee": "types.MethodType",
+          "lineNumber": 72
+        },
+        {
+          "caller": "__call__",
+          "callee": "self.func",
+          "lineNumber": 92
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

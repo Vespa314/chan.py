@@ -1,0 +1,12 @@
+{
+  "projectRoot": "e:/CodingWork/01csh/chan.py",
+  "batchFiles": [
+    {"path": "Bi/BiList.py", "language": "python", "sizeLines": 492, "fileCategory": "code"},
+    {"path": "Seg/SegConfig.py", "language": "python", "sizeLines": 38, "fileCategory": "code"},
+    {"path": "Seg/SegListChan.py", "language": "python", "sizeLines": 181, "fileCategory": "code"},
+    {"path": "Seg/SegListComm.py", "language": "python", "sizeLines": 352, "fileCategory": "code"},
+    {"path": "Seg/SegListDYH.py", "language": "python", "sizeLines": 242, "fileCategory": "code"},
+    {"path": "Seg/SegListDef.py", "language": "python", "sizeLines": 169, "fileCategory": "code"}
+  ],
+  "batchImportData": {"Bi/BiList.py":["Bi/Bi.py","Bi/BiConfig.py","Common/CEnum.py","KLine/KLine.py"],"Seg/SegConfig.py":["Common/CEnum.py","Common/ChanException.py"],"Seg/SegListChan.py":["Bi/BiList.py","Common/CEnum.py","Seg/EigenFX.py","Seg/SegConfig.py","Seg/SegListComm.py"],"Seg/SegListComm.py":["Bi/Bi.py","Bi/BiList.py","Common/CEnum.py","Common/ChanException.py","Seg/Seg.py","Seg/SegConfig.py"],"Seg/SegListDYH.py":["Bi/BiList.py","Common/CEnum.py","Seg/SegConfig.py","Seg/SegListComm.py"],"Seg/SegListDef.py":["Bi/BiList.py","Common/CEnum.py","Seg/SegConfig.py","Seg/SegListComm.py"]}
+}

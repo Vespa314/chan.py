@@ -1,0 +1,23 @@
+@import './design.css';
+@import './element-overrides.css';
+
+/* 全局入口补充 */
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  min-width: 1200px;
+}
+
+/* Vue Router 过渡 */
+.router-fade-enter-active,
+.router-fade-leave-active {
+  transition: opacity 0.18s ease;
+}
+.router-fade-enter-from,
+.router-fade-leave-to {
+  opacity: 0;
+}

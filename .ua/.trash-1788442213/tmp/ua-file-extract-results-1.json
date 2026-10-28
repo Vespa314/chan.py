@@ -1,0 +1,6755 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 23,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "App/ashare_bsp_scanner_gui.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 732,
+      "nonEmptyLines": 590,
+      "functions": [
+        {
+          "name": "get_tradable_stocks",
+          "startLine": 54,
+          "endLine": 102,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 720,
+          "endLine": 728,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ScanThread",
+          "startLine": 105,
+          "endLine": 221,
+          "methods": [
+            "__init__",
+            "stop",
+            "run"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SingleAnalysisThread",
+          "startLine": 224,
+          "endLine": 268,
+          "methods": [
+            "__init__",
+            "run"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ChanPlotCanvas",
+          "startLine": 271,
+          "endLine": 292,
+          "methods": [
+            "__init__",
+            "clear"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AkshareGUI",
+          "startLine": 295,
+          "endLine": 717,
+          "methods": [
+            "__init__",
+            "init_ui",
+            "create_left_panel",
+            "create_chart_panel",
+            "get_chan_config",
+            "get_plot_config",
+            "start_scan",
+            "stop_scan",
+            "on_scan_progress",
+            "on_log_message",
+            "on_buy_point_found",
+            "on_scan_finished",
+            "on_stock_clicked",
+            "analyze_single",
+            "analyze_stock",
+            "on_analysis_finished",
+            "on_analysis_error",
+            "plot_chart",
+            "refresh_chart",
+            "clear_stock_list"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "get_tradable_stocks",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "ScanThread",
+          "line": 105,
+          "isDefault": false
+        },
+        {
+          "name": "SingleAnalysisThread",
+          "line": 224,
+          "isDefault": false
+        },
+        {
+          "name": "ChanPlotCanvas",
+          "line": 271,
+          "isDefault": false
+        },
+        {
+          "name": "AkshareGUI",
+          "line": 295,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 720,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "get_tradable_stocks",
+          "callee": "ak.stock_zh_a_spot_em",
+          "lineNumber": 73
+        },
+        {
+          "caller": "get_tradable_stocks",
+          "callee": "df['名称'].str.contains",
+          "lineNumber": 77
+        },
+        {
+          "caller": "get_tradable_stocks",
+          "callee": "df['代码'].str.startswith",
+          "lineNumber": 80
+        },
+        {
+          "caller": "get_tradable_stocks",
+          "callee": "df['代码'].str.startswith",
+          "lineNumber": 83
+        },
+        {
+          "caller": "get_tradable_stocks",
+          "callee": "df['代码'].str.startswith",
+          "lineNumber": 84
+        },
+        {
+          "caller": "get_tradable_stocks",
+          "callee": "df['代码'].str.startswith",
+          "lineNumber": 87
+        },
+        {
+          "caller": "get_tradable_stocks",
+          "callee": "df['代码'].str.startswith",
+          "lineNumber": 88
+        },
+        {
+          "caller": "get_tradable_stocks",
+          "callee": "df['代码'].str.startswith",
+          "lineNumber": 91
+        },
+        {
+          "caller": "get_tradable_stocks",
+          "callee": "df[['代码', '名称', '最新价', '涨跌幅']].reset_index",
+          "lineNumber": 99
+        },
+        {
+          "caller": "get_tradable_stocks",
+          "callee": "print",
+          "lineNumber": 101
+        },
+        {
+          "caller": "get_tradable_stocks",
+          "callee": "pd.DataFrame",
+          "lineNumber": 102
+        },
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 132
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 132
+        },
+        {
+          "caller": "run",
+          "callee": "(datetime.now() - timedelta(days=self.days)).strftime",
+          "lineNumber": 152
+        },
+        {
+          "caller": "run",
+          "callee": "datetime.now",
+          "lineNumber": 152
+        },
+        {
+          "caller": "run",
+          "callee": "timedelta",
+          "lineNumber": 152
+        },
+        {
+          "caller": "run",
+          "callee": "datetime.now().strftime",
+          "lineNumber": 153
+        },
+        {
+          "caller": "run",
+          "callee": "datetime.now",
+          "lineNumber": 153
+        },
+        {
+          "caller": "run",
+          "callee": "len",
+          "lineNumber": 154
+        },
+        {
+          "caller": "run",
+          "callee": "self.stock_list.iterrows",
+          "lineNumber": 158
+        },
+        {
+          "caller": "run",
+          "callee": "self.progress.emit",
+          "lineNumber": 164
+        },
+        {
+          "caller": "run",
+          "callee": "self.log_signal.emit",
+          "lineNumber": 165
+        },
+        {
+          "caller": "run",
+          "callee": "CChan",
+          "lineNumber": 168
+        },
+        {
+          "caller": "run",
+          "callee": "len",
+          "lineNumber": 179
+        },
+        {
+          "caller": "run",
+          "callee": "self.log_signal.emit",
+          "lineNumber": 181
+        },
+        {
+          "caller": "run",
+          "callee": "datetime",
+          "lineNumber": 185
+        },
+        {
+          "caller": "run",
+          "callee": "datetime.now",
+          "lineNumber": 186
+        },
+        {
+          "caller": "run",
+          "callee": "self.log_signal.emit",
+          "lineNumber": 188
+        },
+        {
+          "caller": "run",
+          "callee": "chan.get_latest_bsp",
+          "lineNumber": 194
+        },
+        {
+          "caller": "run",
+          "callee": "datetime.now",
+          "lineNumber": 195
+        },
+        {
+          "caller": "run",
+          "callee": "timedelta",
+          "lineNumber": 195
+        },
+        {
+          "caller": "run",
+          "callee": "datetime",
+          "lineNumber": 198
+        },
+        {
+          "caller": "run",
+          "callee": "self.log_signal.emit",
+          "lineNumber": 204
+        },
+        {
+          "caller": "run",
+          "callee": "latest_buy.type2str",
+          "lineNumber": 204
+        },
+        {
+          "caller": "run",
+          "callee": "self.found_signal.emit",
+          "lineNumber": 205
+        },
+        {
+          "caller": "run",
+          "callee": "latest_buy.type2str",
+          "lineNumber": 210
+        },
+        {
+          "caller": "run",
+          "callee": "str",
+          "lineNumber": 211
+        },
+        {
+          "caller": "run",
+          "callee": "self.log_signal.emit",
+          "lineNumber": 215
+        },
+        {
+          "caller": "run",
+          "callee": "self.log_signal.emit",
+          "lineNumber": 218
+        },
+        {
+          "caller": "run",
+          "callee": "str",
+          "lineNumber": 218
+        },
+        {
+          "caller": "run",
+          "callee": "self.finished.emit",
+          "lineNumber": 221
+        },
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 246
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 246
+        },
+        {
+          "caller": "run",
+          "callee": "(datetime.now() - timedelta(days=self.days)).strftime",
+          "lineNumber": 254
+        },
+        {
+          "caller": "run",
+          "callee": "datetime.now",
+          "lineNumber": 254
+        },
+        {
+          "caller": "run",
+          "callee": "timedelta",
+          "lineNumber": 254
+        },
+        {
+          "caller": "run",
+          "callee": "datetime.now().strftime",
+          "lineNumber": 255
+        },
+        {
+          "caller": "run",
+          "callee": "datetime.now",
+          "lineNumber": 255
+        },
+        {
+          "caller": "run",
+          "callee": "CChan",
+          "lineNumber": 257
+        },
+        {
+          "caller": "run",
+          "callee": "self.finished.emit",
+          "lineNumber": 266
+        },
+        {
+          "caller": "run",
+          "callee": "self.error.emit",
+          "lineNumber": 268
+        },
+        {
+          "caller": "run",
+          "callee": "str",
+          "lineNumber": 268
+        },
+        {
+          "caller": "__init__",
+          "callee": "Figure",
+          "lineNumber": 284
+        },
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 285
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 285
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.setParent",
+          "lineNumber": 286
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.setMinimumHeight",
+          "lineNumber": 287
+        },
+        {
+          "caller": "clear",
+          "callee": "self.fig.clear",
+          "lineNumber": 291
+        },
+        {
+          "caller": "clear",
+          "callee": "self.draw",
+          "lineNumber": 292
+        },
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 311
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 311
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.init_ui",
+          "lineNumber": 316
+        },
+        {
+          "caller": "init_ui",
+          "callee": "self.setWindowTitle",
+          "lineNumber": 320
+        },
+        {
+          "caller": "init_ui",
+          "callee": "self.setGeometry",
+          "lineNumber": 321
+        },
+        {
+          "caller": "init_ui",
+          "callee": "QWidget",
+          "lineNumber": 324
+        },
+        {
+          "caller": "init_ui",
+          "callee": "self.setCentralWidget",
+          "lineNumber": 325
+        },
+        {
+          "caller": "init_ui",
+          "callee": "QHBoxLayout",
+          "lineNumber": 328
+        },
+        {
+          "caller": "init_ui",
+          "callee": "self.create_left_panel",
+          "lineNumber": 331
+        },
+        {
+          "caller": "init_ui",
+          "callee": "self.create_chart_panel",
+          "lineNumber": 334
+        },
+        {
+          "caller": "init_ui",
+          "callee": "QSplitter",
+          "lineNumber": 337
+        },
+        {
+          "caller": "init_ui",
+          "callee": "splitter.addWidget",
+          "lineNumber": 338
+        },
+        {
+          "caller": "init_ui",
+          "callee": "splitter.addWidget",
+          "lineNumber": 339
+        },
+        {
+          "caller": "init_ui",
+          "callee": "splitter.setSizes",
+          "lineNumber": 340
+        },
+        {
+          "caller": "init_ui",
+          "callee": "main_layout.addWidget",
+          "lineNumber": 342
+        },
+        {
+          "caller": "init_ui",
+          "callee": "QStatusBar",
+          "lineNumber": 345
+        },
+        {
+          "caller": "init_ui",
+          "callee": "self.setStatusBar",
+          "lineNumber": 346
+        },
+        {
+          "caller": "init_ui",
+          "callee": "self.statusBar.showMessage",
+          "lineNumber": 347
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QWidget",
+          "lineNumber": 351
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QVBoxLayout",
+          "lineNumber": 352
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QGroupBox",
+          "lineNumber": 355
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QVBoxLayout",
+          "lineNumber": 356
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QCheckBox",
+          "lineNumber": 359
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.bi_strict_cb.setChecked",
+          "lineNumber": 360
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "scan_layout.addWidget",
+          "lineNumber": 361
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QHBoxLayout",
+          "lineNumber": 364
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QPushButton",
+          "lineNumber": 365
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.scan_btn.clicked.connect",
+          "lineNumber": 366
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.scan_btn.setStyleSheet",
+          "lineNumber": 367
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "btn_layout.addWidget",
+          "lineNumber": 378
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QPushButton",
+          "lineNumber": 380
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.stop_btn.clicked.connect",
+          "lineNumber": 381
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.stop_btn.setEnabled",
+          "lineNumber": 382
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.stop_btn.setStyleSheet",
+          "lineNumber": 383
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "btn_layout.addWidget",
+          "lineNumber": 394
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "scan_layout.addLayout",
+          "lineNumber": 395
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QProgressBar",
+          "lineNumber": 398
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.progress_bar.setVisible",
+          "lineNumber": 399
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "scan_layout.addWidget",
+          "lineNumber": 400
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QLabel",
+          "lineNumber": 402
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "scan_layout.addWidget",
+          "lineNumber": 403
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "layout.addWidget",
+          "lineNumber": 405
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QGroupBox",
+          "lineNumber": 408
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QVBoxLayout",
+          "lineNumber": 409
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QHBoxLayout",
+          "lineNumber": 411
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "code_row.addWidget",
+          "lineNumber": 412
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QLabel",
+          "lineNumber": 412
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QLineEdit",
+          "lineNumber": 413
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.code_input.setPlaceholderText",
+          "lineNumber": 414
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "code_row.addWidget",
+          "lineNumber": 415
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QPushButton",
+          "lineNumber": 417
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.analyze_btn.clicked.connect",
+          "lineNumber": 418
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "code_row.addWidget",
+          "lineNumber": 419
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "single_layout.addLayout",
+          "lineNumber": 420
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "layout.addWidget",
+          "lineNumber": 422
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QGroupBox",
+          "lineNumber": 425
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QVBoxLayout",
+          "lineNumber": 426
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QTableWidget",
+          "lineNumber": 428
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.stock_table.setColumnCount",
+          "lineNumber": 429
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.stock_table.setHorizontalHeaderLabels",
+          "lineNumber": 430
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.stock_table.horizontalHeader().setSectionResizeMode",
+          "lineNumber": 431
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.stock_table.horizontalHeader",
+          "lineNumber": 431
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.stock_table.setSelectionBehavior",
+          "lineNumber": 432
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.stock_table.cellClicked.connect",
+          "lineNumber": 433
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "list_layout.addWidget",
+          "lineNumber": 434
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QPushButton",
+          "lineNumber": 437
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.clear_list_btn.clicked.connect",
+          "lineNumber": 438
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "list_layout.addWidget",
+          "lineNumber": 439
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "layout.addWidget",
+          "lineNumber": 441
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QGroupBox",
+          "lineNumber": 444
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QVBoxLayout",
+          "lineNumber": 445
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QTextEdit",
+          "lineNumber": 447
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.log_text.setReadOnly",
+          "lineNumber": 448
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.log_text.setMaximumHeight",
+          "lineNumber": 449
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "log_layout.addWidget",
+          "lineNumber": 450
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "QPushButton",
+          "lineNumber": 452
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "clear_log_btn.clicked.connect",
+          "lineNumber": 453
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "self.log_text.clear",
+          "lineNumber": 453
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "log_layout.addWidget",
+          "lineNumber": 454
+        },
+        {
+          "caller": "create_left_panel",
+          "callee": "layout.addWidget",
+          "lineNumber": 456
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "QWidget",
+          "lineNumber": 462
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "QVBoxLayout",
+          "lineNumber": 463
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "QHBoxLayout",
+          "lineNumber": 466
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "QCheckBox",
+          "lineNumber": 468
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "self.plot_kline_cb.setChecked",
+          "lineNumber": 469
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "config_layout.addWidget",
+          "lineNumber": 470
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "QCheckBox",
+          "lineNumber": 472
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "self.plot_bi_cb.setChecked",
+          "lineNumber": 473
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "config_layout.addWidget",
+          "lineNumber": 474
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "QCheckBox",
+          "lineNumber": 476
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "self.plot_seg_cb.setChecked",
+          "lineNumber": 477
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "config_layout.addWidget",
+          "lineNumber": 478
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "QCheckBox",
+          "lineNumber": 480
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "self.plot_zs_cb.setChecked",
+          "lineNumber": 481
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "config_layout.addWidget",
+          "lineNumber": 482
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "QCheckBox",
+          "lineNumber": 484
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "self.plot_bsp_cb.setChecked",
+          "lineNumber": 485
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "config_layout.addWidget",
+          "lineNumber": 486
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "QCheckBox",
+          "lineNumber": 488
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "self.plot_macd_cb.setChecked",
+          "lineNumber": 489
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "config_layout.addWidget",
+          "lineNumber": 490
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "config_layout.addStretch",
+          "lineNumber": 492
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "QPushButton",
+          "lineNumber": 495
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "self.refresh_btn.clicked.connect",
+          "lineNumber": 496
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "config_layout.addWidget",
+          "lineNumber": 497
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "layout.addLayout",
+          "lineNumber": 499
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "ChanPlotCanvas",
+          "lineNumber": 502
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "NavigationToolbar",
+          "lineNumber": 503
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "layout.addWidget",
+          "lineNumber": 505
+        },
+        {
+          "caller": "create_chart_panel",
+          "callee": "layout.addWidget",
+          "lineNumber": 506
+        },
+        {
+          "caller": "get_chan_config",
+          "callee": "CChanConfig",
+          "lineNumber": 517
+        },
+        {
+          "caller": "get_chan_config",
+          "callee": "self.bi_strict_cb.isChecked",
+          "lineNumber": 518
+        },
+        {
+          "caller": "get_chan_config",
+          "callee": "float",
+          "lineNumber": 521
+        },
+        {
+          "caller": "get_plot_config",
+          "callee": "self.plot_kline_cb.isChecked",
+          "lineNumber": 540
+        },
+        {
+          "caller": "get_plot_config",
+          "callee": "self.plot_bi_cb.isChecked",
+          "lineNumber": 542
+        },
+        {
+          "caller": "get_plot_config",
+          "callee": "self.plot_seg_cb.isChecked",
+          "lineNumber": 543
+        },
+        {
+          "caller": "get_plot_config",
+          "callee": "self.plot_zs_cb.isChecked",
+          "lineNumber": 544
+        },
+        {
+          "caller": "get_plot_config",
+          "callee": "self.plot_macd_cb.isChecked",
+          "lineNumber": 545
+        },
+        {
+          "caller": "get_plot_config",
+          "callee": "self.plot_bsp_cb.isChecked",
+          "lineNumber": 546
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.scan_btn.setEnabled",
+          "lineNumber": 551
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.stop_btn.setEnabled",
+          "lineNumber": 552
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.progress_bar.setVisible",
+          "lineNumber": 553
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.progress_bar.setValue",
+          "lineNumber": 554
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.stock_cache.clear",
+          "lineNumber": 555
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.statusBar.showMessage",
+          "lineNumber": 557
+        },
+        {
+          "caller": "start_scan",
+          "callee": "QApplication.processEvents",
+          "lineNumber": 558
+        },
+        {
+          "caller": "start_scan",
+          "callee": "get_tradable_stocks",
+          "lineNumber": 561
+        },
+        {
+          "caller": "start_scan",
+          "callee": "QMessageBox.warning",
+          "lineNumber": 563
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.scan_btn.setEnabled",
+          "lineNumber": 564
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.stop_btn.setEnabled",
+          "lineNumber": 565
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.progress_bar.setVisible",
+          "lineNumber": 566
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.statusBar.showMessage",
+          "lineNumber": 569
+        },
+        {
+          "caller": "start_scan",
+          "callee": "len",
+          "lineNumber": 569
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.progress_bar.setMaximum",
+          "lineNumber": 570
+        },
+        {
+          "caller": "start_scan",
+          "callee": "len",
+          "lineNumber": 570
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.get_chan_config",
+          "lineNumber": 573
+        },
+        {
+          "caller": "start_scan",
+          "callee": "ScanThread",
+          "lineNumber": 574
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.scan_thread.progress.connect",
+          "lineNumber": 575
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.scan_thread.found_signal.connect",
+          "lineNumber": 576
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.scan_thread.finished.connect",
+          "lineNumber": 577
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.scan_thread.log_signal.connect",
+          "lineNumber": 578
+        },
+        {
+          "caller": "start_scan",
+          "callee": "self.scan_thread.start",
+          "lineNumber": 579
+        },
+        {
+          "caller": "stop_scan",
+          "callee": "self.scan_thread.stop",
+          "lineNumber": 584
+        },
+        {
+          "caller": "stop_scan",
+          "callee": "self.statusBar.showMessage",
+          "lineNumber": 585
+        },
+        {
+          "caller": "on_scan_progress",
+          "callee": "self.progress_bar.setValue",
+          "lineNumber": 589
+        },
+        {
+          "caller": "on_scan_progress",
+          "callee": "self.progress_label.setText",
+          "lineNumber": 590
+        },
+        {
+          "caller": "on_log_message",
+          "callee": "self.log_text.append",
+          "lineNumber": 594
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "self.stock_table.rowCount",
+          "lineNumber": 603
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "self.stock_table.insertRow",
+          "lineNumber": 604
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "self.stock_table.setItem",
+          "lineNumber": 605
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "QTableWidgetItem",
+          "lineNumber": 605
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "self.stock_table.setItem",
+          "lineNumber": 606
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "QTableWidgetItem",
+          "lineNumber": 606
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "self.stock_table.setItem",
+          "lineNumber": 607
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "QTableWidgetItem",
+          "lineNumber": 607
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "self.stock_table.setItem",
+          "lineNumber": 608
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "QTableWidgetItem",
+          "lineNumber": 608
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "self.stock_table.setItem",
+          "lineNumber": 609
+        },
+        {
+          "caller": "on_buy_point_found",
+          "callee": "QTableWidgetItem",
+          "lineNumber": 609
+        },
+        {
+          "caller": "on_scan_finished",
+          "callee": "self.scan_btn.setEnabled",
+          "lineNumber": 616
+        },
+        {
+          "caller": "on_scan_finished",
+          "callee": "self.stop_btn.setEnabled",
+          "lineNumber": 617
+        },
+        {
+          "caller": "on_scan_finished",
+          "callee": "self.progress_bar.setVisible",
+          "lineNumber": 618
+        },
+        {
+          "caller": "on_scan_finished",
+          "callee": "self.stock_table.rowCount",
+          "lineNumber": 619
+        },
+        {
+          "caller": "on_scan_finished",
+          "callee": "self.statusBar.showMessage",
+          "lineNumber": 620
+        },
+        {
+          "caller": "on_scan_finished",
+          "callee": "self.progress_label.setText",
+          "lineNumber": 621
+        },
+        {
+          "caller": "on_stock_clicked",
+          "callee": "self.stock_table.item(row, 0).text",
+          "lineNumber": 625
+        },
+        {
+          "caller": "on_stock_clicked",
+          "callee": "self.stock_table.item",
+          "lineNumber": 625
+        },
+        {
+          "caller": "on_stock_clicked",
+          "callee": "self.stock_table.item(row, 1).text",
+          "lineNumber": 626
+        },
+        {
+          "caller": "on_stock_clicked",
+          "callee": "self.stock_table.item",
+          "lineNumber": 626
+        },
+        {
+          "caller": "on_stock_clicked",
+          "callee": "self.plot_chart",
+          "lineNumber": 630
+        },
+        {
+          "caller": "on_stock_clicked",
+          "callee": "self.statusBar.showMessage",
+          "lineNumber": 631
+        },
+        {
+          "caller": "on_stock_clicked",
+          "callee": "self.analyze_stock",
+          "lineNumber": 634
+        },
+        {
+          "caller": "analyze_single",
+          "callee": "self.code_input.text().strip",
+          "lineNumber": 638
+        },
+        {
+          "caller": "analyze_single",
+          "callee": "self.code_input.text",
+          "lineNumber": 638
+        },
+        {
+          "caller": "analyze_single",
+          "callee": "QMessageBox.warning",
+          "lineNumber": 640
+        },
+        {
+          "caller": "analyze_single",
+          "callee": "self.analyze_stock",
+          "lineNumber": 642
+        },
+        {
+          "caller": "analyze_stock",
+          "callee": "self.analyze_btn.setEnabled",
+          "lineNumber": 646
+        },
+        {
+          "caller": "analyze_stock",
+          "callee": "self.statusBar.showMessage",
+          "lineNumber": 647
+        },
+        {
+          "caller": "analyze_stock",
+          "callee": "self.get_chan_config",
+          "lineNumber": 649
+        },
+        {
+          "caller": "analyze_stock",
+          "callee": "SingleAnalysisThread",
+          "lineNumber": 650
+        },
+        {
+          "caller": "analyze_stock",
+          "callee": "self.analysis_thread.finished.connect",
+          "lineNumber": 651
+        },
+        {
+          "caller": "analyze_stock",
+          "callee": "self.analysis_thread.error.connect",
+          "lineNumber": 652
+        },
+        {
+          "caller": "analyze_stock",
+          "callee": "self.analysis_thread.start",
+          "lineNumber": 653
+        },
+        {
+          "caller": "on_analysis_finished",
+          "callee": "self.analyze_btn.setEnabled",
+          "lineNumber": 658
+        },
+        {
+          "caller": "on_analysis_finished",
+          "callee": "self.plot_chart",
+          "lineNumber": 659
+        },
+        {
+          "caller": "on_analysis_finished",
+          "callee": "self.statusBar.showMessage",
+          "lineNumber": 660
+        },
+        {
+          "caller": "on_analysis_error",
+          "callee": "self.analyze_btn.setEnabled",
+          "lineNumber": 664
+        },
+        {
+          "caller": "on_analysis_error",
+          "callee": "QMessageBox.critical",
+          "lineNumber": 665
+        },
+        {
+          "caller": "on_analysis_error",
+          "callee": "self.statusBar.showMessage",
+          "lineNumber": 666
+        },
+        {
+          "caller": "plot_chart",
+          "callee": "plt.close",
+          "lineNumber": 682
+        },
+        {
+          "caller": "plot_chart",
+          "callee": "self.get_plot_config",
+          "lineNumber": 684
+        },
+        {
+          "caller": "plot_chart",
+          "callee": "self.canvas.width",
+          "lineNumber": 687
+        },
+        {
+          "caller": "plot_chart",
+          "callee": "CPlotDriver",
+          "lineNumber": 700
+        },
+        {
+          "caller": "plot_chart",
+          "callee": "self.canvas.draw",
+          "lineNumber": 704
+        },
+        {
+          "caller": "plot_chart",
+          "callee": "self.toolbar.update",
+          "lineNumber": 705
+        },
+        {
+          "caller": "plot_chart",
+          "callee": "QMessageBox.critical",
+          "lineNumber": 707
+        },
+        {
+          "caller": "plot_chart",
+          "callee": "str",
+          "lineNumber": 707
+        },
+        {
+          "caller": "refresh_chart",
+          "callee": "self.plot_chart",
+          "lineNumber": 711
+        },
+        {
+          "caller": "clear_stock_list",
+          "callee": "self.stock_table.setRowCount",
+          "lineNumber": 715
+        },
+        {
+          "caller": "clear_stock_list",
+          "callee": "self.stock_cache.clear",
+          "lineNumber": 716
+        },
+        {
+          "caller": "clear_stock_list",
+          "callee": "self.statusBar.showMessage",
+          "lineNumber": 717
+        },
+        {
+          "caller": "main",
+          "callee": "QApplication",
+          "lineNumber": 722
+        },
+        {
+          "caller": "main",
+          "callee": "app.setStyle",
+          "lineNumber": 723
+        },
+        {
+          "caller": "main",
+          "callee": "AkshareGUI",
+          "lineNumber": 725
+        },
+        {
+          "caller": "main",
+          "callee": "window.show",
+          "lineNumber": 726
+        },
+        {
+          "caller": "main",
+          "callee": "sys.exit",
+          "lineNumber": 728
+        },
+        {
+          "caller": "main",
+          "callee": "app.exec",
+          "lineNumber": 728
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 6,
+        "functionCount": 2,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "Chan.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 784,
+      "nonEmptyLines": 661,
+      "classes": [
+        {
+          "name": "CChan",
+          "startLine": 48,
+          "endLine": 784,
+          "methods": [
+            "__init__",
+            "__deepcopy__",
+            "do_init",
+            "load_stock_data",
+            "get_load_stock_iter",
+            "add_lv_iter",
+            "get_next_lv_klu",
+            "step_load",
+            "trigger_load",
+            "init_lv_klu_iter",
+            "GetStockAPI",
+            "load",
+            "set_klu_parent_relation",
+            "add_new_kl",
+            "try_set_klu_idx",
+            "load_iterator",
+            "check_kl_consitent",
+            "check_kl_align",
+            "__getitem__",
+            "get_bsp",
+            "get_latest_bsp",
+            "chan_dump_pickle",
+            "chan_load_pickle",
+            "chan_pickle_restore"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CChan",
+          "line": 48,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "check_kltype_order",
+          "lineNumber": 86
+        },
+        {
+          "caller": "__init__",
+          "callee": "str",
+          "lineNumber": 89
+        },
+        {
+          "caller": "__init__",
+          "callee": "isinstance",
+          "lineNumber": 89
+        },
+        {
+          "caller": "__init__",
+          "callee": "str",
+          "lineNumber": 90
+        },
+        {
+          "caller": "__init__",
+          "callee": "isinstance",
+          "lineNumber": 90
+        },
+        {
+          "caller": "__init__",
+          "callee": "CChanConfig",
+          "lineNumber": 96
+        },
+        {
+          "caller": "__init__",
+          "callee": "defaultdict",
+          "lineNumber": 101
+        },
+        {
+          "caller": "__init__",
+          "callee": "defaultdict",
+          "lineNumber": 104
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.do_init",
+          "lineNumber": 106
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.load",
+          "lineNumber": 110
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "cls.__new__",
+          "lineNumber": 131
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "id",
+          "lineNumber": 132
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 140
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 141
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 143
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 144
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "hasattr",
+          "lineNumber": 147
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 148
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "hasattr",
+          "lineNumber": 149
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 150
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "self.kl_datas.items",
+          "lineNumber": 154
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 155
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "self.kl_datas.items",
+          "lineNumber": 158
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "id",
+          "lineNumber": 161
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "id",
+          "lineNumber": 163
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "id",
+          "lineNumber": 163
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "id",
+          "lineNumber": 164
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "id",
+          "lineNumber": 164
+        },
+        {
+          "caller": "do_init",
+          "callee": "range",
+          "lineNumber": 174
+        },
+        {
+          "caller": "do_init",
+          "callee": "len",
+          "lineNumber": 174
+        },
+        {
+          "caller": "do_init",
+          "callee": "CKLine_List",
+          "lineNumber": 175
+        },
+        {
+          "caller": "load_stock_data",
+          "callee": "enumerate",
+          "lineNumber": 190
+        },
+        {
+          "caller": "load_stock_data",
+          "callee": "stockapi_instance.get_kl_data",
+          "lineNumber": 190
+        },
+        {
+          "caller": "load_stock_data",
+          "callee": "klu.set_idx",
+          "lineNumber": 191
+        },
+        {
+          "caller": "get_load_stock_iter",
+          "callee": "stockapi_cls",
+          "lineNumber": 206
+        },
+        {
+          "caller": "get_load_stock_iter",
+          "callee": "self.load_stock_data",
+          "lineNumber": 210
+        },
+        {
+          "caller": "add_lv_iter",
+          "callee": "isinstance",
+          "lineNumber": 222
+        },
+        {
+          "caller": "add_lv_iter",
+          "callee": "self.g_kl_iter[self.lv_list[lv_idx]].append",
+          "lineNumber": 223
+        },
+        {
+          "caller": "add_lv_iter",
+          "callee": "self.g_kl_iter[lv_idx].append",
+          "lineNumber": 225
+        },
+        {
+          "caller": "get_next_lv_klu",
+          "callee": "isinstance",
+          "lineNumber": 248
+        },
+        {
+          "caller": "get_next_lv_klu",
+          "callee": "len",
+          "lineNumber": 250
+        },
+        {
+          "caller": "get_next_lv_klu",
+          "callee": "self.g_kl_iter[lv_idx][0].__next__",
+          "lineNumber": 253
+        },
+        {
+          "caller": "get_next_lv_klu",
+          "callee": "len",
+          "lineNumber": 257
+        },
+        {
+          "caller": "get_next_lv_klu",
+          "callee": "self.get_next_lv_klu",
+          "lineNumber": 258
+        },
+        {
+          "caller": "step_load",
+          "callee": "self.do_init",
+          "lineNumber": 276
+        },
+        {
+          "caller": "step_load",
+          "callee": "enumerate",
+          "lineNumber": 278
+        },
+        {
+          "caller": "step_load",
+          "callee": "self.load",
+          "lineNumber": 278
+        },
+        {
+          "caller": "trigger_load",
+          "callee": "hasattr",
+          "lineNumber": 301
+        },
+        {
+          "caller": "trigger_load",
+          "callee": "hasattr",
+          "lineNumber": 303
+        },
+        {
+          "caller": "trigger_load",
+          "callee": "CTime",
+          "lineNumber": 304
+        },
+        {
+          "caller": "trigger_load",
+          "callee": "enumerate",
+          "lineNumber": 306
+        },
+        {
+          "caller": "trigger_load",
+          "callee": "CChanException",
+          "lineNumber": 309
+        },
+        {
+          "caller": "trigger_load",
+          "callee": "isinstance",
+          "lineNumber": 313
+        },
+        {
+          "caller": "trigger_load",
+          "callee": "self.add_lv_iter",
+          "lineNumber": 314
+        },
+        {
+          "caller": "trigger_load",
+          "callee": "iter",
+          "lineNumber": 314
+        },
+        {
+          "caller": "trigger_load",
+          "callee": "self.load_iterator",
+          "lineNumber": 316
+        },
+        {
+          "caller": "trigger_load",
+          "callee": "self.kl_datas[lv].cal_seg_and_zs",
+          "lineNumber": 321
+        },
+        {
+          "caller": "init_lv_klu_iter",
+          "callee": "lv_klu_iter.append",
+          "lineNumber": 342
+        },
+        {
+          "caller": "init_lv_klu_iter",
+          "callee": "self.get_load_stock_iter",
+          "lineNumber": 342
+        },
+        {
+          "caller": "init_lv_klu_iter",
+          "callee": "valid_lv_list.append",
+          "lineNumber": 343
+        },
+        {
+          "caller": "init_lv_klu_iter",
+          "callee": "print",
+          "lineNumber": 347
+        },
+        {
+          "caller": "GetStockAPI",
+          "callee": "isinstance",
+          "lineNumber": 391
+        },
+        {
+          "caller": "GetStockAPI",
+          "callee": "self.data_src.find",
+          "lineNumber": 392
+        },
+        {
+          "caller": "GetStockAPI",
+          "callee": "CChanException",
+          "lineNumber": 393
+        },
+        {
+          "caller": "GetStockAPI",
+          "callee": "self.data_src.split",
+          "lineNumber": 394
+        },
+        {
+          "caller": "GetStockAPI",
+          "callee": "package_info.split",
+          "lineNumber": 395
+        },
+        {
+          "caller": "GetStockAPI",
+          "callee": "importlib.import_module",
+          "lineNumber": 397
+        },
+        {
+          "caller": "GetStockAPI",
+          "callee": "getattr",
+          "lineNumber": 398
+        },
+        {
+          "caller": "load",
+          "callee": "self.GetStockAPI",
+          "lineNumber": 422
+        },
+        {
+          "caller": "load",
+          "callee": "stockapi_cls.do_init",
+          "lineNumber": 424
+        },
+        {
+          "caller": "load",
+          "callee": "enumerate",
+          "lineNumber": 426
+        },
+        {
+          "caller": "load",
+          "callee": "self.init_lv_klu_iter",
+          "lineNumber": 426
+        },
+        {
+          "caller": "load",
+          "callee": "self.add_lv_iter",
+          "lineNumber": 427
+        },
+        {
+          "caller": "load",
+          "callee": "CTime",
+          "lineNumber": 430
+        },
+        {
+          "caller": "load",
+          "callee": "self.load_iterator",
+          "lineNumber": 433
+        },
+        {
+          "caller": "load",
+          "callee": "self.kl_datas[lv].cal_seg_and_zs",
+          "lineNumber": 437
+        },
+        {
+          "caller": "load",
+          "callee": "stockapi_cls.do_close",
+          "lineNumber": 441
+        },
+        {
+          "caller": "load",
+          "callee": "len",
+          "lineNumber": 443
+        },
+        {
+          "caller": "load",
+          "callee": "CChanException",
+          "lineNumber": 444
+        },
+        {
+          "caller": "set_klu_parent_relation",
+          "callee": "kltype_lte_day",
+          "lineNumber": 459
+        },
+        {
+          "caller": "set_klu_parent_relation",
+          "callee": "kltype_lte_day",
+          "lineNumber": 459
+        },
+        {
+          "caller": "set_klu_parent_relation",
+          "callee": "self.check_kl_consitent",
+          "lineNumber": 460
+        },
+        {
+          "caller": "set_klu_parent_relation",
+          "callee": "parent_klu.add_children",
+          "lineNumber": 461
+        },
+        {
+          "caller": "set_klu_parent_relation",
+          "callee": "kline_unit.set_parent",
+          "lineNumber": 462
+        },
+        {
+          "caller": "add_new_kl",
+          "callee": "self.kl_datas[cur_lv].add_single_klu",
+          "lineNumber": 476
+        },
+        {
+          "caller": "add_new_kl",
+          "callee": "print",
+          "lineNumber": 479
+        },
+        {
+          "caller": "try_set_klu_idx",
+          "callee": "len",
+          "lineNumber": 496
+        },
+        {
+          "caller": "try_set_klu_idx",
+          "callee": "kline_unit.set_idx",
+          "lineNumber": 497
+        },
+        {
+          "caller": "try_set_klu_idx",
+          "callee": "kline_unit.set_idx",
+          "lineNumber": 499
+        },
+        {
+          "caller": "load_iterator",
+          "callee": "len",
+          "lineNumber": 535
+        },
+        {
+          "caller": "load_iterator",
+          "callee": "len",
+          "lineNumber": 535
+        },
+        {
+          "caller": "load_iterator",
+          "callee": "self.get_next_lv_klu",
+          "lineNumber": 545
+        },
+        {
+          "caller": "load_iterator",
+          "callee": "self.try_set_klu_idx",
+          "lineNumber": 546
+        },
+        {
+          "caller": "load_iterator",
+          "callee": "CChanException",
+          "lineNumber": 550
+        },
+        {
+          "caller": "load_iterator",
+          "callee": "kline_unit.set_pre_klu",
+          "lineNumber": 566
+        },
+        {
+          "caller": "load_iterator",
+          "callee": "self.add_new_kl",
+          "lineNumber": 570
+        },
+        {
+          "caller": "load_iterator",
+          "callee": "self.set_klu_parent_relation",
+          "lineNumber": 574
+        },
+        {
+          "caller": "load_iterator",
+          "callee": "len",
+          "lineNumber": 577
+        },
+        {
+          "caller": "load_iterator",
+          "callee": "self.load_iterator",
+          "lineNumber": 578
+        },
+        {
+          "caller": "load_iterator",
+          "callee": "self.check_kl_align",
+          "lineNumber": 580
+        },
+        {
+          "caller": "check_kl_consitent",
+          "callee": "self.kl_inconsistent_detail[str(parent_klu.time)].append",
+          "lineNumber": 601
+        },
+        {
+          "caller": "check_kl_consitent",
+          "callee": "str",
+          "lineNumber": 601
+        },
+        {
+          "caller": "check_kl_consitent",
+          "callee": "print",
+          "lineNumber": 603
+        },
+        {
+          "caller": "check_kl_consitent",
+          "callee": "len",
+          "lineNumber": 604
+        },
+        {
+          "caller": "check_kl_consitent",
+          "callee": "CChanException",
+          "lineNumber": 605
+        },
+        {
+          "caller": "check_kl_align",
+          "callee": "len",
+          "lineNumber": 621
+        },
+        {
+          "caller": "check_kl_align",
+          "callee": "print",
+          "lineNumber": 624
+        },
+        {
+          "caller": "check_kl_align",
+          "callee": "CChanException",
+          "lineNumber": 626
+        },
+        {
+          "caller": "__getitem__",
+          "callee": "isinstance",
+          "lineNumber": 642
+        },
+        {
+          "caller": "__getitem__",
+          "callee": "isinstance",
+          "lineNumber": 644
+        },
+        {
+          "caller": "__getitem__",
+          "callee": "CChanException",
+          "lineNumber": 647
+        },
+        {
+          "caller": "get_bsp",
+          "callee": "print",
+          "lineNumber": 656
+        },
+        {
+          "caller": "get_bsp",
+          "callee": "self[idx].bs_point_lst.getSortedBspList",
+          "lineNumber": 658
+        },
+        {
+          "caller": "get_bsp",
+          "callee": "len",
+          "lineNumber": 659
+        },
+        {
+          "caller": "get_bsp",
+          "callee": "self[0].bs_point_lst.getSortedBspList",
+          "lineNumber": 660
+        },
+        {
+          "caller": "get_latest_bsp",
+          "callee": "self[idx].bs_point_lst.get_latest_bsp",
+          "lineNumber": 674
+        },
+        {
+          "caller": "get_latest_bsp",
+          "callee": "len",
+          "lineNumber": 675
+        },
+        {
+          "caller": "get_latest_bsp",
+          "callee": "self[0].bs_point_lst.get_latest_bsp",
+          "lineNumber": 676
+        },
+        {
+          "caller": "chan_dump_pickle",
+          "callee": "sys.getrecursionlimit",
+          "lineNumber": 692
+        },
+        {
+          "caller": "chan_dump_pickle",
+          "callee": "sys.setrecursionlimit",
+          "lineNumber": 693
+        },
+        {
+          "caller": "chan_dump_pickle",
+          "callee": "self.kl_datas.values",
+          "lineNumber": 696
+        },
+        {
+          "caller": "chan_dump_pickle",
+          "callee": "klc.set_pre",
+          "lineNumber": 701
+        },
+        {
+          "caller": "chan_dump_pickle",
+          "callee": "klc.set_next",
+          "lineNumber": 702
+        },
+        {
+          "caller": "chan_dump_pickle",
+          "callee": "open",
+          "lineNumber": 713
+        },
+        {
+          "caller": "chan_dump_pickle",
+          "callee": "pickle.dump",
+          "lineNumber": 714
+        },
+        {
+          "caller": "chan_dump_pickle",
+          "callee": "sys.setrecursionlimit",
+          "lineNumber": 716
+        },
+        {
+          "caller": "chan_dump_pickle",
+          "callee": "self.chan_pickle_restore",
+          "lineNumber": 717
+        },
+        {
+          "caller": "chan_load_pickle",
+          "callee": "open",
+          "lineNumber": 733
+        },
+        {
+          "caller": "chan_load_pickle",
+          "callee": "pickle.load",
+          "lineNumber": 734
+        },
+        {
+          "caller": "chan_load_pickle",
+          "callee": "chan.chan_pickle_restore",
+          "lineNumber": 735
+        },
+        {
+          "caller": "chan_pickle_restore",
+          "callee": "self.kl_datas.values",
+          "lineNumber": 746
+        },
+        {
+          "caller": "chan_pickle_restore",
+          "callee": "klc.set_pre",
+          "lineNumber": 760
+        },
+        {
+          "caller": "chan_pickle_restore",
+          "callee": "last_klc.set_next",
+          "lineNumber": 762
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "ChanConfig.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 311,
+      "nonEmptyLines": 269,
+      "classes": [
+        {
+          "name": "CChanConfig",
+          "startLine": 35,
+          "endLine": 250,
+          "methods": [
+            "__init__",
+            "GetMetricModel",
+            "set_bsp_config"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ConfigWithCheck",
+          "startLine": 253,
+          "endLine": 311,
+          "methods": [
+            "__init__",
+            "get",
+            "items",
+            "check"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CChanConfig",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "ConfigWithCheck",
+          "line": 253,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "ConfigWithCheck",
+          "lineNumber": 60
+        },
+        {
+          "caller": "__init__",
+          "callee": "CBiConfig",
+          "lineNumber": 63
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 64
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 65
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 66
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 67
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 68
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 69
+        },
+        {
+          "caller": "__init__",
+          "callee": "CSegConfig",
+          "lineNumber": 73
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 74
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 75
+        },
+        {
+          "caller": "__init__",
+          "callee": "CZSConfig",
+          "lineNumber": 79
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 81
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 82
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 83
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 88
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 91
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 92
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 94
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 95
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 99
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 101
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 102
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 103
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 104
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 105
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 106
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 107
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 116
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.set_bsp_config",
+          "lineNumber": 119
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.check",
+          "lineNumber": 122
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "CMACD",
+          "lineNumber": 138
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "res.extend",
+          "lineNumber": 145
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "CTrendModel",
+          "lineNumber": 145
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "res.append",
+          "lineNumber": 149
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "CTrendModel",
+          "lineNumber": 149
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "res.append",
+          "lineNumber": 150
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "CTrendModel",
+          "lineNumber": 150
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "res.append",
+          "lineNumber": 151
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "BollModel",
+          "lineNumber": 151
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "res.append",
+          "lineNumber": 153
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "CDemarkEngine",
+          "lineNumber": 153
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "res.append",
+          "lineNumber": 163
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "RSI",
+          "lineNumber": 163
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "res.append",
+          "lineNumber": 165
+        },
+        {
+          "caller": "GetMetricModel",
+          "callee": "KDJ",
+          "lineNumber": 165
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "float",
+          "lineNumber": 193
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "conf.get",
+          "lineNumber": 209
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "para_dict.items",
+          "lineNumber": 209
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "CBSPointConfig",
+          "lineNumber": 210
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "CBSPointConfig",
+          "lineNumber": 213
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "self.seg_bs_point_conf.b_conf.set",
+          "lineNumber": 214
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "self.seg_bs_point_conf.s_conf.set",
+          "lineNumber": 215
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "self.seg_bs_point_conf.b_conf.set",
+          "lineNumber": 216
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "self.seg_bs_point_conf.s_conf.set",
+          "lineNumber": 217
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "conf.items",
+          "lineNumber": 220
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "isinstance",
+          "lineNumber": 221
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "_parse_inf",
+          "lineNumber": 223
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "k.endswith",
+          "lineNumber": 224
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "k.replace",
+          "lineNumber": 225
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "exec",
+          "lineNumber": 226
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "k.endswith",
+          "lineNumber": 227
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "k.replace",
+          "lineNumber": 228
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "exec",
+          "lineNumber": 229
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "k.endswith",
+          "lineNumber": 230
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "k.replace",
+          "lineNumber": 231
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "exec",
+          "lineNumber": 232
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "k.endswith",
+          "lineNumber": 233
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "k.replace",
+          "lineNumber": 234
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "exec",
+          "lineNumber": 235
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "k.endswith",
+          "lineNumber": 236
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "k.replace",
+          "lineNumber": 237
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "exec",
+          "lineNumber": 238
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "exec",
+          "lineNumber": 239
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "exec",
+          "lineNumber": 241
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "exec",
+          "lineNumber": 242
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "CChanException",
+          "lineNumber": 244
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "self.bs_point_conf.b_conf.parse_target_type",
+          "lineNumber": 247
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "self.bs_point_conf.s_conf.parse_target_type",
+          "lineNumber": 248
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "self.seg_bs_point_conf.b_conf.parse_target_type",
+          "lineNumber": 249
+        },
+        {
+          "caller": "set_bsp_config",
+          "callee": "self.seg_bs_point_conf.s_conf.parse_target_type",
+          "lineNumber": 250
+        },
+        {
+          "caller": "get",
+          "callee": "self.conf.get",
+          "lineNumber": 284
+        },
+        {
+          "caller": "items",
+          "callee": "set",
+          "lineNumber": 295
+        },
+        {
+          "caller": "items",
+          "callee": "self.conf.items",
+          "lineNumber": 296
+        },
+        {
+          "caller": "items",
+          "callee": "visit_keys.add",
+          "lineNumber": 298
+        },
+        {
+          "caller": "check",
+          "callee": "len",
+          "lineNumber": 309
+        },
+        {
+          "caller": "check",
+          "callee": "\",\".join",
+          "lineNumber": 310
+        },
+        {
+          "caller": "check",
+          "callee": "list",
+          "lineNumber": 310
+        },
+        {
+          "caller": "check",
+          "callee": "self.conf.keys",
+          "lineNumber": 310
+        },
+        {
+          "caller": "check",
+          "callee": "CChanException",
+          "lineNumber": 311
+        }
+      ],
+      "metrics": {
+        "importCount": 13,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "ChanModel/Features.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 76,
+      "nonEmptyLines": 60,
+      "classes": [
+        {
+          "name": "CFeatures",
+          "startLine": 17,
+          "endLine": 76,
+          "methods": [
+            "__init__",
+            "items",
+            "__getitem__",
+            "add_feat"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CFeatures",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "dict",
+          "lineNumber": 37
+        },
+        {
+          "caller": "items",
+          "callee": "self.__features.items",
+          "lineNumber": 46
+        },
+        {
+          "caller": "add_feat",
+          "callee": "self.__features.update",
+          "lineNumber": 73
+        },
+        {
+          "caller": "add_feat",
+          "callee": "self.__features.update",
+          "lineNumber": 76
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Common/CEnum.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 187,
+      "nonEmptyLines": 150,
+      "classes": [
+        {
+          "name": "DATA_SRC",
+          "startLine": 16,
+          "endLine": 24,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "KL_TYPE",
+          "startLine": 27,
+          "endLine": 51,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "KLINE_DIR",
+          "startLine": 54,
+          "endLine": 59,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "FX_TYPE",
+          "startLine": 62,
+          "endLine": 66,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "BI_DIR",
+          "startLine": 69,
+          "endLine": 72,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "BI_TYPE",
+          "startLine": 75,
+          "endLine": 84,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "BSP_TYPE",
+          "startLine": 92,
+          "endLine": 110,
+          "methods": [
+            "main_type"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AUTYPE",
+          "startLine": 113,
+          "endLine": 117,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "TREND_TYPE",
+          "startLine": 120,
+          "endLine": 124,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "TREND_LINE_SIDE",
+          "startLine": 127,
+          "endLine": 130,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LEFT_SEG_METHOD",
+          "startLine": 133,
+          "endLine": 136,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "FX_CHECK_METHOD",
+          "startLine": 139,
+          "endLine": 144,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "SEG_TYPE",
+          "startLine": 147,
+          "endLine": 150,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "MACD_ALGO",
+          "startLine": 153,
+          "endLine": 166,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "DATA_FIELD",
+          "startLine": 169,
+          "endLine": 182,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DATA_SRC",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "KL_TYPE",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "KLINE_DIR",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "FX_TYPE",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "BI_DIR",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "BI_TYPE",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "BSP_TYPE",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "AUTYPE",
+          "line": 113,
+          "isDefault": false
+        },
+        {
+          "name": "TREND_TYPE",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "TREND_LINE_SIDE",
+          "line": 127,
+          "isDefault": false
+        },
+        {
+          "name": "LEFT_SEG_METHOD",
+          "line": 133,
+          "isDefault": false
+        },
+        {
+          "name": "FX_CHECK_METHOD",
+          "line": 139,
+          "isDefault": false
+        },
+        {
+          "name": "SEG_TYPE",
+          "line": 147,
+          "isDefault": false
+        },
+        {
+          "name": "MACD_ALGO",
+          "line": 153,
+          "isDefault": false
+        },
+        {
+          "name": "DATA_FIELD",
+          "line": 169,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 15,
+        "functionCount": 0,
+        "classCount": 15
+      }
+    },
+    {
+      "path": "DataAPI/BaoStockAPI.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 231,
+      "nonEmptyLines": 192,
+      "functions": [
+        {
+          "name": "create_item_dict",
+          "startLine": 28,
+          "endLine": 46,
+          "params": [
+            "data",
+            "column_name"
+          ]
+        },
+        {
+          "name": "parse_time_column",
+          "startLine": 49,
+          "endLine": 82,
+          "params": [
+            "inp"
+          ]
+        },
+        {
+          "name": "GetColumnNameFromFieldList",
+          "startLine": 85,
+          "endLine": 106,
+          "params": [
+            "fileds"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CBaoStock",
+          "startLine": 109,
+          "endLine": 231,
+          "methods": [
+            "__init__",
+            "get_kl_data",
+            "SetBasciInfo",
+            "do_init",
+            "do_close",
+            "__convert_type"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "create_item_dict",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "parse_time_column",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "GetColumnNameFromFieldList",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "CBaoStock",
+          "line": 109,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create_item_dict",
+          "callee": "range",
+          "lineNumber": 44
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "len",
+          "lineNumber": 44
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "parse_time_column",
+          "lineNumber": 45
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "str2float",
+          "lineNumber": 45
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "dict",
+          "lineNumber": 46
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "zip",
+          "lineNumber": 46
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "len",
+          "lineNumber": 63
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 64
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 65
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 66
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "len",
+          "lineNumber": 68
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 69
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 70
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 71
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 72
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 73
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "len",
+          "lineNumber": 74
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 75
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 76
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 77
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 78
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 79
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "Exception",
+          "lineNumber": 81
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "CTime",
+          "lineNumber": 82
+        },
+        {
+          "caller": "GetColumnNameFromFieldList",
+          "callee": "fileds.split",
+          "lineNumber": 106
+        },
+        {
+          "caller": "__init__",
+          "callee": "super(CBaoStock, self).__init__",
+          "lineNumber": 130
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 130
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "kltype_lt_day",
+          "lineNumber": 149
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "Exception",
+          "lineNumber": 151
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "bs.query_history_k_data_plus",
+          "lineNumber": 160
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "self.__convert_type",
+          "lineNumber": 165
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "Exception",
+          "lineNumber": 169
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "rs.next",
+          "lineNumber": 173
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "CKLine_Unit",
+          "lineNumber": 174
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "create_item_dict",
+          "lineNumber": 174
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "rs.get_row_data",
+          "lineNumber": 174
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "GetColumnNameFromFieldList",
+          "lineNumber": 174
+        },
+        {
+          "caller": "SetBasciInfo",
+          "callee": "bs.query_stock_basic",
+          "lineNumber": 184
+        },
+        {
+          "caller": "SetBasciInfo",
+          "callee": "Exception",
+          "lineNumber": 186
+        },
+        {
+          "caller": "SetBasciInfo",
+          "callee": "rs.get_row_data",
+          "lineNumber": 188
+        },
+        {
+          "caller": "do_init",
+          "callee": "bs.login",
+          "lineNumber": 201
+        },
+        {
+          "caller": "do_close",
+          "callee": "bs.logout",
+          "lineNumber": 212
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 4,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Debug/strategy_demo.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 76,
+      "nonEmptyLines": 66,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Debug/strategy_demo2.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 75,
+      "nonEmptyLines": 65,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Debug/strategy_demo3.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 115,
+      "nonEmptyLines": 95,
+      "functions": [
+        {
+          "name": "combine_60m_klu_form_15m",
+          "startLine": 32,
+          "endLine": 57,
+          "params": [
+            "klu_15m_lst"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "combine_60m_klu_form_15m",
+          "line": 32,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "combine_60m_klu_form_15m",
+          "callee": "CKLine_Unit",
+          "lineNumber": 49
+        },
+        {
+          "caller": "combine_60m_klu_form_15m",
+          "callee": "max",
+          "lineNumber": 54
+        },
+        {
+          "caller": "combine_60m_klu_form_15m",
+          "callee": "min",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Debug/strategy_demo4.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 77,
+      "nonEmptyLines": 65,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Debug/strategy_demo5.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 213,
+      "nonEmptyLines": 180,
+      "functions": [
+        {
+          "name": "plot",
+          "startLine": 54,
+          "endLine": 83,
+          "params": [
+            "chan",
+            "plot_marker"
+          ]
+        },
+        {
+          "name": "stragety_feature",
+          "startLine": 86,
+          "endLine": 101,
+          "params": [
+            "last_klu"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "T_SAMPLE_INFO",
+          "startLine": 42,
+          "endLine": 51,
+          "methods": [],
+          "properties": [
+            "feature",
+            "is_buy",
+            "open_time"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "T_SAMPLE_INFO",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "plot",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "stragety_feature",
+          "line": 86,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "plot",
+          "callee": "CPlotDriver",
+          "lineNumber": 78
+        },
+        {
+          "caller": "plot",
+          "callee": "plot_driver.save2img",
+          "lineNumber": 83
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Debug/strategy_demo6.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 123,
+      "nonEmptyLines": 100,
+      "functions": [
+        {
+          "name": "predict_bsp",
+          "startLine": 51,
+          "endLine": 75,
+          "params": [
+            "model",
+            "last_bsp",
+            "meta"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "T_SAMPLE_INFO",
+          "startLine": 39,
+          "endLine": 48,
+          "methods": [],
+          "properties": [
+            "feature",
+            "is_buy",
+            "open_time"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "T_SAMPLE_INFO",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "predict_bsp",
+          "line": 51,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "predict_bsp",
+          "callee": "len",
+          "lineNumber": 69
+        },
+        {
+          "caller": "predict_bsp",
+          "callee": "last_bsp.features.items",
+          "lineNumber": 70
+        },
+        {
+          "caller": "predict_bsp",
+          "callee": "xgb.DMatrix",
+          "lineNumber": 74
+        },
+        {
+          "caller": "predict_bsp",
+          "callee": "model.predict",
+          "lineNumber": 75
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Math/BOLL.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 84,
+      "nonEmptyLines": 65,
+      "functions": [
+        {
+          "name": "_truncate",
+          "startLine": 14,
+          "endLine": 21,
+          "params": [
+            "x"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "BOLL_Metric",
+          "startLine": 24,
+          "endLine": 43,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "BollModel",
+          "startLine": 46,
+          "endLine": 84,
+          "methods": [
+            "__init__",
+            "add"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_truncate",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "BOLL_Metric",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "BollModel",
+          "line": 46,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "_truncate",
+          "lineNumber": 40
+        },
+        {
+          "caller": "__init__",
+          "callee": "_truncate",
+          "lineNumber": 42
+        },
+        {
+          "caller": "add",
+          "callee": "self.arr.append",
+          "lineNumber": 79
+        },
+        {
+          "caller": "add",
+          "callee": "len",
+          "lineNumber": 80
+        },
+        {
+          "caller": "add",
+          "callee": "sum",
+          "lineNumber": 82
+        },
+        {
+          "caller": "add",
+          "callee": "len",
+          "lineNumber": 82
+        },
+        {
+          "caller": "add",
+          "callee": "math.sqrt",
+          "lineNumber": 83
+        },
+        {
+          "caller": "add",
+          "callee": "sum",
+          "lineNumber": 83
+        },
+        {
+          "caller": "add",
+          "callee": "len",
+          "lineNumber": 83
+        },
+        {
+          "caller": "add",
+          "callee": "BOLL_Metric",
+          "lineNumber": 84
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "Math/Demark.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 353,
+      "nonEmptyLines": 293,
+      "classes": [
+        {
+          "name": "C_KL",
+          "startLine": 22,
+          "endLine": 47,
+          "methods": [
+            "v"
+          ],
+          "properties": [
+            "idx",
+            "close",
+            "high",
+            "low"
+          ]
+        },
+        {
+          "name": "T_DEMARK_INDEX",
+          "startLine": 53,
+          "endLine": 63,
+          "methods": [],
+          "properties": [
+            "type",
+            "dir",
+            "idx",
+            "series"
+          ]
+        },
+        {
+          "name": "CDemarkIndex",
+          "startLine": 66,
+          "endLine": 96,
+          "methods": [
+            "__init__",
+            "add",
+            "get_setup",
+            "get_countdown",
+            "update"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CDemarkCountdown",
+          "startLine": 99,
+          "endLine": 149,
+          "methods": [
+            "__init__",
+            "update"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CDemarkSetup",
+          "startLine": 152,
+          "endLine": 225,
+          "methods": [
+            "__init__",
+            "update",
+            "add_setup",
+            "cal_TDST_peak"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CDemarkEngine",
+          "startLine": 228,
+          "endLine": 353,
+          "methods": [
+            "__init__",
+            "update",
+            "cal_result",
+            "clear",
+            "clean_series_from_setup_finish"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "C_KL",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "T_DEMARK_INDEX",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "CDemarkIndex",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "CDemarkCountdown",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "CDemarkSetup",
+          "line": 152,
+          "isDefault": false
+        },
+        {
+          "name": "CDemarkEngine",
+          "line": 228,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "add",
+          "callee": "self.data.append",
+          "lineNumber": 84
+        },
+        {
+          "caller": "update",
+          "callee": "self.data.extend",
+          "lineNumber": 96
+        },
+        {
+          "caller": "__init__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 114
+        },
+        {
+          "caller": "update",
+          "callee": "self.kl_list.append",
+          "lineNumber": 131
+        },
+        {
+          "caller": "update",
+          "callee": "len",
+          "lineNumber": 132
+        },
+        {
+          "caller": "update",
+          "callee": "self.kl_list[-1 - CDemarkEngine.COUNTDOWN_BIAS].v",
+          "lineNumber": 143
+        },
+        {
+          "caller": "update",
+          "callee": "self.kl_list[-1 - CDemarkEngine.COUNTDOWN_BIAS].v",
+          "lineNumber": 146
+        },
+        {
+          "caller": "__init__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 168
+        },
+        {
+          "caller": "__init__",
+          "callee": "len",
+          "lineNumber": 170
+        },
+        {
+          "caller": "__init__",
+          "callee": "CDemarkIndex",
+          "lineNumber": 176
+        },
+        {
+          "caller": "update",
+          "callee": "CDemarkIndex",
+          "lineNumber": 180
+        },
+        {
+          "caller": "update",
+          "callee": "self.kl_list.append",
+          "lineNumber": 182
+        },
+        {
+          "caller": "update",
+          "callee": "self.kl_list[-1-CDemarkEngine.SETUP_BIAS].v",
+          "lineNumber": 184
+        },
+        {
+          "caller": "update",
+          "callee": "self.add_setup",
+          "lineNumber": 185
+        },
+        {
+          "caller": "update",
+          "callee": "self.kl_list[-1-CDemarkEngine.SETUP_BIAS].v",
+          "lineNumber": 188
+        },
+        {
+          "caller": "update",
+          "callee": "self.add_setup",
+          "lineNumber": 189
+        },
+        {
+          "caller": "update",
+          "callee": "CDemarkCountdown",
+          "lineNumber": 193
+        },
+        {
+          "caller": "update",
+          "callee": "self.cal_TDST_peak",
+          "lineNumber": 193
+        },
+        {
+          "caller": "update",
+          "callee": "self.countdown.update",
+          "lineNumber": 194
+        },
+        {
+          "caller": "update",
+          "callee": "self.last_demark_index.add",
+          "lineNumber": 195
+        },
+        {
+          "caller": "add_setup",
+          "callee": "self.last_demark_index.add",
+          "lineNumber": 201
+        },
+        {
+          "caller": "cal_TDST_peak",
+          "callee": "len",
+          "lineNumber": 213
+        },
+        {
+          "caller": "cal_TDST_peak",
+          "callee": "len",
+          "lineNumber": 215
+        },
+        {
+          "caller": "cal_TDST_peak",
+          "callee": "max",
+          "lineNumber": 217
+        },
+        {
+          "caller": "cal_TDST_peak",
+          "callee": "max",
+          "lineNumber": 219
+        },
+        {
+          "caller": "cal_TDST_peak",
+          "callee": "min",
+          "lineNumber": 221
+        },
+        {
+          "caller": "cal_TDST_peak",
+          "callee": "min",
+          "lineNumber": 223
+        },
+        {
+          "caller": "update",
+          "callee": "self.kl_lst.append",
+          "lineNumber": 297
+        },
+        {
+          "caller": "update",
+          "callee": "C_KL",
+          "lineNumber": 297
+        },
+        {
+          "caller": "update",
+          "callee": "len",
+          "lineNumber": 298
+        },
+        {
+          "caller": "update",
+          "callee": "CDemarkIndex",
+          "lineNumber": 299
+        },
+        {
+          "caller": "update",
+          "callee": "any",
+          "lineNumber": 303
+        },
+        {
+          "caller": "update",
+          "callee": "self.series.append",
+          "lineNumber": 304
+        },
+        {
+          "caller": "update",
+          "callee": "CDemarkSetup",
+          "lineNumber": 304
+        },
+        {
+          "caller": "update",
+          "callee": "any",
+          "lineNumber": 309
+        },
+        {
+          "caller": "update",
+          "callee": "self.series.append",
+          "lineNumber": 310
+        },
+        {
+          "caller": "update",
+          "callee": "CDemarkSetup",
+          "lineNumber": 310
+        },
+        {
+          "caller": "update",
+          "callee": "self.clear",
+          "lineNumber": 315
+        },
+        {
+          "caller": "update",
+          "callee": "self.clean_series_from_setup_finish",
+          "lineNumber": 316
+        },
+        {
+          "caller": "update",
+          "callee": "self.cal_result",
+          "lineNumber": 318
+        },
+        {
+          "caller": "update",
+          "callee": "self.clear",
+          "lineNumber": 319
+        },
+        {
+          "caller": "cal_result",
+          "callee": "CDemarkIndex",
+          "lineNumber": 324
+        },
+        {
+          "caller": "cal_result",
+          "callee": "demark_index.update",
+          "lineNumber": 326
+        },
+        {
+          "caller": "clear",
+          "callee": "self.series.remove",
+          "lineNumber": 333
+        },
+        {
+          "caller": "clear",
+          "callee": "self.series.remove",
+          "lineNumber": 336
+        },
+        {
+          "caller": "clean_series_from_setup_finish",
+          "callee": "series.update",
+          "lineNumber": 347
+        },
+        {
+          "caller": "clean_series_from_setup_finish",
+          "callee": "demark_idx.get_setup",
+          "lineNumber": 348
+        },
+        {
+          "caller": "clean_series_from_setup_finish",
+          "callee": "id",
+          "lineNumber": 351
+        },
+        {
+          "caller": "clean_series_from_setup_finish",
+          "callee": "id",
+          "lineNumber": 353
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 6,
+        "functionCount": 0,
+        "classCount": 6
+      }
+    },
+    {
+      "path": "Math/KDJ.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 77,
+      "nonEmptyLines": 61,
+      "classes": [
+        {
+          "name": "KDJ_Item",
+          "startLine": 12,
+          "endLine": 18,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "KDJ",
+          "startLine": 21,
+          "endLine": 77,
+          "methods": [
+            "__init__",
+            "add"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "KDJ_Item",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "KDJ",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super(KDJ, self).__init__",
+          "lineNumber": 40
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 40
+        },
+        {
+          "caller": "__init__",
+          "callee": "KDJ_Item",
+          "lineNumber": 43
+        },
+        {
+          "caller": "add",
+          "callee": "self.arr.append",
+          "lineNumber": 57
+        },
+        {
+          "caller": "add",
+          "callee": "len",
+          "lineNumber": 61
+        },
+        {
+          "caller": "add",
+          "callee": "self.arr.pop",
+          "lineNumber": 62
+        },
+        {
+          "caller": "add",
+          "callee": "max",
+          "lineNumber": 65
+        },
+        {
+          "caller": "add",
+          "callee": "min",
+          "lineNumber": 66
+        },
+        {
+          "caller": "add",
+          "callee": "KDJ_Item",
+          "lineNumber": 74
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "Math/MACD.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 70,
+      "classes": [
+        {
+          "name": "CMACD_item",
+          "startLine": 14,
+          "endLine": 35,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CMACD",
+          "startLine": 38,
+          "endLine": 87,
+          "methods": [
+            "__init__",
+            "add"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CMACD_item",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "CMACD",
+          "line": 38,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "add",
+          "callee": "self.macd_info.append",
+          "lineNumber": 80
+        },
+        {
+          "caller": "add",
+          "callee": "CMACD_item",
+          "lineNumber": 80
+        },
+        {
+          "caller": "add",
+          "callee": "self.macd_info.append",
+          "lineNumber": 86
+        },
+        {
+          "caller": "add",
+          "callee": "CMACD_item",
+          "lineNumber": 86
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "Math/RSI.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 83,
+      "nonEmptyLines": 68,
+      "classes": [
+        {
+          "name": "RSI",
+          "startLine": 14,
+          "endLine": 83,
+          "methods": [
+            "__init__",
+            "add"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RSI",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super(RSI, self).__init__",
+          "lineNumber": 37
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 37
+        },
+        {
+          "caller": "add",
+          "callee": "self.close_arr.append",
+          "lineNumber": 54
+        },
+        {
+          "caller": "add",
+          "callee": "len",
+          "lineNumber": 55
+        },
+        {
+          "caller": "add",
+          "callee": "self.diff.append",
+          "lineNumber": 58
+        },
+        {
+          "caller": "add",
+          "callee": "len",
+          "lineNumber": 60
+        },
+        {
+          "caller": "add",
+          "callee": "sum",
+          "lineNumber": 62
+        },
+        {
+          "caller": "add",
+          "callee": "sum",
+          "lineNumber": 63
+        },
+        {
+          "caller": "add",
+          "callee": "self.up.append",
+          "lineNumber": 64
+        },
+        {
+          "caller": "add",
+          "callee": "len",
+          "lineNumber": 64
+        },
+        {
+          "caller": "add",
+          "callee": "self.down.append",
+          "lineNumber": 65
+        },
+        {
+          "caller": "add",
+          "callee": "len",
+          "lineNumber": 65
+        },
+        {
+          "caller": "add",
+          "callee": "self.up.append",
+          "lineNumber": 75
+        },
+        {
+          "caller": "add",
+          "callee": "self.down.append",
+          "lineNumber": 76
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Math/TrendLine.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 162,
+      "nonEmptyLines": 131,
+      "functions": [
+        {
+          "name": "init_peak_slope",
+          "startLine": 98,
+          "endLine": 119,
+          "params": [
+            "_dir",
+            "side"
+          ]
+        },
+        {
+          "name": "cal_tl",
+          "startLine": 122,
+          "endLine": 162,
+          "params": [
+            "c_p",
+            "_dir",
+            "side"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Point",
+          "startLine": 22,
+          "endLine": 29,
+          "methods": [
+            "cal_slope"
+          ],
+          "properties": [
+            "x",
+            "y"
+          ]
+        },
+        {
+          "name": "Line",
+          "startLine": 33,
+          "endLine": 40,
+          "methods": [
+            "cal_dis"
+          ],
+          "properties": [
+            "p",
+            "slope"
+          ]
+        },
+        {
+          "name": "CTrendLine",
+          "startLine": 43,
+          "endLine": 95,
+          "methods": [
+            "__init__",
+            "cal"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Point",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "Line",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "CTrendLine",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "init_peak_slope",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "cal_tl",
+          "line": 122,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "cal_slope",
+          "callee": "float",
+          "lineNumber": 29
+        },
+        {
+          "caller": "cal_dis",
+          "callee": "abs",
+          "lineNumber": 40
+        },
+        {
+          "caller": "cal_dis",
+          "callee": "sqrt",
+          "lineNumber": 40
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.cal",
+          "lineNumber": 64
+        },
+        {
+          "caller": "cal",
+          "callee": "float",
+          "lineNumber": 78
+        },
+        {
+          "caller": "cal",
+          "callee": "Point",
+          "lineNumber": 81
+        },
+        {
+          "caller": "cal",
+          "callee": "bi.get_begin_klu",
+          "lineNumber": 81
+        },
+        {
+          "caller": "cal",
+          "callee": "bi.get_begin_val",
+          "lineNumber": 81
+        },
+        {
+          "caller": "cal",
+          "callee": "Point",
+          "lineNumber": 84
+        },
+        {
+          "caller": "cal",
+          "callee": "bi.get_end_klu",
+          "lineNumber": 84
+        },
+        {
+          "caller": "cal",
+          "callee": "bi.get_end_val",
+          "lineNumber": 84
+        },
+        {
+          "caller": "cal",
+          "callee": "copy.copy",
+          "lineNumber": 86
+        },
+        {
+          "caller": "cal",
+          "callee": "cal_tl",
+          "lineNumber": 88
+        },
+        {
+          "caller": "cal",
+          "callee": "sum",
+          "lineNumber": 89
+        },
+        {
+          "caller": "cal",
+          "callee": "line.cal_dis",
+          "lineNumber": 89
+        },
+        {
+          "caller": "cal",
+          "callee": "len",
+          "lineNumber": 94
+        },
+        {
+          "caller": "init_peak_slope",
+          "callee": "float",
+          "lineNumber": 117
+        },
+        {
+          "caller": "init_peak_slope",
+          "callee": "float",
+          "lineNumber": 119
+        },
+        {
+          "caller": "cal_tl",
+          "callee": "init_peak_slope",
+          "lineNumber": 145
+        },
+        {
+          "caller": "cal_tl",
+          "callee": "enumerate",
+          "lineNumber": 147
+        },
+        {
+          "caller": "cal_tl",
+          "callee": "p.cal_slope",
+          "lineNumber": 148
+        },
+        {
+          "caller": "cal_tl",
+          "callee": "Line",
+          "lineNumber": 162
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 5,
+        "functionCount": 2,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "Math/TrendModel.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 61,
+      "nonEmptyLines": 50,
+      "classes": [
+        {
+          "name": "CTrendModel",
+          "startLine": 15,
+          "endLine": 61,
+          "methods": [
+            "__init__",
+            "add"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CTrendModel",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "add",
+          "callee": "self.arr.append",
+          "lineNumber": 51
+        },
+        {
+          "caller": "add",
+          "callee": "len",
+          "lineNumber": 52
+        },
+        {
+          "caller": "add",
+          "callee": "sum",
+          "lineNumber": 55
+        },
+        {
+          "caller": "add",
+          "callee": "len",
+          "lineNumber": 55
+        },
+        {
+          "caller": "add",
+          "callee": "max",
+          "lineNumber": 57
+        },
+        {
+          "caller": "add",
+          "callee": "min",
+          "lineNumber": 59
+        },
+        {
+          "caller": "add",
+          "callee": "CChanException",
+          "lineNumber": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Plot/AnimatePlotDriver.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 46,
+      "classes": [
+        {
+          "name": "CAnimateDriver",
+          "startLine": 22,
+          "endLine": 58,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CAnimateDriver",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "chan.step_load",
+          "lineNumber": 54
+        },
+        {
+          "caller": "__init__",
+          "callee": "CPlotDriver",
+          "lineNumber": 55
+        },
+        {
+          "caller": "__init__",
+          "callee": "clear_output",
+          "lineNumber": 56
+        },
+        {
+          "caller": "__init__",
+          "callee": "display",
+          "lineNumber": 57
+        },
+        {
+          "caller": "__init__",
+          "callee": "plt.close",
+          "lineNumber": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Plot/PlotDriver.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1493,
+      "nonEmptyLines": 1294,
+      "functions": [
+        {
+          "name": "reformat_plot_config",
+          "startLine": 39,
+          "endLine": 60,
+          "params": [
+            "plot_config"
+          ]
+        },
+        {
+          "name": "parse_single_lv_plot_config",
+          "startLine": 63,
+          "endLine": 86,
+          "params": [
+            "plot_config"
+          ]
+        },
+        {
+          "name": "parse_plot_config",
+          "startLine": 89,
+          "endLine": 117,
+          "params": [
+            "plot_config",
+            "lv_list"
+          ]
+        },
+        {
+          "name": "set_x_tick",
+          "startLine": 120,
+          "endLine": 133,
+          "params": [
+            "ax",
+            "x_limits",
+            "tick",
+            "x_tick_num"
+          ]
+        },
+        {
+          "name": "cal_y_range",
+          "startLine": 136,
+          "endLine": 159,
+          "params": [
+            "meta",
+            "ax"
+          ]
+        },
+        {
+          "name": "create_figure",
+          "startLine": 162,
+          "endLine": 226,
+          "params": [
+            "plot_macd",
+            "figure_config",
+            "lv_lst"
+          ]
+        },
+        {
+          "name": "cal_x_limit",
+          "startLine": 229,
+          "endLine": 243,
+          "params": [
+            "meta",
+            "x_range"
+          ]
+        },
+        {
+          "name": "set_grid",
+          "startLine": 246,
+          "endLine": 262,
+          "params": [
+            "ax",
+            "config"
+          ]
+        },
+        {
+          "name": "GetPlotMeta",
+          "startLine": 265,
+          "endLine": 281,
+          "params": [
+            "chan",
+            "figure_config"
+          ]
+        },
+        {
+          "name": "getTextBox",
+          "startLine": 1383,
+          "endLine": 1396,
+          "params": [
+            "ax",
+            "txt_instance"
+          ]
+        },
+        {
+          "name": "plot_bi_element",
+          "startLine": 1399,
+          "endLine": 1413,
+          "params": [
+            "bi",
+            "ax",
+            "color"
+          ]
+        },
+        {
+          "name": "bi_text",
+          "startLine": 1416,
+          "endLine": 1443,
+          "params": [
+            "bi_idx",
+            "ax",
+            "bi",
+            "end_fontsize",
+            "end_color"
+          ]
+        },
+        {
+          "name": "show_func_helper",
+          "startLine": 1446,
+          "endLine": 1465,
+          "params": [
+            "func"
+          ]
+        },
+        {
+          "name": "add_zs_text",
+          "startLine": 1468,
+          "endLine": 1493,
+          "params": [
+            "ax",
+            "zs_meta",
+            "fontsize",
+            "text_color"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CPlotDriver",
+          "startLine": 284,
+          "endLine": 1380,
+          "methods": [
+            "__init__",
+            "GetRealXrange",
+            "DrawElement",
+            "ShowDrawFuncHelper",
+            "save2img",
+            "draw_klu",
+            "draw_klc",
+            "draw_bi",
+            "draw_seg",
+            "draw_segseg",
+            "plot_single_eigen",
+            "draw_eigen",
+            "draw_segeigen",
+            "draw_zs",
+            "draw_segzs",
+            "draw_macd",
+            "draw_mean",
+            "draw_channel",
+            "draw_boll",
+            "bsp_common_draw",
+            "draw_bs_point",
+            "draw_seg_bs_point",
+            "update_y_range",
+            "plot_closeAction",
+            "draw_marker",
+            "draw_demark_begin_line",
+            "draw_rsi",
+            "draw_kdj",
+            "draw_demark"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "reformat_plot_config",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "parse_single_lv_plot_config",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "parse_plot_config",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "set_x_tick",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "cal_y_range",
+          "line": 136,
+          "isDefault": false
+        },
+        {
+          "name": "create_figure",
+          "line": 162,
+          "isDefault": false
+        },
+        {
+          "name": "cal_x_limit",
+          "line": 229,
+          "isDefault": false
+        },
+        {
+          "name": "set_grid",
+          "line": 246,
+          "isDefault": false
+        },
+        {
+          "name": "GetPlotMeta",
+          "line": 265,
+          "isDefault": false
+        },
+        {
+          "name": "CPlotDriver",
+          "line": 284,
+          "isDefault": false
+        },
+        {
+          "name": "getTextBox",
+          "line": 1383,
+          "isDefault": false
+        },
+        {
+          "name": "plot_bi_element",
+          "line": 1399,
+          "isDefault": false
+        },
+        {
+          "name": "bi_text",
+          "line": 1416,
+          "isDefault": false
+        },
+        {
+          "name": "show_func_helper",
+          "line": 1446,
+          "isDefault": false
+        },
+        {
+          "name": "add_zs_text",
+          "line": 1468,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_format",
+          "callee": "s.startswith",
+          "lineNumber": 58
+        },
+        {
+          "caller": "reformat_plot_config",
+          "callee": "_format",
+          "lineNumber": 60
+        },
+        {
+          "caller": "reformat_plot_config",
+          "callee": "plot_config.items",
+          "lineNumber": 60
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "isinstance",
+          "lineNumber": 78
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "reformat_plot_config",
+          "lineNumber": 79
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "isinstance",
+          "lineNumber": 80
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "reformat_plot_config",
+          "lineNumber": 82
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "dict",
+          "lineNumber": 82
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "k.strip().lower",
+          "lineNumber": 82
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "k.strip",
+          "lineNumber": 82
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "plot_config.split",
+          "lineNumber": 82
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "isinstance",
+          "lineNumber": 83
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "reformat_plot_config",
+          "lineNumber": 84
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "dict",
+          "lineNumber": 84
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "k.strip().lower",
+          "lineNumber": 84
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "k.strip",
+          "lineNumber": 84
+        },
+        {
+          "caller": "parse_single_lv_plot_config",
+          "callee": "CChanException",
+          "lineNumber": 86
+        },
+        {
+          "caller": "parse_plot_config",
+          "callee": "isinstance",
+          "lineNumber": 105
+        },
+        {
+          "caller": "parse_plot_config",
+          "callee": "all",
+          "lineNumber": 106
+        },
+        {
+          "caller": "parse_plot_config",
+          "callee": "isinstance",
+          "lineNumber": 106
+        },
+        {
+          "caller": "parse_plot_config",
+          "callee": "plot_config.keys",
+          "lineNumber": 106
+        },
+        {
+          "caller": "parse_plot_config",
+          "callee": "parse_single_lv_plot_config",
+          "lineNumber": 108
+        },
+        {
+          "caller": "parse_plot_config",
+          "callee": "all",
+          "lineNumber": 109
+        },
+        {
+          "caller": "parse_plot_config",
+          "callee": "isinstance",
+          "lineNumber": 109
+        },
+        {
+          "caller": "parse_plot_config",
+          "callee": "plot_config.keys",
+          "lineNumber": 109
+        },
+        {
+          "caller": "parse_plot_config",
+          "callee": "parse_single_lv_plot_config",
+          "lineNumber": 113
+        },
+        {
+          "caller": "parse_plot_config",
+          "callee": "CChanException",
+          "lineNumber": 115
+        },
+        {
+          "caller": "parse_plot_config",
+          "callee": "parse_single_lv_plot_config",
+          "lineNumber": 117
+        },
+        {
+          "caller": "set_x_tick",
+          "callee": "ax.set_xlim",
+          "lineNumber": 131
+        },
+        {
+          "caller": "set_x_tick",
+          "callee": "ax.set_xticks",
+          "lineNumber": 132
+        },
+        {
+          "caller": "set_x_tick",
+          "callee": "range",
+          "lineNumber": 132
+        },
+        {
+          "caller": "set_x_tick",
+          "callee": "max",
+          "lineNumber": 132
+        },
+        {
+          "caller": "set_x_tick",
+          "callee": "int",
+          "lineNumber": 132
+        },
+        {
+          "caller": "set_x_tick",
+          "callee": "float",
+          "lineNumber": 132
+        },
+        {
+          "caller": "set_x_tick",
+          "callee": "ax.set_xticklabels",
+          "lineNumber": 133
+        },
+        {
+          "caller": "set_x_tick",
+          "callee": "ax.get_xticks",
+          "lineNumber": 133
+        },
+        {
+          "caller": "cal_y_range",
+          "callee": "ax.get_xlim",
+          "lineNumber": 149
+        },
+        {
+          "caller": "cal_y_range",
+          "callee": "float",
+          "lineNumber": 150
+        },
+        {
+          "caller": "cal_y_range",
+          "callee": "float",
+          "lineNumber": 151
+        },
+        {
+          "caller": "create_figure",
+          "callee": "figure_config.get",
+          "lineNumber": 182
+        },
+        {
+          "caller": "create_figure",
+          "callee": "figure_config.get",
+          "lineNumber": 183
+        },
+        {
+          "caller": "create_figure",
+          "callee": "figure_config.get",
+          "lineNumber": 184
+        },
+        {
+          "caller": "create_figure",
+          "callee": "gridspec_kw.extend",
+          "lineNumber": 194
+        },
+        {
+          "caller": "create_figure",
+          "callee": "gridspec_kw.append",
+          "lineNumber": 198
+        },
+        {
+          "caller": "create_figure",
+          "callee": "plt.subplots",
+          "lineNumber": 202
+        },
+        {
+          "caller": "create_figure",
+          "callee": "len",
+          "lineNumber": 225
+        },
+        {
+          "caller": "set_grid",
+          "callee": "ax.grid",
+          "lineNumber": 257
+        },
+        {
+          "caller": "set_grid",
+          "callee": "ax.grid",
+          "lineNumber": 260
+        },
+        {
+          "caller": "set_grid",
+          "callee": "CChanException",
+          "lineNumber": 262
+        },
+        {
+          "caller": "GetPlotMeta",
+          "callee": "CChanPlotMeta",
+          "lineNumber": 278
+        },
+        {
+          "caller": "GetPlotMeta",
+          "callee": "figure_config.get",
+          "lineNumber": 279
+        },
+        {
+          "caller": "__init__",
+          "callee": "plot_para.get",
+          "lineNumber": 317
+        },
+        {
+          "caller": "__init__",
+          "callee": "parse_plot_config",
+          "lineNumber": 320
+        },
+        {
+          "caller": "__init__",
+          "callee": "GetPlotMeta",
+          "lineNumber": 321
+        },
+        {
+          "caller": "__init__",
+          "callee": "len",
+          "lineNumber": 322
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.GetRealXrange",
+          "lineNumber": 325
+        },
+        {
+          "caller": "__init__",
+          "callee": "conf.get",
+          "lineNumber": 329
+        },
+        {
+          "caller": "__init__",
+          "callee": "plot_config.items",
+          "lineNumber": 330
+        },
+        {
+          "caller": "__init__",
+          "callee": "create_figure",
+          "lineNumber": 334
+        },
+        {
+          "caller": "__init__",
+          "callee": "plot_para.get('seg', {}).get",
+          "lineNumber": 338
+        },
+        {
+          "caller": "__init__",
+          "callee": "plot_para.get",
+          "lineNumber": 338
+        },
+        {
+          "caller": "__init__",
+          "callee": "plot_para.get('bi', {}).get",
+          "lineNumber": 340
+        },
+        {
+          "caller": "__init__",
+          "callee": "plot_para.get",
+          "lineNumber": 340
+        },
+        {
+          "caller": "__init__",
+          "callee": "zip",
+          "lineNumber": 345
+        },
+        {
+          "caller": "__init__",
+          "callee": "len",
+          "lineNumber": 347
+        },
+        {
+          "caller": "__init__",
+          "callee": "set_grid",
+          "lineNumber": 350
+        },
+        {
+          "caller": "__init__",
+          "callee": "figure_config.get",
+          "lineNumber": 350
+        },
+        {
+          "caller": "__init__",
+          "callee": "ax.set_title",
+          "lineNumber": 351
+        },
+        {
+          "caller": "__init__",
+          "callee": "lv.name.split",
+          "lineNumber": 351
+        },
+        {
+          "caller": "__init__",
+          "callee": "cal_x_limit",
+          "lineNumber": 354
+        },
+        {
+          "caller": "__init__",
+          "callee": "max",
+          "lineNumber": 358
+        },
+        {
+          "caller": "__init__",
+          "callee": "set_x_tick",
+          "lineNumber": 363
+        },
+        {
+          "caller": "__init__",
+          "callee": "figure_config.get",
+          "lineNumber": 363
+        },
+        {
+          "caller": "__init__",
+          "callee": "set_x_tick",
+          "lineNumber": 365
+        },
+        {
+          "caller": "__init__",
+          "callee": "figure_config.get",
+          "lineNumber": 365
+        },
+        {
+          "caller": "__init__",
+          "callee": "cal_y_range",
+          "lineNumber": 368
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.DrawElement",
+          "lineNumber": 371
+        },
+        {
+          "caller": "__init__",
+          "callee": "meta.sub_last_kseg_start_idx",
+          "lineNumber": 376
+        },
+        {
+          "caller": "__init__",
+          "callee": "meta.sub_last_kbi_start_idx",
+          "lineNumber": 378
+        },
+        {
+          "caller": "__init__",
+          "callee": "meta.sub_range_start_idx",
+          "lineNumber": 380
+        },
+        {
+          "caller": "__init__",
+          "callee": "ax.set_ylim",
+          "lineNumber": 382
+        },
+        {
+          "caller": "GetRealXrange",
+          "callee": "figure_config.get",
+          "lineNumber": 401
+        },
+        {
+          "caller": "GetRealXrange",
+          "callee": "figure_config.get",
+          "lineNumber": 402
+        },
+        {
+          "caller": "GetRealXrange",
+          "callee": "figure_config.get",
+          "lineNumber": 403
+        },
+        {
+          "caller": "GetRealXrange",
+          "callee": "figure_config.get",
+          "lineNumber": 404
+        },
+        {
+          "caller": "GetRealXrange",
+          "callee": "len",
+          "lineNumber": 413
+        },
+        {
+          "caller": "GetRealXrange",
+          "callee": "len",
+          "lineNumber": 421
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 454
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_klu",
+          "lineNumber": 455
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 455
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 456
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_klc",
+          "lineNumber": 457
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 457
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 458
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_bi",
+          "lineNumber": 459
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 459
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 460
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_seg",
+          "lineNumber": 461
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 461
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 462
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_segseg",
+          "lineNumber": 463
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 463
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 464
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_eigen",
+          "lineNumber": 465
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 465
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 466
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_segeigen",
+          "lineNumber": 467
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 467
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 468
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_zs",
+          "lineNumber": 469
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 469
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 470
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_segzs",
+          "lineNumber": 471
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 471
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 472
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_macd",
+          "lineNumber": 474
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 474
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 475
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_mean",
+          "lineNumber": 476
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 476
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 477
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_channel",
+          "lineNumber": 478
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 478
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 479
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_boll",
+          "lineNumber": 480
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 480
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 481
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_bs_point",
+          "lineNumber": 482
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 482
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 483
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_seg_bs_point",
+          "lineNumber": 484
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 484
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 485
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_demark",
+          "lineNumber": 486
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 486
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 487
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_marker",
+          "lineNumber": 488
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 488
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 489
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_rsi",
+          "lineNumber": 490
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "ax.twinx",
+          "lineNumber": 490
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 490
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_config.get",
+          "lineNumber": 491
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "self.draw_kdj",
+          "lineNumber": 492
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "ax.twinx",
+          "lineNumber": 492
+        },
+        {
+          "caller": "DrawElement",
+          "callee": "plot_para.get",
+          "lineNumber": 492
+        },
+        {
+          "caller": "ShowDrawFuncHelper",
+          "callee": "dir",
+          "lineNumber": 505
+        },
+        {
+          "caller": "ShowDrawFuncHelper",
+          "callee": "func.startswith",
+          "lineNumber": 506
+        },
+        {
+          "caller": "ShowDrawFuncHelper",
+          "callee": "show_func_helper",
+          "lineNumber": 508
+        },
+        {
+          "caller": "ShowDrawFuncHelper",
+          "callee": "eval",
+          "lineNumber": 508
+        },
+        {
+          "caller": "save2img",
+          "callee": "plt.savefig",
+          "lineNumber": 517
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "ax.get_xlim",
+          "lineNumber": 542
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "meta.klu_iter",
+          "lineNumber": 544
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "ax.add_patch",
+          "lineNumber": 553
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "Rectangle",
+          "lineNumber": 554
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "ax.plot",
+          "lineNumber": 555
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "ax.plot",
+          "lineNumber": 556
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "ax.add_patch",
+          "lineNumber": 559
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "Rectangle",
+          "lineNumber": 559
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "ax.plot",
+          "lineNumber": 560
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "_y.append",
+          "lineNumber": 562
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "_x.append",
+          "lineNumber": 563
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "_y.append",
+          "lineNumber": 565
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "_x.append",
+          "lineNumber": 566
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "_y.append",
+          "lineNumber": 568
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "_x.append",
+          "lineNumber": 569
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "_y.append",
+          "lineNumber": 571
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "_x.append",
+          "lineNumber": 572
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "CChanException",
+          "lineNumber": 574
+        },
+        {
+          "caller": "draw_klu",
+          "callee": "ax.plot",
+          "lineNumber": 577
+        },
+        {
+          "caller": "draw_klc",
+          "callee": "ax.get_xlim",
+          "lineNumber": 598
+        },
+        {
+          "caller": "draw_klc",
+          "callee": "ax.add_patch",
+          "lineNumber": 605
+        },
+        {
+          "caller": "draw_klc",
+          "callee": "Rectangle",
+          "lineNumber": 606
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "ax.get_xlim",
+          "lineNumber": 649
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "enumerate",
+          "lineNumber": 650
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "plot_bi_element",
+          "lineNumber": 653
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "ax.text",
+          "lineNumber": 656
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "bi_text",
+          "lineNumber": 660
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "len",
+          "lineNumber": 663
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "len",
+          "lineNumber": 664
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "ax.get_ylim",
+          "lineNumber": 668
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "int",
+          "lineNumber": 669
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "ax.get_xlim",
+          "lineNumber": 669
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "ax.fill_between",
+          "lineNumber": 670
+        },
+        {
+          "caller": "draw_bi",
+          "callee": "range",
+          "lineNumber": 670
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "ax.get_xlim",
+          "lineNumber": 716
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "enumerate",
+          "lineNumber": 718
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "ax.plot",
+          "lineNumber": 723
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "ax.plot",
+          "lineNumber": 726
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "bi_text",
+          "lineNumber": 730
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "seg_meta.tl.get",
+          "lineNumber": 734
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "seg_meta.format_tl",
+          "lineNumber": 735
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "ax.plot",
+          "lineNumber": 736
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "seg_meta.tl.get",
+          "lineNumber": 738
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "seg_meta.format_tl",
+          "lineNumber": 739
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "ax.plot",
+          "lineNumber": 740
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "ax.text",
+          "lineNumber": 744
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "len",
+          "lineNumber": 748
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "len",
+          "lineNumber": 749
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "ax.get_ylim",
+          "lineNumber": 753
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "int",
+          "lineNumber": 754
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "ax.get_xlim",
+          "lineNumber": 754
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "ax.fill_between",
+          "lineNumber": 755
+        },
+        {
+          "caller": "draw_seg",
+          "callee": "range",
+          "lineNumber": 755
+        },
+        {
+          "caller": "draw_segseg",
+          "callee": "ax.get_xlim",
+          "lineNumber": 788
+        },
+        {
+          "caller": "draw_segseg",
+          "callee": "enumerate",
+          "lineNumber": 790
+        },
+        {
+          "caller": "draw_segseg",
+          "callee": "ax.plot",
+          "lineNumber": 794
+        },
+        {
+          "caller": "draw_segseg",
+          "callee": "ax.plot",
+          "lineNumber": 797
+        },
+        {
+          "caller": "draw_segseg",
+          "callee": "ax.text",
+          "lineNumber": 803
+        },
+        {
+          "caller": "draw_segseg",
+          "callee": "ax.text",
+          "lineNumber": 810
+        },
+        {
+          "caller": "draw_segseg",
+          "callee": "ax.text",
+          "lineNumber": 818
+        },
+        {
+          "caller": "plot_single_eigen",
+          "callee": "ax.get_xlim",
+          "lineNumber": 836
+        },
+        {
+          "caller": "plot_single_eigen",
+          "callee": "enumerate",
+          "lineNumber": 838
+        },
+        {
+          "caller": "plot_single_eigen",
+          "callee": "ax.add_patch",
+          "lineNumber": 843
+        },
+        {
+          "caller": "plot_single_eigen",
+          "callee": "Rectangle",
+          "lineNumber": 844
+        },
+        {
+          "caller": "draw_eigen",
+          "callee": "self.plot_single_eigen",
+          "lineNumber": 857
+        },
+        {
+          "caller": "draw_segeigen",
+          "callee": "self.plot_single_eigen",
+          "lineNumber": 862
+        },
+        {
+          "caller": "draw_zs",
+          "callee": "max",
+          "lineNumber": 895
+        },
+        {
+          "caller": "draw_zs",
+          "callee": "ax.get_xlim",
+          "lineNumber": 896
+        },
+        {
+          "caller": "draw_zs",
+          "callee": "ax.add_patch",
+          "lineNumber": 904
+        },
+        {
+          "caller": "draw_zs",
+          "callee": "Rectangle",
+          "lineNumber": 904
+        },
+        {
+          "caller": "draw_zs",
+          "callee": "ax.add_patch",
+          "lineNumber": 909
+        },
+        {
+          "caller": "draw_zs",
+          "callee": "Rectangle",
+          "lineNumber": 909
+        },
+        {
+          "caller": "draw_zs",
+          "callee": "add_zs_text",
+          "lineNumber": 913
+        },
+        {
+          "caller": "draw_zs",
+          "callee": "add_zs_text",
+          "lineNumber": 915
+        },
+        {
+          "caller": "draw_segzs",
+          "callee": "max",
+          "lineNumber": 919
+        },
+        {
+          "caller": "draw_segzs",
+          "callee": "ax.get_xlim",
+          "lineNumber": 920
+        },
+        {
+          "caller": "draw_segzs",
+          "callee": "ax.add_patch",
+          "lineNumber": 925
+        },
+        {
+          "caller": "draw_segzs",
+          "callee": "Rectangle",
+          "lineNumber": 925
+        },
+        {
+          "caller": "draw_segzs",
+          "callee": "ax.add_patch",
+          "lineNumber": 929
+        },
+        {
+          "caller": "draw_segzs",
+          "callee": "Rectangle",
+          "lineNumber": 929
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "meta.klu_iter",
+          "lineNumber": 948
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "range",
+          "lineNumber": 952
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "len",
+          "lineNumber": 952
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "min",
+          "lineNumber": 958
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "min",
+          "lineNumber": 958
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "min",
+          "lineNumber": 958
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "min",
+          "lineNumber": 958
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "max",
+          "lineNumber": 959
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "max",
+          "lineNumber": 959
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "max",
+          "lineNumber": 959
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "max",
+          "lineNumber": 959
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "ax.plot",
+          "lineNumber": 961
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "ax.plot",
+          "lineNumber": 962
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "ax.bar",
+          "lineNumber": 965
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "enumerate",
+          "lineNumber": 966
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "_bar[idx].set_color",
+          "lineNumber": 968
+        },
+        {
+          "caller": "draw_macd",
+          "callee": "ax.set_ylim",
+          "lineNumber": 970
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "meta.klu_iter",
+          "lineNumber": 983
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "list",
+          "lineNumber": 984
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "mean_lst[0].keys",
+          "lineNumber": 984
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "plt.cm.get_cmap",
+          "lineNumber": 985
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "max",
+          "lineNumber": 985
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "len",
+          "lineNumber": 985
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "enumerate",
+          "lineNumber": 986
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "ax.plot",
+          "lineNumber": 988
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "range",
+          "lineNumber": 988
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "len",
+          "lineNumber": 988
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "cmap",
+          "lineNumber": 988
+        },
+        {
+          "caller": "draw_mean",
+          "callee": "ax.legend",
+          "lineNumber": 989
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "meta.klu_iter",
+          "lineNumber": 1007
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "meta.klu_iter",
+          "lineNumber": 1008
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "sorted",
+          "lineNumber": 1009
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "list",
+          "lineNumber": 1009
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "max_lst[0].keys",
+          "lineNumber": 1009
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "CChanException",
+          "lineNumber": 1013
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "ax.plot",
+          "lineNumber": 1018
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "range",
+          "lineNumber": 1018
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "len",
+          "lineNumber": 1018
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "ax.plot",
+          "lineNumber": 1019
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "range",
+          "lineNumber": 1019
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "len",
+          "lineNumber": 1019
+        },
+        {
+          "caller": "draw_channel",
+          "callee": "ax.legend",
+          "lineNumber": 1020
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "int",
+          "lineNumber": 1040
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "ax.get_xlim",
+          "lineNumber": 1040
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "meta.klu_iter",
+          "lineNumber": 1042
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "meta.klu_iter",
+          "lineNumber": 1043
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "meta.klu_iter",
+          "lineNumber": 1044
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "CChanException",
+          "lineNumber": 1046
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "ax.plot",
+          "lineNumber": 1048
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "range",
+          "lineNumber": 1048
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "len",
+          "lineNumber": 1048
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "ax.plot",
+          "lineNumber": 1049
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "range",
+          "lineNumber": 1049
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "len",
+          "lineNumber": 1049
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "ax.plot",
+          "lineNumber": 1050
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "range",
+          "lineNumber": 1050
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "len",
+          "lineNumber": 1050
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "min",
+          "lineNumber": 1051
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "min",
+          "lineNumber": 1051
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "max",
+          "lineNumber": 1052
+        },
+        {
+          "caller": "draw_boll",
+          "callee": "max",
+          "lineNumber": 1052
+        },
+        {
+          "caller": "bsp_common_draw",
+          "callee": "ax.get_xlim",
+          "lineNumber": 1071
+        },
+        {
+          "caller": "bsp_common_draw",
+          "callee": "ax.text",
+          "lineNumber": 1084
+        },
+        {
+          "caller": "bsp_common_draw",
+          "callee": "bsp.desc",
+          "lineNumber": 1086
+        },
+        {
+          "caller": "bsp_common_draw",
+          "callee": "ax.arrow",
+          "lineNumber": 1092
+        },
+        {
+          "caller": "draw_bs_point",
+          "callee": "self.bsp_common_draw",
+          "lineNumber": 1108
+        },
+        {
+          "caller": "draw_seg_bs_point",
+          "callee": "self.bsp_common_draw",
+          "lineNumber": 1121
+        },
+        {
+          "caller": "update_y_range",
+          "callee": "min",
+          "lineNumber": 1135
+        },
+        {
+          "caller": "update_y_range",
+          "callee": "max",
+          "lineNumber": 1136
+        },
+        {
+          "caller": "plot_closeAction",
+          "callee": "ax.arrow",
+          "lineNumber": 1143
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "ax.get_xlim",
+          "lineNumber": 1181
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "enumerate",
+          "lineNumber": 1182
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "meta.klu_iter",
+          "lineNumber": 1186
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "markers.items",
+          "lineNumber": 1187
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "date.to_str",
+          "lineNumber": 1188
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "isinstance",
+          "lineNumber": 1188
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "klu.include_sub_lv_time",
+          "lineNumber": 1189
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "klu.time.to_str",
+          "lineNumber": 1189
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "klu.time.to_str",
+          "lineNumber": 1190
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "new_marker.update",
+          "lineNumber": 1191
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "dict",
+          "lineNumber": 1193
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "enumerate",
+          "lineNumber": 1193
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "meta.klu_iter",
+          "lineNumber": 1193
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "new_marker.items",
+          "lineNumber": 1198
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "isinstance",
+          "lineNumber": 1199
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "date.to_str",
+          "lineNumber": 1200
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "len",
+          "lineNumber": 1208
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "len",
+          "lineNumber": 1212
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "ax.arrow",
+          "lineNumber": 1220
+        },
+        {
+          "caller": "draw_marker",
+          "callee": "ax.text",
+          "lineNumber": 1230
+        },
+        {
+          "caller": "draw_demark_begin_line",
+          "callee": "id",
+          "lineNumber": 1242
+        },
+        {
+          "caller": "draw_demark_begin_line",
+          "callee": "ax.plot",
+          "lineNumber": 1247
+        },
+        {
+          "caller": "draw_demark_begin_line",
+          "callee": "plot_begin_set.add",
+          "lineNumber": 1253
+        },
+        {
+          "caller": "draw_demark_begin_line",
+          "callee": "id",
+          "lineNumber": 1253
+        },
+        {
+          "caller": "draw_rsi",
+          "callee": "meta.klu_iter",
+          "lineNumber": 1269
+        },
+        {
+          "caller": "draw_rsi",
+          "callee": "int",
+          "lineNumber": 1270
+        },
+        {
+          "caller": "draw_rsi",
+          "callee": "ax.get_xlim",
+          "lineNumber": 1270
+        },
+        {
+          "caller": "draw_rsi",
+          "callee": "int",
+          "lineNumber": 1270
+        },
+        {
+          "caller": "draw_rsi",
+          "callee": "ax.get_xlim",
+          "lineNumber": 1270
+        },
+        {
+          "caller": "draw_rsi",
+          "callee": "ax.plot",
+          "lineNumber": 1271
+        },
+        {
+          "caller": "draw_rsi",
+          "callee": "range",
+          "lineNumber": 1271
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "meta.klu_iter",
+          "lineNumber": 1293
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "int",
+          "lineNumber": 1294
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "ax.get_xlim",
+          "lineNumber": 1294
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "int",
+          "lineNumber": 1294
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "ax.get_xlim",
+          "lineNumber": 1294
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "ax.plot",
+          "lineNumber": 1295
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "range",
+          "lineNumber": 1295
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "ax.plot",
+          "lineNumber": 1296
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "range",
+          "lineNumber": 1296
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "ax.plot",
+          "lineNumber": 1297
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "range",
+          "lineNumber": 1297
+        },
+        {
+          "caller": "draw_kdj",
+          "callee": "ax.legend",
+          "lineNumber": 1298
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "ax.get_xlim",
+          "lineNumber": 1332
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "meta.klu_iter",
+          "lineNumber": 1334
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "set",
+          "lineNumber": 1338
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "klu.demark.get_setup",
+          "lineNumber": 1341
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "self.draw_demark_begin_line",
+          "lineNumber": 1344
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "ax.text",
+          "lineNumber": 1345
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "str",
+          "lineNumber": 1348
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "getTextBox",
+          "lineNumber": 1356
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "getTextBox",
+          "lineNumber": 1358
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "klu.demark.get_countdown",
+          "lineNumber": 1361
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "ax.text",
+          "lineNumber": 1363
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "str",
+          "lineNumber": 1366
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "getTextBox",
+          "lineNumber": 1373
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "txt_instance.set_bbox",
+          "lineNumber": 1376
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "dict",
+          "lineNumber": 1376
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "getTextBox",
+          "lineNumber": 1378
+        },
+        {
+          "caller": "draw_demark",
+          "callee": "getTextBox",
+          "lineNumber": 1380
+        },
+        {
+          "caller": "getTextBox",
+          "callee": "txt_instance.get_window_extent().transformed",
+          "lineNumber": 1396
+        },
+        {
+          "caller": "getTextBox",
+          "callee": "txt_instance.get_window_extent",
+          "lineNumber": 1396
+        },
+        {
+          "caller": "getTextBox",
+          "callee": "ax.transData.inverted",
+          "lineNumber": 1396
+        },
+        {
+          "caller": "plot_bi_element",
+          "callee": "ax.plot",
+          "lineNumber": 1411
+        },
+        {
+          "caller": "plot_bi_element",
+          "callee": "ax.plot",
+          "lineNumber": 1413
+        },
+        {
+          "caller": "bi_text",
+          "callee": "ax.text",
+          "lineNumber": 1431
+        },
+        {
+          "caller": "bi_text",
+          "callee": "ax.text",
+          "lineNumber": 1438
+        },
+        {
+          "caller": "show_func_helper",
+          "callee": "print",
+          "lineNumber": 1457
+        },
+        {
+          "caller": "show_func_helper",
+          "callee": "inspect.signature",
+          "lineNumber": 1458
+        },
+        {
+          "caller": "show_func_helper",
+          "callee": "insp.parameters.items",
+          "lineNumber": 1459
+        },
+        {
+          "caller": "show_func_helper",
+          "callee": "isinstance",
+          "lineNumber": 1462
+        },
+        {
+          "caller": "show_func_helper",
+          "callee": "print",
+          "lineNumber": 1463
+        },
+        {
+          "caller": "show_func_helper",
+          "callee": "print",
+          "lineNumber": 1465
+        },
+        {
+          "caller": "add_zs_text",
+          "callee": "ax.text",
+          "lineNumber": 1480
+        },
+        {
+          "caller": "add_zs_text",
+          "callee": "ax.text",
+          "lineNumber": 1487
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 15,
+        "functionCount": 14,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "ZS/ZSConfig.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 29,
+      "classes": [
+        {
+          "name": "CZSConfig",
+          "startLine": 11,
+          "endLine": 35,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CZSConfig",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "main.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 125,
+      "nonEmptyLines": 114,
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

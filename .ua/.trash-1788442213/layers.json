@@ -1,0 +1,131 @@
+[
+  {
+    "id": "layer:entry-facade",
+    "name": "入口/门面层",
+    "description": "缠论框架的用户入口与门面，封装多级别K线加载、计算流水线调度及配置组装，提供批量模式与步进模式两种运行接口，供外部程序直接调用。",
+    "nodeIds": [
+      "file:Chan.py",
+      "file:ChanConfig.py",
+      "file:main.py",
+      "file:App/ashare_bsp_scanner_gui.py",
+      "file:__init__.py"
+    ]
+  },
+  {
+    "id": "layer:core-calculation",
+    "name": "缠论核心计算层",
+    "description": "缠论核心计算流水线，包含K线包含处理（Combiner）、笔的构建与管理（Bi）、特征序列与段划分（Seg）、中枢构建与合并（ZS）、买卖点检测（BuySellPoint）以及ML特征容器（ChanModel），实现从原始K线到缠论元素的完整递推计算。",
+    "nodeIds": [
+      "file:Combiner/Combine_Item.py",
+      "file:Combiner/KLine_Combiner.py",
+      "file:Combiner/__init__.py",
+      "file:KLine/KLine.py",
+      "file:KLine/KLine_List.py",
+      "file:KLine/KLine_Unit.py",
+      "file:KLine/TradeInfo.py",
+      "file:KLine/__init__.py",
+      "file:Bi/Bi.py",
+      "file:Bi/BiList.py",
+      "file:Bi/BiConfig.py",
+      "file:Seg/Eigen.py",
+      "file:Seg/EigenFX.py",
+      "file:Seg/Seg.py",
+      "file:Seg/SegConfig.py",
+      "file:Seg/SegListChan.py",
+      "file:Seg/SegListComm.py",
+      "file:Seg/SegListDYH.py",
+      "file:Seg/SegListDef.py",
+      "file:Seg/__init__.py",
+      "file:ZS/ZS.py",
+      "file:ZS/ZSList.py",
+      "file:ZS/ZSConfig.py",
+      "file:ZS/__init__.py",
+      "file:BuySellPoint/BSPointConfig.py",
+      "file:BuySellPoint/BSPointList.py",
+      "file:BuySellPoint/BS_Point.py",
+      "file:BuySellPoint/__init__.py",
+      "file:ChanModel/Features.py"
+    ]
+  },
+  {
+    "id": "layer:indicators",
+    "name": "技术指标层",
+    "description": "手写技术指标计算引擎，包含MACD、BOLL、RSI、KDJ、DeMark序列、趋势线拟合及趋势模型等指标，为K线单元和核心计算层提供量化的技术分析数据。",
+    "nodeIds": [
+      "file:Math/BOLL.py",
+      "file:Math/Demark.py",
+      "file:Math/KDJ.py",
+      "file:Math/MACD.py",
+      "file:Math/RSI.py",
+      "file:Math/TrendLine.py",
+      "file:Math/TrendModel.py",
+      "file:Math/__init__.py"
+    ]
+  },
+  {
+    "id": "layer:foundation",
+    "name": "基础公共层",
+    "description": "项目级基础公共设施，提供全局枚举定义（K线级别、方向、买卖点类型等15个核心枚举）、异常处理体系（30+错误码）、实例级缓存装饰器、时间包装工具及通用辅助函数，是整个项目的底层依赖。",
+    "nodeIds": [
+      "file:Common/CEnum.py",
+      "file:Common/ChanException.py",
+      "file:Common/cache.py",
+      "file:Common/CTime.py",
+      "file:Common/func_util.py",
+      "file:Common/__init__.py"
+    ]
+  },
+  {
+    "id": "layer:data-adapter",
+    "name": "数据适配层",
+    "description": "多数据源适配器集合，通过统一抽象基类（CommonStockAPI）封装BaoStock、Akshare、CCXT加密货币以及CSV文件等不同数据源的K线获取逻辑，将外部数据统一转换为缠论框架的标准K线格式。",
+    "nodeIds": [
+      "file:DataAPI/CommonStockAPI.py",
+      "file:DataAPI/BaoStockAPI.py",
+      "file:DataAPI/AkshareAPI.py",
+      "file:DataAPI/ccxt.py",
+      "file:DataAPI/csvAPI.py",
+      "file:DataAPI/__init__.py"
+    ]
+  },
+  {
+    "id": "layer:visualization",
+    "name": "可视化层",
+    "description": "基于matplotlib的缠论图表渲染引擎，支持静态绘图（K线、笔、段、中枢、买卖点）与步进动画回放，可嵌入Jupyter Notebook，为缠论计算结果提供完整的可视化输出。",
+    "nodeIds": [
+      "file:Plot/PlotDriver.py",
+      "file:Plot/AnimatePlotDriver.py",
+      "file:Plot/PlotMeta.py",
+      "file:Plot/__init__.py"
+    ]
+  },
+  {
+    "id": "layer:demo",
+    "name": "演示与测试层",
+    "description": "策略演示与手动冒烟测试脚本集，涵盖步进回放、外部推送、多级别联立、区间套、ML特征生成与XGBoost训练/预测等多种使用模式的演示代码，作为项目的实际验证手段。",
+    "nodeIds": [
+      "file:Debug/strategy_demo.py",
+      "file:Debug/strategy_demo2.py",
+      "file:Debug/strategy_demo3.py",
+      "file:Debug/strategy_demo4.py",
+      "file:Debug/strategy_demo5.py",
+      "file:Debug/strategy_demo6.py"
+    ]
+  },
+  {
+    "id": "layer:documentation",
+    "name": "文档与配置层",
+    "description": "项目文档、开发指南、依赖清单及工具配置，包含README、快速上手指南、代码走读说明、AI辅助开发参考文档、Python依赖清单以及Understand-Anything工具的内部配置文件。",
+    "nodeIds": [
+      "document:README.md",
+      "document:quick_guide.md",
+      "document:CLAUDE.md",
+      "document:代码走读说明.md",
+      "document:阅读文档.md",
+      "document:prompt.txt",
+      "document:Script/requirements.txt",
+      "file:.ua/.understandignore",
+      "config:.ua/config.json"
+    ]
+  }
+]

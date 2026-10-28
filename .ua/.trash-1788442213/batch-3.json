@@ -1,0 +1,677 @@
+{
+  "nodes": [
+    {
+      "id": "file:Common/CTime.py",
+      "type": "file",
+      "name": "CTime.py",
+      "filePath": "Common/CTime.py",
+      "summary": "时间包装类，提供日期时间字符串格式化、时间戳设置、日期比较等基础时间操作功能，是缠论框架中处理K线时间戳的统一入口。",
+      "tags": ["time", "utility", "data-model"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DataAPI/AkshareAPI.py",
+      "type": "file",
+      "name": "AkshareAPI.py",
+      "filePath": "DataAPI/AkshareAPI.py",
+      "summary": "Akshare 数据源适配器，从 Akshare 库获取A股和指数日线K线数据，包含复权类型转换、行情字段映射和 DataFrame 解析逻辑。",
+      "tags": ["data-adapter", "api-handler", "data-pipeline", "stock-market"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DataAPI/CommonStockAPI.py",
+      "type": "file",
+      "name": "CommonStockAPI.py",
+      "filePath": "DataAPI/CommonStockAPI.py",
+      "summary": "股票数据API抽象基类，定义数据源适配器的统一接口（get_kl_data、SetBasciInfo、do_init、do_close），所有具体数据源适配器均继承此类。",
+      "tags": ["data-model", "abstract-class", "api-handler", "data-adapter"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DataAPI/ccxt.py",
+      "type": "file",
+      "name": "ccxt.py",
+      "filePath": "DataAPI/ccxt.py",
+      "summary": "CCXT 加密货币交易所数据适配器，通过 CCXT 库从 Binance 等交易所获取K线数据，支持时间列解析、多字段映射和K线单位构造。",
+      "tags": ["data-adapter", "api-handler", "cryptocurrency", "data-pipeline"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DataAPI/csvAPI.py",
+      "type": "file",
+      "name": "csvAPI.py",
+      "filePath": "DataAPI/csvAPI.py",
+      "summary": "CSV 文件数据源适配器，从本地CSV文本文件读取K线数据，支持自定义列名映射、时间列解析和异常处理。",
+      "tags": ["data-adapter", "data-pipeline", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:KLine/KLine_Unit.py",
+      "type": "file",
+      "name": "KLine_Unit.py",
+      "filePath": "KLine/KLine_Unit.py",
+      "summary": "缠论K线单元核心数据结构，封装单根K线的所有属性（OHLCV、时间、指标），管理多级别父子K线关系，支持深拷贝、指标计算和DeMark引擎集成。",
+      "tags": ["data-model", "core", "entry-point"],
+      "complexity": "complex",
+      "languageNotes": "深拷贝时手动处理指标对象和父子引用，避免递归溢出；支持多级别K线包含关系判断（include_sub_lv_time）。"
+    },
+    {
+      "id": "file:KLine/TradeInfo.py",
+      "type": "file",
+      "name": "TradeInfo.py",
+      "filePath": "KLine/TradeInfo.py",
+      "summary": "交易信息容器，存储K线关联的技术指标数据（如MACD、RSI、KDJ等），以字典形式灵活管理指标键值对。",
+      "tags": ["data-model", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Common/CTime.py:CTime",
+      "type": "class",
+      "name": "CTime",
+      "filePath": "Common/CTime.py",
+      "lineRange": [15, 107],
+      "summary": "时间包装类，封装 datetime 对象并支持字符串格式化（to_str、toDateStr）、日期转换（toDate）、时间戳设置（set_timestamp）和比较运算符重载。",
+      "tags": ["time", "utility", "wrapper"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DataAPI/AkshareAPI.py:create_item_dict",
+      "type": "function",
+      "name": "create_item_dict",
+      "filePath": "DataAPI/AkshareAPI.py",
+      "lineRange": [29, 81],
+      "summary": "将 Akshare 返回的原始数据行转换为标准 K 线字典，处理时间字段、复权类型和 OHLCV 数据映射。",
+      "tags": ["data-adapter", "serialization", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:DataAPI/AkshareAPI.py:CAkshare",
+      "type": "class",
+      "name": "CAkshare",
+      "filePath": "DataAPI/AkshareAPI.py",
+      "lineRange": [84, 213],
+      "summary": "Akshare 数据源适配器类，继承 CCommonStockApi，实现 A 股和指数日线数据的获取、复权类型转换和 DataFrame 解析。",
+      "tags": ["data-adapter", "api-handler", "stock-market"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:DataAPI/CommonStockAPI.py:CCommonStockApi",
+      "type": "class",
+      "name": "CCommonStockApi",
+      "filePath": "DataAPI/CommonStockAPI.py",
+      "lineRange": [22, 107],
+      "summary": "股票数据API抽象基类，定义 get_kl_data、SetBasciInfo、do_init、do_close 等统一接口，派生类只需实现具体数据获取逻辑。",
+      "tags": ["abstract-class", "data-model", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DataAPI/ccxt.py:GetColumnNameFromFieldList",
+      "type": "function",
+      "name": "GetColumnNameFromFieldList",
+      "filePath": "DataAPI/ccxt.py",
+      "lineRange": [28, 45],
+      "summary": "将字段名字符串按逗号分割为列名列表，用于解析 CCXT 数据源的字段映射配置。",
+      "tags": ["utility", "data-adapter", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DataAPI/ccxt.py:CCXT",
+      "type": "class",
+      "name": "CCXT",
+      "filePath": "DataAPI/ccxt.py",
+      "lineRange": [48, 187],
+      "summary": "CCXT 加密货币交易所适配器类，继承 CCommonStockApi，通过 CCXT 库从 Binance 等交易所获取K线数据，支持时间列解析和多字段构造。",
+      "tags": ["data-adapter", "api-handler", "cryptocurrency"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DataAPI/csvAPI.py:create_item_dict",
+      "type": "function",
+      "name": "create_item_dict",
+      "filePath": "DataAPI/csvAPI.py",
+      "lineRange": [27, 44],
+      "summary": "将 CSV 文件解析后的数据行转换为标准 K 线字典，调用 parse_time_column 解析时间字段并映射数值列。",
+      "tags": ["data-adapter", "serialization", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:DataAPI/csvAPI.py:parse_time_column",
+      "type": "function",
+      "name": "parse_time_column",
+      "filePath": "DataAPI/csvAPI.py",
+      "lineRange": [47, 80],
+      "summary": "解析CSV文件中的时间列字符串，支持多种格式（YYYYMMDD、YYYY-MM-DD、YYYYMMDDHHMMSS等），返回 CTime 对象。",
+      "tags": ["time", "utility", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:DataAPI/csvAPI.py:CSV_API",
+      "type": "class",
+      "name": "CSV_API",
+      "filePath": "DataAPI/csvAPI.py",
+      "lineRange": [83, 166],
+      "summary": "CSV 文件数据源适配器类，继承 CCommonStockApi，从本地 CSV 文件读取K线数据，支持自定义列名映射和文件路径解析。",
+      "tags": ["data-adapter", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "class",
+      "name": "CKLine_Unit",
+      "filePath": "KLine/KLine_Unit.py",
+      "lineRange": [29, 285],
+      "summary": "缠论K线单元核心类，封装单根K线的所有属性（时间、OHLCV、交易信息、DeMark指标），管理多级别父子K线关系（sub_kl_list、sup_kl），支持指标集成和深拷贝。",
+      "tags": ["data-model", "core"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:KLine/TradeInfo.py:CTradeInfo",
+      "type": "class",
+      "name": "CTradeInfo",
+      "filePath": "KLine/TradeInfo.py",
+      "lineRange": [15, 40],
+      "summary": "交易信息容器类，以字典形式存储K线关联的技术指标数据（metric），支持灵活添加和字符串化输出。",
+      "tags": ["data-model", "utility"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/CommonStockAPI.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:KLine/TradeInfo.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/BOLL.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/Demark.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/KDJ.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/MACD.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/RSI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/TrendModel.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/TradeInfo.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Common/CTime.py",
+      "target": "class:Common/CTime.py:CTime",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "function:DataAPI/AkshareAPI.py:create_item_dict",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "class:DataAPI/AkshareAPI.py:CAkshare",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/CommonStockAPI.py",
+      "target": "class:DataAPI/CommonStockAPI.py:CCommonStockApi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "function:DataAPI/ccxt.py:GetColumnNameFromFieldList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "class:DataAPI/ccxt.py:CCXT",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "function:DataAPI/csvAPI.py:create_item_dict",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "function:DataAPI/csvAPI.py:parse_time_column",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "class:DataAPI/csvAPI.py:CSV_API",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/TradeInfo.py",
+      "target": "class:KLine/TradeInfo.py:CTradeInfo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/CTime.py",
+      "target": "class:Common/CTime.py:CTime",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "function:DataAPI/AkshareAPI.py:create_item_dict",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "class:DataAPI/AkshareAPI.py:CAkshare",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/CommonStockAPI.py",
+      "target": "class:DataAPI/CommonStockAPI.py:CCommonStockApi",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "function:DataAPI/ccxt.py:GetColumnNameFromFieldList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "class:DataAPI/ccxt.py:CCXT",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "function:DataAPI/csvAPI.py:create_item_dict",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "function:DataAPI/csvAPI.py:parse_time_column",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "class:DataAPI/csvAPI.py:CSV_API",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/TradeInfo.py",
+      "target": "class:KLine/TradeInfo.py:CTradeInfo",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/AkshareAPI.py:CAkshare",
+      "target": "class:DataAPI/CommonStockAPI.py:CCommonStockApi",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:DataAPI/ccxt.py:CCXT",
+      "target": "class:DataAPI/CommonStockAPI.py:CCommonStockApi",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:DataAPI/csvAPI.py:CSV_API",
+      "target": "class:DataAPI/CommonStockAPI.py:CCommonStockApi",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "function:DataAPI/AkshareAPI.py:create_item_dict",
+      "target": "class:Common/CTime.py:CTime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:DataAPI/AkshareAPI.py:create_item_dict",
+      "target": "function:Common/func_util.py:str2float",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/AkshareAPI.py:CAkshare",
+      "target": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/ccxt.py:CCXT",
+      "target": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/ccxt.py:CCXT",
+      "target": "class:Common/CTime.py:CTime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/ccxt.py:CCXT",
+      "target": "function:Common/func_util.py:kltype_lt_day",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/ccxt.py:CCXT",
+      "target": "function:Common/func_util.py:str2float",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:DataAPI/csvAPI.py:create_item_dict",
+      "target": "function:DataAPI/csvAPI.py:parse_time_column",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:DataAPI/csvAPI.py:create_item_dict",
+      "target": "function:Common/func_util.py:str2float",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:DataAPI/csvAPI.py:parse_time_column",
+      "target": "class:Common/CTime.py:CTime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/csvAPI.py:CSV_API",
+      "target": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/csvAPI.py:CSV_API",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "target": "class:KLine/TradeInfo.py:CTradeInfo",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "target": "class:Math/Demark.py:CDemarkIndex",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/CTime.py",
+      "target": "file:Debug/strategy_demo5.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:Common/CTime.py",
+      "target": "file:Debug/strategy_demo6.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Debug/strategy_demo3.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

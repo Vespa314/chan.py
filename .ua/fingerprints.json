@@ -1,0 +1,4658 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "0b502ecff876ba35c73e55e80f03d91feacdb8e6",
+  "generatedAt": "2026-09-06T08:01:34.421Z",
+  "files": {
+    "__init__.py": {
+      "filePath": "__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    ".ua/.understandignore": {
+      "filePath": ".ua/.understandignore",
+      "contentHash": "d2a3217e1663325568357af97fab850fdc3eece166ec97cac4fc742749a8eb60",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 50,
+      "hasStructuralAnalysis": false
+    },
+    ".ua/config.json": {
+      "filePath": ".ua/config.json",
+      "contentHash": "c580d182c06471d20da334e756934fa65efa6806350e985e2fcf84d3c9e395a4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "代码走读说明.md": {
+      "filePath": "代码走读说明.md",
+      "contentHash": "51af47d1f62fb8bece06d0899a94fce000aeef3178226c4da45a43549efa85ab",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 801,
+      "hasStructuralAnalysis": false
+    },
+    "阅读文档.md": {
+      "filePath": "阅读文档.md",
+      "contentHash": "7e45bd186acb21ebe48bda268dc08e171fb11e918d914f405f336033d6a9e443",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1495,
+      "hasStructuralAnalysis": true
+    },
+    "App/ashare_bsp_scanner_gui.py": {
+      "filePath": "App/ashare_bsp_scanner_gui.py",
+      "contentHash": "1c9757977f4d452ed68683af070c7a78304f391975a6ff9033cd1e2d101666df",
+      "functions": [
+        {
+          "name": "get_tradable_stocks",
+          "params": [],
+          "exported": true,
+          "lineCount": 49
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [
+        {
+          "name": "ScanThread",
+          "methods": [
+            "__init__",
+            "stop",
+            "run"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 117
+        },
+        {
+          "name": "SingleAnalysisThread",
+          "methods": [
+            "__init__",
+            "run"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 45
+        },
+        {
+          "name": "ChanPlotCanvas",
+          "methods": [
+            "__init__",
+            "clear"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "AkshareGUI",
+          "methods": [
+            "__init__",
+            "init_ui",
+            "create_left_panel",
+            "create_chart_panel",
+            "get_chan_config",
+            "get_plot_config",
+            "start_scan",
+            "stop_scan",
+            "on_scan_progress",
+            "on_log_message",
+            "on_buy_point_found",
+            "on_scan_finished",
+            "on_stock_clicked",
+            "analyze_single",
+            "analyze_stock",
+            "on_analysis_finished",
+            "on_analysis_error",
+            "plot_chart",
+            "refresh_chart",
+            "clear_stock_list"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 423
+        }
+      ],
+      "imports": [
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime",
+            "timedelta"
+          ]
+        },
+        {
+          "source": "PyQt6.QtWidgets",
+          "specifiers": [
+            "QApplication",
+            "QMainWindow",
+            "QWidget",
+            "QVBoxLayout",
+            "QHBoxLayout",
+            "QLabel",
+            "QLineEdit",
+            "QPushButton",
+            "QComboBox",
+            "QCheckBox",
+            "QGroupBox",
+            "QMessageBox",
+            "QStatusBar",
+            "QSplitter",
+            "QTableWidget",
+            "QTableWidgetItem",
+            "QProgressBar",
+            "QHeaderView",
+            "QTextEdit"
+          ]
+        },
+        {
+          "source": "PyQt6.QtCore",
+          "specifiers": [
+            "QDate",
+            "Qt",
+            "QThread",
+            "pyqtSignal"
+          ]
+        },
+        {
+          "source": "matplotlib.backends.backend_qtagg",
+          "specifiers": [
+            "FigureCanvas"
+          ]
+        },
+        {
+          "source": "matplotlib.backends.backend_qtagg",
+          "specifiers": [
+            "NavigationToolbar"
+          ]
+        },
+        {
+          "source": "matplotlib.figure",
+          "specifiers": [
+            "Figure"
+          ]
+        },
+        {
+          "source": "matplotlib.pyplot",
+          "specifiers": [
+            "plt"
+          ]
+        },
+        {
+          "source": "akshare",
+          "specifiers": [
+            "ak"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "Chan",
+          "specifiers": [
+            "CChan"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "DATA_SRC",
+            "KL_TYPE"
+          ]
+        }
+      ],
+      "exports": [
+        "get_tradable_stocks",
+        "ScanThread",
+        "SingleAnalysisThread",
+        "ChanPlotCanvas",
+        "AkshareGUI",
+        "main"
+      ],
+      "totalLines": 733,
+      "hasStructuralAnalysis": true
+    },
+    "Bi/Bi.py": {
+      "filePath": "Bi/Bi.py",
+      "contentHash": "03958ee257610e6a67769d71167d61748883234f41021971f012dea56212f434",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CBi",
+          "methods": [
+            "__init__",
+            "clean_cache",
+            "begin_klc",
+            "end_klc",
+            "dir",
+            "idx",
+            "type",
+            "is_sure",
+            "used_to_be_sure",
+            "is_used_to_be_sure",
+            "sure_end",
+            "klc_lst",
+            "klc_lst_re",
+            "seg_idx",
+            "set_seg_idx",
+            "__str__",
+            "check",
+            "set",
+            "get_begin_val",
+            "get_end_val",
+            "get_begin_klu",
+            "get_end_klu",
+            "amp",
+            "get_klu_cnt",
+            "get_klc_cnt",
+            "_high",
+            "_low",
+            "_mid",
+            "is_down",
+            "is_up",
+            "update_virtual_end",
+            "restore_from_virtual_end",
+            "append_sure_end",
+            "update_new_end",
+            "cal_macd_metric",
+            "Cal_Rsi",
+            "Cal_MACD_area",
+            "Cal_MACD_peak",
+            "Cal_MACD_half",
+            "Cal_MACD_half_obverse",
+            "Cal_MACD_half_reverse",
+            "Cal_MACD_diff",
+            "Cal_MACD_slope",
+            "Cal_MACD_amp",
+            "Cal_MACD_trade_metric"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 542
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "Common.cache",
+          "specifiers": [
+            "make_cache"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "BI_TYPE",
+            "DATA_FIELD",
+            "FX_TYPE",
+            "MACD_ALGO"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "KLine.KLine",
+          "specifiers": [
+            "CKLine"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        }
+      ],
+      "exports": [
+        "CBi"
+      ],
+      "totalLines": 562,
+      "hasStructuralAnalysis": true
+    },
+    "Bi/BiConfig.py": {
+      "filePath": "Bi/BiConfig.py",
+      "contentHash": "a05a90a3423a2f9be1bcc805abe5e5424e55c50fb0ea610b75b4a51aa579c39f",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CBiConfig",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 51
+        }
+      ],
+      "imports": [
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "FX_CHECK_METHOD"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        }
+      ],
+      "exports": [
+        "CBiConfig"
+      ],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "Bi/BiList.py": {
+      "filePath": "Bi/BiList.py",
+      "contentHash": "59aa3abd2f895b6a57c76b320eb14663b481fa031e795e635eaca19fb343ae79",
+      "functions": [
+        {
+          "name": "end_is_peak",
+          "params": [
+            "last_end",
+            "cur_end"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 39
+        }
+      ],
+      "classes": [
+        {
+          "name": "CBiList",
+          "methods": [
+            "__init__",
+            "__str__",
+            "__iter__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "__len__",
+            "try_create_first_bi",
+            "update_bi",
+            "can_update_peak",
+            "update_peak",
+            "update_bi_sure",
+            "delete_virtual_bi",
+            "try_add_virtual_bi",
+            "add_new_bi",
+            "satisfy_bi_span",
+            "get_klc_span",
+            "can_make_bi",
+            "try_update_end",
+            "get_last_klu_of_last_bi"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 429
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Optional",
+            "Union",
+            "overload"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "FX_TYPE",
+            "KLINE_DIR"
+          ]
+        },
+        {
+          "source": "KLine.KLine",
+          "specifiers": [
+            "CKLine"
+          ]
+        },
+        {
+          "source": ".Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": ".BiConfig",
+          "specifiers": [
+            "CBiConfig"
+          ]
+        }
+      ],
+      "exports": [
+        "CBiList",
+        "end_is_peak"
+      ],
+      "totalLines": 493,
+      "hasStructuralAnalysis": true
+    },
+    "BuySellPoint/__init__.py": {
+      "filePath": "BuySellPoint/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "BuySellPoint/BS_Point.py": {
+      "filePath": "BuySellPoint/BS_Point.py",
+      "contentHash": "d0270c2c636976b6460ed54567c1fdccece7f6d89b06724934764cd066381211",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CBS_Point",
+          "methods": [
+            "__init__",
+            "add_type",
+            "type2str",
+            "add_another_bsp_prop",
+            "add_feat",
+            "init_common_feature"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 90
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Generic",
+            "List",
+            "Optional",
+            "TypeVar",
+            "Union"
+          ]
+        },
+        {
+          "source": "Bi.Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": "ChanModel.Features",
+          "specifiers": [
+            "CFeatures"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BSP_TYPE"
+          ]
+        },
+        {
+          "source": "Seg.Seg",
+          "specifiers": [
+            "CSeg"
+          ]
+        }
+      ],
+      "exports": [
+        "CBS_Point"
+      ],
+      "totalLines": 110,
+      "hasStructuralAnalysis": true
+    },
+    "BuySellPoint/BSPointConfig.py": {
+      "filePath": "BuySellPoint/BSPointConfig.py",
+      "contentHash": "532db912dffc7e137e4233b189763b64040f437d38b42457b6dc7d6a564410d8",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CBSPointConfig",
+          "methods": [
+            "__init__",
+            "GetBSConfig"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 38
+        },
+        {
+          "name": "CPointConfig",
+          "methods": [
+            "__init__",
+            "parse_target_type",
+            "SetMacdAlgo",
+            "set"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 102
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BSP_TYPE",
+            "MACD_ALGO"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "_parse_inf"
+          ]
+        }
+      ],
+      "exports": [
+        "CBSPointConfig",
+        "CPointConfig"
+      ],
+      "totalLines": 160,
+      "hasStructuralAnalysis": true
+    },
+    "BuySellPoint/BSPointList.py": {
+      "filePath": "BuySellPoint/BSPointList.py",
+      "contentHash": "cf86f68a30a0cf1577821ec85111398efa095fcff8b4f20665ffbca1274fca87",
+      "functions": [
+        {
+          "name": "bsp2s_break_bsp1",
+          "params": [
+            "bsp2s_bi",
+            "bsp2_break_bi"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "bsp3_back2zs",
+          "params": [
+            "bsp3_bi",
+            "zs"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "bsp3_break_zspeak",
+          "params": [
+            "bsp3_bi",
+            "zs"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "cal_bsp3_bi_end_idx",
+          "params": [
+            "seg"
+          ],
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [
+        {
+          "name": "CBSPointList",
+          "methods": [
+            "__init__",
+            "store_add_bsp",
+            "add_bsp1",
+            "clear_store_end",
+            "clear_bsp1_end",
+            "bsp_iter",
+            "bsp_iter_v2",
+            "__len__",
+            "cal",
+            "update_last_pos",
+            "seg_need_cal",
+            "add_bs",
+            "cal_seg_bs1point",
+            "cal_single_bs1point",
+            "treat_bsp1",
+            "treat_pz_bsp1",
+            "cal_seg_bs2point",
+            "treat_bsp2",
+            "treat_bsp2s",
+            "cal_seg_bs3point",
+            "treat_bsp3_after",
+            "treat_bsp3_before",
+            "getSortedBspList",
+            "get_latest_bsp"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 612
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Generic",
+            "Iterable",
+            "List",
+            "Optional",
+            "Tuple",
+            "TypeVar"
+          ]
+        },
+        {
+          "source": "Bi.Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": "Bi.BiList",
+          "specifiers": [
+            "CBiList"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BSP_TYPE"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "has_overlap"
+          ]
+        },
+        {
+          "source": "Seg.Seg",
+          "specifiers": [
+            "CSeg"
+          ]
+        },
+        {
+          "source": "Seg.SegListComm",
+          "specifiers": [
+            "CSegListComm"
+          ]
+        },
+        {
+          "source": "ZS.ZS",
+          "specifiers": [
+            "CZS"
+          ]
+        },
+        {
+          "source": ".BS_Point",
+          "specifiers": [
+            "CBS_Point"
+          ]
+        },
+        {
+          "source": ".BSPointConfig",
+          "specifiers": [
+            "CBSPointConfig",
+            "CPointConfig"
+          ]
+        }
+      ],
+      "exports": [
+        "CBSPointList",
+        "bsp2s_break_bsp1",
+        "bsp3_back2zs",
+        "bsp3_break_zspeak",
+        "cal_bsp3_bi_end_idx"
+      ],
+      "totalLines": 696,
+      "hasStructuralAnalysis": true
+    },
+    "Chan.py": {
+      "filePath": "Chan.py",
+      "contentHash": "838154b0c2dd210362f3fe3b80383d2e91f34998e3addda5e5f4315159114917",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CChan",
+          "methods": [
+            "__init__",
+            "__deepcopy__",
+            "do_init",
+            "load_stock_data",
+            "get_load_stock_iter",
+            "add_lv_iter",
+            "get_next_lv_klu",
+            "step_load",
+            "trigger_load",
+            "init_lv_klu_iter",
+            "GetStockAPI",
+            "load",
+            "set_klu_parent_relation",
+            "add_new_kl",
+            "try_set_klu_idx",
+            "load_iterator",
+            "check_kl_consitent",
+            "check_kl_align",
+            "__getitem__",
+            "get_bsp",
+            "get_latest_bsp",
+            "chan_dump_pickle",
+            "chan_load_pickle",
+            "chan_pickle_restore"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 737
+        }
+      ],
+      "imports": [
+        {
+          "source": "copy",
+          "specifiers": [
+            "copy"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "pickle",
+          "specifiers": [
+            "pickle"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "collections",
+          "specifiers": [
+            "defaultdict"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Iterable",
+            "List",
+            "Optional",
+            "Union"
+          ]
+        },
+        {
+          "source": "BuySellPoint.BS_Point",
+          "specifiers": [
+            "CBS_Point"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "DATA_SRC",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "Common.CTime",
+          "specifiers": [
+            "CTime"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "check_kltype_order",
+            "kltype_lte_day"
+          ]
+        },
+        {
+          "source": "DataAPI.CommonStockAPI",
+          "specifiers": [
+            "CCommonStockApi"
+          ]
+        },
+        {
+          "source": "KLine.KLine_List",
+          "specifiers": [
+            "CKLine_List"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        }
+      ],
+      "exports": [
+        "CChan"
+      ],
+      "totalLines": 784,
+      "hasStructuralAnalysis": true
+    },
+    "ChanConfig.py": {
+      "filePath": "ChanConfig.py",
+      "contentHash": "7011c84865d44f703c178c50a7bb365721222725262efa8d3a3278e800a3913c",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CChanConfig",
+          "methods": [
+            "__init__",
+            "GetMetricModel",
+            "set_bsp_config"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 216
+        },
+        {
+          "name": "ConfigWithCheck",
+          "methods": [
+            "__init__",
+            "get",
+            "items",
+            "check"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 59
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "List"
+          ]
+        },
+        {
+          "source": "Bi.BiConfig",
+          "specifiers": [
+            "CBiConfig"
+          ]
+        },
+        {
+          "source": "BuySellPoint.BSPointConfig",
+          "specifiers": [
+            "CBSPointConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "TREND_TYPE"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "_parse_inf"
+          ]
+        },
+        {
+          "source": "Math.BOLL",
+          "specifiers": [
+            "BollModel"
+          ]
+        },
+        {
+          "source": "Math.Demark",
+          "specifiers": [
+            "CDemarkEngine"
+          ]
+        },
+        {
+          "source": "Math.KDJ",
+          "specifiers": [
+            "KDJ"
+          ]
+        },
+        {
+          "source": "Math.MACD",
+          "specifiers": [
+            "CMACD"
+          ]
+        },
+        {
+          "source": "Math.RSI",
+          "specifiers": [
+            "RSI"
+          ]
+        },
+        {
+          "source": "Math.TrendModel",
+          "specifiers": [
+            "CTrendModel"
+          ]
+        },
+        {
+          "source": "Seg.SegConfig",
+          "specifiers": [
+            "CSegConfig"
+          ]
+        },
+        {
+          "source": "ZS.ZSConfig",
+          "specifiers": [
+            "CZSConfig"
+          ]
+        }
+      ],
+      "exports": [
+        "CChanConfig",
+        "ConfigWithCheck"
+      ],
+      "totalLines": 311,
+      "hasStructuralAnalysis": true
+    },
+    "ChanModel/Features.py": {
+      "filePath": "ChanModel/Features.py",
+      "contentHash": "bb0c89fad19e2f19931ac05cc1abc6e0eda42dbbf684aa714504f5b432587d62",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CFeatures",
+          "methods": [
+            "__init__",
+            "items",
+            "__getitem__",
+            "add_feat"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 60
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional"
+          ]
+        }
+      ],
+      "exports": [
+        "CFeatures"
+      ],
+      "totalLines": 76,
+      "hasStructuralAnalysis": true
+    },
+    "CLAUDE.md": {
+      "filePath": "CLAUDE.md",
+      "contentHash": "995f8b600c98fbde7e17cbacef18b7877f0858df611595d9b6392b5025d1af47",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 118,
+      "hasStructuralAnalysis": true
+    },
+    "Combiner/__init__.py": {
+      "filePath": "Combiner/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "Combiner/Combine_Item.py": {
+      "filePath": "Combiner/Combine_Item.py",
+      "contentHash": "85033cacf1b2b9082912c4b7f00d350ffaa83712c6d370049af7f6db97e915af",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CCombine_Item",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 47
+        }
+      ],
+      "imports": [
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        }
+      ],
+      "exports": [
+        "CCombine_Item"
+      ],
+      "totalLines": 60,
+      "hasStructuralAnalysis": true
+    },
+    "Combiner/KLine_Combiner.py": {
+      "filePath": "Combiner/KLine_Combiner.py",
+      "contentHash": "67f093f486c8e38486d64e9fdf74d8e63fa40d8c07e47a417eba47842f50e316",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CKLine_Combiner",
+          "methods": [
+            "__init__",
+            "clean_cache",
+            "time_begin",
+            "time_end",
+            "high",
+            "low",
+            "lst",
+            "dir",
+            "fx",
+            "pre",
+            "next",
+            "get_next",
+            "test_combine",
+            "set_fx",
+            "try_add",
+            "get_peak_klu",
+            "get_high_peak_klu",
+            "get_low_peak_klu",
+            "update_fx",
+            "__str__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "__len__",
+            "__iter__",
+            "set_pre",
+            "set_next"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 303
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Generic",
+            "Iterable",
+            "List",
+            "Optional",
+            "Self",
+            "TypeVar",
+            "Union",
+            "overload"
+          ]
+        },
+        {
+          "source": "Common.cache",
+          "specifiers": [
+            "make_cache"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "FX_TYPE",
+            "KLINE_DIR"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        },
+        {
+          "source": ".Combine_Item",
+          "specifiers": [
+            "CCombine_Item"
+          ]
+        }
+      ],
+      "exports": [
+        "CKLine_Combiner"
+      ],
+      "totalLines": 334,
+      "hasStructuralAnalysis": true
+    },
+    "Common/__init__.py": {
+      "filePath": "Common/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "Common/cache.py": {
+      "filePath": "Common/cache.py",
+      "contentHash": "dca5caf92d30293d94a5a3bce9f629aeefacf067001f066d71624983d8ad0cfe",
+      "functions": [],
+      "classes": [
+        {
+          "name": "make_cache",
+          "methods": [
+            "__init__",
+            "__get__",
+            "__call__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 74
+        }
+      ],
+      "imports": [
+        {
+          "source": "inspect",
+          "specifiers": [
+            "inspect"
+          ]
+        },
+        {
+          "source": "types",
+          "specifiers": [
+            "types"
+          ]
+        }
+      ],
+      "exports": [
+        "make_cache"
+      ],
+      "totalLines": 94,
+      "hasStructuralAnalysis": true
+    },
+    "Common/CEnum.py": {
+      "filePath": "Common/CEnum.py",
+      "contentHash": "cfba593c8b07a6004164c7c1ebed8b77545836d4169bd697f93a86956d8e0225",
+      "functions": [],
+      "classes": [
+        {
+          "name": "DATA_SRC",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "KL_TYPE",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "KLINE_DIR",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "FX_TYPE",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "BI_DIR",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "BI_TYPE",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "BSP_TYPE",
+          "methods": [
+            "main_type"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "AUTYPE",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "TREND_TYPE",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "TREND_LINE_SIDE",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "LEFT_SEG_METHOD",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "FX_CHECK_METHOD",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "SEG_TYPE",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "MACD_ALGO",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "DATA_FIELD",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "imports": [
+        {
+          "source": "enum",
+          "specifiers": [
+            "Enum",
+            "auto"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Literal"
+          ]
+        }
+      ],
+      "exports": [
+        "DATA_SRC",
+        "KL_TYPE",
+        "KLINE_DIR",
+        "FX_TYPE",
+        "BI_DIR",
+        "BI_TYPE",
+        "BSP_TYPE",
+        "AUTYPE",
+        "TREND_TYPE",
+        "TREND_LINE_SIDE",
+        "LEFT_SEG_METHOD",
+        "FX_CHECK_METHOD",
+        "SEG_TYPE",
+        "MACD_ALGO",
+        "DATA_FIELD"
+      ],
+      "totalLines": 187,
+      "hasStructuralAnalysis": true
+    },
+    "Common/ChanException.py": {
+      "filePath": "Common/ChanException.py",
+      "contentHash": "83d2c9447bb5d5a1db681ab987c8ecd118a2d08a612c4a5b2c116882fdf252e4",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ErrCode",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 67
+        },
+        {
+          "name": "CChanException",
+          "methods": [
+            "__init__",
+            "is_kldata_err",
+            "is_chan_err"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 30
+        }
+      ],
+      "imports": [
+        {
+          "source": "enum",
+          "specifiers": [
+            "IntEnum"
+          ]
+        }
+      ],
+      "exports": [
+        "ErrCode",
+        "CChanException"
+      ],
+      "totalLines": 136,
+      "hasStructuralAnalysis": true
+    },
+    "Common/CTime.py": {
+      "filePath": "Common/CTime.py",
+      "contentHash": "313b918a4b184160d9edc0d5a14fb7586f11ef3b5e74beafe409dc271e9ff2bf",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CTime",
+          "methods": [
+            "__init__",
+            "__str__",
+            "to_str",
+            "toDateStr",
+            "toDate",
+            "set_timestamp",
+            "__gt__",
+            "__ge__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 93
+        }
+      ],
+      "imports": [
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        }
+      ],
+      "exports": [
+        "CTime"
+      ],
+      "totalLines": 107,
+      "hasStructuralAnalysis": true
+    },
+    "Common/func_util.py": {
+      "filePath": "Common/func_util.py",
+      "contentHash": "af2eba72c7f13e4baf14f8dbad51a196c105db7fd212a4cd77bfe46f5679f617",
+      "functions": [
+        {
+          "name": "kltype_lt_day",
+          "params": [
+            "_type"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "kltype_lte_day",
+          "params": [
+            "_type"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "check_kltype_order",
+          "params": [
+            "type_list"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "revert_bi_dir",
+          "params": [
+            "dir"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "has_overlap",
+          "params": [
+            "l1",
+            "h1",
+            "l2",
+            "h2",
+            "equal"
+          ],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "str2float",
+          "params": [
+            "s"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "_parse_inf",
+          "params": [
+            "v"
+          ],
+          "exported": true,
+          "lineCount": 16
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": ".CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "KL_TYPE"
+          ]
+        }
+      ],
+      "exports": [
+        "kltype_lt_day",
+        "kltype_lte_day",
+        "check_kltype_order",
+        "revert_bi_dir",
+        "has_overlap",
+        "str2float",
+        "_parse_inf"
+      ],
+      "totalLines": 116,
+      "hasStructuralAnalysis": true
+    },
+    "DataAPI/__init__.py": {
+      "filePath": "DataAPI/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "DataAPI/AkshareAPI.py": {
+      "filePath": "DataAPI/AkshareAPI.py",
+      "contentHash": "9bb3d34547456cc411980bbf2cd2a119550ed6cc2105fe80835e7c7cffc7266e",
+      "functions": [
+        {
+          "name": "create_item_dict",
+          "params": [
+            "row",
+            "autype"
+          ],
+          "exported": true,
+          "lineCount": 53
+        }
+      ],
+      "classes": [
+        {
+          "name": "CAkshare",
+          "methods": [
+            "__init__",
+            "get_kl_data",
+            "SetBasciInfo",
+            "do_init",
+            "do_close",
+            "__convert_type"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 130
+        }
+      ],
+      "imports": [
+        {
+          "source": "akshare",
+          "specifiers": [
+            "ak"
+          ]
+        },
+        {
+          "source": "pandas",
+          "specifiers": [
+            "pd"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "DATA_FIELD",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "Common.CTime",
+          "specifiers": [
+            "CTime"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "str2float"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        },
+        {
+          "source": ".CommonStockAPI",
+          "specifiers": [
+            "CCommonStockApi"
+          ]
+        }
+      ],
+      "exports": [
+        "create_item_dict",
+        "CAkshare"
+      ],
+      "totalLines": 213,
+      "hasStructuralAnalysis": true
+    },
+    "DataAPI/BaoStockAPI.py": {
+      "filePath": "DataAPI/BaoStockAPI.py",
+      "contentHash": "37de1fb1777bdeacacf9cfd358e25315d9e6d24c67a489e56b252c02af696ed8",
+      "functions": [
+        {
+          "name": "create_item_dict",
+          "params": [
+            "data",
+            "column_name"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "parse_time_column",
+          "params": [
+            "inp"
+          ],
+          "exported": true,
+          "lineCount": 34
+        },
+        {
+          "name": "GetColumnNameFromFieldList",
+          "params": [
+            "fileds"
+          ],
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "classes": [
+        {
+          "name": "CBaoStock",
+          "methods": [
+            "__init__",
+            "get_kl_data",
+            "SetBasciInfo",
+            "do_init",
+            "do_close",
+            "__convert_type"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 123
+        }
+      ],
+      "imports": [
+        {
+          "source": "baostock",
+          "specifiers": [
+            "bs"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "DATA_FIELD",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "Common.CTime",
+          "specifiers": [
+            "CTime"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "kltype_lt_day",
+            "str2float"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        },
+        {
+          "source": ".CommonStockAPI",
+          "specifiers": [
+            "CCommonStockApi"
+          ]
+        }
+      ],
+      "exports": [
+        "create_item_dict",
+        "parse_time_column",
+        "GetColumnNameFromFieldList",
+        "CBaoStock"
+      ],
+      "totalLines": 231,
+      "hasStructuralAnalysis": true
+    },
+    "DataAPI/ccxt.py": {
+      "filePath": "DataAPI/ccxt.py",
+      "contentHash": "8d45a539af5dab4547e07054d5673df8e36b9b98aff78fcc809a66086080654c",
+      "functions": [
+        {
+          "name": "GetColumnNameFromFieldList",
+          "params": [
+            "fileds"
+          ],
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "classes": [
+        {
+          "name": "CCXT",
+          "methods": [
+            "__init__",
+            "get_kl_data",
+            "SetBasciInfo",
+            "do_init",
+            "do_close",
+            "__convert_type",
+            "parse_time_column",
+            "create_item_dict"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 140
+        }
+      ],
+      "imports": [
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "ccxt",
+          "specifiers": [
+            "ccxt"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "DATA_FIELD",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "Common.CTime",
+          "specifiers": [
+            "CTime"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "kltype_lt_day",
+            "str2float"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        },
+        {
+          "source": ".CommonStockAPI",
+          "specifiers": [
+            "CCommonStockApi"
+          ]
+        }
+      ],
+      "exports": [
+        "GetColumnNameFromFieldList",
+        "CCXT"
+      ],
+      "totalLines": 187,
+      "hasStructuralAnalysis": true
+    },
+    "DataAPI/CommonStockAPI.py": {
+      "filePath": "DataAPI/CommonStockAPI.py",
+      "contentHash": "6d6a646328248ec702b260c98002b3a761d784ac2fedf3be243f3fe0dcefd82f",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CCommonStockApi",
+          "methods": [
+            "__init__",
+            "get_kl_data",
+            "SetBasciInfo",
+            "do_init",
+            "do_close"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 86
+        }
+      ],
+      "imports": [
+        {
+          "source": "abc",
+          "specifiers": [
+            "abc"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Iterable"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        }
+      ],
+      "exports": [
+        "CCommonStockApi"
+      ],
+      "totalLines": 107,
+      "hasStructuralAnalysis": true
+    },
+    "DataAPI/csvAPI.py": {
+      "filePath": "DataAPI/csvAPI.py",
+      "contentHash": "1a75cb0f913e82b9efc2dd6acb6409720238915f0f7a4ee53f30b03810c13da0",
+      "functions": [
+        {
+          "name": "create_item_dict",
+          "params": [
+            "data",
+            "column_name"
+          ],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "parse_time_column",
+          "params": [
+            "inp"
+          ],
+          "exported": true,
+          "lineCount": 34
+        }
+      ],
+      "classes": [
+        {
+          "name": "CSV_API",
+          "methods": [
+            "__init__",
+            "get_kl_data",
+            "SetBasciInfo",
+            "do_init",
+            "do_close"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 84
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "DATA_FIELD",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "Common.CTime",
+          "specifiers": [
+            "CTime"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "str2float"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        },
+        {
+          "source": ".CommonStockAPI",
+          "specifiers": [
+            "CCommonStockApi"
+          ]
+        }
+      ],
+      "exports": [
+        "create_item_dict",
+        "parse_time_column",
+        "CSV_API"
+      ],
+      "totalLines": 166,
+      "hasStructuralAnalysis": true
+    },
+    "Debug/strategy_demo.py": {
+      "filePath": "Debug/strategy_demo.py",
+      "contentHash": "465193f5564a49d5e410918214e5d0ee1c8686990938cc8526f9b90e5004dd04",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "Chan",
+          "specifiers": [
+            "CChan"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "BSP_TYPE",
+            "DATA_SRC",
+            "FX_TYPE",
+            "KL_TYPE"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 76,
+      "hasStructuralAnalysis": true
+    },
+    "Debug/strategy_demo2.py": {
+      "filePath": "Debug/strategy_demo2.py",
+      "contentHash": "dbad677faed8507d946dd36596c4339a1596ca5f215959ab305039aa3e417a9a",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "Chan",
+          "specifiers": [
+            "CChan"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "BSP_TYPE",
+            "DATA_SRC",
+            "FX_TYPE",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "DataAPI.BaoStockAPI",
+          "specifiers": [
+            "CBaoStock"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 75,
+      "hasStructuralAnalysis": true
+    },
+    "Debug/strategy_demo3.py": {
+      "filePath": "Debug/strategy_demo3.py",
+      "contentHash": "d19f37d56601c256c3be8de602b98630f883a59b755cf7182cb411426eb2d781",
+      "functions": [
+        {
+          "name": "combine_60m_klu_form_15m",
+          "params": [
+            "klu_15m_lst"
+          ],
+          "returnType": "CKLine_Unit",
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "copy",
+          "specifiers": [
+            "copy"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List"
+          ]
+        },
+        {
+          "source": "Chan",
+          "specifiers": [
+            "CChan"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "DATA_FIELD",
+            "DATA_SRC",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "DataAPI.BaoStockAPI",
+          "specifiers": [
+            "CBaoStock"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        }
+      ],
+      "exports": [
+        "combine_60m_klu_form_15m"
+      ],
+      "totalLines": 115,
+      "hasStructuralAnalysis": true
+    },
+    "Debug/strategy_demo4.py": {
+      "filePath": "Debug/strategy_demo4.py",
+      "contentHash": "178cb19647f035fd81c48f9f4495d682d4e0a214105255a3441134d6e424d585",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "Chan",
+          "specifiers": [
+            "CChan"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "DATA_SRC",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "DataAPI.BaoStockAPI",
+          "specifiers": [
+            "CBaoStock"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 77,
+      "hasStructuralAnalysis": true
+    },
+    "Debug/strategy_demo5.py": {
+      "filePath": "Debug/strategy_demo5.py",
+      "contentHash": "ad35c49d96e3ed1b3ed61c331d2386875d86c143443dc4652814ca15bcce92e8",
+      "functions": [
+        {
+          "name": "plot",
+          "params": [
+            "chan",
+            "plot_marker"
+          ],
+          "exported": true,
+          "lineCount": 30
+        },
+        {
+          "name": "stragety_feature",
+          "params": [
+            "last_klu"
+          ],
+          "exported": true,
+          "lineCount": 16
+        }
+      ],
+      "classes": [
+        {
+          "name": "T_SAMPLE_INFO",
+          "methods": [],
+          "properties": [
+            "feature",
+            "is_buy",
+            "open_time"
+          ],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "TypedDict"
+          ]
+        },
+        {
+          "source": "xgboost",
+          "specifiers": [
+            "xgb"
+          ]
+        },
+        {
+          "source": "Chan",
+          "specifiers": [
+            "CChan"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "ChanModel.Features",
+          "specifiers": [
+            "CFeatures"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "DATA_SRC",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "Common.CTime",
+          "specifiers": [
+            "CTime"
+          ]
+        },
+        {
+          "source": "Plot.PlotDriver",
+          "specifiers": [
+            "CPlotDriver"
+          ]
+        }
+      ],
+      "exports": [
+        "T_SAMPLE_INFO",
+        "plot",
+        "stragety_feature"
+      ],
+      "totalLines": 213,
+      "hasStructuralAnalysis": true
+    },
+    "Debug/strategy_demo6.py": {
+      "filePath": "Debug/strategy_demo6.py",
+      "contentHash": "f23c002c2e8d8a49739d0f004a0e690f70f5cd45440dd7a92a19d87b3d0eb8e6",
+      "functions": [
+        {
+          "name": "predict_bsp",
+          "params": [
+            "model",
+            "last_bsp",
+            "meta"
+          ],
+          "exported": true,
+          "lineCount": 25
+        }
+      ],
+      "classes": [
+        {
+          "name": "T_SAMPLE_INFO",
+          "methods": [],
+          "properties": [
+            "feature",
+            "is_buy",
+            "open_time"
+          ],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "TypedDict"
+          ]
+        },
+        {
+          "source": "xgboost",
+          "specifiers": [
+            "xgb"
+          ]
+        },
+        {
+          "source": "strategy_demo5",
+          "specifiers": [
+            "stragety_feature"
+          ]
+        },
+        {
+          "source": "BuySellPoint.BS_Point",
+          "specifiers": [
+            "CBS_Point"
+          ]
+        },
+        {
+          "source": "Chan",
+          "specifiers": [
+            "CChan"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "ChanModel.Features",
+          "specifiers": [
+            "CFeatures"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "DATA_SRC",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "Common.CTime",
+          "specifiers": [
+            "CTime"
+          ]
+        }
+      ],
+      "exports": [
+        "T_SAMPLE_INFO",
+        "predict_bsp"
+      ],
+      "totalLines": 123,
+      "hasStructuralAnalysis": true
+    },
+    "KLine/__init__.py": {
+      "filePath": "KLine/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "KLine/KLine_List.py": {
+      "filePath": "KLine/KLine_List.py",
+      "contentHash": "e9e3e83b1a070b441c6503edf7dc3e26e75eb5afddebfabe839313b6389c41ab",
+      "functions": [
+        {
+          "name": "get_seglist_instance",
+          "params": [
+            "seg_config",
+            "lv"
+          ],
+          "returnType": "CSegListComm",
+          "exported": true,
+          "lineCount": 32
+        },
+        {
+          "name": "cal_seg",
+          "params": [
+            "bi_list",
+            "seg_list",
+            "last_sure_seg_start_bi_idx"
+          ],
+          "exported": true,
+          "lineCount": 58
+        },
+        {
+          "name": "update_zs_in_seg",
+          "params": [
+            "bi_list",
+            "seg_list",
+            "zs_list"
+          ],
+          "exported": true,
+          "lineCount": 53
+        }
+      ],
+      "classes": [
+        {
+          "name": "CKLine_List",
+          "methods": [
+            "__init__",
+            "__deepcopy__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "__len__",
+            "cal_seg_and_zs",
+            "need_cal_step_by_step",
+            "add_single_klu",
+            "klu_iter"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 214
+        }
+      ],
+      "imports": [
+        {
+          "source": "copy",
+          "specifiers": [
+            "copy"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Union",
+            "overload"
+          ]
+        },
+        {
+          "source": "Bi.Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": "Bi.BiList",
+          "specifiers": [
+            "CBiList"
+          ]
+        },
+        {
+          "source": "BuySellPoint.BSPointList",
+          "specifiers": [
+            "CBSPointList"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "KLINE_DIR",
+            "SEG_TYPE"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "Seg.Seg",
+          "specifiers": [
+            "CSeg"
+          ]
+        },
+        {
+          "source": "Seg.SegConfig",
+          "specifiers": [
+            "CSegConfig"
+          ]
+        },
+        {
+          "source": "Seg.SegListComm",
+          "specifiers": [
+            "CSegListComm"
+          ]
+        },
+        {
+          "source": "ZS.ZSList",
+          "specifiers": [
+            "CZSList"
+          ]
+        },
+        {
+          "source": ".KLine",
+          "specifiers": [
+            "CKLine"
+          ]
+        },
+        {
+          "source": ".KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        }
+      ],
+      "exports": [
+        "get_seglist_instance",
+        "CKLine_List",
+        "cal_seg",
+        "update_zs_in_seg"
+      ],
+      "totalLines": 395,
+      "hasStructuralAnalysis": true
+    },
+    "KLine/KLine_Unit.py": {
+      "filePath": "KLine/KLine_Unit.py",
+      "contentHash": "e530442a62d4c69ac2a21f4fcad45c5f6f288bc68d7947a4073308026cc08dba",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CKLine_Unit",
+          "methods": [
+            "__init__",
+            "__deepcopy__",
+            "klc",
+            "set_klc",
+            "idx",
+            "set_idx",
+            "__str__",
+            "check",
+            "add_children",
+            "set_parent",
+            "get_children",
+            "_low",
+            "_high",
+            "set_metric",
+            "get_parent_klc",
+            "include_sub_lv_time",
+            "set_pre_klu"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 257
+        }
+      ],
+      "imports": [
+        {
+          "source": "copy",
+          "specifiers": [
+            "copy"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Optional"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "DATA_FIELD",
+            "TRADE_INFO_LST",
+            "TREND_TYPE"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "Common.CTime",
+          "specifiers": [
+            "CTime"
+          ]
+        },
+        {
+          "source": "Math.BOLL",
+          "specifiers": [
+            "BOLL_Metric",
+            "BollModel"
+          ]
+        },
+        {
+          "source": "Math.Demark",
+          "specifiers": [
+            "CDemarkEngine",
+            "CDemarkIndex"
+          ]
+        },
+        {
+          "source": "Math.KDJ",
+          "specifiers": [
+            "KDJ"
+          ]
+        },
+        {
+          "source": "Math.MACD",
+          "specifiers": [
+            "CMACD",
+            "CMACD_item"
+          ]
+        },
+        {
+          "source": "Math.RSI",
+          "specifiers": [
+            "RSI"
+          ]
+        },
+        {
+          "source": "Math.TrendModel",
+          "specifiers": [
+            "CTrendModel"
+          ]
+        },
+        {
+          "source": ".TradeInfo",
+          "specifiers": [
+            "CTradeInfo"
+          ]
+        }
+      ],
+      "exports": [
+        "CKLine_Unit"
+      ],
+      "totalLines": 285,
+      "hasStructuralAnalysis": true
+    },
+    "KLine/KLine.py": {
+      "filePath": "KLine/KLine.py",
+      "contentHash": "f7bd1006cebe7b080aa6c8deed79dc352f404dfc63ee535e61c5d5ba70bd77b4",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CKLine",
+          "methods": [
+            "__init__",
+            "__str__",
+            "GetSubKLC",
+            "get_klu_max_high",
+            "get_klu_min_low",
+            "has_gap_with_next",
+            "check_fx_valid"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 185
+        }
+      ],
+      "imports": [
+        {
+          "source": "Combiner.KLine_Combiner",
+          "specifiers": [
+            "CKLine_Combiner"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "FX_CHECK_METHOD",
+            "FX_TYPE",
+            "KLINE_DIR"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "has_overlap"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        }
+      ],
+      "exports": [
+        "CKLine"
+      ],
+      "totalLines": 205,
+      "hasStructuralAnalysis": true
+    },
+    "KLine/TradeInfo.py": {
+      "filePath": "KLine/TradeInfo.py",
+      "contentHash": "4ba3eff2d2c7d9105f6c4a28889e5b10e6a31b71a2452c36a9a98d8a60ce007b",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CTradeInfo",
+          "methods": [
+            "__init__",
+            "__str__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "Optional"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "TRADE_INFO_LST"
+          ]
+        }
+      ],
+      "exports": [
+        "CTradeInfo"
+      ],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "main.py": {
+      "filePath": "main.py",
+      "contentHash": "baae0665a213487cabd7698d332fb97388d2eb1daf3b9993cf39ebe3e05dc16f",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "Chan",
+          "specifiers": [
+            "CChan"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "AUTYPE",
+            "DATA_SRC",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "Plot.AnimatePlotDriver",
+          "specifiers": [
+            "CAnimateDriver"
+          ]
+        },
+        {
+          "source": "Plot.PlotDriver",
+          "specifiers": [
+            "CPlotDriver"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 125,
+      "hasStructuralAnalysis": true
+    },
+    "Math/__init__.py": {
+      "filePath": "Math/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "Math/BOLL.py": {
+      "filePath": "Math/BOLL.py",
+      "contentHash": "0205aa46d81a5a11902763e5562fb3ab42dc8bda7b876b512f8c1611ab97b5ca",
+      "functions": [
+        {
+          "name": "_truncate",
+          "params": [
+            "x"
+          ],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [
+        {
+          "name": "BOLL_Metric",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "BollModel",
+          "methods": [
+            "__init__",
+            "add"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 39
+        }
+      ],
+      "imports": [
+        {
+          "source": "math",
+          "specifiers": [
+            "math"
+          ]
+        }
+      ],
+      "exports": [
+        "_truncate",
+        "BOLL_Metric",
+        "BollModel"
+      ],
+      "totalLines": 84,
+      "hasStructuralAnalysis": true
+    },
+    "Math/Demark.py": {
+      "filePath": "Math/Demark.py",
+      "contentHash": "67967b56f344ca0b32efb6384fcfc04c5d653e234d2d6d9b69445c1bc938cdff",
+      "functions": [],
+      "classes": [
+        {
+          "name": "C_KL",
+          "methods": [
+            "v"
+          ],
+          "properties": [
+            "idx",
+            "close",
+            "high",
+            "low"
+          ],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "T_DEMARK_INDEX",
+          "methods": [],
+          "properties": [
+            "type",
+            "dir",
+            "idx",
+            "series"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "CDemarkIndex",
+          "methods": [
+            "__init__",
+            "add",
+            "get_setup",
+            "get_countdown",
+            "update"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 31
+        },
+        {
+          "name": "CDemarkCountdown",
+          "methods": [
+            "__init__",
+            "update"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 51
+        },
+        {
+          "name": "CDemarkSetup",
+          "methods": [
+            "__init__",
+            "update",
+            "add_setup",
+            "cal_TDST_peak"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 74
+        },
+        {
+          "name": "CDemarkEngine",
+          "methods": [
+            "__init__",
+            "update",
+            "cal_result",
+            "clear",
+            "clean_series_from_setup_finish"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 126
+        }
+      ],
+      "imports": [
+        {
+          "source": "copy",
+          "specifiers": [
+            "copy"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Literal",
+            "Optional",
+            "TypedDict"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR"
+          ]
+        }
+      ],
+      "exports": [
+        "C_KL",
+        "T_DEMARK_INDEX",
+        "CDemarkIndex",
+        "CDemarkCountdown",
+        "CDemarkSetup",
+        "CDemarkEngine"
+      ],
+      "totalLines": 353,
+      "hasStructuralAnalysis": true
+    },
+    "Math/KDJ.py": {
+      "filePath": "Math/KDJ.py",
+      "contentHash": "22247f50c490ea067b858144caa5fcad3e4894ba50d4eb1a074d40ec20d921e9",
+      "functions": [],
+      "classes": [
+        {
+          "name": "KDJ_Item",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "KDJ",
+          "methods": [
+            "__init__",
+            "add"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 57
+        }
+      ],
+      "imports": [],
+      "exports": [
+        "KDJ_Item",
+        "KDJ"
+      ],
+      "totalLines": 77,
+      "hasStructuralAnalysis": true
+    },
+    "Math/MACD.py": {
+      "filePath": "Math/MACD.py",
+      "contentHash": "33dcd052ffdbf5da56da0bee34b3596498ac2ae0658347bdcd43ad5a7e332ad1",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CMACD_item",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "CMACD",
+          "methods": [
+            "__init__",
+            "add"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 50
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "List"
+          ]
+        }
+      ],
+      "exports": [
+        "CMACD_item",
+        "CMACD"
+      ],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "Math/RSI.py": {
+      "filePath": "Math/RSI.py",
+      "contentHash": "b3a635e1de1d6594c419150083c0a85bad696c44cd6e0a2a82166d9f8280e957",
+      "functions": [],
+      "classes": [
+        {
+          "name": "RSI",
+          "methods": [
+            "__init__",
+            "add"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 70
+        }
+      ],
+      "imports": [],
+      "exports": [
+        "RSI"
+      ],
+      "totalLines": 83,
+      "hasStructuralAnalysis": true
+    },
+    "Math/TrendLine.py": {
+      "filePath": "Math/TrendLine.py",
+      "contentHash": "eccfe7cb0fd598624f92182c76a187aeb0603dbebf3188b9a63800a769637cc1",
+      "functions": [
+        {
+          "name": "init_peak_slope",
+          "params": [
+            "_dir",
+            "side"
+          ],
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "cal_tl",
+          "params": [
+            "c_p",
+            "_dir",
+            "side"
+          ],
+          "exported": true,
+          "lineCount": 41
+        }
+      ],
+      "classes": [
+        {
+          "name": "Point",
+          "methods": [
+            "cal_slope"
+          ],
+          "properties": [
+            "x",
+            "y"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "Line",
+          "methods": [
+            "cal_dis"
+          ],
+          "properties": [
+            "p",
+            "slope"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "CTrendLine",
+          "methods": [
+            "__init__",
+            "cal"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 53
+        }
+      ],
+      "imports": [
+        {
+          "source": "copy",
+          "specifiers": [
+            "copy"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        },
+        {
+          "source": "math",
+          "specifiers": [
+            "sqrt"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "TREND_LINE_SIDE"
+          ]
+        }
+      ],
+      "exports": [
+        "Point",
+        "Line",
+        "CTrendLine",
+        "init_peak_slope",
+        "cal_tl"
+      ],
+      "totalLines": 162,
+      "hasStructuralAnalysis": true
+    },
+    "Math/TrendModel.py": {
+      "filePath": "Math/TrendModel.py",
+      "contentHash": "ac7e780312d06f1f997ab95df2faab4983ac7a5dfe9c7d92d68a6cf7344ccff3",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CTrendModel",
+          "methods": [
+            "__init__",
+            "add"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 47
+        }
+      ],
+      "imports": [
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "TREND_TYPE"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        }
+      ],
+      "exports": [
+        "CTrendModel"
+      ],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "Plot/__init__.py": {
+      "filePath": "Plot/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "Plot/AnimatePlotDriver.py": {
+      "filePath": "Plot/AnimatePlotDriver.py",
+      "contentHash": "53e86aad0988984e36e7e7508ac7d6510f63b9e1747b696541bfb22d0b11a9f6",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CAnimateDriver",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 37
+        }
+      ],
+      "imports": [
+        {
+          "source": "matplotlib.pyplot",
+          "specifiers": [
+            "plt"
+          ]
+        },
+        {
+          "source": "IPython.display",
+          "specifiers": [
+            "clear_output",
+            "display"
+          ]
+        },
+        {
+          "source": "Chan",
+          "specifiers": [
+            "CChan"
+          ]
+        },
+        {
+          "source": ".PlotDriver",
+          "specifiers": [
+            "CPlotDriver"
+          ]
+        }
+      ],
+      "exports": [
+        "CAnimateDriver"
+      ],
+      "totalLines": 58,
+      "hasStructuralAnalysis": true
+    },
+    "Plot/PlotDriver.py": {
+      "filePath": "Plot/PlotDriver.py",
+      "contentHash": "4553fd25016065566e9c5bfc0bfee72b4ab0568e5df08cd5f0e286df2043e05e",
+      "functions": [
+        {
+          "name": "reformat_plot_config",
+          "params": [
+            "plot_config"
+          ],
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "parse_single_lv_plot_config",
+          "params": [
+            "plot_config"
+          ],
+          "returnType": "Dict[str, bool]",
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "parse_plot_config",
+          "params": [
+            "plot_config",
+            "lv_list"
+          ],
+          "returnType": "Dict[KL_TYPE, Dict[str, bool]]",
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "set_x_tick",
+          "params": [
+            "ax",
+            "x_limits",
+            "tick",
+            "x_tick_num"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "cal_y_range",
+          "params": [
+            "meta",
+            "ax"
+          ],
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "create_figure",
+          "params": [
+            "plot_macd",
+            "figure_config",
+            "lv_lst"
+          ],
+          "returnType": "Tuple[Figure, Dict[KL_TYPE, List[Axes]]]",
+          "exported": true,
+          "lineCount": 65
+        },
+        {
+          "name": "cal_x_limit",
+          "params": [
+            "meta",
+            "x_range"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "set_grid",
+          "params": [
+            "ax",
+            "config"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "GetPlotMeta",
+          "params": [
+            "chan",
+            "figure_config"
+          ],
+          "returnType": "List[CChanPlotMeta]",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "getTextBox",
+          "params": [
+            "ax",
+            "txt_instance"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "plot_bi_element",
+          "params": [
+            "bi",
+            "ax",
+            "color"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "bi_text",
+          "params": [
+            "bi_idx",
+            "ax",
+            "bi",
+            "end_fontsize",
+            "end_color"
+          ],
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "show_func_helper",
+          "params": [
+            "func"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "add_zs_text",
+          "params": [
+            "ax",
+            "zs_meta",
+            "fontsize",
+            "text_color"
+          ],
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "classes": [
+        {
+          "name": "CPlotDriver",
+          "methods": [
+            "__init__",
+            "GetRealXrange",
+            "DrawElement",
+            "ShowDrawFuncHelper",
+            "save2img",
+            "draw_klu",
+            "draw_klc",
+            "draw_bi",
+            "draw_seg",
+            "draw_segseg",
+            "plot_single_eigen",
+            "draw_eigen",
+            "draw_segeigen",
+            "draw_zs",
+            "draw_segzs",
+            "draw_macd",
+            "draw_mean",
+            "draw_channel",
+            "draw_boll",
+            "bsp_common_draw",
+            "draw_bs_point",
+            "draw_seg_bs_point",
+            "update_y_range",
+            "plot_closeAction",
+            "draw_marker",
+            "draw_demark_begin_line",
+            "draw_rsi",
+            "draw_kdj",
+            "draw_demark"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1097
+        }
+      ],
+      "imports": [
+        {
+          "source": "inspect",
+          "specifiers": [
+            "inspect"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Dict",
+            "List",
+            "Literal",
+            "Optional",
+            "Tuple",
+            "Union"
+          ]
+        },
+        {
+          "source": "matplotlib.pyplot",
+          "specifiers": [
+            "plt"
+          ]
+        },
+        {
+          "source": "matplotlib.axes",
+          "specifiers": [
+            "Axes"
+          ]
+        },
+        {
+          "source": "matplotlib.figure",
+          "specifiers": [
+            "Figure"
+          ]
+        },
+        {
+          "source": "matplotlib.patches",
+          "specifiers": [
+            "Rectangle"
+          ]
+        },
+        {
+          "source": "Chan",
+          "specifiers": [
+            "CChan"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "FX_TYPE",
+            "KL_TYPE",
+            "KLINE_DIR",
+            "TREND_TYPE"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "Common.CTime",
+          "specifiers": [
+            "CTime"
+          ]
+        },
+        {
+          "source": "Math.Demark",
+          "specifiers": [
+            "T_DEMARK_INDEX",
+            "CDemarkEngine"
+          ]
+        },
+        {
+          "source": ".PlotMeta",
+          "specifiers": [
+            "CBi_meta",
+            "CChanPlotMeta",
+            "CZS_meta"
+          ]
+        }
+      ],
+      "exports": [
+        "reformat_plot_config",
+        "parse_single_lv_plot_config",
+        "parse_plot_config",
+        "set_x_tick",
+        "cal_y_range",
+        "create_figure",
+        "cal_x_limit",
+        "set_grid",
+        "GetPlotMeta",
+        "CPlotDriver",
+        "getTextBox",
+        "plot_bi_element",
+        "bi_text",
+        "show_func_helper",
+        "add_zs_text"
+      ],
+      "totalLines": 1493,
+      "hasStructuralAnalysis": true
+    },
+    "Plot/PlotMeta.py": {
+      "filePath": "Plot/PlotMeta.py",
+      "contentHash": "a94d1edc08a0a127bb5eba2706d9ba511cbebf71475c5562d8db56e8dce350bb",
+      "functions": [],
+      "classes": [
+        {
+          "name": "Cklc_meta",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "CBi_meta",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "CSeg_meta",
+          "methods": [
+            "__init__",
+            "format_tl"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 63
+        },
+        {
+          "name": "CEigen_meta",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "CEigenFX_meta",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "CZS_meta",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "CBS_Point_meta",
+          "methods": [
+            "__init__",
+            "desc"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 35
+        },
+        {
+          "name": "CChanPlotMeta",
+          "methods": [
+            "__init__",
+            "klu_iter",
+            "sub_last_kseg_start_idx",
+            "sub_last_kbi_start_idx",
+            "sub_range_start_idx"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 113
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "List"
+          ]
+        },
+        {
+          "source": "Bi.Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": "BuySellPoint.BS_Point",
+          "specifiers": [
+            "CBS_Point"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "FX_TYPE"
+          ]
+        },
+        {
+          "source": "KLine.KLine",
+          "specifiers": [
+            "CKLine"
+          ]
+        },
+        {
+          "source": "KLine.KLine_List",
+          "specifiers": [
+            "CKLine_List"
+          ]
+        },
+        {
+          "source": "Seg.Eigen",
+          "specifiers": [
+            "CEigen"
+          ]
+        },
+        {
+          "source": "Seg.EigenFX",
+          "specifiers": [
+            "CEigenFX"
+          ]
+        },
+        {
+          "source": "Seg.Seg",
+          "specifiers": [
+            "CSeg"
+          ]
+        },
+        {
+          "source": "ZS.ZS",
+          "specifiers": [
+            "CZS"
+          ]
+        }
+      ],
+      "exports": [
+        "Cklc_meta",
+        "CBi_meta",
+        "CSeg_meta",
+        "CEigen_meta",
+        "CEigenFX_meta",
+        "CZS_meta",
+        "CBS_Point_meta",
+        "CChanPlotMeta"
+      ],
+      "totalLines": 340,
+      "hasStructuralAnalysis": true
+    },
+    "prompt.txt": {
+      "filePath": "prompt.txt",
+      "contentHash": "9c028bc0bd635d8152c20e3f7c15cc77ac64c20fa9c6d607f2e1dff41905ef50",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": false
+    },
+    "quick_guide.md": {
+      "filePath": "quick_guide.md",
+      "contentHash": "ed9017947bec34ca12d79fc1cf11b3ee22a1a5d3e42547aed7ca0f11f6900824",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 573,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "3eab919ffd6b396449d9f2a7732a6b0f07009f31516df383cb551df7336c4f11",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1494,
+      "hasStructuralAnalysis": true
+    },
+    "Script/requirements.txt": {
+      "filePath": "Script/requirements.txt",
+      "contentHash": "4320078f59de5d7b9edcdee19890af1ee9a8d6271679fbdf6cd27d0c14669841",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": false
+    },
+    "Seg/__init__.py": {
+      "filePath": "Seg/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "Seg/Eigen.py": {
+      "filePath": "Seg/Eigen.py",
+      "contentHash": "57e7246bde30430b40b36824c530eecfe7c3751fa4a6bce689b5651b6845d900",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CEigen",
+          "methods": [
+            "__init__",
+            "update_fx",
+            "__str__",
+            "GetPeakBiIdx"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 71
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Self"
+          ]
+        },
+        {
+          "source": "Bi.Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": "Combiner.KLine_Combiner",
+          "specifiers": [
+            "CKLine_Combiner"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "FX_TYPE"
+          ]
+        }
+      ],
+      "exports": [
+        "CEigen"
+      ],
+      "totalLines": 90,
+      "hasStructuralAnalysis": true
+    },
+    "Seg/EigenFX.py": {
+      "filePath": "Seg/EigenFX.py",
+      "contentHash": "f170ecf128941cd8ab7db616500d032c58731acf4ab4cbab9aa05e63b11e3cdc",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CEigenFX",
+          "methods": [
+            "__init__",
+            "treat_first_ele",
+            "treat_second_ele",
+            "treat_third_ele",
+            "add",
+            "reset",
+            "can_be_end",
+            "is_down",
+            "is_up",
+            "GetPeakBiIdx",
+            "all_bi_is_sure",
+            "clear",
+            "__str__",
+            "actual_break",
+            "find_revert_fx"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 384
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": "Bi.Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": "Bi.BiList",
+          "specifiers": [
+            "CBiList"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "FX_TYPE",
+            "KLINE_DIR",
+            "SEG_TYPE"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "revert_bi_dir"
+          ]
+        },
+        {
+          "source": ".Eigen",
+          "specifiers": [
+            "CEigen"
+          ]
+        }
+      ],
+      "exports": [
+        "CEigenFX"
+      ],
+      "totalLines": 430,
+      "hasStructuralAnalysis": true
+    },
+    "Seg/Seg.py": {
+      "filePath": "Seg/Seg.py",
+      "contentHash": "6612468cfcf9743e05372b7989e5ea98cb284a9dfdde45b177279fdb93db228f",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CSeg",
+          "methods": [
+            "__init__",
+            "set_seg_idx",
+            "check",
+            "__str__",
+            "add_zs",
+            "cal_klu_slope",
+            "cal_amp",
+            "cal_bi_cnt",
+            "clear_zs_lst",
+            "_low",
+            "_high",
+            "is_down",
+            "is_up",
+            "get_end_val",
+            "get_begin_val",
+            "is_used_to_be_sure",
+            "amp",
+            "get_end_klu",
+            "get_begin_klu",
+            "get_klu_cnt",
+            "cal_macd_metric",
+            "Cal_MACD_slope",
+            "Cal_MACD_amp",
+            "update_bi_list",
+            "get_first_multi_bi_zs",
+            "get_multi_bi_zs_lst",
+            "get_final_multi_bi_zs",
+            "get_multi_bi_zs_cnt"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 271
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Generic",
+            "List",
+            "Optional",
+            "Self",
+            "TypeVar"
+          ]
+        },
+        {
+          "source": "Bi.Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "MACD_ALGO",
+            "TREND_LINE_SIDE"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        },
+        {
+          "source": "Math.TrendLine",
+          "specifiers": [
+            "CTrendLine"
+          ]
+        },
+        {
+          "source": ".EigenFX",
+          "specifiers": [
+            "CEigenFX"
+          ]
+        }
+      ],
+      "exports": [
+        "CSeg"
+      ],
+      "totalLines": 298,
+      "hasStructuralAnalysis": true
+    },
+    "Seg/SegConfig.py": {
+      "filePath": "Seg/SegConfig.py",
+      "contentHash": "fd70b0be2157bfadfb30b3c8a6c00e7197eaaea4dd2eaa4325a16e907e812c87",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CSegConfig",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "imports": [
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "LEFT_SEG_METHOD"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        }
+      ],
+      "exports": [
+        "CSegConfig"
+      ],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "Seg/SegListChan.py": {
+      "filePath": "Seg/SegListChan.py",
+      "contentHash": "d539e27eba6b4c5286a8e9d785a4084eea5c4f543b811338c2a13c21c14f1db6",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CSegListChan",
+          "methods": [
+            "__init__",
+            "do_init",
+            "update",
+            "cal_seg_sure",
+            "treat_fx_eigen"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 163
+        }
+      ],
+      "imports": [
+        {
+          "source": "Bi.BiList",
+          "specifiers": [
+            "CBiList"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "SEG_TYPE"
+          ]
+        },
+        {
+          "source": ".EigenFX",
+          "specifiers": [
+            "CEigenFX"
+          ]
+        },
+        {
+          "source": ".SegConfig",
+          "specifiers": [
+            "CSegConfig"
+          ]
+        },
+        {
+          "source": ".SegListComm",
+          "specifiers": [
+            "CSegListComm"
+          ]
+        }
+      ],
+      "exports": [
+        "CSegListChan"
+      ],
+      "totalLines": 182,
+      "hasStructuralAnalysis": true
+    },
+    "Seg/SegListComm.py": {
+      "filePath": "Seg/SegListComm.py",
+      "contentHash": "a85c5edcce8658c9a944a0fc51ad4bf20d39ddf32faf7a914989cf166a71a039",
+      "functions": [
+        {
+          "name": "FindPeakBi",
+          "params": [
+            "bi_lst",
+            "is_high"
+          ],
+          "exported": true,
+          "lineCount": 29
+        }
+      ],
+      "classes": [
+        {
+          "name": "CSegListComm",
+          "methods": [
+            "__init__",
+            "do_init",
+            "__iter__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "__len__",
+            "left_bi_break",
+            "collect_first_seg",
+            "collect_left_seg_peak_method",
+            "collect_segs",
+            "collect_left_seg",
+            "collect_left_as_seg",
+            "try_add_new_seg",
+            "add_new_seg",
+            "update",
+            "exist_sure_seg"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 292
+        }
+      ],
+      "imports": [
+        {
+          "source": "abc",
+          "specifiers": [
+            "abc"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Generic",
+            "List",
+            "TypeVar",
+            "Union",
+            "overload"
+          ]
+        },
+        {
+          "source": "Bi.Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": "Bi.BiList",
+          "specifiers": [
+            "CBiList"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "LEFT_SEG_METHOD",
+            "SEG_TYPE"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": ".Seg",
+          "specifiers": [
+            "CSeg"
+          ]
+        },
+        {
+          "source": ".SegConfig",
+          "specifiers": [
+            "CSegConfig"
+          ]
+        }
+      ],
+      "exports": [
+        "CSegListComm",
+        "FindPeakBi"
+      ],
+      "totalLines": 353,
+      "hasStructuralAnalysis": true
+    },
+    "Seg/SegListDef.py": {
+      "filePath": "Seg/SegListDef.py",
+      "contentHash": "5cd329a192791e31c0f356ba5ac327c3c63ed988630ca0352c4348c68996fb8e",
+      "functions": [
+        {
+          "name": "is_up_seg",
+          "params": [
+            "bi",
+            "pre_bi"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "is_down_seg",
+          "params": [
+            "bi",
+            "pre_bi"
+          ],
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [
+        {
+          "name": "CSegListDef",
+          "methods": [
+            "__init__",
+            "update",
+            "update_last_end",
+            "cal_bi_sure"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 118
+        }
+      ],
+      "imports": [
+        {
+          "source": "Bi.BiList",
+          "specifiers": [
+            "CBiList"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "SEG_TYPE"
+          ]
+        },
+        {
+          "source": ".SegConfig",
+          "specifiers": [
+            "CSegConfig"
+          ]
+        },
+        {
+          "source": ".SegListComm",
+          "specifiers": [
+            "CSegListComm"
+          ]
+        }
+      ],
+      "exports": [
+        "is_up_seg",
+        "is_down_seg",
+        "CSegListDef"
+      ],
+      "totalLines": 170,
+      "hasStructuralAnalysis": true
+    },
+    "Seg/SegListDYH.py": {
+      "filePath": "Seg/SegListDYH.py",
+      "contentHash": "2b389a32be48c24b0f1edfc476c75fc79c28877c53ffe09fb07cfab8590dc84e",
+      "functions": [
+        {
+          "name": "situation1",
+          "params": [
+            "cur_bi",
+            "next_bi",
+            "pre_bi"
+          ],
+          "exported": true,
+          "lineCount": 30
+        },
+        {
+          "name": "situation2",
+          "params": [
+            "cur_bi",
+            "next_bi",
+            "pre_bi"
+          ],
+          "exported": true,
+          "lineCount": 29
+        }
+      ],
+      "classes": [
+        {
+          "name": "CSegListDYH",
+          "methods": [
+            "__init__",
+            "update",
+            "cal_bi_sure",
+            "cal_bi_unsure",
+            "try_update_last_seg"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 160
+        }
+      ],
+      "imports": [
+        {
+          "source": "Bi.BiList",
+          "specifiers": [
+            "CBiList"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "SEG_TYPE"
+          ]
+        },
+        {
+          "source": ".SegConfig",
+          "specifiers": [
+            "CSegConfig"
+          ]
+        },
+        {
+          "source": ".SegListComm",
+          "specifiers": [
+            "CSegListComm"
+          ]
+        }
+      ],
+      "exports": [
+        "situation1",
+        "situation2",
+        "CSegListDYH"
+      ],
+      "totalLines": 243,
+      "hasStructuralAnalysis": true
+    },
+    "ZS/__init__.py": {
+      "filePath": "ZS/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "ZS/ZS.py": {
+      "filePath": "ZS/ZS.py",
+      "contentHash": "8b6661abcbc98a5a0f94baa9c5dfbc4dc9a66ec8b03d9ddba58f827920b5e9da",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CZS",
+          "methods": [
+            "__init__",
+            "clean_cache",
+            "is_sure",
+            "sub_zs_lst",
+            "begin",
+            "begin_bi",
+            "low",
+            "high",
+            "mid",
+            "end",
+            "end_bi",
+            "peak_high",
+            "peak_low",
+            "bi_in",
+            "bi_out",
+            "bi_lst",
+            "update_zs_range",
+            "is_one_bi_zs",
+            "update_zs_end",
+            "__str__",
+            "combine",
+            "do_combine",
+            "try_add_to_end",
+            "in_range",
+            "is_inside",
+            "is_divergence",
+            "init_from_zs",
+            "make_copy",
+            "end_bi_break",
+            "out_bi_is_peak",
+            "get_bi_in",
+            "get_bi_out",
+            "set_bi_in",
+            "set_bi_out",
+            "set_bi_lst"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 390
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Generic",
+            "List",
+            "Optional",
+            "TypeVar"
+          ]
+        },
+        {
+          "source": "Bi.Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": "BuySellPoint.BSPointConfig",
+          "specifiers": [
+            "CPointConfig"
+          ]
+        },
+        {
+          "source": "Common.ChanException",
+          "specifiers": [
+            "CChanException",
+            "ErrCode"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "has_overlap"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        },
+        {
+          "source": "Seg.Seg",
+          "specifiers": [
+            "CSeg"
+          ]
+        }
+      ],
+      "exports": [
+        "CZS"
+      ],
+      "totalLines": 413,
+      "hasStructuralAnalysis": true
+    },
+    "ZS/ZSConfig.py": {
+      "filePath": "ZS/ZSConfig.py",
+      "contentHash": "97bb7639a7d4d6353e8035765279319e3cccf6d9f86f16d639f241f75a7e5419",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CZSConfig",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 25
+        }
+      ],
+      "imports": [],
+      "exports": [
+        "CZSConfig"
+      ],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "ZS/ZSList.py": {
+      "filePath": "ZS/ZSList.py",
+      "contentHash": "1f2007796c640fda1772d43a1ce9e81f55e0d2e5251278f71c4be3b661d65314",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CZSList",
+          "methods": [
+            "__init__",
+            "update_last_pos",
+            "seg_need_cal",
+            "add_to_free_lst",
+            "clear_free_lst",
+            "update",
+            "try_add_to_end",
+            "add_zs_from_bi_range",
+            "try_construct_zs",
+            "cal_bi_zs",
+            "update_overseg_zs",
+            "__iter__",
+            "__len__",
+            "__getitem__",
+            "__getitem__",
+            "__getitem__",
+            "try_combine"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 272
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Union",
+            "overload"
+          ]
+        },
+        {
+          "source": "Bi.Bi",
+          "specifiers": [
+            "CBi"
+          ]
+        },
+        {
+          "source": "Bi.BiList",
+          "specifiers": [
+            "CBiList"
+          ]
+        },
+        {
+          "source": "Common.func_util",
+          "specifiers": [
+            "revert_bi_dir"
+          ]
+        },
+        {
+          "source": "Seg.Seg",
+          "specifiers": [
+            "CSeg"
+          ]
+        },
+        {
+          "source": "Seg.SegListComm",
+          "specifiers": [
+            "CSegListComm"
+          ]
+        },
+        {
+          "source": "ZS.ZSConfig",
+          "specifiers": [
+            "CZSConfig"
+          ]
+        },
+        {
+          "source": ".ZS",
+          "specifiers": [
+            "CZS"
+          ]
+        }
+      ],
+      "exports": [
+        "CZSList"
+      ],
+      "totalLines": 294,
+      "hasStructuralAnalysis": true
+    },
+    "Debug/bi_test.py": {
+      "filePath": "Debug/bi_test.py",
+      "contentHash": "f23297874764670cbf3e960b809fff0c37ff952692cb034c7557b33065bf2c57",
+      "functions": [
+        {
+          "name": "make_klu",
+          "params": [
+            "year",
+            "month",
+            "day",
+            "o",
+            "h",
+            "l",
+            "c"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "build_sawtooth_close",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 43
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "ChanConfig",
+          "specifiers": [
+            "CChanConfig"
+          ]
+        },
+        {
+          "source": "Common.CEnum",
+          "specifiers": [
+            "BI_DIR",
+            "DATA_FIELD",
+            "KL_TYPE"
+          ]
+        },
+        {
+          "source": "Common.CTime",
+          "specifiers": [
+            "CTime"
+          ]
+        },
+        {
+          "source": "KLine.KLine_List",
+          "specifiers": [
+            "CKLine_List"
+          ]
+        },
+        {
+          "source": "KLine.KLine_Unit",
+          "specifiers": [
+            "CKLine_Unit"
+          ]
+        }
+      ],
+      "exports": [
+        "make_klu",
+        "build_sawtooth_close",
+        "main"
+      ],
+      "totalLines": 101,
+      "hasStructuralAnalysis": true
+    },
+    "docs/ONBOARDING.md": {
+      "filePath": "docs/ONBOARDING.md",
+      "contentHash": "c61958281a19ce887e07557eaaa24ecfe755f04dd9f5fa325075bb2636036b6f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 387,
+      "hasStructuralAnalysis": false
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "projectRoot": "e:/CodingWork/01csh/chan.py",
+  "batchFiles": [
+    {"path": "Common/CTime.py", "language": "python", "sizeLines": 106, "fileCategory": "code"},
+    {"path": "DataAPI/AkshareAPI.py", "language": "python", "sizeLines": 212, "fileCategory": "code"},
+    {"path": "DataAPI/CommonStockAPI.py", "language": "python", "sizeLines": 106, "fileCategory": "code"},
+    {"path": "DataAPI/ccxt.py", "language": "python", "sizeLines": 186, "fileCategory": "code"},
+    {"path": "DataAPI/csvAPI.py", "language": "python", "sizeLines": 165, "fileCategory": "code"},
+    {"path": "KLine/KLine_Unit.py", "language": "python", "sizeLines": 284, "fileCategory": "code"},
+    {"path": "KLine/TradeInfo.py", "language": "python", "sizeLines": 39, "fileCategory": "code"}
+  ],
+  "batchImportData": {"Common/CTime.py":[],"DataAPI/AkshareAPI.py":["Common/CEnum.py","Common/CTime.py","Common/func_util.py","DataAPI/CommonStockAPI.py","KLine/KLine_Unit.py"],"DataAPI/CommonStockAPI.py":["KLine/KLine_Unit.py"],"DataAPI/ccxt.py":["Common/CEnum.py","Common/CTime.py","Common/func_util.py","DataAPI/ccxt.py","DataAPI/CommonStockAPI.py","KLine/KLine_Unit.py"],"DataAPI/csvAPI.py":["Common/CEnum.py","Common/ChanException.py","Common/CTime.py","Common/func_util.py","DataAPI/CommonStockAPI.py","KLine/KLine_Unit.py"],"KLine/KLine_Unit.py":["Common/CEnum.py","Common/ChanException.py","Common/CTime.py","KLine/TradeInfo.py","Math/BOLL.py","Math/Demark.py","Math/KDJ.py","Math/MACD.py","Math/RSI.py","Math/TrendModel.py"],"KLine/TradeInfo.py":["Common/CEnum.py"]}
+}

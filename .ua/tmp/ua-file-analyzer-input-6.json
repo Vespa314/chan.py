@@ -1,0 +1,7 @@
+{
+  "projectRoot": "/Users/csh/Desktop/claude/chan/chan.py",
+  "batchFiles": [
+    {"path": "prompt.txt", "language": "txt", "sizeLines": 16, "fileCategory": "docs"}
+  ],
+  "batchImportData": {}
+}

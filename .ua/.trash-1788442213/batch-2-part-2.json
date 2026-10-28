@@ -1,0 +1,820 @@
+{
+  "nodes": [
+    {
+      "id": "file:Plot/PlotMeta.py",
+      "type": "file",
+      "name": "PlotMeta.py",
+      "filePath": "Plot/PlotMeta.py",
+      "summary": "绘图元数据模块，将缠论计算元素（笔、段、特征序列、特征序列分形、中枢、买卖点）转换为用于 matplotlib 绘制的结构化元数据对象，并管理子级别 K 线范围的索引计算。",
+      "tags": ["visualization", "metadata", "plot", "data-model"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Seg/Eigen.py",
+      "type": "file",
+      "name": "Eigen.py",
+      "filePath": "Seg/Eigen.py",
+      "summary": "段特征序列元素（CEigen）类，继承自 CKLine_Combiner，封装单个特征序列 K 线的分形更新与峰值笔索引查询功能，是段算法的基本构建块。",
+      "tags": ["data-model", "segment", "eigen", "feature-sequence"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Seg/EigenFX.py",
+      "type": "file",
+      "name": "EigenFX.py",
+      "filePath": "Seg/EigenFX.py",
+      "summary": "特征序列分形（CEigenFX）类，管理一组特征序列元素并检测分形，是段算法中判断段结束的核心逻辑，处理第一/二/三元素的添加、重置和有效突破判断。",
+      "tags": ["data-model", "segment", "eigen-fx", "fractal", "feature-sequence"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:Seg/Seg.py",
+      "type": "file",
+      "name": "Seg.py",
+      "filePath": "Seg/Seg.py",
+      "summary": "段（CSeg）实体类，封装段的起止笔、中枢列表、斜率/振幅/MACD 指标计算，以及多笔中枢的查询与统计方法，是段级别计算的核心数据模型。",
+      "tags": ["data-model", "segment", "chan-theory", "zs", "macd-metrics"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:ZS/ZS.py",
+      "type": "file",
+      "name": "ZS.py",
+      "filePath": "ZS/ZS.py",
+      "summary": "中枢（CZS）实体类，管理中枢的区间范围、进入/离开笔、子中枢合并、背驰判断及复制功能，是缠论中枢分析的核心实现。",
+      "tags": ["data-model", "zhongshu", "central-hub", "chan-theory", "divergence"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:ZS/ZSList.py",
+      "type": "file",
+      "name": "ZSList.py",
+      "filePath": "ZS/ZSList.py",
+      "summary": "中枢列表管理器（CZSList），负责从笔列表中构建、更新和合并中枢，支持步进模式下增量更新中枢列表，并管理基于段的中枢归类。",
+      "tags": ["api-handler", "zhongshu", "central-hub", "list-manager"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Plot/PlotMeta.py:Cklc_meta",
+      "type": "class",
+      "name": "Cklc_meta",
+      "filePath": "Plot/PlotMeta.py",
+      "lineRange": [27, 44],
+      "summary": "合并 K 线绘图元数据，记录 K 线的位置（x 坐标）和颜色（红/绿/蓝），用于 matplotlib 蜡烛图渲染。",
+      "tags": ["visualization", "metadata", "kline", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Plot/PlotMeta.py:CBi_meta",
+      "type": "class",
+      "name": "CBi_meta",
+      "filePath": "Plot/PlotMeta.py",
+      "lineRange": [47, 64],
+      "summary": "笔绘图元数据，记录笔的起止点坐标和端点值，用于在图表上绘制笔的连线。",
+      "tags": ["visualization", "metadata", "bi", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Plot/PlotMeta.py:CSeg_meta",
+      "type": "class",
+      "name": "CSeg_meta",
+      "filePath": "Plot/PlotMeta.py",
+      "lineRange": [67, 129],
+      "summary": "段绘图元数据，记录段的起止坐标、趋势线信息，支持绘制段的实线和虚线（区分已确认段和未确认段）。",
+      "tags": ["visualization", "metadata", "segment", "data-model"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Plot/PlotMeta.py:CEigen_meta",
+      "type": "class",
+      "name": "CEigen_meta",
+      "filePath": "Plot/PlotMeta.py",
+      "lineRange": [132, 147],
+      "summary": "特征序列绘图元数据，记录一组特征序列元素的起止点，用于在图表上标注特征序列。",
+      "tags": ["visualization", "metadata", "eigen", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Plot/PlotMeta.py:CEigenFX_meta",
+      "type": "class",
+      "name": "CEigenFX_meta",
+      "filePath": "Plot/PlotMeta.py",
+      "lineRange": [150, 166],
+      "summary": "特征序列分形绘图元数据，记录分形中各元素的起止坐标，用于在图表上标注特征序列分形。",
+      "tags": ["visualization", "metadata", "eigen-fx", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Plot/PlotMeta.py:CZS_meta",
+      "type": "class",
+      "name": "CZS_meta",
+      "filePath": "Plot/PlotMeta.py",
+      "lineRange": [169, 188],
+      "summary": "中枢绘图元数据，记录中枢的矩形区域坐标、颜色和是否为一笔中枢的标记，用于绘制中枢箱体。",
+      "tags": ["visualization", "metadata", "zhongshu", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Plot/PlotMeta.py:CBS_Point_meta",
+      "type": "class",
+      "name": "CBS_Point_meta",
+      "filePath": "Plot/PlotMeta.py",
+      "lineRange": [191, 225],
+      "summary": "买卖点绘图元数据，记录买卖点的位置坐标、类型描述和方向，用于在图表上标注买卖点标记。",
+      "tags": ["visualization", "metadata", "buy-sell-point", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "type": "class",
+      "name": "CChanPlotMeta",
+      "filePath": "Plot/PlotMeta.py",
+      "lineRange": [228, 340],
+      "summary": "绘图元数据总容器，遍历 K 线列表收集所有级别的笔、段、特征序列分形、中枢和买卖点元数据，并提供子级别 K 线范围索引查询。",
+      "tags": ["visualization", "metadata", "container", "orchestrator"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Seg/Eigen.py:CEigen",
+      "type": "class",
+      "name": "CEigen",
+      "filePath": "Seg/Eigen.py",
+      "lineRange": [20, 90],
+      "summary": "特征序列元素类，继承 CKLine_Combiner，支持分形方向更新和获取峰值笔索引，是段算法中特征序列的基本单元。",
+      "tags": ["data-model", "segment", "eigen", "feature-sequence"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Seg/EigenFX.py:CEigenFX",
+      "type": "class",
+      "name": "CEigenFX",
+      "filePath": "Seg/EigenFX.py",
+      "lineRange": [47, 430],
+      "summary": "特征序列分形类，处理第一/二/三元素的添加和分形检测，支持重置、是否为有效端点、实际突破判断及反向分形查找，是段结束判断的核心逻辑。",
+      "tags": ["data-model", "segment", "eigen-fx", "fractal", "feature-sequence"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Seg/Seg.py:CSeg",
+      "type": "class",
+      "name": "CSeg",
+      "filePath": "Seg/Seg.py",
+      "lineRange": [28, 298],
+      "summary": "段实体类，记录段的起止笔、方向、中枢列表，支持斜率/振幅/MACD 指标计算、笔列表更新及多笔中枢查询，是段级别分析的核心数据模型。",
+      "tags": ["data-model", "segment", "chan-theory", "zs", "macd-metrics"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:ZS/ZS.py:CZS",
+      "type": "class",
+      "name": "CZS",
+      "filePath": "ZS/ZS.py",
+      "lineRange": [24, 413],
+      "summary": "中枢实体类，管理中枢的高低区间、进入/离开笔、子中枢列表，支持中枢合并、背驰判断、区间内检测及复制，是缠论中枢分析的核心实现。",
+      "tags": ["data-model", "zhongshu", "central-hub", "chan-theory", "divergence"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:ZS/ZSList.py:CZSList",
+      "type": "class",
+      "name": "CZSList",
+      "filePath": "ZS/ZSList.py",
+      "lineRange": [23, 294],
+      "summary": "中枢列表管理器，从笔列表中构建中枢序列，支持步进更新、中枢合并、自由项缓冲区管理及基于段的中枢归类，是中枢计算流程的编排器。",
+      "tags": ["api-handler", "zhongshu", "central-hub", "list-manager", "orchestrator"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:Cklc_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CBi_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CSeg_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CEigen_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CEigenFX_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CZS_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CBS_Point_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:Cklc_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CBi_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CSeg_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CEigen_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CEigenFX_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CZS_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CBS_Point_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:BuySellPoint/BS_Point.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:KLine/KLine_List.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Seg/Eigen.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Seg/EigenFX.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:ZS/ZS.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:BuySellPoint/BS_Point.py:CBS_Point",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:KLine/KLine.py:CKLine",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Seg/Eigen.py:CEigen",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Seg/EigenFX.py:CEigenFX",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:ZS/ZS.py:CZS",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CEigenFX_meta",
+      "target": "class:Plot/PlotMeta.py:CEigen_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:Cklc_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:CBi_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:CSeg_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:CEigenFX_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:CZS_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:CBS_Point_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "class:Seg/Eigen.py:CEigen",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "class:Seg/Eigen.py:CEigen",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "file:Combiner/KLine_Combiner.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "class:Seg/EigenFX.py:CEigenFX",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "class:Seg/EigenFX.py:CEigenFX",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Seg/Eigen.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "class:Seg/Eigen.py:CEigen",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "function:Common/func_util.py:revert_bi_dir",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Math/TrendLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Seg/EigenFX.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "class:Seg/EigenFX.py:CEigenFX",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "class:ZS/ZS.py:CZS",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "class:ZS/ZS.py:CZS",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:BuySellPoint/BSPointConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "class:ZS/ZSList.py:CZSList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "class:ZS/ZSList.py:CZSList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:ZS/ZS.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:ZS/ZSConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "class:ZS/ZS.py:CZS",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "function:Common/func_util.py:revert_bi_dir",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

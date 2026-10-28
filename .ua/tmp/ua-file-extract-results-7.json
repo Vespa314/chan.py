@@ -1,0 +1,234 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 1,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 1,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 1
+    }
+  },
+  "results": [
+    {
+      "path": "docs/ONBOARDING.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 387,
+      "nonEmptyLines": 281,
+      "sections": [
+        {
+          "heading": "chan.py 开发者入职指南",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "项目概述",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "架构层次",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "1. 基础公共层（6 文件）",
+          "level": 3,
+          "line": 48
+        },
+        {
+          "heading": "2. 技术指标层（8 文件）",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "3. 数据适配层（6 文件）",
+          "level": 3,
+          "line": 74
+        },
+        {
+          "heading": "4. 缠论核心计算层（29 文件）",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "Combiner — K 线包含处理",
+          "level": 4,
+          "line": 95
+        },
+        {
+          "heading": "KLine — K 线数据结构",
+          "level": 4,
+          "line": 102
+        },
+        {
+          "heading": "Bi — 笔的构建",
+          "level": 4,
+          "line": 111
+        },
+        {
+          "heading": "Seg — 线段划分",
+          "level": 4,
+          "line": 119
+        },
+        {
+          "heading": "ZS — 中枢构建",
+          "level": 4,
+          "line": 132
+        },
+        {
+          "heading": "BuySellPoint — 买卖点",
+          "level": 4,
+          "line": 140
+        },
+        {
+          "heading": "ChanModel — ML 特征",
+          "level": 4,
+          "line": 148
+        },
+        {
+          "heading": "5. 入口/门面层（5 文件）",
+          "level": 3,
+          "line": 154
+        },
+        {
+          "heading": "6. 可视化层（4 文件）",
+          "level": 3,
+          "line": 163
+        },
+        {
+          "heading": "7. 演示与测试层（6 文件）",
+          "level": 3,
+          "line": 171
+        },
+        {
+          "heading": "8. 文档与配置层（9 文件）",
+          "level": 3,
+          "line": 182
+        },
+        {
+          "heading": "关键概念",
+          "level": 2,
+          "line": 195
+        },
+        {
+          "heading": "计算流水线",
+          "level": 3,
+          "line": 197
+        },
+        {
+          "heading": "两种运行模式",
+          "level": 3,
+          "line": 217
+        },
+        {
+          "heading": "缓存机制",
+          "level": 3,
+          "line": 224
+        },
+        {
+          "heading": "配置校验",
+          "level": 3,
+          "line": 231
+        },
+        {
+          "heading": "序列化陷阱",
+          "level": 3,
+          "line": 238
+        },
+        {
+          "heading": "学习路径（12 步）",
+          "level": 2,
+          "line": 244
+        },
+        {
+          "heading": "第 1 步：项目概览 — 缠论技术分析框架",
+          "level": 3,
+          "line": 246
+        },
+        {
+          "heading": "第 2 步：应用入口 — main.py 与批量计算流程",
+          "level": 3,
+          "line": 250
+        },
+        {
+          "heading": "第 3 步：配置系统 — CChanConfig 与严格校验机制",
+          "level": 3,
+          "line": 254
+        },
+        {
+          "heading": "第 4 步：基础公共层 — 枚举体系、异常处理与工具函数",
+          "level": 3,
+          "line": 260
+        },
+        {
+          "heading": "第 5 步：缓存机制 — @make_cache 装饰器与实例级记忆化",
+          "level": 3,
+          "line": 266
+        },
+        {
+          "heading": "第 6 步：主门面类 — CChan 的多级别递归与模式切换",
+          "level": 3,
+          "line": 272
+        },
+        {
+          "heading": "第 7 步：数据适配层 — 多数据源统一接口",
+          "level": 3,
+          "line": 278
+        },
+        {
+          "heading": "第 8 步：K 线数据管线 — CKLine_Unit、CKLine 与 KLine_List",
+          "level": 3,
+          "line": 284
+        },
+        {
+          "heading": "第 9 步：包含处理与笔的构建 — Combiner 与 Bi 模块",
+          "level": 3,
+          "line": 290
+        },
+        {
+          "heading": "第 10 步：线段划分 — 特征序列分形与三段算法",
+          "level": 3,
+          "line": 296
+        },
+        {
+          "heading": "第 11 步：中枢与买卖点 — 缠论策略的核心输出",
+          "level": 3,
+          "line": 302
+        },
+        {
+          "heading": "第 12 步：技术指标、可视化与实战演练",
+          "level": 3,
+          "line": 308
+        },
+        {
+          "heading": "复杂度热点",
+          "level": 2,
+          "line": 316
+        },
+        {
+          "heading": "目录结构速查",
+          "level": 2,
+          "line": 341
+        },
+        {
+          "heading": "快速开始",
+          "level": 2,
+          "line": 366
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 40
+      }
+    }
+  ]
+}

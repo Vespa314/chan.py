@@ -1,0 +1,445 @@
+{
+  "nodes": [
+    {
+      "id": "document:CLAUDE.md",
+      "type": "document",
+      "name": "CLAUDE.md",
+      "filePath": "CLAUDE.md",
+      "summary": "Claude Code 项目配置文件，提供项目概述、常用命令、核心架构、配置系统、关键实现细节（缓存机制、序列化陷阱、段算法、绘图、指标）及目录结构速查，是 AI 辅助开发的基础参考文档。",
+      "tags": ["documentation", "development", "project-configuration", "ai-assistant"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "缠论框架完整使用文档（约1500行），涵盖功能介绍（基本元素计算、策略买卖点、ML对接、线上交易）、目录结构、CChan/CChanConfig 使用详解、画图配置、中枢算法、模型特征、交易系统、自定义开发（数据接入、笔/线段/买卖点/模型扩展）、COS/Notion 集成等，是项目最全面的参考文档。",
+      "tags": ["documentation", "entry-point", "overview", "user-guide", "api-reference"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:prompt.txt",
+      "type": "document",
+      "name": "prompt.txt",
+      "filePath": "prompt.txt",
+      "summary": "用于生成阅读文档.md 和代码走读说明.md 的提示词文件，描述了对文档生成的需求：项目架构描述、模块化拆解、方法级别说明、缠论知识注释、Java 对比注释，以及按阅读顺序的代码走读脉络。",
+      "tags": ["documentation", "prompt", "meta"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:quick_guide.md",
+      "type": "document",
+      "name": "quick_guide.md",
+      "filePath": "quick_guide.md",
+      "summary": "快速上手指南（约570行），涵盖写在前面、如何开始、框架核心能力（当前帧、is_sure标记）、常见问题排查（报错、信号消失、递归溢出等）、不可绕过的步骤、CChanConfig 重点配置、取出缠论元素（合并K线、笔、线段、中枢、买卖点）、数据接入速成、线段/中枢详细说明、策略回测、指标添加、机器学习接入等。",
+      "tags": ["documentation", "quick-start", "tutorial", "troubleshooting", "faq"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:代码走读说明.md",
+      "type": "document",
+      "name": "代码走读说明.md",
+      "filePath": "代码走读说明.md",
+      "summary": "按阅读顺序组织的代码导读文档（约800行），将代码学习分为十个阶段：建立概念地基（枚举/时间/异常/缓存/工具函数）→核心计算流水线（K线/合并器）→分形到笔→笔到线段（特征序列分型）→中枢与背驰→买卖点计算→主入口与配置→数据源与绘图→技术指标→实战演示，每个阶段给出阅读顺序和重点文件说明。",
+      "tags": ["documentation", "code-walkthrough", "reading-guide", "architecture", "tutorial"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:阅读文档.md",
+      "type": "document",
+      "name": "阅读文档.md",
+      "filePath": "阅读文档.md",
+      "summary": "面向初学者的缠论 Python 实现快速上手指南（约1500行），分为六大部分：项目概述（开源版/完整版区别、环境要求、快速体验）、缠论核心概念速览（K线包含处理、分形、笔、线段、中枢、买卖点、背驰）、整体架构与调用关系（计算流水线、多级别递归、运行模式、数据流图、继承关系）、模块与方法级别拆解（覆盖 Common/KLine/Combiner/Bi/Seg/ZS/BuySellPoint/Math/DataAPI/Plot/Chan/ChanConfig/ChanModel 共13个模块）、完整计算流水线详解（批量/步进/外部喂K线三种模式）、实战示例。",
+      "tags": ["documentation", "learning-guide", "architecture", "concept-reference", "tutorial"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:Chan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:ChanConfig.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:Common/cache.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:Seg/SegListChan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:main.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "document:README.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:Chan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:ChanConfig.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:Plot/PlotDriver.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:ZS/ZS.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:BuySellPoint/BSPointList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:quick_guide.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:阅读文档.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:代码走读说明.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:prompt.txt",
+      "target": "document:阅读文档.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:prompt.txt",
+      "target": "document:代码走读说明.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:Chan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:ChanConfig.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:KLine/KLine.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:Bi/BiList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:Seg/SegListComm.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:ZS/ZSList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:BuySellPoint/BSPointList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "document:README.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "document:阅读文档.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Common/CEnum.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Common/CTime.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Combiner/KLine_Combiner.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Bi/Bi.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Seg/SegListChan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:ZS/ZS.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:BuySellPoint/BSPointList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Chan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:ChanConfig.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:main.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Debug/strategy_demo.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "document:阅读文档.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "document:README.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Chan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:ChanConfig.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Common/CEnum.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Combiner/KLine_Combiner.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Bi/BiList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Seg/SegListComm.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:ZS/ZSList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:BuySellPoint/BSPointList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Math/MACD.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Plot/PlotDriver.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "document:README.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "document:代码走读说明.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "projectRoot": "/Users/csh/Desktop/claude/chan/chan.py",
+  "batchFiles": [
+    {"path": "docs/ONBOARDING.md", "language": "markdown", "sizeLines": 386, "fileCategory": "docs"}
+  ],
+  "batchImportData": {}
+}

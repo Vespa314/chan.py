@@ -1,0 +1,1485 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "CLAUDE.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 118,
+      "nonEmptyLines": 85,
+      "sections": [
+        {
+          "heading": "CLAUDE.md",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "项目概述",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "常用命令",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "核心架构",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "计算流水线",
+          "level": 3,
+          "line": 38
+        },
+        {
+          "heading": "多级别递归",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "两种运行模式",
+          "level": 3,
+          "line": 64
+        },
+        {
+          "heading": "配置系统",
+          "level": 3,
+          "line": 69
+        },
+        {
+          "heading": "关键实现细节",
+          "level": 2,
+          "line": 73
+        },
+        {
+          "heading": "缓存机制 (`Common/cache.py`)",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "序列化陷阱 (`Chan.py`)",
+          "level": 3,
+          "line": 79
+        },
+        {
+          "heading": "段算法",
+          "level": 3,
+          "line": 83
+        },
+        {
+          "heading": "绘图",
+          "level": 3,
+          "line": 92
+        },
+        {
+          "heading": "指标",
+          "level": 3,
+          "line": 97
+        },
+        {
+          "heading": "目录结构速查",
+          "level": 2,
+          "line": 101
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1494,
+      "nonEmptyLines": 1253,
+      "sections": [
+        {
+          "heading": "缠论框架使用文档",
+          "level": 1,
+          "line": 31
+        },
+        {
+          "heading": "功能介绍",
+          "level": 2,
+          "line": 91
+        },
+        {
+          "heading": "1. 缠论基本元素计算",
+          "level": 3,
+          "line": 94
+        },
+        {
+          "heading": "2. 策略买卖点开发",
+          "level": 3,
+          "line": 113
+        },
+        {
+          "heading": "3. 策略对接机器学习框架",
+          "level": 3,
+          "line": 118
+        },
+        {
+          "heading": "4. 线上交易",
+          "level": 3,
+          "line": 126
+        },
+        {
+          "heading": "目录结构 & 文件说明",
+          "level": 2,
+          "line": 135
+        },
+        {
+          "heading": "缠论计算使用方法",
+          "level": 2,
+          "line": 299
+        },
+        {
+          "heading": "特殊名词/变量名解释",
+          "level": 3,
+          "line": 300
+        },
+        {
+          "heading": "使用 demo",
+          "level": 3,
+          "line": 319
+        },
+        {
+          "heading": "CChan 类介绍",
+          "level": 3,
+          "line": 397
+        },
+        {
+          "heading": "CChanConfig 配置",
+          "level": 3,
+          "line": 445
+        },
+        {
+          "heading": "精确设置配置",
+          "level": 4,
+          "line": 570
+        },
+        {
+          "heading": "CChanConfig 配置 Demo",
+          "level": 4,
+          "line": 578
+        },
+        {
+          "heading": "画图配置",
+          "level": 3,
+          "line": 604
+        },
+        {
+          "heading": "plot_config",
+          "level": 4,
+          "line": 605
+        },
+        {
+          "heading": "plot_para",
+          "level": 4,
+          "line": 638
+        },
+        {
+          "heading": "中枢算法",
+          "level": 3,
+          "line": 834
+        },
+        {
+          "heading": "段内中枢",
+          "level": 4,
+          "line": 842
+        },
+        {
+          "heading": "跨段中枢",
+          "level": 4,
+          "line": 849
+        },
+        {
+          "heading": "模型",
+          "level": 2,
+          "line": 860
+        },
+        {
+          "heading": "特征",
+          "level": 2,
+          "line": 880
+        },
+        {
+          "heading": "默认特征情况",
+          "level": 3,
+          "line": 887
+        },
+        {
+          "heading": "交易系统",
+          "level": 2,
+          "line": 892
+        },
+        {
+          "heading": "交易后端数据库",
+          "level": 3,
+          "line": 900
+        },
+        {
+          "heading": "信号计算",
+          "level": 3,
+          "line": 959
+        },
+        {
+          "heading": "交易引擎",
+          "level": 3,
+          "line": 966
+        },
+        {
+          "heading": "典型流程",
+          "level": 3,
+          "line": 984
+        },
+        {
+          "heading": "自定义开发",
+          "level": 2,
+          "line": 994
+        },
+        {
+          "heading": "数据接入",
+          "level": 3,
+          "line": 995
+        },
+        {
+          "heading": "实时数据接入",
+          "level": 3,
+          "line": 1017
+        },
+        {
+          "heading": "笔模型",
+          "level": 3,
+          "line": 1056
+        },
+        {
+          "heading": "线段模型",
+          "level": 3,
+          "line": 1061
+        },
+        {
+          "heading": "bsp 买卖点",
+          "level": 3,
+          "line": 1072
+        },
+        {
+          "heading": "cbsp 买卖点策略",
+          "level": 3,
+          "line": 1085
+        },
+        {
+          "heading": "区间套策略示例",
+          "level": 4,
+          "line": 1117
+        },
+        {
+          "heading": "模型类",
+          "level": 3,
+          "line": 1152
+        },
+        {
+          "heading": "模型开发",
+          "level": 4,
+          "line": 1153
+        },
+        {
+          "heading": "CModelGenerator",
+          "level": 5,
+          "line": 1158
+        },
+        {
+          "heading": "CDataSet",
+          "level": 5,
+          "line": 1236
+        },
+        {
+          "heading": "外部接口",
+          "level": 5,
+          "line": 1276
+        },
+        {
+          "heading": "模型接入",
+          "level": 4,
+          "line": 1285
+        },
+        {
+          "heading": "Automl",
+          "level": 4,
+          "line": 1307
+        },
+        {
+          "heading": "其他",
+          "level": 2,
+          "line": 1325
+        },
+        {
+          "heading": "COS",
+          "level": 3,
+          "line": 1326
+        },
+        {
+          "heading": "Notion",
+          "level": 3,
+          "line": 1355
+        },
+        {
+          "heading": "试题功能",
+          "level": 3,
+          "line": 1360
+        },
+        {
+          "heading": "其他不值一提的优化",
+          "level": 2,
+          "line": 1396
+        },
+        {
+          "heading": "碎碎念",
+          "level": 2,
+          "line": 1410
+        },
+        {
+          "heading": "12月15日补充",
+          "level": 3,
+          "line": 1453
+        },
+        {
+          "heading": "实验仓位",
+          "level": 4,
+          "line": 1457
+        },
+        {
+          "heading": "港股",
+          "level": 4,
+          "line": 1474
+        },
+        {
+          "heading": "美股",
+          "level": 4,
+          "line": 1478
+        },
+        {
+          "heading": "Star history",
+          "level": 2,
+          "line": 1486
+        },
+        {
+          "heading": "咖啡？NO!",
+          "level": 2,
+          "line": 1491
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 55
+      }
+    },
+    {
+      "path": "prompt.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 16,
+      "nonEmptyLines": 12,
+      "metrics": {}
+    },
+    {
+      "path": "quick_guide.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 572,
+      "nonEmptyLines": 430,
+      "sections": [
+        {
+          "heading": "快速上手指南",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "写在前面",
+          "level": 2,
+          "line": 69
+        },
+        {
+          "heading": "如何开始",
+          "level": 2,
+          "line": 103
+        },
+        {
+          "heading": "框架核心能力",
+          "level": 2,
+          "line": 107
+        },
+        {
+          "heading": "关于“当前帧”的详细说明",
+          "level": 3,
+          "line": 116
+        },
+        {
+          "heading": "关于is_sure标记",
+          "level": 3,
+          "line": 132
+        },
+        {
+          "heading": "你需要做的",
+          "level": 3,
+          "line": 141
+        },
+        {
+          "heading": "可能遇到的问题",
+          "level": 2,
+          "line": 153
+        },
+        {
+          "heading": "运行报错",
+          "level": 3,
+          "line": 154
+        },
+        {
+          "heading": "运行完啥也没有",
+          "level": 3,
+          "line": 157
+        },
+        {
+          "heading": "README里面有些文件为啥仓库里面没有",
+          "level": 3,
+          "line": 162
+        },
+        {
+          "heading": "关于完整版",
+          "level": 3,
+          "line": 167
+        },
+        {
+          "heading": "为啥信号会消失",
+          "level": 3,
+          "line": 177
+        },
+        {
+          "heading": "画图为啥不能交互",
+          "level": 3,
+          "line": 183
+        },
+        {
+          "heading": "关于动态图",
+          "level": 3,
+          "line": 188
+        },
+        {
+          "heading": "CChan类序列化/deepcopy时报递归溢出",
+          "level": 3,
+          "line": 192
+        },
+        {
+          "heading": "报k线时间相关错误",
+          "level": 3,
+          "line": 207
+        },
+        {
+          "heading": "我觉得线段画的不太对",
+          "level": 3,
+          "line": 214
+        },
+        {
+          "heading": "其他问题",
+          "level": 3,
+          "line": 219
+        },
+        {
+          "heading": "不可绕过的步骤",
+          "level": 2,
+          "line": 223
+        },
+        {
+          "heading": "CChanConfig重点关注配置",
+          "level": 3,
+          "line": 238
+        },
+        {
+          "heading": "取出缠论元素",
+          "level": 2,
+          "line": 249
+        },
+        {
+          "heading": "CKLine-合并K线",
+          "level": 3,
+          "line": 263
+        },
+        {
+          "heading": "CKLine_Unit-单根K线",
+          "level": 4,
+          "line": 273
+        },
+        {
+          "heading": "bi_list-笔管理类",
+          "level": 3,
+          "line": 283
+        },
+        {
+          "heading": "CBi- 笔类",
+          "level": 4,
+          "line": 289
+        },
+        {
+          "heading": "CSegListComm-线段管理类",
+          "level": 3,
+          "line": 308
+        },
+        {
+          "heading": "CSeg：线段类",
+          "level": 4,
+          "line": 313
+        },
+        {
+          "heading": "CZSList-中枢管理类",
+          "level": 3,
+          "line": 331
+        },
+        {
+          "heading": "CZS：中枢类",
+          "level": 4,
+          "line": 335
+        },
+        {
+          "heading": "CBSPointList-买卖点管理类",
+          "level": 3,
+          "line": 347
+        },
+        {
+          "heading": "CBS_Point：买卖点类",
+          "level": 4,
+          "line": 351
+        },
+        {
+          "heading": "数据接入速成班",
+          "level": 2,
+          "line": 359
+        },
+        {
+          "heading": "CCommonStockApi子类实现",
+          "level": 3,
+          "line": 360
+        },
+        {
+          "heading": "CTime",
+          "level": 3,
+          "line": 400
+        },
+        {
+          "heading": "初始化和结束",
+          "level": 3,
+          "line": 404
+        },
+        {
+          "heading": "接入数据源",
+          "level": 3,
+          "line": 419
+        },
+        {
+          "heading": "线段",
+          "level": 2,
+          "line": 423
+        },
+        {
+          "heading": "虚段",
+          "level": 3,
+          "line": 436
+        },
+        {
+          "heading": "中枢",
+          "level": 2,
+          "line": 443
+        },
+        {
+          "heading": "策略实现 & 回测",
+          "level": 2,
+          "line": 445
+        },
+        {
+          "heading": "从外部喂K线",
+          "level": 3,
+          "line": 458
+        },
+        {
+          "heading": "更新小级别触发大级别重算",
+          "level": 3,
+          "line": 466
+        },
+        {
+          "heading": "开源版本指标添加",
+          "level": 2,
+          "line": 481
+        },
+        {
+          "heading": "指标画图",
+          "level": 3,
+          "line": 518
+        },
+        {
+          "heading": "机器学习接入",
+          "level": 2,
+          "line": 536
+        },
+        {
+          "heading": "机器学习分支和主分支区别",
+          "level": 3,
+          "line": 549
+        },
+        {
+          "heading": "一致性",
+          "level": 2,
+          "line": 557
+        },
+        {
+          "heading": "如何防止未来信息",
+          "level": 3,
+          "line": 566
+        },
+        {
+          "heading": "打赏",
+          "level": 2,
+          "line": 569
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 50
+      }
+    },
+    {
+      "path": "代码走读说明.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 801,
+      "nonEmptyLines": 536,
+      "sections": [
+        {
+          "heading": "chan.py 代码走读说明 —— 按阅读顺序的代码导读",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "目录",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "阅读路线总览",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "第一阶段：建立概念地基",
+          "level": 2,
+          "line": 50
+        },
+        {
+          "heading": "阅读顺序",
+          "level": 3,
+          "line": 54
+        },
+        {
+          "heading": "1.1 先看 [Common/CEnum.py](Common/CEnum.py) —— 所有枚举定义",
+          "level": 4,
+          "line": 56
+        },
+        {
+          "heading": "1.2 再看 [Common/CTime.py](Common/CTime.py) —— 时间类",
+          "level": 4,
+          "line": 73
+        },
+        {
+          "heading": "1.3 再看 [Common/ChanException.py](Common/ChanException.py) —— 异常类",
+          "level": 4,
+          "line": 85
+        },
+        {
+          "heading": "1.4 再看 [Common/cache.py](Common/cache.py) —— 缓存装饰器",
+          "level": 4,
+          "line": 93
+        },
+        {
+          "heading": "1.5 最后看 [Common/func_util.py](Common/func_util.py) —— 工具函数",
+          "level": 4,
+          "line": 105
+        },
+        {
+          "heading": "第一阶段小结",
+          "level": 3,
+          "line": 117
+        },
+        {
+          "heading": "第二阶段：理解核心计算流水线",
+          "level": 2,
+          "line": 127
+        },
+        {
+          "heading": "阅读顺序",
+          "level": 3,
+          "line": 132
+        },
+        {
+          "heading": "2.1 先看 [KLine/KLine_Unit.py](KLine/KLine_Unit.py) —— 单根K线",
+          "level": 4,
+          "line": 134
+        },
+        {
+          "heading": "2.2 再看 [KLine/TradeInfo.py](KLine/TradeInfo.py) —— 交易信息",
+          "level": 4,
+          "line": 147
+        },
+        {
+          "heading": "2.3 再看 [Combiner/Combine_Item.py](Combiner/Combine_Item.py) —— 合并元素包装器",
+          "level": 4,
+          "line": 155
+        },
+        {
+          "heading": "2.4 **重点** [Combiner/KLine_Combiner.py](Combiner/KLine_Combiner.py) —— 包含处理合并器",
+          "level": 4,
+          "line": 166
+        },
+        {
+          "heading": "2.5 再看 [KLine/KLine.py](KLine/KLine.py) —— 合并K线",
+          "level": 4,
+          "line": 184
+        },
+        {
+          "heading": "2.6 **重点** [KLine/KLine_List.py](KLine/KLine_List.py) —— K线列表容器",
+          "level": 4,
+          "line": 196
+        },
+        {
+          "heading": "第二阶段小结",
+          "level": 3,
+          "line": 226
+        },
+        {
+          "heading": "第三阶段：从分形到笔",
+          "level": 2,
+          "line": 236
+        },
+        {
+          "heading": "阅读顺序",
+          "level": 3,
+          "line": 240
+        },
+        {
+          "heading": "3.1 先看 [Bi/BiConfig.py](Bi/BiConfig.py) —— 笔的配置",
+          "level": 4,
+          "line": 242
+        },
+        {
+          "heading": "3.2 **重点** [Bi/Bi.py](Bi/Bi.py) —— 笔类",
+          "level": 4,
+          "line": 257
+        },
+        {
+          "heading": "3.3 **重点** [Bi/BiList.py](Bi/BiList.py) —— 笔列表管理",
+          "level": 4,
+          "line": 275
+        },
+        {
+          "heading": "第三阶段小结",
+          "level": 3,
+          "line": 295
+        },
+        {
+          "heading": "第四阶段：从笔到线段",
+          "level": 2,
+          "line": 305
+        },
+        {
+          "heading": "阅读顺序",
+          "level": 3,
+          "line": 310
+        },
+        {
+          "heading": "4.1 先看 [Seg/SegConfig.py](Seg/SegConfig.py) —— 线段配置",
+          "level": 4,
+          "line": 312
+        },
+        {
+          "heading": "4.2 再看 [Seg/Seg.py](Seg/Seg.py) —— 线段类",
+          "level": 4,
+          "line": 318
+        },
+        {
+          "heading": "4.3 再看 [Seg/Eigen.py](Seg/Eigen.py) —— 特征序列元素",
+          "level": 4,
+          "line": 333
+        },
+        {
+          "heading": "4.4 **重点** [Seg/EigenFX.py](Seg/EigenFX.py) —— 特征序列分型",
+          "level": 4,
+          "line": 351
+        },
+        {
+          "heading": "4.5 **重点** [Seg/SegListComm.py](Seg/SegListComm.py) —— 线段列表通用父类",
+          "level": 4,
+          "line": 375
+        },
+        {
+          "heading": "4.6 **重点** [Seg/SegListChan.py](Seg/SegListChan.py) —— 特征序列线段算法",
+          "level": 4,
+          "line": 390
+        },
+        {
+          "heading": "4.7 可选 [Seg/SegListDef.py](Seg/SegListDef.py) 和 [Seg/SegListDYH.py](Seg/SegListDYH.py)",
+          "level": 4,
+          "line": 404
+        },
+        {
+          "heading": "第四阶段小结",
+          "level": 3,
+          "line": 412
+        },
+        {
+          "heading": "第五阶段：中枢与背驰",
+          "level": 2,
+          "line": 423
+        },
+        {
+          "heading": "阅读顺序",
+          "level": 3,
+          "line": 427
+        },
+        {
+          "heading": "5.1 先看 [ZS/ZSConfig.py](ZS/ZSConfig.py) —— 中枢配置",
+          "level": 4,
+          "line": 429
+        },
+        {
+          "heading": "5.2 **重点** [ZS/ZS.py](ZS/ZS.py) —— 中枢类",
+          "level": 4,
+          "line": 435
+        },
+        {
+          "heading": "5.3 **重点** [ZS/ZSList.py](ZS/ZSList.py) —— 中枢列表管理",
+          "level": 4,
+          "line": 456
+        },
+        {
+          "heading": "第五阶段小结",
+          "level": 3,
+          "line": 475
+        },
+        {
+          "heading": "第六阶段：买卖点计算",
+          "level": 2,
+          "line": 485
+        },
+        {
+          "heading": "阅读顺序",
+          "level": 3,
+          "line": 489
+        },
+        {
+          "heading": "6.1 先看 [BuySellPoint/BSPointConfig.py](BuySellPoint/BSPointConfig.py) —— 买卖点配置",
+          "level": 4,
+          "line": 491
+        },
+        {
+          "heading": "6.2 再看 [BuySellPoint/BS_Point.py](BuySellPoint/BS_Point.py) —— 买卖点类",
+          "level": 4,
+          "line": 502
+        },
+        {
+          "heading": "6.3 **重点** [BuySellPoint/BSPointList.py](BuySellPoint/BSPointList.py) —— 买卖点列表计算",
+          "level": 4,
+          "line": 513
+        },
+        {
+          "heading": "第六阶段小结",
+          "level": 3,
+          "line": 539
+        },
+        {
+          "heading": "第七阶段：理解主入口与配置",
+          "level": 2,
+          "line": 548
+        },
+        {
+          "heading": "阅读顺序",
+          "level": 3,
+          "line": 552
+        },
+        {
+          "heading": "7.1 先看 [ChanConfig.py](ChanConfig.py) —— 配置系统",
+          "level": 4,
+          "line": 554
+        },
+        {
+          "heading": "7.2 **重点** [Chan.py](Chan.py) —— 主入口类",
+          "level": 4,
+          "line": 568
+        },
+        {
+          "heading": "第七阶段小结",
+          "level": 3,
+          "line": 601
+        },
+        {
+          "heading": "第八阶段：数据源与绘图",
+          "level": 2,
+          "line": 612
+        },
+        {
+          "heading": "阅读顺序",
+          "level": 3,
+          "line": 617
+        },
+        {
+          "heading": "8.1 先看 [DataAPI/CommonStockAPI.py](DataAPI/CommonStockAPI.py) —— 数据源抽象基类",
+          "level": 4,
+          "line": 619
+        },
+        {
+          "heading": "8.2 再看 [DataAPI/BaoStockAPI.py](DataAPI/BaoStockAPI.py) —— 默认数据源",
+          "level": 4,
+          "line": 630
+        },
+        {
+          "heading": "8.3 可选 AkshareAPI.py / csvAPI.py / ccxt.py",
+          "level": 4,
+          "line": 640
+        },
+        {
+          "heading": "8.4 先看 [Plot/PlotMeta.py](Plot/PlotMeta.py) —— 绘图元数据",
+          "level": 4,
+          "line": 648
+        },
+        {
+          "heading": "8.5 再看 [Plot/PlotDriver.py](Plot/PlotDriver.py) —— 绘图驱动",
+          "level": 4,
+          "line": 660
+        },
+        {
+          "heading": "8.6 可选 [Plot/AnimatePlotDriver.py](Plot/AnimatePlotDriver.py) —— 动画绘图",
+          "level": 4,
+          "line": 677
+        },
+        {
+          "heading": "第九阶段：技术指标",
+          "level": 2,
+          "line": 685
+        },
+        {
+          "heading": "阅读顺序",
+          "level": 3,
+          "line": 690
+        },
+        {
+          "heading": "9.1 [Math/MACD.py](Math/MACD.py) —— MACD 指标",
+          "level": 4,
+          "line": 692
+        },
+        {
+          "heading": "9.2 其余指标（按需阅读）",
+          "level": 4,
+          "line": 703
+        },
+        {
+          "heading": "第十阶段：实战演示",
+          "level": 2,
+          "line": 716
+        },
+        {
+          "heading": "阅读顺序",
+          "level": 3,
+          "line": 720
+        },
+        {
+          "heading": "10.1 先看 [main.py](main.py) —— 基础演示",
+          "level": 4,
+          "line": 722
+        },
+        {
+          "heading": "10.2 再看 [Debug/strategy_demo.py](Debug/strategy_demo.py) —— 步进模式策略",
+          "level": 4,
+          "line": 735
+        },
+        {
+          "heading": "10.3 再看 [Debug/strategy_demo2.py](Debug/strategy_demo2.py) —— 外部喂K线模式",
+          "level": 4,
+          "line": 745
+        },
+        {
+          "heading": "10.4 可选 strategy_demo3.py ~ strategy_demo6.py",
+          "level": 4,
+          "line": 755
+        },
+        {
+          "heading": "附录：按阅读时间估算的总览",
+          "level": 2,
+          "line": 766
+        },
+        {
+          "heading": "附录：关键概念速查",
+          "level": 2,
+          "line": 786
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 73
+      }
+    },
+    {
+      "path": "阅读文档.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1495,
+      "nonEmptyLines": 1170,
+      "sections": [
+        {
+          "heading": "chan.py 阅读文档 —— 缠论 Python 实现快速上手指南",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "目录",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "第一部分：项目概述",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "1.1 什么是 chan.py",
+          "level": 3,
+          "line": 33
+        },
+        {
+          "heading": "1.2 开源版与完整版",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "1.3 环境要求",
+          "level": 3,
+          "line": 46
+        },
+        {
+          "heading": "1.4 快速体验",
+          "level": 3,
+          "line": 51
+        },
+        {
+          "heading": "第二部分：缠论核心概念速览",
+          "level": 2,
+          "line": 59
+        },
+        {
+          "heading": "2.1 K线",
+          "level": 3,
+          "line": 63
+        },
+        {
+          "heading": "2.2 K线包含处理（合并K线）",
+          "level": 3,
+          "line": 67
+        },
+        {
+          "heading": "2.3 分形（顶分型/底分型）",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "2.4 笔",
+          "level": 3,
+          "line": 106
+        },
+        {
+          "heading": "2.5 线段",
+          "level": 3,
+          "line": 123
+        },
+        {
+          "heading": "2.6 中枢",
+          "level": 3,
+          "line": 134
+        },
+        {
+          "heading": "2.7 买卖点",
+          "level": 3,
+          "line": 153
+        },
+        {
+          "heading": "2.8 背驰",
+          "level": 3,
+          "line": 164
+        },
+        {
+          "heading": "第三部分：项目整体架构与调用关系",
+          "level": 2,
+          "line": 172
+        },
+        {
+          "heading": "3.1 核心计算流水线",
+          "level": 3,
+          "line": 174
+        },
+        {
+          "heading": "3.2 多级别递归关系",
+          "level": 3,
+          "line": 199
+        },
+        {
+          "heading": "3.3 两种运行模式",
+          "level": 3,
+          "line": 212
+        },
+        {
+          "heading": "3.4 数据流调用图",
+          "level": 3,
+          "line": 219
+        },
+        {
+          "heading": "3.5 核心类继承关系",
+          "level": 3,
+          "line": 236
+        },
+        {
+          "heading": "第四部分：模块与方法级别拆解",
+          "level": 2,
+          "line": 257
+        },
+        {
+          "heading": "4.1 Common/ — 公共基础设施",
+          "level": 3,
+          "line": 259
+        },
+        {
+          "heading": "4.1.1 CEnum.py — 所有枚举定义",
+          "level": 4,
+          "line": 261
+        },
+        {
+          "heading": "4.1.2 CTime.py — 时间类",
+          "level": 4,
+          "line": 277
+        },
+        {
+          "heading": "4.1.3 cache.py — 缓存装饰器",
+          "level": 4,
+          "line": 294
+        },
+        {
+          "heading": "4.1.4 func_util.py — 工具函数",
+          "level": 4,
+          "line": 313
+        },
+        {
+          "heading": "4.1.5 ChanException.py — 异常类",
+          "level": 4,
+          "line": 325
+        },
+        {
+          "heading": "4.2 KLine/ — K线模块",
+          "level": 3,
+          "line": 336
+        },
+        {
+          "heading": "4.2.1 CKLine_Unit — 单根K线 (`KLine_Unit.py`)",
+          "level": 4,
+          "line": 338
+        },
+        {
+          "heading": "4.2.2 CKLine — 合并K线 (`KLine.py`)",
+          "level": 4,
+          "line": 371
+        },
+        {
+          "heading": "4.2.3 CKLine_List — K线列表容器 (`KLine_List.py`)",
+          "level": 4,
+          "line": 404
+        },
+        {
+          "heading": "4.2.4 TradeInfo.py — 交易指标类",
+          "level": 4,
+          "line": 443
+        },
+        {
+          "heading": "4.3 Combiner/ — 合并器模块",
+          "level": 3,
+          "line": 454
+        },
+        {
+          "heading": "4.3.1 Combine_Item.py — 合并元素包装",
+          "level": 4,
+          "line": 456
+        },
+        {
+          "heading": "4.3.2 CKLine_Combiner — 包含处理合并器 (`KLine_Combiner.py`)",
+          "level": 4,
+          "line": 465
+        },
+        {
+          "heading": "4.4 Bi/ — 笔模块",
+          "level": 3,
+          "line": 503
+        },
+        {
+          "heading": "4.4.1 BiConfig.py — 笔配置",
+          "level": 4,
+          "line": 505
+        },
+        {
+          "heading": "4.4.2 Bi.py — 笔类",
+          "level": 4,
+          "line": 521
+        },
+        {
+          "heading": "4.4.3 BiList.py — 笔列表管理类",
+          "level": 4,
+          "line": 568
+        },
+        {
+          "heading": "4.5 Seg/ — 线段模块",
+          "level": 3,
+          "line": 606
+        },
+        {
+          "heading": "4.5.1 Seg.py — 线段类",
+          "level": 4,
+          "line": 608
+        },
+        {
+          "heading": "4.5.2 SegListComm.py — 线段列表通用父类",
+          "level": 4,
+          "line": 642
+        },
+        {
+          "heading": "4.5.3 SegListChan.py — 特征序列线段算法",
+          "level": 4,
+          "line": 678
+        },
+        {
+          "heading": "4.5.4 Eigen.py — 特征序列元素",
+          "level": 4,
+          "line": 707
+        },
+        {
+          "heading": "4.5.5 EigenFX.py — 特征序列分型",
+          "level": 4,
+          "line": 722
+        },
+        {
+          "heading": "4.5.6 SegConfig.py — 线段配置",
+          "level": 4,
+          "line": 767
+        },
+        {
+          "heading": "4.6 ZS/ — 中枢模块",
+          "level": 3,
+          "line": 781
+        },
+        {
+          "heading": "4.6.1 ZS.py — 中枢类",
+          "level": 4,
+          "line": 783
+        },
+        {
+          "heading": "4.6.2 ZSList.py — 中枢列表管理类",
+          "level": 4,
+          "line": 840
+        },
+        {
+          "heading": "4.6.3 ZSConfig.py — 中枢配置",
+          "level": 4,
+          "line": 867
+        },
+        {
+          "heading": "4.7 BuySellPoint/ — 买卖点模块",
+          "level": 3,
+          "line": 876
+        },
+        {
+          "heading": "4.7.1 BS_Point.py — 买卖点类",
+          "level": 4,
+          "line": 878
+        },
+        {
+          "heading": "4.7.2 BSPointList.py — 买卖点列表计算类",
+          "level": 4,
+          "line": 906
+        },
+        {
+          "heading": "4.7.3 BSPointConfig.py — 买卖点配置",
+          "level": 4,
+          "line": 975
+        },
+        {
+          "heading": "4.8 Math/ — 技术指标模块",
+          "level": 3,
+          "line": 1002
+        },
+        {
+          "heading": "4.8.1 MACD.py — MACD 指标",
+          "level": 4,
+          "line": 1004
+        },
+        {
+          "heading": "4.8.2 BOLL.py — 布林线",
+          "level": 4,
+          "line": 1020
+        },
+        {
+          "heading": "4.8.3 RSI.py — 相对强弱指标",
+          "level": 4,
+          "line": 1030
+        },
+        {
+          "heading": "4.8.4 KDJ.py — 随机指标",
+          "level": 4,
+          "line": 1040
+        },
+        {
+          "heading": "4.8.5 TrendModel.py — 趋势模型",
+          "level": 4,
+          "line": 1050
+        },
+        {
+          "heading": "4.8.6 Demark.py — 德马克指标",
+          "level": 4,
+          "line": 1060
+        },
+        {
+          "heading": "4.8.7 TrendLine.py — 趋势线",
+          "level": 4,
+          "line": 1070
+        },
+        {
+          "heading": "4.9 DataAPI/ — 数据源模块",
+          "level": 3,
+          "line": 1082
+        },
+        {
+          "heading": "4.9.1 CommonStockAPI.py — 抽象数据源基类",
+          "level": 4,
+          "line": 1084
+        },
+        {
+          "heading": "4.9.2 BaoStockAPI.py — 默认数据源",
+          "level": 4,
+          "line": 1100
+        },
+        {
+          "heading": "4.9.3 自定义数据源",
+          "level": 4,
+          "line": 1113
+        },
+        {
+          "heading": "4.10 Plot/ — 绘图模块",
+          "level": 3,
+          "line": 1119
+        },
+        {
+          "heading": "4.10.1 PlotDriver.py — 静态绘图",
+          "level": 4,
+          "line": 1121
+        },
+        {
+          "heading": "4.10.2 AnimatePlotDriver.py — 动画绘图",
+          "level": 4,
+          "line": 1136
+        },
+        {
+          "heading": "4.10.3 PlotMeta.py — 绘图元数据",
+          "level": 4,
+          "line": 1145
+        },
+        {
+          "heading": "4.11 Chan.py — 主入口类",
+          "level": 3,
+          "line": 1151
+        },
+        {
+          "heading": "4.12 ChanConfig.py — 配置系统",
+          "level": 3,
+          "line": 1200
+        },
+        {
+          "heading": "4.13 ChanModel/ — 模型特征模块",
+          "level": 3,
+          "line": 1225
+        },
+        {
+          "heading": "4.13.1 Features.py — 特征容器",
+          "level": 4,
+          "line": 1227
+        },
+        {
+          "heading": "第五部分：完整计算流水线详解",
+          "level": 2,
+          "line": 1240
+        },
+        {
+          "heading": "5.1 批量模式完整流程",
+          "level": 3,
+          "line": 1242
+        },
+        {
+          "heading": "5.2 步进模式完整流程",
+          "level": 3,
+          "line": 1286
+        },
+        {
+          "heading": "5.3 外部喂 K 线流程（实盘）",
+          "level": 3,
+          "line": 1305
+        },
+        {
+          "heading": "第六部分：实战示例",
+          "level": 2,
+          "line": 1317
+        },
+        {
+          "heading": "6.1 基本使用",
+          "level": 3,
+          "line": 1319
+        },
+        {
+          "heading": "6.2 策略回测示例",
+          "level": 3,
+          "line": 1370
+        },
+        {
+          "heading": "6.3 自定义数据源",
+          "level": 3,
+          "line": 1421
+        },
+        {
+          "heading": "附录：关键术语对照表",
+          "level": 2,
+          "line": 1465
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 85
+      }
+    }
+  ]
+}

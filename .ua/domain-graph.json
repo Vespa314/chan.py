@@ -1,0 +1,1721 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "chan.py",
+    "languages": [
+      "python"
+    ],
+    "frameworks": [
+      "matplotlib",
+      "PyQt6",
+      "baostock",
+      "akshare",
+      "ccxt",
+      "xgboost"
+    ],
+    "description": "缠论技术分析 Python 实现框架，从原始 K 线数据（OHLC）出发，通过包含处理、分形检测、笔的构建、线段划分、中枢构建、买卖点检测等严格数学变换，最终输出六类交易信号（T1/T1P/T2/T2S/T3A/T3B）及可视化图表，支持多级别递归计算、步进回测和机器学习特征提取。",
+    "analyzedAt": "2026-09-05T00:00:00+08:00",
+    "gitCommitHash": "4c53175"
+  },
+  "nodes": [
+    {
+      "id": "domain:data-acquisition-config",
+      "type": "domain",
+      "name": "数据接入与配置",
+      "summary": "负责从多种数据源（BaoStock、Akshare、CCXT、CSV、自定义）获取原始 K 线数据，统一标准化为缠论框架的 CKLine_Unit 格式，并管理多级别 K 线的父子关系建立。配置系统（CChanConfig）组装笔、段、中枢、买卖点四类子配置，通过严格的 key 校验机制确保参数正确性。",
+      "tags": [
+        "数据接入",
+        "配置管理",
+        "多级别",
+        "数据标准化",
+        "入口"
+      ],
+      "complexity": "moderate",
+      "domainMeta": {
+        "entities": [
+          "CKLine_Unit",
+          "CChanConfig",
+          "CCommonStockApi",
+          "KL_TYPE",
+          "CTime"
+        ],
+        "businessRules": [
+          "K 线级别必须按从大到小顺序排列",
+          "所有配置 key 必须被消费，未消费的 key 抛出异常",
+          "自定义数据源必须继承 CCommonStockApi 抽象基类"
+        ],
+        "crossDomainInteractions": [
+          "向 K线包含处理与笔的构建 提供标准化的 CKLine_Unit 数据",
+          "向 技术指标与可视化 提供 K 线时间序列用于图表渲染",
+          "配置参数驱动 线段划分 和 中枢与买卖点检测 的算法选择"
+        ]
+      }
+    },
+    {
+      "id": "domain:kline-bi-construction",
+      "type": "domain",
+      "name": "K线包含处理与笔的构建",
+      "summary": "实现缠论特有的 K 线包含处理（当一根 K 线完全包含前一根时按趋势方向合并），在合并后的 K 线序列上检测顶底分形，并将相邻的顶底分形连接成笔（Bi）。笔是缠论分析的最小单元，其方向、端点极值、跨度验证是后续所有计算的基础。",
+      "tags": [
+        "包含处理",
+        "分形检测",
+        "笔的构建",
+        "合并K线",
+        "缠论基础"
+      ],
+      "complexity": "complex",
+      "domainMeta": {
+        "entities": [
+          "CKLine_Combiner",
+          "CKLine",
+          "CBi",
+          "CBiList",
+          "CBiConfig",
+          "CCombine_Item"
+        ],
+        "businessRules": [
+          "向上趋势中，包含处理取高高点和高低点；向下趋势取低低点和高低点",
+          "笔必须由顶分形和底分形交替连接，不可同向相连",
+          "笔的跨度必须满足最小合并 K 线数量要求",
+          "虚拟笔用于处理未确认的端点，在确认后替换为实际笔"
+        ],
+        "crossDomainInteractions": [
+          "接收来自 数据接入与配置 的标准化 K 线数据",
+          "向 线段划分 提供笔列表作为段构建的输入",
+          "向 技术指标与可视化 提供笔的 MACD 指标（面积、峰值、半衰）"
+        ]
+      }
+    },
+    {
+      "id": "domain:segment-division",
+      "type": "domain",
+      "name": "线段划分",
+      "summary": "将笔连接成线段（Seg），是缠论中最复杂的计算环节。默认使用特征序列分形法——将笔的方向反转后构建特征序列，检测特征序列分形（CEigenFX），当分形被反向笔破坏时确认段结束。同时提供都业华版（三笔关系判定）和定义版（价格比较）作为替代算法。",
+      "tags": [
+        "线段划分",
+        "特征序列",
+        "分形破坏",
+        "段算法",
+        "缠论核心"
+      ],
+      "complexity": "complex",
+      "domainMeta": {
+        "entities": [
+          "CSeg",
+          "CSegListComm",
+          "CSegListChan",
+          "CEigen",
+          "CEigenFX",
+          "CSegConfig"
+        ],
+        "businessRules": [
+          "段由奇数笔或偶数笔构成，方向由首笔决定",
+          "特征序列分形被反向笔破坏时确认段结束",
+          "段的方向必须与内部笔的方向一致，不可出现方向矛盾的段",
+          "未确认段（虚段）在步进模式下可能被后续计算修正"
+        ],
+        "crossDomainInteractions": [
+          "接收来自 K线包含处理与笔的构建 的笔列表",
+          "向 中枢与买卖点检测 提供段列表作为中枢构建和买卖点检测的输入",
+          "向 技术指标与可视化 提供段的斜率、振幅、MACD 指标及趋势线数据"
+        ]
+      }
+    },
+    {
+      "id": "domain:zhongshu-bsp-detection",
+      "type": "domain",
+      "name": "中枢与买卖点检测",
+      "summary": "在线段的基础上构建中枢（ZhongShu）——至少三段重叠的区间，根据中枢的延伸、扩展、新生关系进行合并。然后基于中枢区间和 MACD 背驰条件，检测六类买卖点（T1 一买/一卖、T1P 盘整背驰、T2 二买/二卖、T2S 类二买/类二卖、T3A/T3B 三买/三卖），输出可供策略交易使用的买卖信号。",
+      "tags": [
+        "中枢构建",
+        "中枢合并",
+        "买卖点",
+        "背驰判断",
+        "交易信号",
+        "缠论核心"
+      ],
+      "complexity": "complex",
+      "domainMeta": {
+        "entities": [
+          "CZS",
+          "CZSList",
+          "CZSConfig",
+          "CBSPointList",
+          "CBS_Point",
+          "CBSPointConfig",
+          "BSP_TYPE"
+        ],
+        "businessRules": [
+          "中枢至少由三段重叠构成，重叠区间为中枢高低点",
+          "重叠的中枢按规则合并，新生中枢脱离原中枢区间",
+          "一买需要背驰确认（MACD 面积/峰值缩小），三买需要回调不破中枢高点",
+          "买卖点可以叠加，同一个 K 线位置可同时触发多种买卖点类型",
+          "类二买（BSP2S）需要突破前一笔端点确认"
+        ],
+        "crossDomainInteractions": [
+          "接收来自 线段划分 的段列表",
+          "调用 技术指标与可视化 的 MACD 指标进行背驰判断",
+          "买卖点信号供策略回测和实盘交易使用"
+        ]
+      }
+    },
+    {
+      "id": "domain:indicators-visualization",
+      "type": "domain",
+      "name": "技术指标与可视化",
+      "summary": "提供手写实现的技术指标计算引擎（MACD、BOLL、RSI、KDJ、DeMark 序列、趋势线、趋势模型），不依赖 talib。同时基于 matplotlib 提供完整的缠论图表渲染，包括 K 线蜡烛图、笔连线、段连线、中枢箱体、买卖点标注及步进动画回放，支持 Jupyter Notebook 内嵌和静态 PNG 输出。",
+      "tags": [
+        "技术指标",
+        "MACD",
+        "BOLL",
+        "RSI",
+        "KDJ",
+        "DeMark",
+        "趋势线",
+        "可视化",
+        "matplotlib",
+        "动画"
+      ],
+      "complexity": "complex",
+      "domainMeta": {
+        "entities": [
+          "CMACD",
+          "BollModel",
+          "RSI",
+          "KDJ",
+          "CDemarkEngine",
+          "CTrendLine",
+          "CTrendModel",
+          "CPlotDriver",
+          "CAnimateDriver",
+          "CChanPlotMeta"
+        ],
+        "businessRules": [
+          "MACD 支持三种算法：面积法、极值法、红绿柱法",
+          "DeMark 序列需要 Setup（9 根）和 Countdown（13 根）两阶段完成",
+          "布林带基于滑动窗口的移动平均和标准差计算",
+          "图表支持多级别叠加显示和子级别 K 线范围标注"
+        ],
+        "crossDomainInteractions": [
+          "为 K线包含处理与笔的构建 提供 MACD 指标缓存",
+          "为 中枢与买卖点检测 提供背驰判断所需的 MACD 数据",
+          "从 数据接入与配置 获取 K 线时间序列用于 X 轴标注",
+          "消费所有计算域的产出（笔、段、中枢、买卖点）进行可视化渲染"
+        ]
+      }
+    },
+    {
+      "id": "flow:fetch-kline-data",
+      "type": "flow",
+      "name": "获取K线数据",
+      "summary": "从选定的数据源（BaoStock/Akshare/CCXT/CSV/自定义）获取原始 OHLCV 行情数据，解析时间列，转换为统一的 CKLine_Unit 格式并建立多级别父子关系。",
+      "tags": [
+        "数据获取",
+        "数据标准化",
+        "多数据源",
+        "入口流程"
+      ],
+      "complexity": "moderate",
+      "domainMeta": {
+        "entryPoint": "CCommonStockApi.get_kl_data()",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "flow:configure-multi-level",
+      "type": "flow",
+      "name": "多级别配置与初始化",
+      "summary": "组装 CChanConfig 配置对象（包含笔、段、中枢、买卖点子配置），校验配置 key 消费完整性，创建多级别 CKLine_List 容器并建立子父 K 线关系，为后续计算准备环境。",
+      "tags": [
+        "配置管理",
+        "多级别初始化",
+        "参数校验",
+        "入口流程"
+      ],
+      "complexity": "moderate",
+      "domainMeta": {
+        "entryPoint": "CChan.__init__()",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "flow:kline-inclusion",
+      "type": "flow",
+      "name": "K线包含处理",
+      "summary": "对原始 K 线序列执行缠论特有的包含处理：判断相邻 K 线是否存在包含关系，按趋势方向合并高低点，维护合并后的 K 线链表，并在合并 K 线上检测顶底分形。",
+      "tags": [
+        "包含处理",
+        "分形检测",
+        "K线合并",
+        "链表管理",
+        "核心流程"
+      ],
+      "complexity": "complex",
+      "domainMeta": {
+        "entryPoint": "CKLine_Combiner.try_add()",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "flow:stroke-construction",
+      "type": "flow",
+      "name": "笔的构建",
+      "summary": "在合并 K 线序列上检测顶底分形端点，构建第一笔，通过端点极值更新和跨度验证确认笔的完成，管理虚拟笔的添加与删除，最终输出方向交替的笔列表（CBiList）。",
+      "tags": [
+        "笔构建",
+        "端点检测",
+        "虚拟笔",
+        "跨度验证",
+        "核心流程"
+      ],
+      "complexity": "complex",
+      "domainMeta": {
+        "entryPoint": "CBiList.update_bi()",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "flow:eigen-fx-seg",
+      "type": "flow",
+      "name": "特征序列分形段划分",
+      "summary": "使用默认的特征序列分形法（CSegListChan）划分段：反转笔方向构建特征序列元素（CEigen），检测特征序列分形（CEigenFX），当分形被反向笔破坏时确认段结束，创建新段。",
+      "tags": [
+        "段划分",
+        "特征序列",
+        "分形破坏",
+        "段确认",
+        "核心流程"
+      ],
+      "complexity": "complex",
+      "domainMeta": {
+        "entryPoint": "CSegListChan.cal_seg_sure()",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "flow:seg-list-management",
+      "type": "flow",
+      "name": "段列表管理",
+      "summary": "管理段列表的完整生命周期：收集首段、收集已确认段、收集左侧剩余段、处理未确认段（虚段），以及将剩余笔封装为末段，确保段列表完整覆盖所有笔。",
+      "tags": [
+        "段管理",
+        "左侧段收集",
+        "虚段处理",
+        "兜底逻辑",
+        "核心流程"
+      ],
+      "complexity": "complex",
+      "domainMeta": {
+        "entryPoint": "CSegListComm.collect_left_seg()",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "flow:zhongshu-construction",
+      "type": "flow",
+      "name": "中枢构建与合并",
+      "summary": "从笔列表中构建中枢序列（至少三段重叠区间），检查区间重叠关系，按规则合并重叠中枢，将中枢关联到对应的段上，并判断中枢背驰（MACD 面积/峰值背离）。",
+      "tags": [
+        "中枢构建",
+        "中枢合并",
+        "背驰判断",
+        "核心流程"
+      ],
+      "complexity": "complex",
+      "domainMeta": {
+        "entryPoint": "CZSList.add()",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "flow:bsp-detection",
+      "type": "flow",
+      "name": "买卖点检测",
+      "summary": "遍历段列表，基于中枢背驰和 MACD 背离条件，按顺序检测六类买卖点：BSP1（一买/一卖）、BSP1P（盘整背驰）、BSP2（二买/二卖）、BSP2S（类二买/类二卖）、BSP3A/BSP3B（三买/三卖），输出可叠加的买卖点信号。",
+      "tags": [
+        "买卖点",
+        "交易信号",
+        "背驰检测",
+        "核心流程"
+      ],
+      "complexity": "complex",
+      "domainMeta": {
+        "entryPoint": "CBSPointList.cal()",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "flow:indicator-calculation",
+      "type": "flow",
+      "name": "技术指标计算",
+      "summary": "对手写实现的六类技术指标进行滑动窗口计算：MACD（DIF/DEA/柱状线）、BOLL（中轨/上轨/下轨）、RSI（超买超卖）、KDJ（K/D/J 值）、DeMark 序列（Setup/Countdown）、趋势线拟合和趋势模型（均值回归）。",
+      "tags": [
+        "技术指标",
+        "MACD",
+        "BOLL",
+        "RSI",
+        "KDJ",
+        "DeMark",
+        "趋势线",
+        "辅助流程"
+      ],
+      "complexity": "moderate",
+      "domainMeta": {
+        "entryPoint": "CChanConfig.GetMetricModel()",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "flow:chart-rendering",
+      "type": "flow",
+      "name": "缠论图表渲染",
+      "summary": "从 CChan 实例提取各级别计算结果的绘图元数据，创建 matplotlib 多子图布局，逐层绘制 K 线蜡烛图、笔连线、段连线、中枢箱体、买卖点标注及技术指标副图，支持静态 PNG 输出和步进动画回放。",
+      "tags": [
+        "可视化",
+        "matplotlib",
+        "图表渲染",
+        "动画",
+        "辅助流程"
+      ],
+      "complexity": "complex",
+      "domainMeta": {
+        "entryPoint": "CPlotDriver.plot()",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "step:fetch-kline-data:select-data-source",
+      "type": "step",
+      "name": "选择数据源",
+      "summary": "根据股票代码前缀或配置参数选择对应的数据源适配器（BaoStock/Akshare/CCXT/CSV/自定义），实例化数据源对象并建立连接。",
+      "tags": [
+        "数据源选择",
+        "适配器"
+      ],
+      "complexity": "simple",
+      "filePath": "DataAPI/CommonStockAPI.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:fetch-kline-data:query-raw-klines",
+      "type": "step",
+      "name": "查询原始K线数据",
+      "summary": "调用数据源 API 按时间范围和级别查询原始 OHLCV 行情数据，返回 DataFrame 或结构化数据行。",
+      "tags": [
+        "数据查询",
+        "API调用"
+      ],
+      "complexity": "simple",
+      "filePath": "DataAPI/BaoStockAPI.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:fetch-kline-data:normalize-data-format",
+      "type": "step",
+      "name": "标准化数据格式",
+      "summary": "解析时间列字符串（支持多种日期格式），将原始字段映射为标准 OHLCV 字典结构，处理复权类型转换和浮点数解析。",
+      "tags": [
+        "数据标准化",
+        "时间解析",
+        "字段映射"
+      ],
+      "complexity": "simple",
+      "filePath": "DataAPI/BaoStockAPI.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:fetch-kline-data:create-kl-units",
+      "type": "step",
+      "name": "创建K线单元",
+      "summary": "将标准化后的数据行逐个转换为 CKLine_Unit 对象，初始化时间、OHLCV、交易信息（TradeInfo）和技术指标字段。",
+      "tags": [
+        "K线单元",
+        "数据结构"
+      ],
+      "complexity": "simple",
+      "filePath": "KLine/KLine_Unit.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:configure-multi-level:assemble-config",
+      "type": "step",
+      "name": "组装配置",
+      "summary": "创建 CChanConfig 总配置对象，组装笔（CBiConfig）、段（CSegConfig）、中枢（CZSConfig）、买卖点（CBSPointConfig）四类子配置及技术指标配置。",
+      "tags": [
+        "配置组装",
+        "子配置"
+      ],
+      "complexity": "simple",
+      "filePath": "ChanConfig.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:configure-multi-level:validate-config-keys",
+      "type": "step",
+      "name": "校验配置key",
+      "summary": "ConfigWithCheck 包装器逐个子配置消费 key，检测未使用的 key 并抛出 CChanException，确保配置参数无拼写错误。",
+      "tags": [
+        "配置校验",
+        "异常处理"
+      ],
+      "complexity": "simple",
+      "filePath": "ChanConfig.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:configure-multi-level:create-kl-lists",
+      "type": "step",
+      "name": "创建多级别K线列表",
+      "summary": "根据配置的级别列表（如日线、60分钟、15分钟）为每个级别创建 CKLine_List 容器，注册笔、段、中枢、买卖点管理器。",
+      "tags": [
+        "多级别",
+        "K线列表"
+      ],
+      "complexity": "simple",
+      "filePath": "KLine/KLine_List.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:configure-multi-level:establish-parent-child-relation",
+      "type": "step",
+      "name": "建立父子K线关系",
+      "summary": "通过 set_klu_parent_relation 将高级别 K 线与子级别 K 线建立双向关联（sup_kl/sub_kl_list），支持区间套策略中的跨级别查询。",
+      "tags": [
+        "父子关系",
+        "区间套",
+        "多级别"
+      ],
+      "complexity": "simple",
+      "filePath": "Chan.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:kline-inclusion:judge-inclusion-relation",
+      "type": "step",
+      "name": "判断包含关系",
+      "summary": "比较相邻两根 K 线的高低点，判断是否存在包含关系（一根 K 线完全在另一根 K 线范围内）。",
+      "tags": [
+        "包含判断",
+        "K线比较"
+      ],
+      "complexity": "simple",
+      "filePath": "Combiner/KLine_Combiner.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:kline-inclusion:merge-high-low-points",
+      "type": "step",
+      "name": "合并高低点",
+      "summary": "根据当前趋势方向执行包含合并：向上趋势取高高点和高低点，向下趋势取低低点和高低点，生成合并后的新 K 线。",
+      "tags": [
+        "合并计算",
+        "趋势方向"
+      ],
+      "complexity": "simple",
+      "filePath": "Combiner/KLine_Combiner.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:kline-inclusion:detect-fractal",
+      "type": "step",
+      "name": "检测分形",
+      "summary": "在合并 K 线序列上检测顶分形（中间 K 线高点最高）和底分形（中间 K 线低点最低），标记分形类型和方向。",
+      "tags": [
+        "分形检测",
+        "顶底分形"
+      ],
+      "complexity": "simple",
+      "filePath": "Combiner/KLine_Combiner.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:kline-inclusion:add-virtual-klu",
+      "type": "step",
+      "name": "添加虚拟合并K线",
+      "summary": "在步进模式下，当前 K 线未完成包含处理时创建虚拟合并 K 线，用于暂时表示未确认的合并结果。",
+      "tags": [
+        "虚拟K线",
+        "步进模式"
+      ],
+      "complexity": "simple",
+      "filePath": "Combiner/KLine_Combiner.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:kline-inclusion:manage-pre-next-links",
+      "type": "step",
+      "name": "维护前后链表",
+      "summary": "管理合并 K 线的前后链表指针（pre/next），确保合并 K 线序列的顺序一致性，支持分形检测时的双向遍历。",
+      "tags": [
+        "链表管理",
+        "数据结构"
+      ],
+      "complexity": "simple",
+      "filePath": "Combiner/KLine_Combiner.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:stroke-construction:try-create-first-bi",
+      "type": "step",
+      "name": "尝试创建第一笔",
+      "summary": "在满足笔的生成条件时（出现顶底分形且方向符合）调用 add_new_bi 创建首笔，否则将 K 线合并加入自由列表等待。",
+      "tags": [
+        "首笔创建",
+        "条件判断"
+      ],
+      "complexity": "simple",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:stroke-construction:detect-end-peak",
+      "type": "step",
+      "name": "检测端点极值",
+      "summary": "判断当前 K 线端点相对于上一个端点是否为极值点（峰或谷），更新笔的端点并校验极值有效性。",
+      "tags": [
+        "端点检测",
+        "极值判断"
+      ],
+      "complexity": "simple",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:stroke-construction:confirm-bi-sure",
+      "type": "step",
+      "name": "确认笔的完成",
+      "summary": "执行 update_bi_sure 核心逻辑，处理虚拟笔删除、端点更新、新笔添加等完整流程，确认笔的完成状态并设置 is_sure 标记。",
+      "tags": [
+        "笔确认",
+        "状态管理"
+      ],
+      "complexity": "moderate",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:stroke-construction:manage-virtual-bi",
+      "type": "step",
+      "name": "管理虚拟笔",
+      "summary": "处理虚拟笔的添加与删除：先删除已有虚拟笔恢复被覆盖的端点，再根据最后一笔的方向和价格更新虚拟端点或创建新笔。",
+      "tags": [
+        "虚拟笔",
+        "端点恢复"
+      ],
+      "complexity": "moderate",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:stroke-construction:validate-bi-span",
+      "type": "step",
+      "name": "验证笔跨度",
+      "summary": "调用 satisfy_bi_span 检查笔的 K 线合并跨度是否满足配置的最小跨度要求，统计有跳空缺口的合并数量。",
+      "tags": [
+        "跨度验证",
+        "条件检查"
+      ],
+      "complexity": "simple",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:stroke-construction:add-new-bi",
+      "type": "step",
+      "name": "添加新笔",
+      "summary": "创建 CBi 对象，设置笔的方向、起止合并 K 线、虚实端点状态，建立与已有笔的 pre/next 链表关系，添加到笔列表。",
+      "tags": [
+        "笔创建",
+        "链表管理"
+      ],
+      "complexity": "simple",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:eigen-fx-seg:build-eigen-elements",
+      "type": "step",
+      "name": "构建特征序列元素",
+      "summary": "反转笔的方向（向上变向下）后构建 CEigen 特征序列元素列表，每个元素封装一组笔的合并区间。",
+      "tags": [
+        "特征序列",
+        "方向反转"
+      ],
+      "complexity": "simple",
+      "filePath": "Seg/Eigen.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:eigen-fx-seg:detect-eigen-fx",
+      "type": "step",
+      "name": "检测特征序列分形",
+      "summary": "在特征序列元素上检测 CEigenFX 分形，管理第一、二、三元素的添加、重置和有效突破判断。",
+      "tags": [
+        "分形检测",
+        "特征序列"
+      ],
+      "complexity": "moderate",
+      "filePath": "Seg/EigenFX.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:eigen-fx-seg:check-fx-break",
+      "type": "step",
+      "name": "检查分形破坏",
+      "summary": "判断反向笔是否突破了特征序列分形的端点，确认分形被破坏，满足段结束的条件。",
+      "tags": [
+        "分形破坏",
+        "突破检测"
+      ],
+      "complexity": "simple",
+      "filePath": "Seg/SegListChan.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:eigen-fx-seg:treat-fx-eigen",
+      "type": "step",
+      "name": "处理分形确认段",
+      "summary": "调用 treat_fx_eigen 处理被破坏的特征序列分形，检查分形是否可以成为段结束点，确认后递归处理剩余分形。",
+      "tags": [
+        "分形处理",
+        "段结束",
+        "递归"
+      ],
+      "complexity": "moderate",
+      "filePath": "Seg/SegListChan.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:eigen-fx-seg:confirm-seg-end",
+      "type": "step",
+      "name": "确认段结束",
+      "summary": "验证段结束条件：段方向与内部笔方向一致，价格突破前一段极值范围，满足段的最小构成要求。",
+      "tags": [
+        "段确认",
+        "条件验证"
+      ],
+      "complexity": "simple",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:eigen-fx-seg:add-new-seg",
+      "type": "step",
+      "name": "添加新段",
+      "summary": "创建 CSeg 对象，记录段的起止笔、方向、中枢列表，设置段的 is_sure 标记，添加到段列表并更新笔列表关联。",
+      "tags": [
+        "段创建",
+        "数据模型"
+      ],
+      "complexity": "simple",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:seg-list-management:collect-first-seg",
+      "type": "step",
+      "name": "收集首段",
+      "summary": "根据笔列表的极值方向确定首段方向，调用 FindPeakBi 查找极值笔并创建首段。",
+      "tags": [
+        "首段收集",
+        "极值查找"
+      ],
+      "complexity": "simple",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:seg-list-management:collect-confirmed-segs",
+      "type": "step",
+      "name": "收集已确认段",
+      "summary": "遍历已确认的笔（is_sure=True），根据段算法类型（chan/1+1/break）选择对应的段确认逻辑，收集已确认段。",
+      "tags": [
+        "段收集",
+        "已确认段"
+      ],
+      "complexity": "simple",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:seg-list-management:collect-left-segs",
+      "type": "step",
+      "name": "收集左侧剩余段",
+      "summary": "使用极值方法或定义方法收集左侧剩余笔对应的段，递归处理直到无法继续收集。",
+      "tags": [
+        "左侧段",
+        "递归收集"
+      ],
+      "complexity": "moderate",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:seg-list-management:handle-unsure-segs",
+      "type": "step",
+      "name": "处理未确认段",
+      "summary": "处理无法通过条件确认的剩余笔，查找极值并添加未确认段（虚段），设置 is_sure=False 标记。",
+      "tags": [
+        "未确认段",
+        "虚段处理"
+      ],
+      "complexity": "moderate",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:seg-list-management:collect-left-as-seg",
+      "type": "step",
+      "name": "将剩余笔封装为末段",
+      "summary": "当无法继续收集段时，将剩余未处理的笔直接封装为最后一个段（兜底逻辑），确保段列表完整覆盖所有笔。",
+      "tags": [
+        "兜底逻辑",
+        "段封装"
+      ],
+      "complexity": "simple",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:zhongshu-construction:build-zs-from-bi",
+      "type": "step",
+      "name": "从笔构建中枢",
+      "summary": "遍历笔列表，检测连续三段的重叠区间，创建中枢 CZS 对象并记录进入笔和离开笔。",
+      "tags": [
+        "中枢创建",
+        "重叠检测"
+      ],
+      "complexity": "moderate",
+      "filePath": "ZS/ZSList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:zhongshu-construction:check-zs-overlap",
+      "type": "step",
+      "name": "检查中枢重叠",
+      "summary": "调用 has_overlap 工具函数判断相邻中枢的高低区间是否重叠，决定是合并还是新生。",
+      "tags": [
+        "重叠判断",
+        "区间比较"
+      ],
+      "complexity": "simple",
+      "filePath": "ZS/ZSList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:zhongshu-construction:merge-overlapping-zs",
+      "type": "step",
+      "name": "合并重叠中枢",
+      "summary": "按缠论规则合并重叠中枢：取重叠区间的高中低、低中高作为合并后的中枢区间，更新子中枢列表。",
+      "tags": [
+        "中枢合并",
+        "区间计算"
+      ],
+      "complexity": "moderate",
+      "filePath": "ZS/ZS.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:zhongshu-construction:update-zs-in-seg",
+      "type": "step",
+      "name": "关联中枢到段",
+      "summary": "遍历中枢列表，判断每个中枢落在哪个段的范围内，调用段的 add_zs 方法建立双向关联，设置段的 bi_in/bi_out 关系。",
+      "tags": [
+        "中枢关联",
+        "段映射"
+      ],
+      "complexity": "simple",
+      "filePath": "KLine/KLine_List.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:zhongshu-construction:judge-divergence",
+      "type": "step",
+      "name": "判断背驰",
+      "summary": "比较中枢进入段和离开段的 MACD 面积/峰值/红绿柱，判断是否发生背驰——离开段力度小于进入段力度。",
+      "tags": [
+        "背驰判断",
+        "MACD比较"
+      ],
+      "complexity": "moderate",
+      "filePath": "ZS/ZS.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:bsp-detection:detect-bsp1",
+      "type": "step",
+      "name": "检测一买/一卖（BSP1）",
+      "summary": "遍历段列表，检测背驰段结束后的第一类买卖点：向下段背驰产生一买，向上段背驰产生一卖，需 MACD 面积/峰值缩小确认。",
+      "tags": [
+        "一买",
+        "一卖",
+        "背驰"
+      ],
+      "complexity": "moderate",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:bsp-detection:detect-bsp1p",
+      "type": "step",
+      "name": "检测盘整背驰（BSP1P）",
+      "summary": "检测中枢震荡中的盘整背驰买卖点，比较中枢内部相邻同向段的 MACD 力度，当力度减弱时产生盘整背驰信号。",
+      "tags": [
+        "盘整背驰",
+        "中枢震荡"
+      ],
+      "complexity": "moderate",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:bsp-detection:detect-bsp2",
+      "type": "step",
+      "name": "检测二买/二卖（BSP2）",
+      "summary": "在一买/一卖之后，检测回调不破前低的二次买入点或反弹不破前高的二次卖出点，确认第二类买卖点。",
+      "tags": [
+        "二买",
+        "二卖",
+        "回调确认"
+      ],
+      "complexity": "moderate",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:bsp-detection:detect-bsp2s",
+      "type": "step",
+      "name": "检测类二买/类二卖（BSP2S）",
+      "summary": "检测中枢震荡中的类二买/类二卖，需要突破前一笔端点确认有效性，是一种中枢内部的二次确认信号。",
+      "tags": [
+        "类二买",
+        "类二卖",
+        "中枢震荡"
+      ],
+      "complexity": "moderate",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:bsp-detection:detect-bsp3a",
+      "type": "step",
+      "name": "检测三买/三卖（BSP3A）",
+      "summary": "检测中枢离开段后的第三类买卖点：回调不破中枢高点（三买）或反弹不破中枢低点（三卖），确认中枢突破有效。",
+      "tags": [
+        "三买",
+        "三卖",
+        "中枢突破"
+      ],
+      "complexity": "moderate",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:bsp-detection:detect-bsp3b",
+      "type": "step",
+      "name": "检测三买/三卖（BSP3B）",
+      "summary": "检测回调笔回到中枢区间内后又突破中枢高低点的三买/三卖变体（BSP3B），是 BSP3A 的补充检测逻辑。",
+      "tags": [
+        "三买变体",
+        "三卖变体",
+        "中枢回踩"
+      ],
+      "complexity": "moderate",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:indicator-calculation:calculate-macd",
+      "type": "step",
+      "name": "计算MACD指标",
+      "summary": "基于收盘价序列计算 EMA12/EMA26，输出 DIF、DEA、MACD 柱状线，支持面积法、极值法、红绿柱法三种算法。",
+      "tags": [
+        "MACD",
+        "指数移动平均"
+      ],
+      "complexity": "simple",
+      "filePath": "Math/MACD.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:indicator-calculation:calculate-boll",
+      "type": "step",
+      "name": "计算布林带",
+      "summary": "基于收盘价滑动窗口计算移动平均和标准差，输出中轨、上轨、下轨三条轨道线。",
+      "tags": [
+        "BOLL",
+        "布林带",
+        "标准差"
+      ],
+      "complexity": "simple",
+      "filePath": "Math/BOLL.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:indicator-calculation:calculate-rsi-kdj",
+      "type": "step",
+      "name": "计算RSI与KDJ指标",
+      "summary": "RSI：基于涨跌幅滑动窗口计算相对强弱值；KDJ：基于最高最低价滑动窗口计算 RSV 并递推 K/D/J 值。",
+      "tags": [
+        "RSI",
+        "KDJ",
+        "超买超卖"
+      ],
+      "complexity": "simple",
+      "filePath": "Math/RSI.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:indicator-calculation:calculate-demark",
+      "type": "step",
+      "name": "计算DeMark序列",
+      "summary": "执行 DeMark 序列的 Setup 阶段（连续9根K线价格比较）和 Countdown 阶段（连续13根K线收盘价比较），计算 TDST 压力/支撑线。",
+      "tags": [
+        "DeMark",
+        "TD序列",
+        "Setup",
+        "Countdown"
+      ],
+      "complexity": "complex",
+      "filePath": "Math/Demark.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:indicator-calculation:calculate-trend-line",
+      "type": "step",
+      "name": "计算趋势线",
+      "summary": "基于笔的端点计算上下趋势线，遍历候选点集寻找最佳拟合直线，输出趋势线斜率与距离。",
+      "tags": [
+        "趋势线",
+        "线性拟合"
+      ],
+      "complexity": "simple",
+      "filePath": "Math/TrendLine.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:indicator-calculation:calculate-trend-model",
+      "type": "step",
+      "name": "计算趋势模型",
+      "summary": "基于滑动窗口计算收盘价的均值、最大值和最小值，构建均值回归趋势模型指标。",
+      "tags": [
+        "趋势模型",
+        "均值回归"
+      ],
+      "complexity": "simple",
+      "filePath": "Math/TrendModel.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:chart-rendering:extract-plot-metadata",
+      "type": "step",
+      "name": "提取绘图元数据",
+      "summary": "从 CChan 实例遍历各级别 CKLine_List，提取合并 K 线、笔、段、特征序列分形、中枢、买卖点的绘图元数据（位置、颜色、范围）。",
+      "tags": [
+        "元数据提取",
+        "数据转换"
+      ],
+      "complexity": "simple",
+      "filePath": "Plot/PlotMeta.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:chart-rendering:create-figure-layout",
+      "type": "step",
+      "name": "创建图表布局",
+      "summary": "根据级别数量和技术指标配置创建 matplotlib 多子图布局，确定各子图比例和坐标轴范围。",
+      "tags": [
+        "图表布局",
+        "matplotlib"
+      ],
+      "complexity": "simple",
+      "filePath": "Plot/PlotDriver.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:chart-rendering:draw-klines-and-bi",
+      "type": "step",
+      "name": "绘制K线与笔",
+      "summary": "在主子图上绘制 K 线蜡烛图（红涨绿跌）和合并 K 线边界，叠加笔的连线（实线/虚线区分已确认和未确认笔）。",
+      "tags": [
+        "K线绘制",
+        "笔绘制",
+        "蜡烛图"
+      ],
+      "complexity": "simple",
+      "filePath": "Plot/PlotDriver.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:chart-rendering:draw-seg-and-zs",
+      "type": "step",
+      "name": "绘制段与中枢",
+      "summary": "在主子图上叠加段的连线（实线/虚线区分已确认段和未确认段），绘制中枢矩形箱体并标注中枢区间。",
+      "tags": [
+        "段绘制",
+        "中枢绘制",
+        "箱体"
+      ],
+      "complexity": "simple",
+      "filePath": "Plot/PlotDriver.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "step:chart-rendering:annotate-bsp-and-save",
+      "type": "step",
+      "name": "标注买卖点并保存",
+      "summary": "在图表上标注买卖点标记（含类型文字和方向箭头），可选绘制 MACD 副图，最终保存为 PNG 文件或输出动画帧。",
+      "tags": [
+        "买卖点标注",
+        "图表保存",
+        "MACD副图"
+      ],
+      "complexity": "simple",
+      "filePath": "Plot/PlotDriver.py",
+      "lineRange": [
+        0,
+        0
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "domain:data-acquisition-config",
+      "target": "flow:fetch-kline-data",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "domain:data-acquisition-config",
+      "target": "flow:configure-multi-level",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "domain:kline-bi-construction",
+      "target": "flow:kline-inclusion",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "domain:kline-bi-construction",
+      "target": "flow:stroke-construction",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "domain:segment-division",
+      "target": "flow:eigen-fx-seg",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "domain:segment-division",
+      "target": "flow:seg-list-management",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "domain:zhongshu-bsp-detection",
+      "target": "flow:zhongshu-construction",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "domain:zhongshu-bsp-detection",
+      "target": "flow:bsp-detection",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "domain:indicators-visualization",
+      "target": "flow:indicator-calculation",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "domain:indicators-visualization",
+      "target": "flow:chart-rendering",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:fetch-kline-data",
+      "target": "step:fetch-kline-data:select-data-source",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.3
+    },
+    {
+      "source": "flow:fetch-kline-data",
+      "target": "step:fetch-kline-data:query-raw-klines",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "flow:fetch-kline-data",
+      "target": "step:fetch-kline-data:normalize-data-format",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "flow:fetch-kline-data",
+      "target": "step:fetch-kline-data:create-kl-units",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:configure-multi-level",
+      "target": "step:configure-multi-level:assemble-config",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.3
+    },
+    {
+      "source": "flow:configure-multi-level",
+      "target": "step:configure-multi-level:validate-config-keys",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "flow:configure-multi-level",
+      "target": "step:configure-multi-level:create-kl-lists",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "flow:configure-multi-level",
+      "target": "step:configure-multi-level:establish-parent-child-relation",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:kline-inclusion",
+      "target": "step:kline-inclusion:judge-inclusion-relation",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.2
+    },
+    {
+      "source": "flow:kline-inclusion",
+      "target": "step:kline-inclusion:merge-high-low-points",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.4
+    },
+    {
+      "source": "flow:kline-inclusion",
+      "target": "step:kline-inclusion:detect-fractal",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "flow:kline-inclusion",
+      "target": "step:kline-inclusion:add-virtual-klu",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "flow:kline-inclusion",
+      "target": "step:kline-inclusion:manage-pre-next-links",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:stroke-construction",
+      "target": "step:stroke-construction:try-create-first-bi",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.2
+    },
+    {
+      "source": "flow:stroke-construction",
+      "target": "step:stroke-construction:detect-end-peak",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.3
+    },
+    {
+      "source": "flow:stroke-construction",
+      "target": "step:stroke-construction:confirm-bi-sure",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "flow:stroke-construction",
+      "target": "step:stroke-construction:manage-virtual-bi",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "flow:stroke-construction",
+      "target": "step:stroke-construction:validate-bi-span",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "flow:stroke-construction",
+      "target": "step:stroke-construction:add-new-bi",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:eigen-fx-seg",
+      "target": "step:eigen-fx-seg:build-eigen-elements",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.2
+    },
+    {
+      "source": "flow:eigen-fx-seg",
+      "target": "step:eigen-fx-seg:detect-eigen-fx",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.3
+    },
+    {
+      "source": "flow:eigen-fx-seg",
+      "target": "step:eigen-fx-seg:check-fx-break",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "flow:eigen-fx-seg",
+      "target": "step:eigen-fx-seg:treat-fx-eigen",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "flow:eigen-fx-seg",
+      "target": "step:eigen-fx-seg:confirm-seg-end",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "flow:eigen-fx-seg",
+      "target": "step:eigen-fx-seg:add-new-seg",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:seg-list-management",
+      "target": "step:seg-list-management:collect-first-seg",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.2
+    },
+    {
+      "source": "flow:seg-list-management",
+      "target": "step:seg-list-management:collect-confirmed-segs",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.4
+    },
+    {
+      "source": "flow:seg-list-management",
+      "target": "step:seg-list-management:collect-left-segs",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "flow:seg-list-management",
+      "target": "step:seg-list-management:handle-unsure-segs",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "flow:seg-list-management",
+      "target": "step:seg-list-management:collect-left-as-seg",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:zhongshu-construction",
+      "target": "step:zhongshu-construction:build-zs-from-bi",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.2
+    },
+    {
+      "source": "flow:zhongshu-construction",
+      "target": "step:zhongshu-construction:check-zs-overlap",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.4
+    },
+    {
+      "source": "flow:zhongshu-construction",
+      "target": "step:zhongshu-construction:merge-overlapping-zs",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "flow:zhongshu-construction",
+      "target": "step:zhongshu-construction:update-zs-in-seg",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "flow:zhongshu-construction",
+      "target": "step:zhongshu-construction:judge-divergence",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:bsp-detection",
+      "target": "step:bsp-detection:detect-bsp1",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.2
+    },
+    {
+      "source": "flow:bsp-detection",
+      "target": "step:bsp-detection:detect-bsp1p",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.3
+    },
+    {
+      "source": "flow:bsp-detection",
+      "target": "step:bsp-detection:detect-bsp2",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "flow:bsp-detection",
+      "target": "step:bsp-detection:detect-bsp2s",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "flow:bsp-detection",
+      "target": "step:bsp-detection:detect-bsp3a",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "flow:bsp-detection",
+      "target": "step:bsp-detection:detect-bsp3b",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:indicator-calculation",
+      "target": "step:indicator-calculation:calculate-macd",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.2
+    },
+    {
+      "source": "flow:indicator-calculation",
+      "target": "step:indicator-calculation:calculate-boll",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.3
+    },
+    {
+      "source": "flow:indicator-calculation",
+      "target": "step:indicator-calculation:calculate-rsi-kdj",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "flow:indicator-calculation",
+      "target": "step:indicator-calculation:calculate-demark",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "flow:indicator-calculation",
+      "target": "step:indicator-calculation:calculate-trend-line",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "flow:indicator-calculation",
+      "target": "step:indicator-calculation:calculate-trend-model",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:chart-rendering",
+      "target": "step:chart-rendering:extract-plot-metadata",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.2
+    },
+    {
+      "source": "flow:chart-rendering",
+      "target": "step:chart-rendering:create-figure-layout",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.4
+    },
+    {
+      "source": "flow:chart-rendering",
+      "target": "step:chart-rendering:draw-klines-and-bi",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "flow:chart-rendering",
+      "target": "step:chart-rendering:draw-seg-and-zs",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "flow:chart-rendering",
+      "target": "step:chart-rendering:annotate-bsp-and-save",
+      "type": "flow_step",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "domain:data-acquisition-config",
+      "target": "domain:kline-bi-construction",
+      "type": "cross_domain",
+      "direction": "forward",
+      "description": "标准化后的 CKLine_Unit 数据通过 CKLine_List 进入包含处理流水线，配置参数驱动笔的算法选择",
+      "weight": 0.6
+    },
+    {
+      "source": "domain:kline-bi-construction",
+      "target": "domain:segment-division",
+      "type": "cross_domain",
+      "direction": "forward",
+      "description": "笔列表（CBiList）作为段算法的输入，通过特征序列分形法（CSegListChan）或替代算法构建段",
+      "weight": 0.6
+    },
+    {
+      "source": "domain:segment-division",
+      "target": "domain:zhongshu-bsp-detection",
+      "type": "cross_domain",
+      "direction": "forward",
+      "description": "段列表（CSeg 序列）作为中枢构建和买卖点检测的输入，中枢基于段的重叠区间构建",
+      "weight": 0.6
+    },
+    {
+      "source": "domain:indicators-visualization",
+      "target": "domain:kline-bi-construction",
+      "type": "cross_domain",
+      "direction": "forward",
+      "description": "MACD/BOLL/RSI/KDJ 等指标计算结果注入 CKLine_Unit 的 TradeInfo，为笔的 MACD 指标计算提供数据",
+      "weight": 0.4
+    },
+    {
+      "source": "domain:indicators-visualization",
+      "target": "domain:zhongshu-bsp-detection",
+      "type": "cross_domain",
+      "direction": "forward",
+      "description": "MACD 背驰判断（面积/峰值/红绿柱）是买卖点检测的核心条件，DeMark 序列提供辅助时序信号",
+      "weight": 0.4
+    },
+    {
+      "source": "domain:indicators-visualization",
+      "target": "domain:data-acquisition-config",
+      "type": "cross_domain",
+      "direction": "forward",
+      "description": "可视化引擎从 CChan 门面获取多级别 K 线数据和时间序列用于图表 X 轴标注",
+      "weight": 0.3
+    }
+  ],
+  "layers": [],
+  "tour": [],
+  "kind": "knowledge"
+}

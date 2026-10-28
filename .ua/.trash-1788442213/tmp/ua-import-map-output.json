@@ -1,0 +1,340 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 73,
+    "filesWithImports": 44,
+    "totalEdges": 213
+  },
+  "importMap": {
+    "__init__.py": [],
+    ".ua/.understandignore": [],
+    ".ua/config.json": [],
+    "代码走读说明.md": [],
+    "阅读文档.md": [],
+    "App/ashare_bsp_scanner_gui.py": [
+      "Chan.py",
+      "ChanConfig.py",
+      "Common/CEnum.py"
+    ],
+    "Bi/Bi.py": [
+      "Common/cache.py",
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "KLine/KLine_Unit.py",
+      "KLine/KLine.py"
+    ],
+    "Bi/BiConfig.py": [
+      "Common/CEnum.py",
+      "Common/ChanException.py"
+    ],
+    "Bi/BiList.py": [
+      "Bi/Bi.py",
+      "Bi/BiConfig.py",
+      "Common/CEnum.py",
+      "KLine/KLine.py"
+    ],
+    "BuySellPoint/__init__.py": [],
+    "BuySellPoint/BS_Point.py": [
+      "Bi/Bi.py",
+      "ChanModel/Features.py",
+      "Common/CEnum.py",
+      "Seg/Seg.py"
+    ],
+    "BuySellPoint/BSPointConfig.py": [
+      "Common/CEnum.py",
+      "Common/func_util.py"
+    ],
+    "BuySellPoint/BSPointList.py": [
+      "Bi/Bi.py",
+      "Bi/BiList.py",
+      "BuySellPoint/BS_Point.py",
+      "BuySellPoint/BSPointConfig.py",
+      "Common/CEnum.py",
+      "Common/func_util.py",
+      "Seg/Seg.py",
+      "Seg/SegListComm.py",
+      "ZS/ZS.py"
+    ],
+    "Chan.py": [
+      "BuySellPoint/BS_Point.py",
+      "ChanConfig.py",
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "Common/CTime.py",
+      "Common/func_util.py",
+      "DataAPI/CommonStockAPI.py",
+      "KLine/KLine_List.py",
+      "KLine/KLine_Unit.py"
+    ],
+    "ChanConfig.py": [
+      "Bi/BiConfig.py",
+      "BuySellPoint/BSPointConfig.py",
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "Common/func_util.py",
+      "Math/BOLL.py",
+      "Math/Demark.py",
+      "Math/KDJ.py",
+      "Math/MACD.py",
+      "Math/RSI.py",
+      "Math/TrendModel.py",
+      "Seg/SegConfig.py",
+      "ZS/ZSConfig.py"
+    ],
+    "ChanModel/Features.py": [],
+    "CLAUDE.md": [],
+    "Combiner/__init__.py": [],
+    "Combiner/Combine_Item.py": [
+      "Common/ChanException.py"
+    ],
+    "Combiner/KLine_Combiner.py": [
+      "Combiner/Combine_Item.py",
+      "Common/cache.py",
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "KLine/KLine_Unit.py"
+    ],
+    "Common/__init__.py": [],
+    "Common/cache.py": [],
+    "Common/CEnum.py": [],
+    "Common/ChanException.py": [],
+    "Common/CTime.py": [],
+    "Common/func_util.py": [
+      "Common/CEnum.py"
+    ],
+    "DataAPI/__init__.py": [],
+    "DataAPI/AkshareAPI.py": [
+      "Common/CEnum.py",
+      "Common/CTime.py",
+      "Common/func_util.py",
+      "DataAPI/CommonStockAPI.py",
+      "KLine/KLine_Unit.py"
+    ],
+    "DataAPI/BaoStockAPI.py": [
+      "Common/CEnum.py",
+      "Common/CTime.py",
+      "Common/func_util.py",
+      "DataAPI/CommonStockAPI.py",
+      "KLine/KLine_Unit.py"
+    ],
+    "DataAPI/ccxt.py": [
+      "Common/CEnum.py",
+      "Common/CTime.py",
+      "Common/func_util.py",
+      "DataAPI/ccxt.py",
+      "DataAPI/CommonStockAPI.py",
+      "KLine/KLine_Unit.py"
+    ],
+    "DataAPI/CommonStockAPI.py": [
+      "KLine/KLine_Unit.py"
+    ],
+    "DataAPI/csvAPI.py": [
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "Common/CTime.py",
+      "Common/func_util.py",
+      "DataAPI/CommonStockAPI.py",
+      "KLine/KLine_Unit.py"
+    ],
+    "Debug/strategy_demo.py": [
+      "Chan.py",
+      "ChanConfig.py",
+      "Common/CEnum.py"
+    ],
+    "Debug/strategy_demo2.py": [
+      "Chan.py",
+      "ChanConfig.py",
+      "Common/CEnum.py",
+      "DataAPI/BaoStockAPI.py"
+    ],
+    "Debug/strategy_demo3.py": [
+      "Chan.py",
+      "ChanConfig.py",
+      "Common/CEnum.py",
+      "DataAPI/BaoStockAPI.py",
+      "KLine/KLine_Unit.py"
+    ],
+    "Debug/strategy_demo4.py": [
+      "Chan.py",
+      "ChanConfig.py",
+      "Common/CEnum.py",
+      "DataAPI/BaoStockAPI.py"
+    ],
+    "Debug/strategy_demo5.py": [
+      "Chan.py",
+      "ChanConfig.py",
+      "ChanModel/Features.py",
+      "Common/CEnum.py",
+      "Common/CTime.py",
+      "Plot/PlotDriver.py"
+    ],
+    "Debug/strategy_demo6.py": [
+      "BuySellPoint/BS_Point.py",
+      "Chan.py",
+      "ChanConfig.py",
+      "ChanModel/Features.py",
+      "Common/CEnum.py",
+      "Common/CTime.py",
+      "Debug/strategy_demo5.py"
+    ],
+    "KLine/__init__.py": [],
+    "KLine/KLine_List.py": [
+      "Bi/Bi.py",
+      "Bi/BiList.py",
+      "BuySellPoint/BSPointList.py",
+      "ChanConfig.py",
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "KLine/KLine_Unit.py",
+      "KLine/KLine.py",
+      "Seg/Seg.py",
+      "Seg/SegConfig.py",
+      "Seg/SegListComm.py",
+      "ZS/ZSList.py"
+    ],
+    "KLine/KLine_Unit.py": [
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "Common/CTime.py",
+      "KLine/TradeInfo.py",
+      "Math/BOLL.py",
+      "Math/Demark.py",
+      "Math/KDJ.py",
+      "Math/MACD.py",
+      "Math/RSI.py",
+      "Math/TrendModel.py"
+    ],
+    "KLine/KLine.py": [
+      "Combiner/KLine_Combiner.py",
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "Common/func_util.py",
+      "KLine/KLine_Unit.py"
+    ],
+    "KLine/TradeInfo.py": [
+      "Common/CEnum.py"
+    ],
+    "main.py": [
+      "Chan.py",
+      "ChanConfig.py",
+      "Common/CEnum.py",
+      "Plot/AnimatePlotDriver.py",
+      "Plot/PlotDriver.py"
+    ],
+    "Math/__init__.py": [],
+    "Math/BOLL.py": [],
+    "Math/Demark.py": [
+      "Common/CEnum.py"
+    ],
+    "Math/KDJ.py": [],
+    "Math/MACD.py": [],
+    "Math/RSI.py": [],
+    "Math/TrendLine.py": [
+      "Common/CEnum.py"
+    ],
+    "Math/TrendModel.py": [
+      "Common/CEnum.py",
+      "Common/ChanException.py"
+    ],
+    "Plot/__init__.py": [],
+    "Plot/AnimatePlotDriver.py": [
+      "Chan.py",
+      "Plot/PlotDriver.py"
+    ],
+    "Plot/PlotDriver.py": [
+      "Chan.py",
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "Common/CTime.py",
+      "Math/Demark.py",
+      "Plot/PlotMeta.py"
+    ],
+    "Plot/PlotMeta.py": [
+      "Bi/Bi.py",
+      "BuySellPoint/BS_Point.py",
+      "Common/CEnum.py",
+      "KLine/KLine_List.py",
+      "KLine/KLine.py",
+      "Seg/Eigen.py",
+      "Seg/EigenFX.py",
+      "Seg/Seg.py",
+      "ZS/ZS.py"
+    ],
+    "prompt.txt": [],
+    "quick_guide.md": [],
+    "README.md": [],
+    "Script/requirements.txt": [],
+    "Seg/__init__.py": [],
+    "Seg/Eigen.py": [
+      "Bi/Bi.py",
+      "Combiner/KLine_Combiner.py",
+      "Common/CEnum.py"
+    ],
+    "Seg/EigenFX.py": [
+      "Bi/Bi.py",
+      "Bi/BiList.py",
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "Common/func_util.py",
+      "Seg/Eigen.py"
+    ],
+    "Seg/Seg.py": [
+      "Bi/Bi.py",
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "KLine/KLine_Unit.py",
+      "Math/TrendLine.py",
+      "Seg/EigenFX.py"
+    ],
+    "Seg/SegConfig.py": [
+      "Common/CEnum.py",
+      "Common/ChanException.py"
+    ],
+    "Seg/SegListChan.py": [
+      "Bi/BiList.py",
+      "Common/CEnum.py",
+      "Seg/EigenFX.py",
+      "Seg/SegConfig.py",
+      "Seg/SegListComm.py"
+    ],
+    "Seg/SegListComm.py": [
+      "Bi/Bi.py",
+      "Bi/BiList.py",
+      "Common/CEnum.py",
+      "Common/ChanException.py",
+      "Seg/Seg.py",
+      "Seg/SegConfig.py"
+    ],
+    "Seg/SegListDef.py": [
+      "Bi/BiList.py",
+      "Common/CEnum.py",
+      "Seg/SegConfig.py",
+      "Seg/SegListComm.py"
+    ],
+    "Seg/SegListDYH.py": [
+      "Bi/BiList.py",
+      "Common/CEnum.py",
+      "Seg/SegConfig.py",
+      "Seg/SegListComm.py"
+    ],
+    "ZS/__init__.py": [],
+    "ZS/ZS.py": [
+      "Bi/Bi.py",
+      "BuySellPoint/BSPointConfig.py",
+      "Common/ChanException.py",
+      "Common/func_util.py",
+      "KLine/KLine_Unit.py",
+      "Seg/Seg.py"
+    ],
+    "ZS/ZSConfig.py": [],
+    "ZS/ZSList.py": [
+      "Bi/Bi.py",
+      "Bi/BiList.py",
+      "Common/func_util.py",
+      "Seg/Seg.py",
+      "Seg/SegListComm.py",
+      "ZS/ZS.py",
+      "ZS/ZSConfig.py"
+    ]
+  }
+}

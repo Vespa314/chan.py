@@ -1,0 +1,17 @@
+{
+  "projectRoot": "e:/CodingWork/01csh/chan.py",
+  "batchFiles": [
+    {"path": "Bi/BiConfig.py", "language": "python", "sizeLines": 65, "fileCategory": "code"},
+    {"path": "Combiner/Combine_Item.py", "language": "python", "sizeLines": 59, "fileCategory": "code"},
+    {"path": "Combiner/KLine_Combiner.py", "language": "python", "sizeLines": 333, "fileCategory": "code"},
+    {"path": "Common/ChanException.py", "language": "python", "sizeLines": 135, "fileCategory": "code"},
+    {"path": "Common/cache.py", "language": "python", "sizeLines": 93, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "Bi/BiConfig.py": ["Common/CEnum.py", "Common/ChanException.py"],
+    "Combiner/Combine_Item.py": ["Common/ChanException.py"],
+    "Combiner/KLine_Combiner.py": ["Combiner/Combine_Item.py", "Common/cache.py", "Common/CEnum.py", "Common/ChanException.py", "KLine/KLine_Unit.py"],
+    "Common/ChanException.py": [],
+    "Common/cache.py": []
+  }
+}

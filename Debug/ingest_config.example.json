@@ -1,0 +1,28 @@
+{
+  "db_path": "kl_store.duckdb",
+  "begin": null,
+  "end": null,
+  "full": false,
+  "chunk_days": null,
+  "check_gaps": false,
+  "poll_interval_seconds": 60,
+  "trading_sessions": [
+    ["09:30", "11:30"],
+    ["13:00", "15:00"]
+  ],
+  "defaults": {
+    "autype": "QFQ"
+  },
+  "stocks": [
+    {
+      "code": "sz.000001",
+      "kl_types": ["K_DAY", "K_60M"],
+      "autypes": ["QFQ"]
+    },
+    {
+      "code": "sh.600000",
+      "kl_types": ["K_DAY"],
+      "autypes": ["QFQ", "HFQ"]
+    }
+  ]
+}

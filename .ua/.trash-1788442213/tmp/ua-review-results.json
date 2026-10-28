@@ -1,0 +1,36 @@
+{
+  "scriptCompleted": true,
+  "issues": [
+    "节点索引 149 (function:Bi/BiList.py:CBiList.get_klc_span): tag 'K线合并' 无效（必须全小写且使用连字符）"
+  ],
+  "warnings": [
+    "13 个节点没有任何边连接（孤立节点），前10个: file:__init__.py, file:.ua/.understandignore, config:.ua/config.json, file:BuySellPoint/__init__.py, file:Combiner/__init__.py, file:Common/__init__.py, file:DataAPI/__init__.py, file:KLine/__init__.py, file:Math/__init__.py, file:Plot/__init__.py",
+    "文档节点 'document:prompt.txt' 没有 'documents' 类型的边",
+    "文档节点 'document:Script/requirements.txt' 没有 'documents' 类型的边",
+    "导入映射中 'DataAPI/ccxt.py' -> 'DataAPI/ccxt.py' 的导入关系在知识图谱中未找到对应的 imports 边"
+  ],
+  "stats": {
+    "totalNodes": 223,
+    "totalEdges": 651,
+    "totalLayers": 8,
+    "tourSteps": 12,
+    "nodeTypes": {
+      "file": 65,
+      "function": 80,
+      "class": 70,
+      "document": 7,
+      "config": 1
+    },
+    "edgeTypes": {
+      "imports": 212,
+      "contains": 150,
+      "exports": 111,
+      "calls": 95,
+      "depends_on": 15,
+      "inherits": 7,
+      "documents": 43,
+      "related": 12,
+      "tested_by": 6
+    }
+  }
+}

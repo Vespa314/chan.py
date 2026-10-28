@@ -1,0 +1,6970 @@
+{
+  "fileNodes": [
+    {
+      "id": "file:App/ashare_bsp_scanner_gui.py",
+      "type": "file",
+      "name": "ashare_bsp_scanner_gui.py",
+      "filePath": "App/ashare_bsp_scanner_gui.py",
+      "summary": "A股买卖点扫描器GUI应用，基于PyQt6+matplotlib实现，支持全市场扫描缠论买卖点、单股分析及K线图表可视化。",
+      "tags": [
+        "gui",
+        "scanner",
+        "entry-point",
+        "visualization",
+        "pyqt"
+      ]
+    },
+    {
+      "id": "file:Chan.py",
+      "type": "file",
+      "name": "Chan.py",
+      "filePath": "Chan.py",
+      "summary": "缠论主入口类CChan，门面模式封装多级别K线加载、递归计算流水线（笔、段、中枢、买卖点）及序列化，支持批量与步进两种运行模式。",
+      "tags": [
+        "entry-point",
+        "facade",
+        "core",
+        "serialization",
+        "pipeline"
+      ]
+    },
+    {
+      "id": "file:ChanConfig.py",
+      "type": "file",
+      "name": "ChanConfig.py",
+      "filePath": "ChanConfig.py",
+      "summary": "缠论配置系统，CChanConfig组装笔/段/中枢/买卖点子配置，ConfigWithCheck提供严格的配置key校验机制，支持按买卖点类型的参数覆盖。",
+      "tags": [
+        "configuration",
+        "validation",
+        "factory"
+      ]
+    },
+    {
+      "id": "file:ChanModel/Features.py",
+      "type": "file",
+      "name": "Features.py",
+      "filePath": "ChanModel/Features.py",
+      "summary": "ML特征容器CFeatures，提供字典式特征存取接口，用于买卖点样本的特征存储与批量更新。",
+      "tags": [
+        "data-model",
+        "ml-feature",
+        "container"
+      ]
+    },
+    {
+      "id": "file:Common/CEnum.py",
+      "type": "file",
+      "name": "CEnum.py",
+      "filePath": "Common/CEnum.py",
+      "summary": "缠论全局枚举定义模块，包含K线级别、方向、分形类型、笔类型、买卖点类型、MACD算法等15个核心枚举类。",
+      "tags": [
+        "type-definition",
+        "enum",
+        "core"
+      ]
+    },
+    {
+      "id": "file:DataAPI/BaoStockAPI.py",
+      "type": "file",
+      "name": "BaoStockAPI.py",
+      "filePath": "DataAPI/BaoStockAPI.py",
+      "summary": "BaoStock数据源适配器，实现CCommonStockApi接口，提供K线数据查询、时间列解析及字段名映射等工具函数。",
+      "tags": [
+        "data-source",
+        "adapter",
+        "api-handler"
+      ]
+    },
+    {
+      "id": "file:Debug/strategy_demo.py",
+      "type": "file",
+      "name": "strategy_demo.py",
+      "filePath": "Debug/strategy_demo.py",
+      "summary": "步进回放策略演示脚本，使用trigger_step模式逐根K线推送并捕获买卖点信号，验证缠论步进计算逻辑。",
+      "tags": [
+        "test",
+        "demo",
+        "strategy",
+        "step-playback"
+      ]
+    },
+    {
+      "id": "file:Debug/strategy_demo2.py",
+      "type": "file",
+      "name": "strategy_demo2.py",
+      "filePath": "Debug/strategy_demo2.py",
+      "summary": "外部推送回测策略演示脚本，通过BaoStock数据源加载历史数据后批量推送K线，验证外部驱动模式下的买卖点计算。",
+      "tags": [
+        "test",
+        "demo",
+        "strategy",
+        "backtest"
+      ]
+    },
+    {
+      "id": "file:Debug/strategy_demo3.py",
+      "type": "file",
+      "name": "strategy_demo3.py",
+      "filePath": "Debug/strategy_demo3.py",
+      "summary": "小级别触发大级别重算演示脚本，展示15分钟K线合成60分钟K线，并在步进模式下验证子级别变化触发父级别重算的区间套机制。",
+      "tags": [
+        "test",
+        "demo",
+        "strategy",
+        "multi-level",
+        "cascade"
+      ]
+    },
+    {
+      "id": "file:Debug/strategy_demo4.py",
+      "type": "file",
+      "name": "strategy_demo4.py",
+      "filePath": "Debug/strategy_demo4.py",
+      "summary": "多级别无时间对齐推送演示脚本，测试不同级别K线以不同频率到达时缠论引擎的正确性。",
+      "tags": [
+        "test",
+        "demo",
+        "strategy",
+        "multi-level",
+        "async"
+      ]
+    },
+    {
+      "id": "file:Debug/strategy_demo5.py",
+      "type": "file",
+      "name": "strategy_demo5.py",
+      "filePath": "Debug/strategy_demo5.py",
+      "summary": "ML特征生成与XGBoost训练演示脚本，从缠论买卖点提取特征并训练XGBoost分类器，支持模型保存与图表绘制。",
+      "tags": [
+        "test",
+        "demo",
+        "ml",
+        "feature-engineering",
+        "xgboost"
+      ]
+    },
+    {
+      "id": "file:Debug/strategy_demo6.py",
+      "type": "file",
+      "name": "strategy_demo6.py",
+      "filePath": "Debug/strategy_demo6.py",
+      "summary": "模型预测演示脚本，加载训练好的XGBoost模型对最新买卖点进行预测，验证ML管线的推理环节。",
+      "tags": [
+        "test",
+        "demo",
+        "ml",
+        "prediction",
+        "inference"
+      ]
+    },
+    {
+      "id": "file:Math/BOLL.py",
+      "type": "file",
+      "name": "BOLL.py",
+      "filePath": "Math/BOLL.py",
+      "summary": "布林带（BOLL）指标的手写实现，包含BOLL_Metric指标项和BollModel滑动窗口计算器，支持中轨/上轨/下轨计算。",
+      "tags": [
+        "indicator",
+        "math",
+        "bollinger-bands"
+      ]
+    },
+    {
+      "id": "file:Math/Demark.py",
+      "type": "file",
+      "name": "Demark.py",
+      "filePath": "Math/Demark.py",
+      "summary": "DeMark序列指标的手写实现，包含Setup和Countdown两阶段计数引擎，支持TDST压力/支撑线计算及多序列管理。",
+      "tags": [
+        "indicator",
+        "math",
+        "demark",
+        "td-sequential"
+      ]
+    },
+    {
+      "id": "file:Math/KDJ.py",
+      "type": "file",
+      "name": "KDJ.py",
+      "filePath": "Math/KDJ.py",
+      "summary": "KDJ随机指标的手写实现，基于滑动窗口内最高/最低价计算RSV、K、D、J值。",
+      "tags": [
+        "indicator",
+        "math",
+        "kdj",
+        "stochastic"
+      ]
+    },
+    {
+      "id": "file:Math/MACD.py",
+      "type": "file",
+      "name": "MACD.py",
+      "filePath": "Math/MACD.py",
+      "summary": "MACD指标的手写实现，支持三种算法（面积/极值/红绿柱），计算DIF、DEA和MACD柱。",
+      "tags": [
+        "indicator",
+        "math",
+        "macd"
+      ]
+    },
+    {
+      "id": "file:Math/RSI.py",
+      "type": "file",
+      "name": "RSI.py",
+      "filePath": "Math/RSI.py",
+      "summary": "RSI相对强弱指标的手写实现，基于滑动窗口涨跌幅计算超买超卖信号。",
+      "tags": [
+        "indicator",
+        "math",
+        "rsi"
+      ]
+    },
+    {
+      "id": "file:Math/TrendLine.py",
+      "type": "file",
+      "name": "TrendLine.py",
+      "filePath": "Math/TrendLine.py",
+      "summary": "趋势线计算模块，基于笔的端点计算趋势线斜率与距离，支持上/下趋势线及峰值斜率初始化。",
+      "tags": [
+        "indicator",
+        "math",
+        "trend-line",
+        "geometry"
+      ]
+    },
+    {
+      "id": "file:Math/TrendModel.py",
+      "type": "file",
+      "name": "TrendModel.py",
+      "filePath": "Math/TrendModel.py",
+      "summary": "趋势模型（均值回归）指标计算器，基于滑动窗口计算收盘价的均值、最大值和最小值。",
+      "tags": [
+        "indicator",
+        "math",
+        "mean-reversion",
+        "sliding-window"
+      ]
+    },
+    {
+      "id": "file:Plot/AnimatePlotDriver.py",
+      "type": "file",
+      "name": "AnimatePlotDriver.py",
+      "filePath": "Plot/AnimatePlotDriver.py",
+      "summary": "缠论步进回放动画驱动，继承CPlotDriver，在Jupyter Notebook中逐K线展示缠论计算过程的动画效果。",
+      "tags": [
+        "visualization",
+        "animation",
+        "jupyter",
+        "plotting"
+      ]
+    },
+    {
+      "id": "file:Plot/PlotDriver.py",
+      "type": "file",
+      "name": "PlotDriver.py",
+      "filePath": "Plot/PlotDriver.py",
+      "summary": "缠论matplotlib绘图核心驱动，包含图形创建、K线/笔/段/中枢/买卖点/指标绘制、配置解析及图表保存等完整绘图流水线。",
+      "tags": [
+        "visualization",
+        "plotting",
+        "matplotlib",
+        "core"
+      ]
+    },
+    {
+      "id": "file:ZS/ZSConfig.py",
+      "type": "file",
+      "name": "ZSConfig.py",
+      "filePath": "ZS/ZSConfig.py",
+      "summary": "中枢配置类CZSConfig，定义中枢计算的参数，包括中枢是否需要重叠确认等选项。",
+      "tags": [
+        "configuration",
+        "zhongshu"
+      ]
+    },
+    {
+      "id": "file:main.py",
+      "type": "file",
+      "name": "main.py",
+      "filePath": "main.py",
+      "summary": "项目主入口脚本，计算sz.000001（平安银行）日线缠论数据并绘制完整技术分析图表，支持动画/静态两种模式。",
+      "tags": [
+        "entry-point",
+        "demo",
+        "visualization"
+      ]
+    },
+    {
+      "id": "file:Bi/Bi.py",
+      "type": "file",
+      "name": "Bi.py",
+      "filePath": "Bi/Bi.py",
+      "summary": "定义缠论中的笔（CBi）类，封装笔的方向、起止端点、合并K线列表、MACD指标计算及虚实笔切换等核心逻辑，是所有缠论元素的起点。",
+      "tags": [
+        "data-model",
+        "chan-theory",
+        "bi",
+        "macd-metrics"
+      ]
+    },
+    {
+      "id": "file:BuySellPoint/BSPointConfig.py",
+      "type": "file",
+      "name": "BSPointConfig.py",
+      "filePath": "BuySellPoint/BSPointConfig.py",
+      "summary": "买卖点配置系统，包含 CBSPointConfig（顶层配置）和 CPointConfig（单类型配置），支持按买卖点类型差异化参数覆盖。",
+      "tags": [
+        "configuration",
+        "buy-sell-point",
+        "config"
+      ]
+    },
+    {
+      "id": "file:BuySellPoint/BSPointList.py",
+      "type": "file",
+      "name": "BSPointList.py",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "summary": "买卖点列表管理的核心模块，实现 BSP1（一买/一卖）、BSP2（二买/二卖）、BSP3（三买/三卖）的检测与生成逻辑，以及盘整背驰、类二买等特殊买卖点的处理。",
+      "tags": [
+        "api-handler",
+        "buy-sell-point",
+        "chan-theory",
+        "trading-signal"
+      ]
+    },
+    {
+      "id": "file:BuySellPoint/BS_Point.py",
+      "type": "file",
+      "name": "BS_Point.py",
+      "filePath": "BuySellPoint/BS_Point.py",
+      "summary": "单个买卖点实体类 CBS_Point，封装买卖点类型、关联笔、特征信息及属性叠加逻辑，支持一个 K 线位置同时触发多种买卖点类型。",
+      "tags": [
+        "data-model",
+        "buy-sell-point",
+        "feature-engineering"
+      ]
+    },
+    {
+      "id": "file:Common/func_util.py",
+      "type": "file",
+      "name": "func_util.py",
+      "filePath": "Common/func_util.py",
+      "summary": "通用工具函数集，提供 K 线周期比较、笔方向反转、区间重叠判断、字符串转浮点数及无穷值解析等基础功能，被全项目广泛引用。",
+      "tags": [
+        "utility",
+        "helper",
+        "common"
+      ]
+    },
+    {
+      "id": "file:KLine/KLine.py",
+      "type": "file",
+      "name": "KLine.py",
+      "filePath": "KLine/KLine.py",
+      "summary": "合并 K 线（CKLine）类，管理一组 K 线单元的包含处理后的合并结果，并提供分形有效性校验、子级别 K 线查询及缺口检测功能。",
+      "tags": [
+        "data-model",
+        "kline",
+        "candle-combine",
+        "fractal"
+      ]
+    },
+    {
+      "id": "file:KLine/KLine_List.py",
+      "type": "file",
+      "name": "KLine_List.py",
+      "filePath": "KLine/KLine_List.py",
+      "summary": "K 线列表容器，协调笔、段、中枢、买卖点的完整计算流程，支持步进模式逐根添加 K 线并触发增量重算，是单个级别的计算编排器。",
+      "tags": [
+        "orchestrator",
+        "kline",
+        "pipeline",
+        "step-mode"
+      ]
+    },
+    {
+      "id": "file:Plot/PlotMeta.py",
+      "type": "file",
+      "name": "PlotMeta.py",
+      "filePath": "Plot/PlotMeta.py",
+      "summary": "绘图元数据模块，将缠论计算元素（笔、段、特征序列、特征序列分形、中枢、买卖点）转换为用于 matplotlib 绘制的结构化元数据对象，并管理子级别 K 线范围的索引计算。",
+      "tags": [
+        "visualization",
+        "metadata",
+        "plot",
+        "data-model"
+      ]
+    },
+    {
+      "id": "file:Seg/Eigen.py",
+      "type": "file",
+      "name": "Eigen.py",
+      "filePath": "Seg/Eigen.py",
+      "summary": "段特征序列元素（CEigen）类，继承自 CKLine_Combiner，封装单个特征序列 K 线的分形更新与峰值笔索引查询功能，是段算法的基本构建块。",
+      "tags": [
+        "data-model",
+        "segment",
+        "eigen",
+        "feature-sequence"
+      ]
+    },
+    {
+      "id": "file:Seg/EigenFX.py",
+      "type": "file",
+      "name": "EigenFX.py",
+      "filePath": "Seg/EigenFX.py",
+      "summary": "特征序列分形（CEigenFX）类，管理一组特征序列元素并检测分形，是段算法中判断段结束的核心逻辑，处理第一/二/三元素的添加、重置和有效突破判断。",
+      "tags": [
+        "data-model",
+        "segment",
+        "eigen-fx",
+        "fractal",
+        "feature-sequence"
+      ]
+    },
+    {
+      "id": "file:Seg/Seg.py",
+      "type": "file",
+      "name": "Seg.py",
+      "filePath": "Seg/Seg.py",
+      "summary": "段（CSeg）实体类，封装段的起止笔、中枢列表、斜率/振幅/MACD 指标计算，以及多笔中枢的查询与统计方法，是段级别计算的核心数据模型。",
+      "tags": [
+        "data-model",
+        "segment",
+        "chan-theory",
+        "zs",
+        "macd-metrics"
+      ]
+    },
+    {
+      "id": "file:ZS/ZS.py",
+      "type": "file",
+      "name": "ZS.py",
+      "filePath": "ZS/ZS.py",
+      "summary": "中枢（CZS）实体类，管理中枢的区间范围、进入/离开笔、子中枢合并、背驰判断及复制功能，是缠论中枢分析的核心实现。",
+      "tags": [
+        "data-model",
+        "zhongshu",
+        "central-hub",
+        "chan-theory",
+        "divergence"
+      ]
+    },
+    {
+      "id": "file:ZS/ZSList.py",
+      "type": "file",
+      "name": "ZSList.py",
+      "filePath": "ZS/ZSList.py",
+      "summary": "中枢列表管理器（CZSList），负责从笔列表中构建、更新和合并中枢，支持步进模式下增量更新中枢列表，并管理基于段的中枢归类。",
+      "tags": [
+        "api-handler",
+        "zhongshu",
+        "central-hub",
+        "list-manager"
+      ]
+    },
+    {
+      "id": "file:Common/CTime.py",
+      "type": "file",
+      "name": "CTime.py",
+      "filePath": "Common/CTime.py",
+      "summary": "时间包装类，提供日期时间字符串格式化、时间戳设置、日期比较等基础时间操作功能，是缠论框架中处理K线时间戳的统一入口。",
+      "tags": [
+        "time",
+        "utility",
+        "data-model"
+      ]
+    },
+    {
+      "id": "file:DataAPI/AkshareAPI.py",
+      "type": "file",
+      "name": "AkshareAPI.py",
+      "filePath": "DataAPI/AkshareAPI.py",
+      "summary": "Akshare 数据源适配器，从 Akshare 库获取A股和指数日线K线数据，包含复权类型转换、行情字段映射和 DataFrame 解析逻辑。",
+      "tags": [
+        "data-adapter",
+        "api-handler",
+        "data-pipeline",
+        "stock-market"
+      ]
+    },
+    {
+      "id": "file:DataAPI/CommonStockAPI.py",
+      "type": "file",
+      "name": "CommonStockAPI.py",
+      "filePath": "DataAPI/CommonStockAPI.py",
+      "summary": "股票数据API抽象基类，定义数据源适配器的统一接口（get_kl_data、SetBasciInfo、do_init、do_close），所有具体数据源适配器均继承此类。",
+      "tags": [
+        "data-model",
+        "abstract-class",
+        "api-handler",
+        "data-adapter"
+      ]
+    },
+    {
+      "id": "file:DataAPI/ccxt.py",
+      "type": "file",
+      "name": "ccxt.py",
+      "filePath": "DataAPI/ccxt.py",
+      "summary": "CCXT 加密货币交易所数据适配器，通过 CCXT 库从 Binance 等交易所获取K线数据，支持时间列解析、多字段映射和K线单位构造。",
+      "tags": [
+        "data-adapter",
+        "api-handler",
+        "cryptocurrency",
+        "data-pipeline"
+      ]
+    },
+    {
+      "id": "file:DataAPI/csvAPI.py",
+      "type": "file",
+      "name": "csvAPI.py",
+      "filePath": "DataAPI/csvAPI.py",
+      "summary": "CSV 文件数据源适配器，从本地CSV文本文件读取K线数据，支持自定义列名映射、时间列解析和异常处理。",
+      "tags": [
+        "data-adapter",
+        "data-pipeline",
+        "api-handler"
+      ]
+    },
+    {
+      "id": "file:KLine/KLine_Unit.py",
+      "type": "file",
+      "name": "KLine_Unit.py",
+      "filePath": "KLine/KLine_Unit.py",
+      "summary": "缠论K线单元核心数据结构，封装单根K线的所有属性（OHLCV、时间、指标），管理多级别父子K线关系，支持深拷贝、指标计算和DeMark引擎集成。",
+      "tags": [
+        "data-model",
+        "core",
+        "entry-point"
+      ]
+    },
+    {
+      "id": "file:KLine/TradeInfo.py",
+      "type": "file",
+      "name": "TradeInfo.py",
+      "filePath": "KLine/TradeInfo.py",
+      "summary": "交易信息容器，存储K线关联的技术指标数据（如MACD、RSI、KDJ等），以字典形式灵活管理指标键值对。",
+      "tags": [
+        "data-model",
+        "utility"
+      ]
+    },
+    {
+      "id": "file:Bi/BiList.py",
+      "type": "file",
+      "name": "BiList.py",
+      "filePath": "Bi/BiList.py",
+      "summary": "笔列表管理器，负责从K线合并序列中检测分形、构建笔、管理笔的确认与虚拟笔的添加删除，是缠论笔计算的核心模块。",
+      "tags": [
+        "笔构建",
+        "分形检测",
+        "核心算法",
+        "数据结构"
+      ]
+    },
+    {
+      "id": "file:Seg/SegConfig.py",
+      "type": "file",
+      "name": "SegConfig.py",
+      "filePath": "Seg/SegConfig.py",
+      "summary": "段算法配置类，定义段计算所需的参数如段类型、左段算法方法等，继承自ConfigWithCheck进行严格配置校验。",
+      "tags": [
+        "配置",
+        "段算法",
+        "参数校验"
+      ]
+    },
+    {
+      "id": "file:Seg/SegListChan.py",
+      "type": "file",
+      "name": "SegListChan.py",
+      "filePath": "Seg/SegListChan.py",
+      "summary": "默认段算法实现（特征序列分形法），通过构建向上/向下特征序列分形来检测和确认段，是缠论中最核心的段计算算法。",
+      "tags": [
+        "段算法",
+        "特征序列",
+        "核心算法",
+        "缠论"
+      ]
+    },
+    {
+      "id": "file:Seg/SegListComm.py",
+      "type": "file",
+      "name": "SegListComm.py",
+      "filePath": "Seg/SegListComm.py",
+      "summary": "段列表公共基类，提供所有段算法的共享逻辑，包括段收集、左段处理、新增段、极值笔查找等核心方法，以及未确认段的复杂处理。",
+      "tags": [
+        "段算法",
+        "基类",
+        "抽象",
+        "核心逻辑"
+      ]
+    },
+    {
+      "id": "file:Seg/SegListDYH.py",
+      "type": "file",
+      "name": "SegListDYH.py",
+      "filePath": "Seg/SegListDYH.py",
+      "summary": "都业华版段算法实现（已弃用），使用situation1/situation2判定逻辑替代特征序列分形法，通过相邻三笔的位置关系判断段是否成立。",
+      "tags": [
+        "段算法",
+        "已弃用",
+        "都业华"
+      ]
+    },
+    {
+      "id": "file:Seg/SegListDef.py",
+      "type": "file",
+      "name": "SegListDef.py",
+      "filePath": "Seg/SegListDef.py",
+      "summary": "定义版段算法实现（已弃用），使用is_up_seg/is_down_seg简单判定逻辑，通过相邻笔的价格比较来判断段方向和创建段。",
+      "tags": [
+        "段算法",
+        "已弃用",
+        "定义法"
+      ]
+    },
+    {
+      "id": "file:Bi/BiConfig.py",
+      "type": "file",
+      "name": "BiConfig.py",
+      "filePath": "Bi/BiConfig.py",
+      "summary": "笔计算的配置参数类，定义笔算法、严格模式、分型验证方法、跳空处理等配置项，并提供字符串到枚举值的转换逻辑，未知配置时抛出 CChanException 异常。",
+      "tags": [
+        "configuration",
+        "chan-theory",
+        "bi-calculation",
+        "validation"
+      ]
+    },
+    {
+      "id": "file:Combiner/Combine_Item.py",
+      "type": "file",
+      "name": "Combine_Item.py",
+      "filePath": "Combiner/Combine_Item.py",
+      "summary": "适配器包装类，将 CBi、CKLine_Unit、CSeg 三种类型统一包装，提供 time_begin、time_end、high、low 四个统一属性，使 CKLine_Combiner 可以共用同一套合并逻辑处理不同层级元素。",
+      "tags": [
+        "adapter-pattern",
+        "wrapper",
+        "chan-theory",
+        "type-unification"
+      ]
+    },
+    {
+      "id": "file:Combiner/KLine_Combiner.py",
+      "type": "file",
+      "name": "KLine_Combiner.py",
+      "filePath": "Combiner/KLine_Combiner.py",
+      "summary": "K线合并器核心基类，实现缠论中的K线包含处理逻辑，包括包含关系判断、合并高低点、分形检测、前后链表管理，被 CKLine 和 CEigen 继承使用，是项目中最关键的基类之一。",
+      "tags": [
+        "chan-theory",
+        "kline-inclusion",
+        "base-class",
+        "fractal-detection",
+        "linked-list"
+      ]
+    },
+    {
+      "id": "file:Common/ChanException.py",
+      "type": "file",
+      "name": "ChanException.py",
+      "filePath": "Common/ChanException.py",
+      "summary": "异常类定义模块，包含 ErrCode 错误码枚举（按缠论错误、交易错误、K线数据错误分为三段，共30+个错误码）和 CChanException 自定义异常类，提供 is_kldata_err 和 is_chan_err 错误类型判断方法。",
+      "tags": [
+        "exception-handling",
+        "error-codes",
+        "enumeration",
+        "chan-theory",
+        "error-classification"
+      ]
+    },
+    {
+      "id": "file:Common/cache.py",
+      "type": "file",
+      "name": "cache.py",
+      "filePath": "Common/cache.py",
+      "summary": "实例方法级别的备忘录缓存装饰器，通过 Python 描述器协议实现，将缓存绑定到实例的 _memoize_cache 字典上，支持 clean_cache 清空缓存使计算属性重新求值，被 CBi 和 CKLine_Combiner 大量使用。",
+      "tags": [
+        "caching",
+        "decorator",
+        "descriptor-protocol",
+        "memoization",
+        "utility"
+      ]
+    },
+    {
+      "id": "document:CLAUDE.md",
+      "type": "document",
+      "name": "CLAUDE.md",
+      "filePath": "CLAUDE.md",
+      "summary": "Claude Code 项目配置文件，提供项目概述、常用命令、核心架构、配置系统、关键实现细节（缓存机制、序列化陷阱、段算法、绘图、指标）及目录结构速查，是 AI 辅助开发的基础参考文档。",
+      "tags": [
+        "documentation",
+        "development",
+        "project-configuration",
+        "ai-assistant"
+      ]
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "缠论框架完整使用文档（约1500行），涵盖功能介绍（基本元素计算、策略买卖点、ML对接、线上交易）、目录结构、CChan/CChanConfig 使用详解、画图配置、中枢算法、模型特征、交易系统、自定义开发（数据接入、笔/线段/买卖点/模型扩展）、COS/Notion 集成等，是项目最全面的参考文档。",
+      "tags": [
+        "documentation",
+        "entry-point",
+        "overview",
+        "user-guide",
+        "api-reference"
+      ]
+    },
+    {
+      "id": "document:prompt.txt",
+      "type": "document",
+      "name": "prompt.txt",
+      "filePath": "prompt.txt",
+      "summary": "用于生成阅读文档.md 和代码走读说明.md 的提示词文件，描述了对文档生成的需求：项目架构描述、模块化拆解、方法级别说明、缠论知识注释、Java 对比注释，以及按阅读顺序的代码走读脉络。",
+      "tags": [
+        "documentation",
+        "prompt",
+        "meta"
+      ]
+    },
+    {
+      "id": "document:quick_guide.md",
+      "type": "document",
+      "name": "quick_guide.md",
+      "filePath": "quick_guide.md",
+      "summary": "快速上手指南（约570行），涵盖写在前面、如何开始、框架核心能力（当前帧、is_sure标记）、常见问题排查（报错、信号消失、递归溢出等）、不可绕过的步骤、CChanConfig 重点配置、取出缠论元素（合并K线、笔、线段、中枢、买卖点）、数据接入速成、线段/中枢详细说明、策略回测、指标添加、机器学习接入等。",
+      "tags": [
+        "documentation",
+        "quick-start",
+        "tutorial",
+        "troubleshooting",
+        "faq"
+      ]
+    },
+    {
+      "id": "document:代码走读说明.md",
+      "type": "document",
+      "name": "代码走读说明.md",
+      "filePath": "代码走读说明.md",
+      "summary": "按阅读顺序组织的代码导读文档（约800行），将代码学习分为十个阶段：建立概念地基（枚举/时间/异常/缓存/工具函数）→核心计算流水线（K线/合并器）→分形到笔→笔到线段（特征序列分型）→中枢与背驰→买卖点计算→主入口与配置→数据源与绘图→技术指标→实战演示，每个阶段给出阅读顺序和重点文件说明。",
+      "tags": [
+        "documentation",
+        "code-walkthrough",
+        "reading-guide",
+        "architecture",
+        "tutorial"
+      ]
+    },
+    {
+      "id": "document:阅读文档.md",
+      "type": "document",
+      "name": "阅读文档.md",
+      "filePath": "阅读文档.md",
+      "summary": "面向初学者的缠论 Python 实现快速上手指南（约1500行），分为六大部分：项目概述（开源版/完整版区别、环境要求、快速体验）、缠论核心概念速览（K线包含处理、分形、笔、线段、中枢、买卖点、背驰）、整体架构与调用关系（计算流水线、多级别递归、运行模式、数据流图、继承关系）、模块与方法级别拆解（覆盖 Common/KLine/Combiner/Bi/Seg/ZS/BuySellPoint/Math/DataAPI/Plot/Chan/ChanConfig/ChanModel 共13个模块）、完整计算流水线详解（批量/步进/外部喂K线三种模式）、实战示例。",
+      "tags": [
+        "documentation",
+        "learning-guide",
+        "architecture",
+        "concept-reference",
+        "tutorial"
+      ]
+    },
+    {
+      "id": "file:__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "__init__.py",
+      "summary": "项目根目录的空包标记文件，使 chan.py 成为可导入的 Python 包。",
+      "tags": [
+        "entry-point",
+        "barrel",
+        "package-init"
+      ]
+    },
+    {
+      "id": "file:.ua/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".ua/.understandignore",
+      "summary": "Understand-Anything 分析忽略模式文件，定义应从代码分析中排除的文件和目录匹配规则，语法兼容 .gitignore。",
+      "tags": [
+        "configuration",
+        "ignore-patterns",
+        "tooling"
+      ]
+    },
+    {
+      "id": "config:.ua/config.json",
+      "type": "config",
+      "name": "config.json",
+      "filePath": ".ua/config.json",
+      "summary": "Understand-Anything 插件配置文件，设置输出语言为中文。",
+      "tags": [
+        "configuration",
+        "tooling",
+        "localization"
+      ]
+    },
+    {
+      "id": "file:BuySellPoint/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "BuySellPoint/__init__.py",
+      "summary": "买卖点模块的包标记文件，使 BuySellPoint 成为可导入的 Python 子包。",
+      "tags": [
+        "package-init",
+        "barrel"
+      ]
+    },
+    {
+      "id": "file:Combiner/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Combiner/__init__.py",
+      "summary": "K线合并模块的包标记文件，使 Combiner 成为可导入的 Python 子包。",
+      "tags": [
+        "package-init",
+        "barrel"
+      ]
+    },
+    {
+      "id": "file:Common/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Common/__init__.py",
+      "summary": "公共工具模块的包标记文件，使 Common 成为可导入的 Python 子包。",
+      "tags": [
+        "package-init",
+        "barrel"
+      ]
+    },
+    {
+      "id": "file:DataAPI/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "DataAPI/__init__.py",
+      "summary": "数据API模块的包标记文件，使 DataAPI 成为可导入的 Python 子包。",
+      "tags": [
+        "package-init",
+        "barrel"
+      ]
+    },
+    {
+      "id": "file:KLine/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "KLine/__init__.py",
+      "summary": "K线数据结构模块的包标记文件，使 KLine 成为可导入的 Python 子包。",
+      "tags": [
+        "package-init",
+        "barrel"
+      ]
+    },
+    {
+      "id": "file:Math/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Math/__init__.py",
+      "summary": "技术指标数学模块的包标记文件，使 Math 成为可导入的 Python 子包。",
+      "tags": [
+        "package-init",
+        "barrel"
+      ]
+    },
+    {
+      "id": "file:Plot/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Plot/__init__.py",
+      "summary": "绘图模块的包标记文件，使 Plot 成为可导入的 Python 子包。",
+      "tags": [
+        "package-init",
+        "barrel"
+      ]
+    },
+    {
+      "id": "document:Script/requirements.txt",
+      "type": "document",
+      "name": "requirements.txt",
+      "filePath": "Script/requirements.txt",
+      "summary": "项目 Python 依赖清单，指定 baostock、matplotlib、numpy、pandas、requests 等核心依赖的最低版本要求。",
+      "tags": [
+        "configuration",
+        "dependencies",
+        "build-system"
+      ]
+    },
+    {
+      "id": "file:Seg/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Seg/__init__.py",
+      "summary": "线段算法模块的包标记文件，使 Seg 成为可导入的 Python 子包。",
+      "tags": [
+        "package-init",
+        "barrel"
+      ]
+    },
+    {
+      "id": "file:ZS/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "ZS/__init__.py",
+      "summary": "中枢计算模块的包标记文件，使 ZS 成为可导入的 Python 子包。",
+      "tags": [
+        "package-init",
+        "barrel"
+      ]
+    }
+  ],
+  "importEdges": [
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:BuySellPoint/BS_Point.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:KLine/KLine_List.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Bi/BiConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:BuySellPoint/BSPointConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/BOLL.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/Demark.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/KDJ.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/MACD.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/RSI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/TrendModel.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:ZS/ZSConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo2.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo2.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo2.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo2.py",
+      "target": "file:DataAPI/BaoStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "file:DataAPI/BaoStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo4.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo4.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo4.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo4.py",
+      "target": "file:DataAPI/BaoStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:ChanModel/Features.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:Plot/PlotDriver.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:BuySellPoint/BS_Point.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:ChanModel/Features.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:Debug/strategy_demo5.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Math/Demark.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Math/TrendModel.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Math/TrendModel.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/AnimatePlotDriver.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/AnimatePlotDriver.py",
+      "target": "file:Plot/PlotDriver.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Math/Demark.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Plot/PlotMeta.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:Plot/AnimatePlotDriver.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:Plot/PlotDriver.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:Common/cache.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:BuySellPoint/BS_Point.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:BuySellPoint/BSPointConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:ZS/ZS.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:ChanModel/Features.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Combiner/KLine_Combiner.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:BuySellPoint/BSPointList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:ZS/ZSList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:BuySellPoint/BS_Point.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:KLine/KLine_List.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Seg/Eigen.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Seg/EigenFX.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:ZS/ZS.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "file:Combiner/KLine_Combiner.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Seg/Eigen.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Math/TrendLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Seg/EigenFX.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:BuySellPoint/BSPointConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:ZS/ZS.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:ZS/ZSConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/CommonStockAPI.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:KLine/TradeInfo.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/BOLL.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/Demark.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/KDJ.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/MACD.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/RSI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/TrendModel.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/TradeInfo.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:Bi/BiConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Seg/EigenFX.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiConfig.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiConfig.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/Combine_Item.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Combiner/Combine_Item.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Common/cache.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ],
+  "allEdges": [
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:BuySellPoint/BS_Point.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:KLine/KLine_List.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Bi/BiConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:BuySellPoint/BSPointConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/BOLL.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/Demark.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/KDJ.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/MACD.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/RSI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Math/TrendModel.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "file:ZS/ZSConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo2.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo2.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo2.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo2.py",
+      "target": "file:DataAPI/BaoStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "function:App/ashare_bsp_scanner_gui.py:get_tradable_stocks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "function:App/ashare_bsp_scanner_gui.py:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "class:App/ashare_bsp_scanner_gui.py:ScanThread",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "class:App/ashare_bsp_scanner_gui.py:SingleAnalysisThread",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "class:App/ashare_bsp_scanner_gui.py:ChanPlotCanvas",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "class:App/ashare_bsp_scanner_gui.py:AkshareGUI",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "class:Chan.py:CChan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "class:ChanConfig.py:CChanConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "class:ChanConfig.py:ConfigWithCheck",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ChanModel/Features.py",
+      "target": "class:ChanModel/Features.py:CFeatures",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/CEnum.py",
+      "target": "class:Common/CEnum.py:KL_TYPE",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/CEnum.py",
+      "target": "class:Common/CEnum.py:BSP_TYPE",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/CEnum.py",
+      "target": "class:Common/CEnum.py:MACD_ALGO",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/CEnum.py",
+      "target": "class:Common/CEnum.py:DATA_FIELD",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "function:DataAPI/BaoStockAPI.py:create_item_dict",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "function:DataAPI/BaoStockAPI.py:parse_time_column",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "function:DataAPI/BaoStockAPI.py:GetColumnNameFromFieldList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "class:DataAPI/BaoStockAPI.py:CBaoStock",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "function:App/ashare_bsp_scanner_gui.py:get_tradable_stocks",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "function:App/ashare_bsp_scanner_gui.py:main",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "class:App/ashare_bsp_scanner_gui.py:ScanThread",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "class:App/ashare_bsp_scanner_gui.py:SingleAnalysisThread",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "class:App/ashare_bsp_scanner_gui.py:ChanPlotCanvas",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:App/ashare_bsp_scanner_gui.py",
+      "target": "class:App/ashare_bsp_scanner_gui.py:AkshareGUI",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Chan.py",
+      "target": "class:Chan.py:CChan",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "class:ChanConfig.py:CChanConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ChanConfig.py",
+      "target": "class:ChanConfig.py:ConfigWithCheck",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ChanModel/Features.py",
+      "target": "class:ChanModel/Features.py:CFeatures",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/CEnum.py",
+      "target": "class:Common/CEnum.py:KL_TYPE",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/CEnum.py",
+      "target": "class:Common/CEnum.py:BSP_TYPE",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/CEnum.py",
+      "target": "class:Common/CEnum.py:MACD_ALGO",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/CEnum.py",
+      "target": "class:Common/CEnum.py:DATA_FIELD",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "function:DataAPI/BaoStockAPI.py:create_item_dict",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "function:DataAPI/BaoStockAPI.py:parse_time_column",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "function:DataAPI/BaoStockAPI.py:GetColumnNameFromFieldList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/BaoStockAPI.py",
+      "target": "class:DataAPI/BaoStockAPI.py:CBaoStock",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:App/ashare_bsp_scanner_gui.py:ScanThread",
+      "target": "class:Chan.py:CChan",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:App/ashare_bsp_scanner_gui.py:SingleAnalysisThread",
+      "target": "class:Chan.py:CChan",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:App/ashare_bsp_scanner_gui.py:AkshareGUI",
+      "target": "class:ChanConfig.py:CChanConfig",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:App/ashare_bsp_scanner_gui.py:AkshareGUI",
+      "target": "function:App/ashare_bsp_scanner_gui.py:get_tradable_stocks",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Chan.py:CChan",
+      "target": "class:ChanConfig.py:CChanConfig",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:ChanConfig.py:CChanConfig",
+      "target": "class:ChanConfig.py:ConfigWithCheck",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:ChanConfig.py:CChanConfig",
+      "target": "class:Math/BOLL.py:BollModel",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:ChanConfig.py:CChanConfig",
+      "target": "class:Math/Demark.py:CDemarkEngine",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:ChanConfig.py:CChanConfig",
+      "target": "class:Math/MACD.py:CMACD",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:ChanConfig.py:CChanConfig",
+      "target": "class:Math/RSI.py:RSI",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:ChanConfig.py:CChanConfig",
+      "target": "class:Math/KDJ.py:KDJ",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:ChanConfig.py:CChanConfig",
+      "target": "class:Math/TrendModel.py:CTrendModel",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:ChanConfig.py:CChanConfig",
+      "target": "class:ZS/ZSConfig.py:CZSConfig",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:DataAPI/BaoStockAPI.py:create_item_dict",
+      "target": "function:DataAPI/BaoStockAPI.py:parse_time_column",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo.py",
+      "target": "class:Chan.py:CChan",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Debug/strategy_demo2.py",
+      "target": "class:Chan.py:CChan",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Debug/strategy_demo2.py",
+      "target": "class:DataAPI/BaoStockAPI.py:CBaoStock",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "file:DataAPI/BaoStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo4.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo4.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo4.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo4.py",
+      "target": "file:DataAPI/BaoStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:ChanModel/Features.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:Plot/PlotDriver.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:BuySellPoint/BS_Point.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:ChanModel/Features.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:Debug/strategy_demo5.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Math/Demark.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "function:Debug/strategy_demo3.py:combine_60m_klu_form_15m",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "function:Debug/strategy_demo5.py:plot",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "function:Debug/strategy_demo5.py:stragety_feature",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "class:Debug/strategy_demo5.py:T_SAMPLE_INFO",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "function:Debug/strategy_demo6.py:predict_bsp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "class:Debug/strategy_demo6.py:T_SAMPLE_INFO",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/BOLL.py",
+      "target": "function:Math/BOLL.py:_truncate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/BOLL.py",
+      "target": "class:Math/BOLL.py:BOLL_Metric",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/BOLL.py",
+      "target": "class:Math/BOLL.py:BollModel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/Demark.py",
+      "target": "class:Math/Demark.py:CDemarkEngine",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/Demark.py",
+      "target": "class:Math/Demark.py:CDemarkSetup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/Demark.py",
+      "target": "class:Math/Demark.py:CDemarkCountdown",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/Demark.py",
+      "target": "class:Math/Demark.py:CDemarkIndex",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/KDJ.py",
+      "target": "class:Math/KDJ.py:KDJ",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/MACD.py",
+      "target": "class:Math/MACD.py:CMACD",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/RSI.py",
+      "target": "class:Math/RSI.py:RSI",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "function:Debug/strategy_demo3.py:combine_60m_klu_form_15m",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "function:Debug/strategy_demo5.py:plot",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "function:Debug/strategy_demo5.py:stragety_feature",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "class:Debug/strategy_demo5.py:T_SAMPLE_INFO",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "function:Debug/strategy_demo6.py:predict_bsp",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "class:Debug/strategy_demo6.py:T_SAMPLE_INFO",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/BOLL.py",
+      "target": "function:Math/BOLL.py:_truncate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/BOLL.py",
+      "target": "class:Math/BOLL.py:BOLL_Metric",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/BOLL.py",
+      "target": "class:Math/BOLL.py:BollModel",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/Demark.py",
+      "target": "class:Math/Demark.py:CDemarkEngine",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/Demark.py",
+      "target": "class:Math/Demark.py:CDemarkSetup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/Demark.py",
+      "target": "class:Math/Demark.py:CDemarkCountdown",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/Demark.py",
+      "target": "class:Math/Demark.py:CDemarkIndex",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/KDJ.py",
+      "target": "class:Math/KDJ.py:KDJ",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/MACD.py",
+      "target": "class:Math/MACD.py:CMACD",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/RSI.py",
+      "target": "class:Math/RSI.py:RSI",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Debug/strategy_demo3.py:combine_60m_klu_form_15m",
+      "target": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Debug/strategy_demo5.py:plot",
+      "target": "class:Plot/PlotDriver.py:CPlotDriver",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "class:ChanModel/Features.py:CFeatures",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:Debug/strategy_demo5.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "class:ChanModel/Features.py:CFeatures",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Math/TrendModel.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Math/TrendModel.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/AnimatePlotDriver.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/AnimatePlotDriver.py",
+      "target": "file:Plot/PlotDriver.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Math/Demark.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Plot/PlotMeta.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:Chan.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:Plot/AnimatePlotDriver.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "file:Plot/PlotDriver.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "function:Math/TrendLine.py:init_peak_slope",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "function:Math/TrendLine.py:cal_tl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "class:Math/TrendLine.py:Point",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "class:Math/TrendLine.py:Line",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "class:Math/TrendLine.py:CTrendLine",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/TrendModel.py",
+      "target": "class:Math/TrendModel.py:CTrendModel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/AnimatePlotDriver.py",
+      "target": "class:Plot/AnimatePlotDriver.py:CAnimateDriver",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "function:Plot/PlotDriver.py:reformat_plot_config",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "function:Plot/PlotDriver.py:parse_single_lv_plot_config",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "function:Plot/PlotDriver.py:parse_plot_config",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "function:Plot/PlotDriver.py:create_figure",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "function:Plot/PlotDriver.py:GetPlotMeta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "class:Plot/PlotDriver.py:CPlotDriver",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ZS/ZSConfig.py",
+      "target": "class:ZS/ZSConfig.py:CZSConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "function:Math/TrendLine.py:init_peak_slope",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "function:Math/TrendLine.py:cal_tl",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "class:Math/TrendLine.py:Point",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "class:Math/TrendLine.py:Line",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/TrendLine.py",
+      "target": "class:Math/TrendLine.py:CTrendLine",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Math/TrendModel.py",
+      "target": "class:Math/TrendModel.py:CTrendModel",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/AnimatePlotDriver.py",
+      "target": "class:Plot/AnimatePlotDriver.py:CAnimateDriver",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "function:Plot/PlotDriver.py:reformat_plot_config",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "function:Plot/PlotDriver.py:parse_single_lv_plot_config",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "function:Plot/PlotDriver.py:parse_plot_config",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "function:Plot/PlotDriver.py:create_figure",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "function:Plot/PlotDriver.py:GetPlotMeta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "class:Plot/PlotDriver.py:CPlotDriver",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZSConfig.py",
+      "target": "class:ZS/ZSConfig.py:CZSConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Math/TrendLine.py:cal_tl",
+      "target": "function:Math/TrendLine.py:init_peak_slope",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Math/TrendLine.py:CTrendLine",
+      "target": "function:Math/TrendLine.py:cal_tl",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/AnimatePlotDriver.py:CAnimateDriver",
+      "target": "class:Plot/PlotDriver.py:CPlotDriver",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:Plot/AnimatePlotDriver.py:CAnimateDriver",
+      "target": "class:Chan.py:CChan",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Plot/PlotDriver.py:GetPlotMeta",
+      "target": "class:Chan.py:CChan",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotDriver.py:CPlotDriver",
+      "target": "class:Math/Demark.py:CDemarkEngine",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:main.py",
+      "target": "class:Chan.py:CChan",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:main.py",
+      "target": "class:Plot/PlotDriver.py:CPlotDriver",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:main.py",
+      "target": "class:Plot/AnimatePlotDriver.py:CAnimateDriver",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Plot/PlotDriver.py",
+      "target": "file:Math/Demark.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:Common/cache.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "class:KLine/KLine.py:CKLine",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "class:BuySellPoint/BSPointConfig.py:CBSPointConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "class:BuySellPoint/BSPointConfig.py:CPointConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "class:BuySellPoint/BSPointConfig.py:CBSPointConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "class:BuySellPoint/BSPointConfig.py:CPointConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "function:Common/func_util.py:_parse_inf",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:BuySellPoint/BSPointList.py:CBSPointList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp2s_break_bsp1",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp3_back2zs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp3_break_zspeak",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:cal_bsp3_bi_end_idx",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:BuySellPoint/BSPointList.py:CBSPointList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp2s_break_bsp1",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp3_back2zs",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp3_break_zspeak",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:cal_bsp3_bi_end_idx",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:BuySellPoint/BS_Point.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:BuySellPoint/BSPointConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:ZS/ZS.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:BuySellPoint/BS_Point.py:CBS_Point",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:BuySellPoint/BSPointConfig.py:CBSPointConfig",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:ZS/ZS.py:CZS",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "class:BuySellPoint/BS_Point.py:CBS_Point",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "class:BuySellPoint/BS_Point.py:CBS_Point",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:ChanModel/Features.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:kltype_lt_day",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:kltype_lte_day",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:check_kltype_order",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:revert_bi_dir",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:str2float",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:_parse_inf",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:kltype_lt_day",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:kltype_lte_day",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:check_kltype_order",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:revert_bi_dir",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:str2float",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:_parse_inf",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "class:KLine/KLine.py:CKLine",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "class:KLine/KLine.py:CKLine",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Combiner/KLine_Combiner.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:KLine/KLine_List.py:CKLine_List",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:get_seglist_instance",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:cal_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:update_zs_in_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:KLine/KLine_List.py:CKLine_List",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:get_seglist_instance",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:cal_seg",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:update_zs_in_seg",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:BuySellPoint/BSPointList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:ZS/ZSList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:KLine/KLine.py:CKLine",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:BuySellPoint/BSPointList.py:CBSPointList",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:ZS/ZSList.py:CZSList",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:Common/func_util.py:revert_bi_dir",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:Cklc_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CBi_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CSeg_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CEigen_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CEigenFX_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CZS_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CBS_Point_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:Cklc_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CBi_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CSeg_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CEigen_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CEigenFX_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CZS_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CBS_Point_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:BuySellPoint/BS_Point.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:KLine/KLine_List.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Seg/Eigen.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Seg/EigenFX.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "file:ZS/ZS.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:BuySellPoint/BS_Point.py:CBS_Point",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:KLine/KLine.py:CKLine",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Seg/Eigen.py:CEigen",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Seg/EigenFX.py:CEigenFX",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Plot/PlotMeta.py",
+      "target": "class:ZS/ZS.py:CZS",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CEigenFX_meta",
+      "target": "class:Plot/PlotMeta.py:CEigen_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:Cklc_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:CBi_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:CSeg_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:CEigenFX_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:CZS_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Plot/PlotMeta.py:CChanPlotMeta",
+      "target": "class:Plot/PlotMeta.py:CBS_Point_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "class:Seg/Eigen.py:CEigen",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "class:Seg/Eigen.py:CEigen",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "file:Combiner/KLine_Combiner.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Eigen.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "class:Seg/EigenFX.py:CEigenFX",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "class:Seg/EigenFX.py:CEigenFX",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "file:Seg/Eigen.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "class:Seg/Eigen.py:CEigen",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/EigenFX.py",
+      "target": "function:Common/func_util.py:revert_bi_dir",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Math/TrendLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "file:Seg/EigenFX.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/Seg.py",
+      "target": "class:Seg/EigenFX.py:CEigenFX",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "class:ZS/ZS.py:CZS",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "class:ZS/ZS.py:CZS",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:BuySellPoint/BSPointConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZS.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "class:ZS/ZSList.py:CZSList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "class:ZS/ZSList.py:CZSList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:ZS/ZS.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "file:ZS/ZSConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "class:ZS/ZS.py:CZS",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ZS/ZSList.py",
+      "target": "function:Common/func_util.py:revert_bi_dir",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/CommonStockAPI.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Common/CTime.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:KLine/TradeInfo.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/BOLL.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/Demark.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/KDJ.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/MACD.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/RSI.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "file:Math/TrendModel.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/TradeInfo.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Common/CTime.py",
+      "target": "class:Common/CTime.py:CTime",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "function:DataAPI/AkshareAPI.py:create_item_dict",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "class:DataAPI/AkshareAPI.py:CAkshare",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/CommonStockAPI.py",
+      "target": "class:DataAPI/CommonStockAPI.py:CCommonStockApi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "function:DataAPI/ccxt.py:GetColumnNameFromFieldList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "class:DataAPI/ccxt.py:CCXT",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "function:DataAPI/csvAPI.py:create_item_dict",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "function:DataAPI/csvAPI.py:parse_time_column",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "class:DataAPI/csvAPI.py:CSV_API",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/TradeInfo.py",
+      "target": "class:KLine/TradeInfo.py:CTradeInfo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/CTime.py",
+      "target": "class:Common/CTime.py:CTime",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "function:DataAPI/AkshareAPI.py:create_item_dict",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/AkshareAPI.py",
+      "target": "class:DataAPI/AkshareAPI.py:CAkshare",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/CommonStockAPI.py",
+      "target": "class:DataAPI/CommonStockAPI.py:CCommonStockApi",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "function:DataAPI/ccxt.py:GetColumnNameFromFieldList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/ccxt.py",
+      "target": "class:DataAPI/ccxt.py:CCXT",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "function:DataAPI/csvAPI.py:create_item_dict",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "function:DataAPI/csvAPI.py:parse_time_column",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DataAPI/csvAPI.py",
+      "target": "class:DataAPI/csvAPI.py:CSV_API",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_Unit.py",
+      "target": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/TradeInfo.py",
+      "target": "class:KLine/TradeInfo.py:CTradeInfo",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/AkshareAPI.py:CAkshare",
+      "target": "class:DataAPI/CommonStockAPI.py:CCommonStockApi",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:DataAPI/ccxt.py:CCXT",
+      "target": "class:DataAPI/CommonStockAPI.py:CCommonStockApi",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:DataAPI/csvAPI.py:CSV_API",
+      "target": "class:DataAPI/CommonStockAPI.py:CCommonStockApi",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "function:DataAPI/AkshareAPI.py:create_item_dict",
+      "target": "class:Common/CTime.py:CTime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:DataAPI/AkshareAPI.py:create_item_dict",
+      "target": "function:Common/func_util.py:str2float",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/AkshareAPI.py:CAkshare",
+      "target": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/ccxt.py:CCXT",
+      "target": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/ccxt.py:CCXT",
+      "target": "class:Common/CTime.py:CTime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/ccxt.py:CCXT",
+      "target": "function:Common/func_util.py:kltype_lt_day",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/ccxt.py:CCXT",
+      "target": "function:Common/func_util.py:str2float",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:DataAPI/csvAPI.py:create_item_dict",
+      "target": "function:DataAPI/csvAPI.py:parse_time_column",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:DataAPI/csvAPI.py:create_item_dict",
+      "target": "function:Common/func_util.py:str2float",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:DataAPI/csvAPI.py:parse_time_column",
+      "target": "class:Common/CTime.py:CTime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/csvAPI.py:CSV_API",
+      "target": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DataAPI/csvAPI.py:CSV_API",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "target": "class:KLine/TradeInfo.py:CTradeInfo",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "target": "class:Math/Demark.py:CDemarkIndex",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:KLine/KLine_Unit.py:CKLine_Unit",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:Bi/BiConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Seg/EigenFX.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "class:Bi/BiList.py:CBiList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "function:Bi/BiList.py:end_is_peak",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.try_create_first_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.update_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.can_update_peak",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.update_peak",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.update_bi_sure",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.delete_virtual_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.try_add_virtual_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.add_new_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.satisfy_bi_span",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.get_klc_span",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.can_make_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.try_update_end",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "class:Seg/SegConfig.py:CSegConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegConfig.py:CSegConfig",
+      "target": "function:Seg/SegConfig.py:CSegConfig.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "class:Seg/SegListChan.py:CSegListChan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "function:Seg/SegListChan.py:CSegListChan.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "function:Seg/SegListChan.py:CSegListChan.do_init",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "function:Seg/SegListChan.py:CSegListChan.update",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "function:Seg/SegListChan.py:CSegListChan.cal_seg_sure",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "function:Seg/SegListChan.py:CSegListChan.treat_fx_eigen",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "class:Seg/SegListComm.py:CSegListComm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "function:Seg/SegListComm.py:FindPeakBi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.do_init",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.left_bi_break",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_first_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_left_seg_peak_method",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_segs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_left_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_left_as_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.try_add_new_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.add_new_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.update",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "class:Seg/SegListDYH.py:CSegListDYH",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "function:Seg/SegListDYH.py:situation1",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "function:Seg/SegListDYH.py:situation2",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "function:Seg/SegListDYH.py:CSegListDYH.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "function:Seg/SegListDYH.py:CSegListDYH.update",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_sure",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_unsure",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "function:Seg/SegListDYH.py:CSegListDYH.try_update_last_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "class:Seg/SegListDef.py:CSegListDef",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "function:Seg/SegListDef.py:is_up_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "function:Seg/SegListDef.py:is_down_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDef.py:CSegListDef",
+      "target": "function:Seg/SegListDef.py:CSegListDef.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDef.py:CSegListDef",
+      "target": "function:Seg/SegListDef.py:CSegListDef.update",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDef.py:CSegListDef",
+      "target": "function:Seg/SegListDef.py:CSegListDef.update_last_end",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDef.py:CSegListDef",
+      "target": "function:Seg/SegListDef.py:CSegListDef.cal_bi_sure",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "class:Bi/BiList.py:CBiList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "function:Bi/BiList.py:end_is_peak",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "class:Seg/SegConfig.py:CSegConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "class:Seg/SegListChan.py:CSegListChan",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "class:Seg/SegListComm.py:CSegListComm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "function:Seg/SegListComm.py:FindPeakBi",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "function:Seg/SegListDYH.py:situation1",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "function:Seg/SegListDYH.py:situation2",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "class:Seg/SegListDYH.py:CSegListDYH",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "function:Seg/SegListDef.py:is_up_seg",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "function:Seg/SegListDef.py:is_down_seg",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "class:Seg/SegListDef.py:CSegListDef",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "class:Seg/SegListComm.py:CSegListComm",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "class:Seg/SegListComm.py:CSegListComm",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:Seg/SegListDef.py:CSegListDef",
+      "target": "class:Seg/SegListComm.py:CSegListComm",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "function:Bi/BiList.py:CBiList.add_new_bi",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Bi/BiList.py:CBiList.__init__",
+      "target": "class:Bi/BiConfig.py:CBiConfig",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListChan.py:CSegListChan.cal_seg_sure",
+      "target": "class:Seg/EigenFX.py:CEigenFX",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListComm.py:CSegListComm.try_add_new_seg",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDYH.py:CSegListDYH.update",
+      "target": "function:Seg/SegListComm.py:CSegListComm.do_init",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDYH.py:CSegListDYH.update",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_left_seg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDYH.py:CSegListDYH.update",
+      "target": "function:Seg/SegListComm.py:CSegListComm.left_bi_break",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDef.py:CSegListDef.update",
+      "target": "function:Seg/SegListComm.py:CSegListComm.do_init",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDef.py:CSegListDef.update",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_left_seg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_sure",
+      "target": "function:Seg/SegListComm.py:CSegListComm.add_new_seg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_unsure",
+      "target": "function:Seg/SegListComm.py:CSegListComm.add_new_seg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDef.py:CSegListDef.cal_bi_sure",
+      "target": "function:Seg/SegListComm.py:CSegListComm.add_new_seg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "file:Common/ChanException.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Common/ChanException.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Seg/EigenFX.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Seg/Seg.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Bi/BiConfig.py",
+      "target": "class:Bi/BiConfig.py:CBiConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Combiner/Combine_Item.py",
+      "target": "class:Combiner/Combine_Item.py:CCombine_Item",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "class:Combiner/KLine_Combiner.py:CKLine_Combiner",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/ChanException.py",
+      "target": "class:Common/ChanException.py:ErrCode",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/ChanException.py",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/cache.py",
+      "target": "class:Common/cache.py:make_cache",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Bi/BiConfig.py",
+      "target": "class:Bi/BiConfig.py:CBiConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Combiner/Combine_Item.py",
+      "target": "class:Combiner/Combine_Item.py:CCombine_Item",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "class:Combiner/KLine_Combiner.py:CKLine_Combiner",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/ChanException.py",
+      "target": "class:Common/ChanException.py:ErrCode",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/ChanException.py",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/cache.py",
+      "target": "class:Common/cache.py:make_cache",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Bi/BiConfig.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiConfig.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/Combine_Item.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Combiner/Combine_Item.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Common/cache.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Combiner/KLine_Combiner.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "class:Bi/BiConfig.py:CBiConfig",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Combiner/Combine_Item.py:CCombine_Item",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Combiner/KLine_Combiner.py:CKLine_Combiner",
+      "target": "class:Combiner/Combine_Item.py:CCombine_Item",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Combiner/KLine_Combiner.py:CKLine_Combiner",
+      "target": "class:Common/ChanException.py:CChanException",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:Chan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:ChanConfig.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:Common/cache.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:Seg/SegListChan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "file:main.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "document:README.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:Chan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:ChanConfig.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:Plot/PlotDriver.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:ZS/ZS.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:BuySellPoint/BSPointList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:quick_guide.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:阅读文档.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:代码走读说明.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:prompt.txt",
+      "target": "document:阅读文档.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:prompt.txt",
+      "target": "document:代码走读说明.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:Chan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:ChanConfig.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:KLine/KLine.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:Bi/BiList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:Seg/SegListComm.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:ZS/ZSList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:BuySellPoint/BSPointList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "document:README.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:quick_guide.md",
+      "target": "document:阅读文档.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Common/CEnum.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Common/CTime.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Combiner/KLine_Combiner.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Bi/Bi.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Seg/SegListChan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:ZS/ZS.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:BuySellPoint/BSPointList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Chan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:ChanConfig.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:main.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "file:Debug/strategy_demo.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "document:阅读文档.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:代码走读说明.md",
+      "target": "document:README.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Chan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:ChanConfig.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Common/CEnum.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Combiner/KLine_Combiner.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Bi/BiList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Seg/SegListComm.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:ZS/ZSList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:BuySellPoint/BSPointList.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Math/MACD.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:DataAPI/CommonStockAPI.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "file:Plot/PlotDriver.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "document:README.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:阅读文档.md",
+      "target": "document:代码走读说明.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:Debug/strategy_demo.py",
+      "target": "file:Chan.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo2.py",
+      "target": "file:Chan.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo3.py",
+      "target": "file:Chan.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo4.py",
+      "target": "file:Chan.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo5.py",
+      "target": "file:Chan.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Debug/strategy_demo6.py",
+      "target": "file:Chan.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

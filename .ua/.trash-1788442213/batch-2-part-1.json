@@ -1,0 +1,958 @@
+{
+  "nodes": [
+    {
+      "id": "file:Bi/Bi.py",
+      "type": "file",
+      "name": "Bi.py",
+      "filePath": "Bi/Bi.py",
+      "summary": "定义缠论中的笔（CBi）类，封装笔的方向、起止端点、合并K线列表、MACD指标计算及虚实笔切换等核心逻辑，是所有缠论元素的起点。",
+      "tags": ["data-model", "chan-theory", "bi", "macd-metrics"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:BuySellPoint/BSPointConfig.py",
+      "type": "file",
+      "name": "BSPointConfig.py",
+      "filePath": "BuySellPoint/BSPointConfig.py",
+      "summary": "买卖点配置系统，包含 CBSPointConfig（顶层配置）和 CPointConfig（单类型配置），支持按买卖点类型差异化参数覆盖。",
+      "tags": ["configuration", "buy-sell-point", "config"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:BuySellPoint/BSPointList.py",
+      "type": "file",
+      "name": "BSPointList.py",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "summary": "买卖点列表管理的核心模块，实现 BSP1（一买/一卖）、BSP2（二买/二卖）、BSP3（三买/三卖）的检测与生成逻辑，以及盘整背驰、类二买等特殊买卖点的处理。",
+      "tags": ["api-handler", "buy-sell-point", "chan-theory", "trading-signal"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:BuySellPoint/BS_Point.py",
+      "type": "file",
+      "name": "BS_Point.py",
+      "filePath": "BuySellPoint/BS_Point.py",
+      "summary": "单个买卖点实体类 CBS_Point，封装买卖点类型、关联笔、特征信息及属性叠加逻辑，支持一个 K 线位置同时触发多种买卖点类型。",
+      "tags": ["data-model", "buy-sell-point", "feature-engineering"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Common/func_util.py",
+      "type": "file",
+      "name": "func_util.py",
+      "filePath": "Common/func_util.py",
+      "summary": "通用工具函数集，提供 K 线周期比较、笔方向反转、区间重叠判断、字符串转浮点数及无穷值解析等基础功能，被全项目广泛引用。",
+      "tags": ["utility", "helper", "common"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:KLine/KLine.py",
+      "type": "file",
+      "name": "KLine.py",
+      "filePath": "KLine/KLine.py",
+      "summary": "合并 K 线（CKLine）类，管理一组 K 线单元的包含处理后的合并结果，并提供分形有效性校验、子级别 K 线查询及缺口检测功能。",
+      "tags": ["data-model", "kline", "candle-combine", "fractal"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:KLine/KLine_List.py",
+      "type": "file",
+      "name": "KLine_List.py",
+      "filePath": "KLine/KLine_List.py",
+      "summary": "K 线列表容器，协调笔、段、中枢、买卖点的完整计算流程，支持步进模式逐根添加 K 线并触发增量重算，是单个级别的计算编排器。",
+      "tags": ["orchestrator", "kline", "pipeline", "step-mode"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Bi/Bi.py:CBi",
+      "type": "class",
+      "name": "CBi",
+      "filePath": "Bi/Bi.py",
+      "lineRange": [21, 562],
+      "summary": "缠论笔的实体类，记录笔的方向、起止合并 K 线、虚实端点状态，并提供 MACD 面积/峰值/半衰/斜率/振幅等多项指标的计算方法。",
+      "tags": ["data-model", "bi", "macd-metrics", "chan-theory"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:BuySellPoint/BSPointConfig.py:CBSPointConfig",
+      "type": "class",
+      "name": "CBSPointConfig",
+      "filePath": "BuySellPoint/BSPointConfig.py",
+      "lineRange": [19, 56],
+      "summary": "买卖点顶层配置，管理各类买卖点的启停开关和参数，为 BSP1/BSP2/BSP3 分别实例化 CPointConfig。",
+      "tags": ["configuration", "buy-sell-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:BuySellPoint/BSPointConfig.py:CPointConfig",
+      "type": "class",
+      "name": "CPointConfig",
+      "filePath": "BuySellPoint/BSPointConfig.py",
+      "lineRange": [59, 160],
+      "summary": "单类型买卖点配置，支持目标类型解析、MACD 算法选择、动态参数注入（exec），实现按买卖点类型的差异化配置。",
+      "tags": ["configuration", "buy-sell-point", "macd"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:BuySellPoint/BSPointList.py:CBSPointList",
+      "type": "class",
+      "name": "CBSPointList",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "lineRange": [31, 642],
+      "summary": "买卖点列表管理器，负责遍历段列表计算三类买卖点，包括 BSP1（背驰一买/一卖）、盘整背驰、BSP2（二买/二卖及类二买）、BSP3（三买/三卖）的完整检测逻辑。",
+      "tags": ["api-handler", "buy-sell-point", "trading-signal", "divergence"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:BuySellPoint/BSPointList.py:bsp2s_break_bsp1",
+      "type": "function",
+      "name": "bsp2s_break_bsp1",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "lineRange": [645, 653],
+      "summary": "判断类二买/类二卖（BSP2S）是否突破前一笔的端点，用于确认类二买卖点的有效性。",
+      "tags": ["utility", "buy-sell-point", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:BuySellPoint/BSPointList.py:bsp3_back2zs",
+      "type": "function",
+      "name": "bsp3_back2zs",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "lineRange": [656, 664],
+      "summary": "判断三买/三卖回调笔是否回到中枢区间内，用于确认 BSP3 的成立条件。",
+      "tags": ["utility", "buy-sell-point", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:BuySellPoint/BSPointList.py:bsp3_break_zspeak",
+      "type": "function",
+      "name": "bsp3_break_zspeak",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "lineRange": [667, 675],
+      "summary": "判断三买/三卖笔是否突破中枢的高低点，是 BSP3 成立的另一关键条件。",
+      "tags": ["utility", "buy-sell-point", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:BuySellPoint/BSPointList.py:cal_bsp3_bi_end_idx",
+      "type": "function",
+      "name": "cal_bsp3_bi_end_idx",
+      "filePath": "BuySellPoint/BSPointList.py",
+      "lineRange": [678, 696],
+      "summary": "计算 BSP3 在段内笔列表中的结束索引，依据中枢类型（单笔/多笔中枢）按比例确定。",
+      "tags": ["utility", "buy-sell-point", "index-calculation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:BuySellPoint/BS_Point.py:CBS_Point",
+      "type": "class",
+      "name": "CBS_Point",
+      "filePath": "BuySellPoint/BS_Point.py",
+      "lineRange": [21, 110],
+      "summary": "单个买卖点实体，存储买卖点类型列表、关联的笔、K 线位置、特征信息，支持多类型叠加和特征初始化。",
+      "tags": ["data-model", "buy-sell-point", "feature-engineering"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Common/func_util.py:kltype_lt_day",
+      "type": "function",
+      "name": "kltype_lt_day",
+      "filePath": "Common/func_util.py",
+      "lineRange": [14, 23],
+      "summary": "判断 K 线周期是否小于日线级别，用于多级别联立计算中的周期比较。",
+      "tags": ["utility", "kltype", "comparison"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Common/func_util.py:kltype_lte_day",
+      "type": "function",
+      "name": "kltype_lte_day",
+      "filePath": "Common/func_util.py",
+      "lineRange": [26, 35],
+      "summary": "判断 K 线周期是否小于等于日线级别，kltype_lt_day 的变体版本。",
+      "tags": ["utility", "kltype", "comparison"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Common/func_util.py:check_kltype_order",
+      "type": "function",
+      "name": "check_kltype_order",
+      "filePath": "Common/func_util.py",
+      "lineRange": [38, 51],
+      "summary": "校验 K 线周期列表是否按从大到小的顺序排列，确保多级别数据组织的正确性。",
+      "tags": ["utility", "kltype", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Common/func_util.py:revert_bi_dir",
+      "type": "function",
+      "name": "revert_bi_dir",
+      "filePath": "Common/func_util.py",
+      "lineRange": [54, 64],
+      "summary": "反转笔的方向（向上变向下，向下变向上），用于特征序列分形等需要反向处理笔的场景。",
+      "tags": ["utility", "bi", "direction"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Common/func_util.py:has_overlap",
+      "type": "function",
+      "name": "has_overlap",
+      "filePath": "Common/func_util.py",
+      "lineRange": [67, 82],
+      "summary": "判断两个价格区间 [l1, h1] 和 [l2, h2] 是否重叠，广泛用于中枢区间判断和 K 线包含处理。",
+      "tags": ["utility", "overlap", "range"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Common/func_util.py:str2float",
+      "type": "function",
+      "name": "str2float",
+      "filePath": "Common/func_util.py",
+      "lineRange": [85, 98],
+      "summary": "将字符串安全转换为浮点数，支持百分号格式和千分位逗号处理。",
+      "tags": ["utility", "string-parsing", "conversion"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Common/func_util.py:_parse_inf",
+      "type": "function",
+      "name": "_parse_inf",
+      "filePath": "Common/func_util.py",
+      "lineRange": [101, 116],
+      "summary": "解析配置中的无穷值参数，将字符串 'inf' 或 '-inf' 转换为 Python 浮点无穷大。",
+      "tags": ["utility", "config", "parsing"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:KLine/KLine.py:CKLine",
+      "type": "class",
+      "name": "CKLine",
+      "filePath": "KLine/KLine.py",
+      "lineRange": [21, 205],
+      "summary": "合并 K 线类，继承自 CKLine_Combiner，管理一组 K 线单元经包含处理后的结果，提供分形校验、子级别 K 线查询及与下一 K 线的缺口检测。",
+      "tags": ["data-model", "kline", "candle-combine", "fractal"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:KLine/KLine_List.py:CKLine_List",
+      "type": "class",
+      "name": "CKLine_List",
+      "filePath": "KLine/KLine_List.py",
+      "lineRange": [67, 280],
+      "summary": "单个级别的 K 线列表容器，管理该级别的 K 线、合并 K 线、笔列表、段列表、中枢列表和买卖点列表，是计算编排的核心枢纽。",
+      "tags": ["orchestrator", "kline", "pipeline", "container"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:KLine/KLine_List.py:get_seglist_instance",
+      "type": "function",
+      "name": "get_seglist_instance",
+      "filePath": "KLine/KLine_List.py",
+      "lineRange": [33, 64],
+      "summary": "工厂函数，根据段算法类型（chan/1+1/break）创建对应的段列表实例，并处理已弃用算法类型的提醒。",
+      "tags": ["factory", "seg", "algorithm"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:KLine/KLine_List.py:cal_seg",
+      "type": "function",
+      "name": "cal_seg",
+      "filePath": "KLine/KLine_List.py",
+      "lineRange": [283, 340],
+      "summary": "执行段计算的核心函数，遍历笔列表更新段列表，处理已确认段和非确认段的索引分配。",
+      "tags": ["seg", "calculation", "pipeline"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:KLine/KLine_List.py:update_zs_in_seg",
+      "type": "function",
+      "name": "update_zs_in_seg",
+      "filePath": "KLine/KLine_List.py",
+      "lineRange": [343, 395],
+      "summary": "将中枢关联到对应的段上，遍历中枢列表判断每个中枢落在哪个段范围内，并设置段的 bi_in/bi_out 关系。",
+      "tags": ["zs", "seg", "mapping", "pipeline"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:Common/cache.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "class:KLine/KLine.py:CKLine",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Bi/Bi.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "class:BuySellPoint/BSPointConfig.py:CBSPointConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "class:BuySellPoint/BSPointConfig.py:CPointConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "class:BuySellPoint/BSPointConfig.py:CBSPointConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "class:BuySellPoint/BSPointConfig.py:CPointConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointConfig.py",
+      "target": "function:Common/func_util.py:_parse_inf",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:BuySellPoint/BSPointList.py:CBSPointList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp2s_break_bsp1",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp3_back2zs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp3_break_zspeak",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:cal_bsp3_bi_end_idx",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:BuySellPoint/BSPointList.py:CBSPointList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp2s_break_bsp1",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp3_back2zs",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:bsp3_break_zspeak",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:BuySellPoint/BSPointList.py:cal_bsp3_bi_end_idx",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:BuySellPoint/BS_Point.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:BuySellPoint/BSPointConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "file:ZS/ZS.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:BuySellPoint/BS_Point.py:CBS_Point",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:BuySellPoint/BSPointConfig.py:CBSPointConfig",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BSPointList.py",
+      "target": "class:ZS/ZS.py:CZS",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "class:BuySellPoint/BS_Point.py:CBS_Point",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "class:BuySellPoint/BS_Point.py:CBS_Point",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:ChanModel/Features.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:BuySellPoint/BS_Point.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:kltype_lt_day",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:kltype_lte_day",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:check_kltype_order",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:revert_bi_dir",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:str2float",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:_parse_inf",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:kltype_lt_day",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:kltype_lte_day",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:check_kltype_order",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:revert_bi_dir",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:str2float",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "function:Common/func_util.py:_parse_inf",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Common/func_util.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "class:KLine/KLine.py:CKLine",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "class:KLine/KLine.py:CKLine",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Combiner/KLine_Combiner.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:Common/func_util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine.py",
+      "target": "function:Common/func_util.py:has_overlap",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:KLine/KLine_List.py:CKLine_List",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:get_seglist_instance",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:cal_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:update_zs_in_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:KLine/KLine_List.py:CKLine_List",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:get_seglist_instance",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:cal_seg",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:KLine/KLine_List.py:update_zs_in_seg",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:BuySellPoint/BSPointList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:ChanConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:KLine/KLine_Unit.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "file:ZS/ZSList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:KLine/KLine.py:CKLine",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:BuySellPoint/BSPointList.py:CBSPointList",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:ZS/ZSList.py:CZSList",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:KLine/KLine_List.py",
+      "target": "function:Common/func_util.py:revert_bi_dir",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

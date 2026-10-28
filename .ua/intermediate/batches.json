@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 73,
+  "totalBatches": 3,
+  "exportsByPath": {
+    "App/ashare_bsp_scanner_gui.py": [
+      "get_tradable_stocks",
+      "ScanThread",
+      "SingleAnalysisThread",
+      "ChanPlotCanvas",
+      "AkshareGUI",
+      "main"
+    ],
+    "Bi/Bi.py": [
+      "CBi"
+    ],
+    "Bi/BiConfig.py": [
+      "CBiConfig"
+    ],
+    "Bi/BiList.py": [
+      "CBiList",
+      "end_is_peak"
+    ],
+    "BuySellPoint/BSPointConfig.py": [
+      "CBSPointConfig",
+      "CPointConfig"
+    ],
+    "BuySellPoint/BSPointList.py": [
+      "CBSPointList",
+      "bsp2s_break_bsp1",
+      "bsp3_back2zs",
+      "bsp3_break_zspeak",
+      "cal_bsp3_bi_end_idx"
+    ],
+    "BuySellPoint/BS_Point.py": [
+      "CBS_Point"
+    ],
+    "BuySellPoint/__init__.py": [],
+    "Chan.py": [
+      "CChan"
+    ],
+    "ChanConfig.py": [
+      "CChanConfig",
+      "ConfigWithCheck"
+    ],
+    "ChanModel/Features.py": [
+      "CFeatures"
+    ],
+    "Combiner/Combine_Item.py": [
+      "CCombine_Item"
+    ],
+    "Combiner/KLine_Combiner.py": [
+      "CKLine_Combiner"
+    ],
+    "Combiner/__init__.py": [],
+    "Common/CEnum.py": [
+      "DATA_SRC",
+      "KL_TYPE",
+      "KLINE_DIR",
+      "FX_TYPE",
+      "BI_DIR",
+      "BI_TYPE",
+      "BSP_TYPE",
+      "AUTYPE",
+      "TREND_TYPE",
+      "TREND_LINE_SIDE",
+      "LEFT_SEG_METHOD",
+      "FX_CHECK_METHOD",
+      "SEG_TYPE",
+      "MACD_ALGO",
+      "DATA_FIELD"
+    ],
+    "Common/CTime.py": [
+      "CTime"
+    ],
+    "Common/ChanException.py": [
+      "ErrCode",
+      "CChanException"
+    ],
+    "Common/__init__.py": [],
+    "Common/cache.py": [
+      "make_cache"
+    ],
+    "Common/func_util.py": [
+      "kltype_lt_day",
+      "kltype_lte_day",
+      "check_kltype_order",
+      "revert_bi_dir",
+      "has_overlap",
+      "str2float",
+      "_parse_inf"
+    ],
+    "DataAPI/AkshareAPI.py": [
+      "create_item_dict",
+      "CAkshare"
+    ],
+    "DataAPI/BaoStockAPI.py": [
+      "create_item_dict",
+      "parse_time_column",
+      "GetColumnNameFromFieldList",
+      "CBaoStock"
+    ],
+    "DataAPI/CommonStockAPI.py": [
+      "CCommonStockApi"
+    ],
+    "DataAPI/__init__.py": [],
+    "DataAPI/ccxt.py": [
+      "GetColumnNameFromFieldList",
+      "CCXT"
+    ],
+    "DataAPI/csvAPI.py": [
+      "create_item_dict",
+      "parse_time_column",
+      "CSV_API"
+    ],
+    "Debug/bi_test.py": [
+      "make_klu",
+      "build_sawtooth_close",
+      "main"
+    ],
+    "Debug/strategy_demo.py": [],
+    "Debug/strategy_demo2.py": [],
+    "Debug/strategy_demo3.py": [
+      "combine_60m_klu_form_15m"
+    ],
+    "Debug/strategy_demo4.py": [],
+    "Debug/strategy_demo5.py": [
+      "T_SAMPLE_INFO",
+      "plot",
+      "stragety_feature"
+    ],
+    "Debug/strategy_demo6.py": [
+      "T_SAMPLE_INFO",
+      "predict_bsp"
+    ],
+    "KLine/KLine.py": [
+      "CKLine"
+    ],
+    "KLine/KLine_List.py": [
+      "get_seglist_instance",
+      "CKLine_List",
+      "cal_seg",
+      "update_zs_in_seg"
+    ],
+    "KLine/KLine_Unit.py": [
+      "CKLine_Unit"
+    ],
+    "KLine/TradeInfo.py": [
+      "CTradeInfo"
+    ],
+    "KLine/__init__.py": [],
+    "Math/BOLL.py": [
+      "_truncate",
+      "BOLL_Metric",
+      "BollModel"
+    ],
+    "Math/Demark.py": [
+      "C_KL",
+      "T_DEMARK_INDEX",
+      "CDemarkIndex",
+      "CDemarkCountdown",
+      "CDemarkSetup",
+      "CDemarkEngine"
+    ],
+    "Math/KDJ.py": [
+      "KDJ_Item",
+      "KDJ"
+    ],
+    "Math/MACD.py": [
+      "CMACD_item",
+      "CMACD"
+    ],
+    "Math/RSI.py": [
+      "RSI"
+    ],
+    "Math/TrendLine.py": [
+      "Point",
+      "Line",
+      "CTrendLine",
+      "init_peak_slope",
+      "cal_tl"
+    ],
+    "Math/TrendModel.py": [
+      "CTrendModel"
+    ],
+    "Math/__init__.py": [],
+    "Plot/AnimatePlotDriver.py": [
+      "CAnimateDriver"
+    ],
+    "Plot/PlotDriver.py": [
+      "reformat_plot_config",
+      "parse_single_lv_plot_config",
+      "parse_plot_config",
+      "set_x_tick",
+      "cal_y_range",
+      "create_figure",
+      "cal_x_limit",
+      "set_grid",
+      "GetPlotMeta",
+      "CPlotDriver",
+      "getTextBox",
+      "plot_bi_element",
+      "bi_text",
+      "show_func_helper",
+      "add_zs_text"
+    ],
+    "Plot/PlotMeta.py": [
+      "Cklc_meta",
+      "CBi_meta",
+      "CSeg_meta",
+      "CEigen_meta",
+      "CEigenFX_meta",
+      "CZS_meta",
+      "CBS_Point_meta",
+      "CChanPlotMeta"
+    ],
+    "Plot/__init__.py": [],
+    "Seg/Eigen.py": [
+      "CEigen"
+    ],
+    "Seg/EigenFX.py": [
+      "CEigenFX"
+    ],
+    "Seg/Seg.py": [
+      "CSeg"
+    ],
+    "Seg/SegConfig.py": [
+      "CSegConfig"
+    ],
+    "Seg/SegListChan.py": [
+      "CSegListChan"
+    ],
+    "Seg/SegListComm.py": [
+      "CSegListComm",
+      "FindPeakBi"
+    ],
+    "Seg/SegListDYH.py": [
+      "situation1",
+      "situation2",
+      "CSegListDYH"
+    ],
+    "Seg/SegListDef.py": [
+      "is_up_seg",
+      "is_down_seg",
+      "CSegListDef"
+    ],
+    "Seg/__init__.py": [],
+    "ZS/ZS.py": [
+      "CZS"
+    ],
+    "ZS/ZSConfig.py": [
+      "CZSConfig"
+    ],
+    "ZS/ZSList.py": [
+      "CZSList"
+    ],
+    "ZS/__init__.py": [],
+    "__init__.py": [],
+    "main.py": []
+  },
+  "batches": [
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "Debug/bi_test.py",
+          "language": "python",
+          "sizeLines": 100,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "Debug/bi_test.py": [
+          "ChanConfig.py",
+          "Common/CEnum.py",
+          "Common/CTime.py",
+          "KLine/KLine_List.py",
+          "KLine/KLine_Unit.py"
+        ]
+      },
+      "neighborMap": {
+        "Debug/bi_test.py": [
+          {
+            "path": "ChanConfig.py",
+            "batchIndex": 1,
+            "symbols": [
+              "CChanConfig",
+              "ConfigWithCheck"
+            ]
+          },
+          {
+            "path": "Common/CEnum.py",
+            "batchIndex": 1,
+            "symbols": [
+              "DATA_SRC",
+              "KL_TYPE",
+              "KLINE_DIR",
+              "FX_TYPE",
+              "BI_DIR",
+              "BI_TYPE",
+              "BSP_TYPE",
+              "AUTYPE",
+              "TREND_TYPE",
+              "TREND_LINE_SIDE",
+              "LEFT_SEG_METHOD",
+              "FX_CHECK_METHOD",
+              "SEG_TYPE",
+              "MACD_ALGO",
+              "DATA_FIELD"
+            ]
+          },
+          {
+            "path": "Common/CTime.py",
+            "batchIndex": 4,
+            "symbols": [
+              "CTime"
+            ]
+          },
+          {
+            "path": "KLine/KLine_List.py",
+            "batchIndex": 3,
+            "symbols": [
+              "get_seglist_instance",
+              "CKLine_List",
+              "cal_seg",
+              "update_zs_in_seg"
+            ]
+          },
+          {
+            "path": "KLine/KLine_Unit.py",
+            "batchIndex": 4,
+            "symbols": [
+              "CKLine_Unit"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "prompt.txt",
+          "language": "txt",
+          "sizeLines": 16,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "prompt.txt": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": "docs/ONBOARDING.md",
+          "language": "markdown",
+          "sizeLines": 386,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/ONBOARDING.md": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

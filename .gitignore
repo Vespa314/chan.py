@@ -8,3 +8,20 @@ config.yaml
 OpenConfig.yaml
 gotify_push.py
 cos_config.yaml
+
+# 依赖与编译输出
+node_modules/
+dist/
+out/
+
+# 缓存与数据
+.cache/
+logs/
+*.log
+ß
+# 虚拟环境与大型媒体
+venv/
+.venv/
+kl_store.duckdb
+kl_store.duckdb.wal
+.~临时记录.docx

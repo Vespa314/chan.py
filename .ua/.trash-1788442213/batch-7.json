@@ -1,0 +1,122 @@
+{
+  "nodes": [
+    {
+      "id": "file:__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "__init__.py",
+      "summary": "项目根目录的空包标记文件，使 chan.py 成为可导入的 Python 包。",
+      "tags": ["entry-point", "barrel", "package-init"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.ua/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".ua/.understandignore",
+      "summary": "Understand-Anything 分析忽略模式文件，定义应从代码分析中排除的文件和目录匹配规则，语法兼容 .gitignore。",
+      "tags": ["configuration", "ignore-patterns", "tooling"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.ua/config.json",
+      "type": "config",
+      "name": "config.json",
+      "filePath": ".ua/config.json",
+      "summary": "Understand-Anything 插件配置文件，设置输出语言为中文。",
+      "tags": ["configuration", "tooling", "localization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:BuySellPoint/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "BuySellPoint/__init__.py",
+      "summary": "买卖点模块的包标记文件，使 BuySellPoint 成为可导入的 Python 子包。",
+      "tags": ["package-init", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Combiner/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Combiner/__init__.py",
+      "summary": "K线合并模块的包标记文件，使 Combiner 成为可导入的 Python 子包。",
+      "tags": ["package-init", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Common/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Common/__init__.py",
+      "summary": "公共工具模块的包标记文件，使 Common 成为可导入的 Python 子包。",
+      "tags": ["package-init", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DataAPI/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "DataAPI/__init__.py",
+      "summary": "数据API模块的包标记文件，使 DataAPI 成为可导入的 Python 子包。",
+      "tags": ["package-init", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:KLine/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "KLine/__init__.py",
+      "summary": "K线数据结构模块的包标记文件，使 KLine 成为可导入的 Python 子包。",
+      "tags": ["package-init", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Math/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Math/__init__.py",
+      "summary": "技术指标数学模块的包标记文件，使 Math 成为可导入的 Python 子包。",
+      "tags": ["package-init", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Plot/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Plot/__init__.py",
+      "summary": "绘图模块的包标记文件，使 Plot 成为可导入的 Python 子包。",
+      "tags": ["package-init", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:Script/requirements.txt",
+      "type": "document",
+      "name": "requirements.txt",
+      "filePath": "Script/requirements.txt",
+      "summary": "项目 Python 依赖清单，指定 baostock、matplotlib、numpy、pandas、requests 等核心依赖的最低版本要求。",
+      "tags": ["configuration", "dependencies", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Seg/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Seg/__init__.py",
+      "summary": "线段算法模块的包标记文件，使 Seg 成为可导入的 Python 子包。",
+      "tags": ["package-init", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:ZS/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "ZS/__init__.py",
+      "summary": "中枢计算模块的包标记文件，使 ZS 成为可导入的 Python 子包。",
+      "tags": ["package-init", "barrel"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

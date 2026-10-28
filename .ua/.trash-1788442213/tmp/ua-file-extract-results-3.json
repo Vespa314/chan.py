@@ -1,0 +1,1162 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "Common/CTime.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 107,
+      "nonEmptyLines": 94,
+      "classes": [
+        {
+          "name": "CTime",
+          "startLine": 15,
+          "endLine": 107,
+          "methods": [
+            "__init__",
+            "__str__",
+            "to_str",
+            "toDateStr",
+            "toDate",
+            "set_timestamp",
+            "__gt__",
+            "__ge__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CTime",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "self.set_timestamp",
+          "lineNumber": 43
+        },
+        {
+          "caller": "toDate",
+          "callee": "CTime",
+          "lineNumber": 78
+        },
+        {
+          "caller": "set_timestamp",
+          "callee": "datetime",
+          "lineNumber": 88
+        },
+        {
+          "caller": "set_timestamp",
+          "callee": "datetime",
+          "lineNumber": 91
+        },
+        {
+          "caller": "set_timestamp",
+          "callee": "date.timestamp",
+          "lineNumber": 92
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "DataAPI/AkshareAPI.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 213,
+      "nonEmptyLines": 180,
+      "functions": [
+        {
+          "name": "create_item_dict",
+          "startLine": 29,
+          "endLine": 81,
+          "params": [
+            "row",
+            "autype"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CAkshare",
+          "startLine": 84,
+          "endLine": 213,
+          "methods": [
+            "__init__",
+            "get_kl_data",
+            "SetBasciInfo",
+            "do_init",
+            "do_close",
+            "__convert_type"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "create_item_dict",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "CAkshare",
+          "line": 84,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create_item_dict",
+          "callee": "isinstance",
+          "lineNumber": 49
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "isinstance",
+          "lineNumber": 51
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "len",
+          "lineNumber": 53
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "int",
+          "lineNumber": 54
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "int",
+          "lineNumber": 55
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "int",
+          "lineNumber": 56
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "int",
+          "lineNumber": 58
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "int",
+          "lineNumber": 59
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "int",
+          "lineNumber": 60
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "str",
+          "lineNumber": 63
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "int",
+          "lineNumber": 64
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "int",
+          "lineNumber": 65
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "int",
+          "lineNumber": 66
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "CTime",
+          "lineNumber": 69
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "str2float",
+          "lineNumber": 70
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "str2float",
+          "lineNumber": 71
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "str2float",
+          "lineNumber": 72
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "str2float",
+          "lineNumber": 73
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "str2float",
+          "lineNumber": 74
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "str2float",
+          "lineNumber": 75
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "row.get",
+          "lineNumber": 75
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "str2float",
+          "lineNumber": 79
+        },
+        {
+          "caller": "__init__",
+          "callee": "super(CAkshare, self).__init__",
+          "lineNumber": 100
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 100
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "adjust_dict.get",
+          "lineNumber": 123
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "self.__convert_type",
+          "lineNumber": 126
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "self.begin_date.replace",
+          "lineNumber": 129
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "self.end_date.replace",
+          "lineNumber": 130
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "ak.stock_zh_a_hist",
+          "lineNumber": 135
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "ak.stock_zh_index_daily",
+          "lineNumber": 144
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "df['date'].astype",
+          "lineNumber": 146
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "df.rename",
+          "lineNumber": 147
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "df.iterrows",
+          "lineNumber": 163
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "CKLine_Unit",
+          "lineNumber": 164
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "create_item_dict",
+          "lineNumber": 164
+        },
+        {
+          "caller": "SetBasciInfo",
+          "callee": "self.code.startswith",
+          "lineNumber": 176
+        },
+        {
+          "caller": "SetBasciInfo",
+          "callee": "self.code.startswith",
+          "lineNumber": 176
+        },
+        {
+          "caller": "SetBasciInfo",
+          "callee": "code_num.startswith",
+          "lineNumber": 179
+        },
+        {
+          "caller": "SetBasciInfo",
+          "callee": "code_num.startswith",
+          "lineNumber": 179
+        },
+        {
+          "caller": "__convert_type",
+          "callee": "Exception",
+          "lineNumber": 212
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "DataAPI/CommonStockAPI.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 107,
+      "nonEmptyLines": 86,
+      "classes": [
+        {
+          "name": "CCommonStockApi",
+          "startLine": 22,
+          "endLine": 107,
+          "methods": [
+            "__init__",
+            "get_kl_data",
+            "SetBasciInfo",
+            "do_init",
+            "do_close"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CCommonStockApi",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "self.SetBasciInfo",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "DataAPI/ccxt.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 187,
+      "nonEmptyLines": 154,
+      "functions": [
+        {
+          "name": "GetColumnNameFromFieldList",
+          "startLine": 28,
+          "endLine": 45,
+          "params": [
+            "fileds"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CCXT",
+          "startLine": 48,
+          "endLine": 187,
+          "methods": [
+            "__init__",
+            "get_kl_data",
+            "SetBasciInfo",
+            "do_init",
+            "do_close",
+            "__convert_type",
+            "parse_time_column",
+            "create_item_dict"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "GetColumnNameFromFieldList",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "CCXT",
+          "line": 48,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GetColumnNameFromFieldList",
+          "callee": "fileds.split",
+          "lineNumber": 45
+        },
+        {
+          "caller": "__init__",
+          "callee": "super(CCXT, self).__init__",
+          "lineNumber": 66
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 66
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "ccxt.binance",
+          "lineNumber": 85
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "self.__convert_type",
+          "lineNumber": 86
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "exchange.parse8601",
+          "lineNumber": 87
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "exchange.fetch_ohlcv",
+          "lineNumber": 88
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "datetime.fromtimestamp",
+          "lineNumber": 92
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "time_obj.strftime",
+          "lineNumber": 93
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "CKLine_Unit",
+          "lineNumber": 102
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "self.create_item_dict",
+          "lineNumber": 102
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "GetColumnNameFromFieldList",
+          "lineNumber": 102
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "len",
+          "lineNumber": 153
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 154
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 155
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 156
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "len",
+          "lineNumber": 158
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 159
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 160
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 161
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 162
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 163
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "len",
+          "lineNumber": 164
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 165
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 166
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 167
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 168
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 169
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "Exception",
+          "lineNumber": 171
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "CTime",
+          "lineNumber": 172
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "kltype_lt_day",
+          "lineNumber": 172
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "range",
+          "lineNumber": 185
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "len",
+          "lineNumber": 185
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "self.parse_time_column",
+          "lineNumber": 186
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "str2float",
+          "lineNumber": 186
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "dict",
+          "lineNumber": 187
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "zip",
+          "lineNumber": 187
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "DataAPI/csvAPI.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 166,
+      "nonEmptyLines": 139,
+      "functions": [
+        {
+          "name": "create_item_dict",
+          "startLine": 27,
+          "endLine": 44,
+          "params": [
+            "data",
+            "column_name"
+          ]
+        },
+        {
+          "name": "parse_time_column",
+          "startLine": 47,
+          "endLine": 80,
+          "params": [
+            "inp"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CSV_API",
+          "startLine": 83,
+          "endLine": 166,
+          "methods": [
+            "__init__",
+            "get_kl_data",
+            "SetBasciInfo",
+            "do_init",
+            "do_close"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "create_item_dict",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "parse_time_column",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "CSV_API",
+          "line": 83,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create_item_dict",
+          "callee": "range",
+          "lineNumber": 42
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "len",
+          "lineNumber": 42
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "parse_time_column",
+          "lineNumber": 43
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "str2float",
+          "lineNumber": 43
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "dict",
+          "lineNumber": 44
+        },
+        {
+          "caller": "create_item_dict",
+          "callee": "zip",
+          "lineNumber": 44
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "len",
+          "lineNumber": 61
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 62
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 63
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 64
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "len",
+          "lineNumber": 66
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 67
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 68
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 69
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 70
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 71
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "len",
+          "lineNumber": 72
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 73
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 74
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 75
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 76
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "int",
+          "lineNumber": 77
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "Exception",
+          "lineNumber": 79
+        },
+        {
+          "caller": "parse_time_column",
+          "callee": "CTime",
+          "lineNumber": 80
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.columns.index",
+          "lineNumber": 116
+        },
+        {
+          "caller": "__init__",
+          "callee": "super(CSV_API, self).__init__",
+          "lineNumber": 117
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 117
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "os.path.dirname",
+          "lineNumber": 135
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "os.path.realpath",
+          "lineNumber": 135
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "self.k_type.name[2:].lower",
+          "lineNumber": 136
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "os.path.exists",
+          "lineNumber": 138
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "CChanException",
+          "lineNumber": 139
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "enumerate",
+          "lineNumber": 141
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "open",
+          "lineNumber": 141
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "line.strip(\"\\n\").split",
+          "lineNumber": 144
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "line.strip",
+          "lineNumber": 144
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "len",
+          "lineNumber": 145
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "len",
+          "lineNumber": 145
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "CChanException",
+          "lineNumber": 146
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "CKLine_Unit",
+          "lineNumber": 152
+        },
+        {
+          "caller": "get_kl_data",
+          "callee": "create_item_dict",
+          "lineNumber": 152
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "KLine/KLine_Unit.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 285,
+      "nonEmptyLines": 246,
+      "classes": [
+        {
+          "name": "CKLine_Unit",
+          "startLine": 29,
+          "endLine": 285,
+          "methods": [
+            "__init__",
+            "__deepcopy__",
+            "klc",
+            "set_klc",
+            "idx",
+            "set_idx",
+            "__str__",
+            "check",
+            "add_children",
+            "set_parent",
+            "get_children",
+            "_low",
+            "_high",
+            "set_metric",
+            "get_parent_klc",
+            "include_sub_lv_time",
+            "set_pre_klu"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CKLine_Unit",
+          "line": 29,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "self.check",
+          "lineNumber": 70
+        },
+        {
+          "caller": "__init__",
+          "callee": "CTradeInfo",
+          "lineNumber": 72
+        },
+        {
+          "caller": "__init__",
+          "callee": "CDemarkIndex",
+          "lineNumber": 74
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.set_idx",
+          "lineNumber": 88
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "CKLine_Unit",
+          "lineNumber": 112
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 114
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 115
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 117
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 118
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "hasattr",
+          "lineNumber": 119
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 120
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "hasattr",
+          "lineNumber": 121
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "copy.deepcopy",
+          "lineNumber": 122
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "obj.set_idx",
+          "lineNumber": 123
+        },
+        {
+          "caller": "__deepcopy__",
+          "callee": "id",
+          "lineNumber": 124
+        },
+        {
+          "caller": "check",
+          "callee": "min",
+          "lineNumber": 170
+        },
+        {
+          "caller": "check",
+          "callee": "min",
+          "lineNumber": 172
+        },
+        {
+          "caller": "check",
+          "callee": "CChanException",
+          "lineNumber": 174
+        },
+        {
+          "caller": "check",
+          "callee": "max",
+          "lineNumber": 175
+        },
+        {
+          "caller": "check",
+          "callee": "max",
+          "lineNumber": 177
+        },
+        {
+          "caller": "check",
+          "callee": "CChanException",
+          "lineNumber": 179
+        },
+        {
+          "caller": "add_children",
+          "callee": "self.sub_kl_list.append",
+          "lineNumber": 188
+        },
+        {
+          "caller": "set_metric",
+          "callee": "isinstance",
+          "lineNumber": 233
+        },
+        {
+          "caller": "set_metric",
+          "callee": "metric_model.add",
+          "lineNumber": 234
+        },
+        {
+          "caller": "set_metric",
+          "callee": "isinstance",
+          "lineNumber": 235
+        },
+        {
+          "caller": "set_metric",
+          "callee": "metric_model.add",
+          "lineNumber": 238
+        },
+        {
+          "caller": "set_metric",
+          "callee": "isinstance",
+          "lineNumber": 239
+        },
+        {
+          "caller": "set_metric",
+          "callee": "metric_model.add",
+          "lineNumber": 240
+        },
+        {
+          "caller": "set_metric",
+          "callee": "isinstance",
+          "lineNumber": 241
+        },
+        {
+          "caller": "set_metric",
+          "callee": "metric_model.update",
+          "lineNumber": 242
+        },
+        {
+          "caller": "set_metric",
+          "callee": "isinstance",
+          "lineNumber": 243
+        },
+        {
+          "caller": "set_metric",
+          "callee": "metric_model.add",
+          "lineNumber": 244
+        },
+        {
+          "caller": "set_metric",
+          "callee": "isinstance",
+          "lineNumber": 245
+        },
+        {
+          "caller": "set_metric",
+          "callee": "metric_model.add",
+          "lineNumber": 246
+        },
+        {
+          "caller": "include_sub_lv_time",
+          "callee": "self.time.to_str",
+          "lineNumber": 266
+        },
+        {
+          "caller": "include_sub_lv_time",
+          "callee": "sub_klu.time.to_str",
+          "lineNumber": 269
+        },
+        {
+          "caller": "include_sub_lv_time",
+          "callee": "sub_klu.include_sub_lv_time",
+          "lineNumber": 271
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "KLine/TradeInfo.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 33,
+      "classes": [
+        {
+          "name": "CTradeInfo",
+          "startLine": 15,
+          "endLine": 40,
+          "methods": [
+            "__init__",
+            "__str__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CTradeInfo",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "info.get",
+          "lineNumber": 32
+        },
+        {
+          "caller": "__str__",
+          "callee": "\" \".join",
+          "lineNumber": 40
+        },
+        {
+          "caller": "__str__",
+          "callee": "self.metric.items",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

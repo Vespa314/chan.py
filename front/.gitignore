@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Vite config 编译产物（不应存在）
+vite.config.d.ts
+vite.config.js
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env（保留 .env 用于 mock 开发，真实环境用 .env.local）
+.env.local
+.env.*.local

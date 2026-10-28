@@ -1,0 +1,36 @@
+{
+  "approved": false,
+  "issues": [
+    "节点 function:Bi/BiList.py:CBiList.get_klc_span (索引 149): tag 'K线合并' 无效，必须全部使用小写英文字母和连字符（hyphenated），不允许包含中文字符。"
+  ],
+  "warnings": [
+    "13 个孤立节点没有任何边连接: file:__init__.py, file:.ua/.understandignore, config:.ua/config.json, file:BuySellPoint/__init__.py, file:Combiner/__init__.py, file:Common/__init__.py, file:DataAPI/__init__.py, file:KLine/__init__.py, file:Math/__init__.py, file:Plot/__init__.py, file:Seg/__init__.py, file:ZS/__init__.py, file:ChanModel/Features.py",
+    "文档节点 'document:prompt.txt' 缺少 'documents' 类型的边",
+    "文档节点 'document:Script/requirements.txt' 缺少 'documents' 类型的边",
+    "扫描结果的 importMap 中 'DataAPI/ccxt.py' -> 'DataAPI/ccxt.py' 的导入关系在知识图谱中未找到对应的 imports 边（ccxt.py 存在自引用导入，但图谱中未生成对应的自引用 imports 边）"
+  ],
+  "stats": {
+    "totalNodes": 223,
+    "totalEdges": 651,
+    "totalLayers": 8,
+    "tourSteps": 12,
+    "nodeTypes": {
+      "file": 65,
+      "function": 80,
+      "class": 70,
+      "document": 7,
+      "config": 1
+    },
+    "edgeTypes": {
+      "imports": 212,
+      "contains": 150,
+      "exports": 111,
+      "calls": 95,
+      "depends_on": 15,
+      "inherits": 7,
+      "documents": 43,
+      "related": 12,
+      "tested_by": 6
+    }
+  }
+}

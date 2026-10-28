@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    {
+      "id": "document:prompt.txt",
+      "type": "document",
+      "name": "prompt.txt",
+      "filePath": "prompt.txt",
+      "summary": "一份需求提示文档，描述如何为 chan.py 缠论项目生成阅读文档.md 和代码走读说明.md，内容包括整体架构描述、模块与方法级别拆解、缠论理论说明，以及为无注释代码补充注释的要求。",
+      "tags": ["documentation", "prompt", "instructions", "onboarding", "code-walkthrough"],
+      "complexity": "simple",
+      "languageNotes": "中文提示词文档，面向熟悉 Java、不熟悉 Python 的初学者，要求以 Java 视角对比说明 Python 特有语法。"
+    }
+  ],
+  "edges": []
+}

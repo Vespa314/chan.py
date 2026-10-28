@@ -1,0 +1,12 @@
+{
+  "projectRoot": "e:/CodingWork/01csh/chan.py",
+  "batchFiles": [
+    {"path": "CLAUDE.md", "language": "markdown", "sizeLines": 117, "fileCategory": "docs"},
+    {"path": "README.md", "language": "markdown", "sizeLines": 1493, "fileCategory": "docs"},
+    {"path": "prompt.txt", "language": "txt", "sizeLines": 16, "fileCategory": "docs"},
+    {"path": "quick_guide.md", "language": "markdown", "sizeLines": 572, "fileCategory": "docs"},
+    {"path": "代码走读说明.md", "language": "markdown", "sizeLines": 800, "fileCategory": "docs"},
+    {"path": "阅读文档.md", "language": "markdown", "sizeLines": 1494, "fileCategory": "docs"}
+  ],
+  "batchImportData": {"CLAUDE.md":[],"README.md":[],"prompt.txt":[],"quick_guide.md":[],"代码走读说明.md":[],"阅读文档.md":[]}
+}

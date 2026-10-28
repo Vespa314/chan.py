@@ -1,0 +1,278 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 1,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 1,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 1,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "Debug/bi_test.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 100,
+      "nonEmptyLines": 80,
+      "functions": [
+        {
+          "name": "make_klu",
+          "startLine": 30,
+          "endLine": 40,
+          "params": [
+            "year",
+            "month",
+            "day",
+            "o",
+            "h",
+            "l",
+            "c"
+          ]
+        },
+        {
+          "name": "build_sawtooth_close",
+          "startLine": 43,
+          "endLine": 51,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 54,
+          "endLine": 96,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "make_klu",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "build_sawtooth_close",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 54,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "make_klu",
+          "callee": "CKLine_Unit",
+          "lineNumber": 32
+        },
+        {
+          "caller": "make_klu",
+          "callee": "CTime",
+          "lineNumber": 33
+        },
+        {
+          "caller": "make_klu",
+          "callee": "float",
+          "lineNumber": 34
+        },
+        {
+          "caller": "make_klu",
+          "callee": "float",
+          "lineNumber": 35
+        },
+        {
+          "caller": "make_klu",
+          "callee": "float",
+          "lineNumber": 36
+        },
+        {
+          "caller": "make_klu",
+          "callee": "float",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "CChanConfig",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "CKLine_List",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "build_sawtooth_close",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.date",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "enumerate",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.timedelta",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "max",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "min",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "make_klu",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "klu.set_idx",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "kl_list.add_single_klu",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "bi.get_begin_val",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "bi.get_end_val",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "bi.get_klu_cnt",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "bi.amp",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 84
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "zip",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "bi.is_up",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "bi.get_begin_val",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "bi.get_end_val",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "bi.get_begin_val",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "bi.get_end_val",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 96
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    }
+  ]
+}

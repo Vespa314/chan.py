@@ -1,0 +1,44 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/ONBOARDING.md",
+      "type": "document",
+      "name": "ONBOARDING.md",
+      "filePath": "docs/ONBOARDING.md",
+      "summary": "面向新开发者的缠论技术分析框架入职指南，系统梳理 chan.py 的 8 层架构（公共层、技术指标、数据适配、缠论核心计算、入口门面、可视化、演示测试、文档配置）、关键概念（计算流水线、两种运行模式、缓存机制、序列化陷阱）、12 步学习路径、复杂度热点与目录结构速查。",
+      "tags": ["文档", "入职指南", "架构", "缠论", "入门"],
+      "complexity": "moderate",
+      "languageNotes": "中文技术文档，含 40 个小节标题，结构上分为项目概述、架构层次、关键概念、学习路径、复杂度热点与快速开始六大板块。"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/ONBOARDING.md",
+      "target": "file:main.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/ONBOARDING.md",
+      "target": "file:Chan.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/ONBOARDING.md",
+      "target": "file:ChanConfig.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/ONBOARDING.md",
+      "target": "file:Common/cache.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

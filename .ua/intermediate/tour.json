@@ -1,0 +1,99 @@
+[
+  {
+    "order": 1,
+    "title": "项目概览",
+    "description": "从 README.md 开始，了解 chan.py 的整体定位：这是缠论（Chan Theory）技术分析的 Python 实现，从 K 线数据递推计算分形、笔、线段、中枢、买卖点等核心元素。文档还区分了开源版（约 5300 行）与完整版（约 22000 行）的能力边界，并说明 Python >= 3.11、计算密集等前提，为后续代码走读提供地图。",
+    "nodeIds": ["document:README.md"]
+  },
+  {
+    "order": 2,
+    "title": "应用入口",
+    "description": "main.py 是项目的可运行入口，它创建 CChan 门面并传入 sz.000001（平安银行）与配置，加载日线数据后调用 PlotDriver 绘制完整的缠论分析图，支持静态与动画两种模式。从这里可以直观看到整条计算流水线如何被触发，为深入 CChan 内部结构做准备。",
+    "nodeIds": ["file:main.py"],
+    "languageLesson": "main.py 展示的是批量模式（trigger_step=False）用法；当改为 trigger_step=True 时，CChan 会变成一个 generator 生成器，每根新 K 线产生一个快照，供回测与动画逐步消费。"
+  },
+  {
+    "order": 3,
+    "title": "门面与配置系统",
+    "description": "Chan.py 中的 CChan 是门面模式（Facade）核心，封装多级别 K 线加载、递归计算流水线调度与序列化；ChanConfig.py 的 CChanConfig 则组装笔/段/中枢/买卖点四类子配置。二者共同构成外部程序接触框架的唯一入口，Step 2 的 main.py 正是通过它们驱动一切。",
+    "nodeIds": ["file:Chan.py", "file:ChanConfig.py"],
+    "languageLesson": "CChanConfig 借助 ConfigWithCheck 包装器消费字典中的 key，遇到未知 key 即抛出异常——一种严格的配置校验手法；同时通过 -buy/-sell/-seg 后缀实现按买卖点类型的参数覆盖，是典型的字典解包 + 白名单消费模式。"
+  },
+  {
+    "order": 4,
+    "title": "基础公共层",
+    "description": "Common/ 是项目最底层的依赖：CEnum.py 定义 K 线级别、方向、买卖点类型等 15 个核心枚举（全项目引用最广，fan-in 高达 42）；ChanException.py 提供分段错误码体系；cache.py 的 make_cache 为昂贵计算提供实例级缓存；func_util.py 提供区间重叠、周期比较等通用工具。理解这些地基后，上层计算逻辑才有共同的语言。",
+    "nodeIds": ["file:Common/CEnum.py", "file:Common/ChanException.py", "file:Common/cache.py", "file:Common/func_util.py"],
+    "languageLesson": "@make_cache 装饰器通过 Python 的描述器协议（descriptor protocol）将缓存绑定到实例的 _memoize_cache 字典上，并支持 clean_cache 失效——这是 memoization（记忆化）缓存的经典实现，避免了为所有实例共享同一份缓存的陷阱。"
+  },
+  {
+    "order": 5,
+    "title": "K线数据核心",
+    "description": "KLine/ 定义缠论计算的最小数据单元：KLine_Unit 封装单根 K 线的 OHLCV 与指标，并管理多级别父子关系；KLine（合并 K 线）承载包含处理后的结果；KLine_List 是单级别计算的编排器，协调笔、段、中枢、买卖点的完整流程。从这一步起，我们进入缠论核心计算流水线的实体层。",
+    "nodeIds": ["file:KLine/KLine_Unit.py", "file:KLine/KLine.py", "file:KLine/KLine_List.py"],
+    "languageLesson": "KLine_Unit 通过 set_klu_parent_relation 建立父 K 线与子 K 线的双向指针，支撑区间套（多级别联立）——子级别变化可上溯触发父级别重算。"
+  },
+  {
+    "order": 6,
+    "title": "K线包含处理",
+    "description": "Combiner/ 实现缠论最基础也最关键的预处理——K 线包含关系处理。KLine_Combiner 判断相邻 K 线的包含关系并合并高低点，同时承担分形检测与前后链表维护，被 CKLine 与 CEigen 继承复用，是项目中被依赖最多的基类之一。Combine_Item 则用适配器统一 CBi、CKLine_Unit、CSeg 三种类型的接口。",
+    "nodeIds": ["file:Combiner/KLine_Combiner.py", "file:Combiner/Combine_Item.py"],
+    "languageLesson": "KLine_Combiner 用前驱/后继链表（pre/next 双向链表）组织合并序列，这种结构让步进模式下每新增一根 K 线都能增量更新合并结果，而不必重算全量。"
+  },
+  {
+    "order": 7,
+    "title": "笔的构建",
+    "description": "Bi/ 将合并后的 K 线转化为笔：BiList 负责从分形中检测并构建笔，管理确认与虚拟笔的增删；Bi（CBi）封装笔的方向、起止端点、合并 K 线列表与 MACD 指标，是所有缠论元素的起点。笔是段、中枢、买卖点计算的上游输入，地位承上启下。",
+    "nodeIds": ["file:Bi/BiList.py", "file:Bi/Bi.py"],
+    "languageLesson": "CBi 支持虚实笔切换（real/phantom），虚拟笔用于在尚未确认时占位，后续 K 线到来可将其转为实笔或删除——这是典型的乐观更新 + 回滚模式。"
+  },
+  {
+    "order": 8,
+    "title": "段划分",
+    "description": "Seg/ 实现段算法。SegListComm 是所有段算法的公共基类，处理未确认段（虚段）等复杂逻辑；SegListChan 是默认算法，通过特征序列分形（Eigen/EigenFX）检测与确认段；Seg（CSeg）是段的实体模型，封装起止笔、中枢列表与斜率振幅。这是缠论中最核心、也最体现算法深度的部分。",
+    "nodeIds": ["file:Seg/SegListComm.py", "file:Seg/SegListChan.py", "file:Seg/Seg.py", "file:Seg/Eigen.py"],
+    "languageLesson": "段算法采用策略模式（strategy pattern）：chan、1+1、break 三种算法均继承 CSegListComm，通过配置项切换，其中 1+1 与 break 版本已标记弃用。"
+  },
+  {
+    "order": 9,
+    "title": "中枢构建",
+    "description": "ZS/ 负责中枢的构建与合并。ZSList（CZSList）从笔或段中构建、更新并合并中枢，支持步进模式增量更新；ZS（CZS）管理中枢区间、进入/离开笔、子中枢合并与背驰判断。中枢是缠论买卖点判定的几何基础，Step 10 的买卖点检测将直接依赖它。",
+    "nodeIds": ["file:ZS/ZSList.py", "file:ZS/ZS.py"]
+  },
+  {
+    "order": 10,
+    "title": "买卖点检测",
+    "description": "BuySellPoint/ 是计算流水线的产出终点。BSPointList 实现一买/一卖、二买/二卖、三买/三卖（BSP1/2/3）及盘整背驰、类二买等特殊买卖点的检测；BS_Point 封装单个买卖点的类型、关联笔与特征信息，支持同一 K 线位置叠加多种买卖点类型。到这里，从 K 线到买卖点的完整递推链就闭环了。",
+    "nodeIds": ["file:BuySellPoint/BSPointList.py", "file:BuySellPoint/BS_Point.py"]
+  },
+  {
+    "order": 11,
+    "title": "技术指标",
+    "description": "Math/ 提供手写实现的技术指标引擎（不依赖 talib）：MACD 支持三种算法，BOLL、RSI、KDJ、DeMark（Setup/Countdown 两阶段）为买卖点判定与绘图提供量化依据。这些指标在第 5 步的 KLine_Unit 中被计算并缓存，是买卖点背驰判断的重要输入。",
+    "nodeIds": ["file:Math/MACD.py", "file:Math/BOLL.py", "file:Math/RSI.py", "file:Math/KDJ.py", "file:Math/Demark.py"]
+  },
+  {
+    "order": 12,
+    "title": "数据源适配",
+    "description": "DataAPI/ 将外部数据源统一为框架标准 K 线格式。CommonStockAPI 定义抽象基类接口（get_kl_data、do_init、do_close），BaoStockAPI（默认）、AkshareAPI、ccxt、csvAPI 各自实现。这种适配器设计让核心计算与数据来源解耦，用户甚至可通过 'custom:ModuleName.ClassName' 字符串注入自定义数据源。",
+    "nodeIds": ["file:DataAPI/CommonStockAPI.py", "file:DataAPI/BaoStockAPI.py", "file:DataAPI/AkshareAPI.py"]
+  },
+  {
+    "order": 13,
+    "title": "可视化",
+    "description": "Plot/ 将计算结果渲染为图表。PlotDriver 是 matplotlib 绘图核心，负责 K 线、笔、段、中枢、买卖点与指标的绘制与保存；PlotMeta 把计算元素转换为结构化绘图元数据；AnimatePlotDriver 继承 PlotDriver 实现步进回放动画，可内嵌 Jupyter Notebook。Step 2 的 main.py 正是调用这一层输出 PNG。",
+    "nodeIds": ["file:Plot/PlotDriver.py", "file:Plot/PlotMeta.py", "file:Plot/AnimatePlotDriver.py"]
+  },
+  {
+    "order": 14,
+    "title": "演示与测试",
+    "description": "Debug/ 是项目的实际验证手段（本项目无自动化测试）。strategy_demo.py 用 trigger_step 模式逐根推送 K 线并捕获买卖点信号，验证步进计算逻辑；bi_test.py 构造锯齿走势日线并断言笔的数量、方向交替与端点值。其余 strategy_demo2~6 覆盖外部推送、多级别联立、区间套、ML 特征与 XGBoost 训练/预测等场景。",
+    "nodeIds": ["file:Debug/strategy_demo.py", "file:Debug/bi_test.py"]
+  },
+  {
+    "order": 15,
+    "title": "文档导读",
+    "description": "这些文档是深入学习的配套读物：quick_guide.md 提供快速上手与常见问题排查（递归溢出、信号消失等）；代码走读说明.md 将代码学习分为十个阶段（概念地基→计算流水线→分形到笔→…），与本 tour 的阅读顺序互为印证；阅读文档.md 面向初学者速览核心概念。建议在通读代码后回头对照，查漏补缺。",
+    "nodeIds": ["document:quick_guide.md", "document:代码走读说明.md", "document:阅读文档.md"]
+  }
+]

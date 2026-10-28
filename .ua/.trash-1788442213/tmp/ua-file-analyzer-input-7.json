@@ -1,0 +1,19 @@
+{
+  "projectRoot": "e:/CodingWork/01csh/chan.py",
+  "batchFiles": [
+    {"path": "__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": ".ua/.understandignore", "language": "unknown", "sizeLines": 49, "fileCategory": "code"},
+    {"path": ".ua/config.json", "language": "json", "sizeLines": 1, "fileCategory": "config"},
+    {"path": "BuySellPoint/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": "Combiner/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": "Common/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": "DataAPI/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": "KLine/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": "Math/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": "Plot/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": "Script/requirements.txt", "language": "txt", "sizeLines": 5, "fileCategory": "docs"},
+    {"path": "Seg/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": "ZS/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"}
+  ],
+  "batchImportData": {"__init__.py":[],".ua/.understandignore":[],".ua/config.json":[],"BuySellPoint/__init__.py":[],"Combiner/__init__.py":[],"Common/__init__.py":[],"DataAPI/__init__.py":[],"KLine/__init__.py":[],"Math/__init__.py":[],"Plot/__init__.py":[],"Script/requirements.txt":[],"Seg/__init__.py":[],"ZS/__init__.py":[]}
+}

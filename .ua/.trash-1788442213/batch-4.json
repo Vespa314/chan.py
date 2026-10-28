@@ -1,0 +1,1319 @@
+{
+  "nodes": [
+    {
+      "id": "file:Bi/BiList.py",
+      "type": "file",
+      "name": "BiList.py",
+      "filePath": "Bi/BiList.py",
+      "summary": "笔列表管理器，负责从K线合并序列中检测分形、构建笔、管理笔的确认与虚拟笔的添加删除，是缠论笔计算的核心模块。",
+      "tags": ["笔构建", "分形检测", "核心算法", "数据结构"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Bi/BiList.py:CBiList",
+      "type": "class",
+      "name": "CBiList",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [24, 452],
+      "summary": "笔列表核心类，管理笔的完整生命周期：从首次笔创建、笔的确认更新、虚拟笔的添加删除，到笔的端点有效性检查和K线跨度计算。",
+      "tags": ["笔管理", "核心类", "数据结构"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Bi/BiList.py:end_is_peak",
+      "type": "function",
+      "name": "end_is_peak",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [455, 493],
+      "summary": "判断当前K线端点相对于上一个端点是否为极值点（峰或谷），用于笔的端点更新验证。",
+      "tags": ["端点检测", "极值判断", "工具函数"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.__init__",
+      "type": "function",
+      "name": "CBiList.__init__",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [24, 53],
+      "summary": "初始化笔列表，接收笔配置CBiConfig，设置笔列表、自由K线合并列表等数据结构。",
+      "tags": ["初始化", "构造函数"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.try_create_first_bi",
+      "type": "function",
+      "name": "CBiList.try_create_first_bi",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [80, 106],
+      "summary": "尝试创建第一笔，在满足笔的生成条件时调用add_new_bi创建首笔，否则将K线合并加入自由列表。",
+      "tags": ["笔创建", "首笔检测"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.update_bi",
+      "type": "function",
+      "name": "CBiList.update_bi",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [107, 135],
+      "summary": "笔更新的主入口方法，依次调用update_bi_sure确认已完成的笔，再调用try_add_virtual_bi处理虚拟笔。",
+      "tags": ["笔更新", "入口方法"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.can_update_peak",
+      "type": "function",
+      "name": "CBiList.can_update_peak",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [136, 167],
+      "summary": "检查是否可以更新笔的端点（极值），根据最后一笔的方向和价格比较来判断是否形成了新的极值点。",
+      "tags": ["端点更新", "极值判断", "条件检查"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.update_peak",
+      "type": "function",
+      "name": "CBiList.update_peak",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [168, 198],
+      "summary": "更新笔的端点极值，移除旧端点、尝试更新新端点、重新添加笔，并追加确认端点。",
+      "tags": ["端点更新", "极值替换"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.update_bi_sure",
+      "type": "function",
+      "name": "CBiList.update_bi_sure",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [199, 236],
+      "summary": "确认笔的完成状态，处理虚拟笔删除、首笔创建、端点更新、新笔添加等完整流程，是笔确认的核心逻辑。",
+      "tags": ["笔确认", "核心逻辑", "状态管理"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.delete_virtual_bi",
+      "type": "function",
+      "name": "CBiList.delete_virtual_bi",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [237, 265],
+      "summary": "删除虚拟笔，恢复被虚拟笔覆盖的端点，并根据恢复后的状态决定是否添加新笔。",
+      "tags": ["虚拟笔", "删除操作", "状态恢复"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.try_add_virtual_bi",
+      "type": "function",
+      "name": "CBiList.try_add_virtual_bi",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [266, 300],
+      "summary": "尝试添加虚拟笔，先删除已有虚拟笔，然后根据最后一笔的方向和价格更新虚拟端点或创建新笔。",
+      "tags": ["虚拟笔", "添加操作", "端点更新"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.add_new_bi",
+      "type": "function",
+      "name": "CBiList.add_new_bi",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [301, 324],
+      "summary": "创建新的CBi笔对象并添加到笔列表，同时设置新笔与已有笔的pre/next链表关系。",
+      "tags": ["笔创建", "链表管理"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.satisfy_bi_span",
+      "type": "function",
+      "name": "CBiList.satisfy_bi_span",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [325, 356],
+      "summary": "检查笔的跨度是否满足要求，通过计算K线合并跨度并与配置中的最小跨度比较。",
+      "tags": ["跨度检查", "条件验证"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.get_klc_span",
+      "type": "function",
+      "name": "CBiList.get_klc_span",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [357, 386],
+      "summary": "计算K线合并列表的跨度，遍历K线合并序列并统计有跳空缺口的合并数量。",
+      "tags": ["跨度计算", "K线合并"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.can_make_bi",
+      "type": "function",
+      "name": "CBiList.can_make_bi",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [387, 427],
+      "summary": "判断是否可以生成新笔，综合检查跨度条件、分形有效性、端点极值关系等多项条件。",
+      "tags": ["笔生成", "条件判断", "综合验证"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Bi/BiList.py:CBiList.try_update_end",
+      "type": "function",
+      "name": "CBiList.try_update_end",
+      "filePath": "Bi/BiList.py",
+      "lineRange": [428, 451],
+      "summary": "尝试更新最后一笔的端点，根据笔的方向和价格比较判断是否更新虚拟端点或确认端点。",
+      "tags": ["端点更新", "条件判断"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Seg/SegConfig.py",
+      "type": "file",
+      "name": "SegConfig.py",
+      "filePath": "Seg/SegConfig.py",
+      "summary": "段算法配置类，定义段计算所需的参数如段类型、左段算法方法等，继承自ConfigWithCheck进行严格配置校验。",
+      "tags": ["配置", "段算法", "参数校验"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Seg/SegConfig.py:CSegConfig",
+      "type": "class",
+      "name": "CSegConfig",
+      "filePath": "Seg/SegConfig.py",
+      "lineRange": [14, 39],
+      "summary": "段算法配置类，封装段类型(SEG_TYPE)、左段算法(LEFT_SEG_METHOD)等参数，并在构造函数中进行参数有效性校验。",
+      "tags": ["配置类", "段参数", "参数校验"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegConfig.py:CSegConfig.__init__",
+      "type": "function",
+      "name": "CSegConfig.__init__",
+      "filePath": "Seg/SegConfig.py",
+      "lineRange": [14, 39],
+      "summary": "初始化段配置，校验seg_type和left_seg_method参数的有效性，无效时抛出CChanException。",
+      "tags": ["初始化", "参数校验", "构造函数"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Seg/SegListChan.py",
+      "type": "file",
+      "name": "SegListChan.py",
+      "filePath": "Seg/SegListChan.py",
+      "summary": "默认段算法实现（特征序列分形法），通过构建向上/向下特征序列分形来检测和确认段，是缠论中最核心的段计算算法。",
+      "tags": ["段算法", "特征序列", "核心算法", "缠论"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Seg/SegListChan.py:CSegListChan",
+      "type": "class",
+      "name": "CSegListChan",
+      "filePath": "Seg/SegListChan.py",
+      "lineRange": [20, 182],
+      "summary": "特征序列分形段算法类，继承自CSegListComm，通过遍历笔列表构建向上和向下特征序列分形(CEigenFX)，检测分形破坏来确认段。",
+      "tags": ["特征序列", "段算法", "核心类", "分形检测"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Seg/SegListChan.py:CSegListChan.__init__",
+      "type": "function",
+      "name": "CSegListChan.__init__",
+      "filePath": "Seg/SegListChan.py",
+      "lineRange": [20, 38],
+      "summary": "初始化特征序列段列表，设置段配置并调用父类初始化。",
+      "tags": ["初始化", "构造函数"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListChan.py:CSegListChan.do_init",
+      "type": "function",
+      "name": "CSegListChan.do_init",
+      "filePath": "Seg/SegListChan.py",
+      "lineRange": [40, 70],
+      "summary": "数据初始化方法，清理段列表中已确认段之前的笔数据，保留最后一段相关的笔用于后续计算。",
+      "tags": ["数据初始化", "清理"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListChan.py:CSegListChan.update",
+      "type": "function",
+      "name": "CSegListChan.update",
+      "filePath": "Seg/SegListChan.py",
+      "lineRange": [72, 87],
+      "summary": "段更新入口方法，调用do_init初始化数据，然后根据笔列表长度执行cal_seg_sure计算确认段，最后收集左侧剩余段。",
+      "tags": ["段更新", "入口方法"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListChan.py:CSegListChan.cal_seg_sure",
+      "type": "function",
+      "name": "CSegListChan.cal_seg_sure",
+      "filePath": "Seg/SegListChan.py",
+      "lineRange": [90, 147],
+      "summary": "计算确认段的核心方法，遍历笔列表构建向上和向下特征序列分形，检测分形被反向笔破坏时调用treat_fx_eigen处理段确认。",
+      "tags": ["段确认", "特征序列", "核心逻辑", "分形破坏"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Seg/SegListChan.py:CSegListChan.treat_fx_eigen",
+      "type": "function",
+      "name": "CSegListChan.treat_fx_eigen",
+      "filePath": "Seg/SegListChan.py",
+      "lineRange": [150, 182],
+      "summary": "处理特征序列分形，检查分形是否可以成为段结束点，确认后添加新段，并递归检查剩余分形。",
+      "tags": ["分形处理", "段结束", "递归"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Seg/SegListComm.py",
+      "type": "file",
+      "name": "SegListComm.py",
+      "filePath": "Seg/SegListComm.py",
+      "summary": "段列表公共基类，提供所有段算法的共享逻辑，包括段收集、左段处理、新增段、极值笔查找等核心方法，以及未确认段的复杂处理。",
+      "tags": ["段算法", "基类", "抽象", "核心逻辑"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Seg/SegListComm.py:CSegListComm",
+      "type": "class",
+      "name": "CSegListComm",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [31, 322],
+      "summary": "段列表公共基类，封装了段计算的通用流程：初始化、左段收集（多种策略）、段的新增与确认、未确认段处理等，为三种段算法提供统一框架。",
+      "tags": ["基类", "段算法", "抽象层", "共享逻辑"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:FindPeakBi",
+      "type": "function",
+      "name": "FindPeakBi",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [325, 353],
+      "summary": "在笔列表中查找极值笔（最高或最低），根据is_high参数在指定范围内搜索价格极值，跳过前两个笔的检查。",
+      "tags": ["极值查找", "工具函数", "笔分析"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:CSegListComm.__init__",
+      "type": "function",
+      "name": "CSegListComm.__init__",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [31, 54],
+      "summary": "初始化段列表基类，设置段配置CSegConfig和笔列表引用，调用do_init进行数据初始化。",
+      "tags": ["初始化", "构造函数"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:CSegListComm.do_init",
+      "type": "function",
+      "name": "CSegListComm.do_init",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [55, 74],
+      "summary": "数据初始化，清理段列表并重置确认段索引，设置段列表的起始笔索引。",
+      "tags": ["数据初始化", "清理"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:CSegListComm.left_bi_break",
+      "type": "function",
+      "name": "CSegListComm.left_bi_break",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [82, 98],
+      "summary": "检查左侧笔是否被突破，判断最后一段结束笔之后的新笔是否突破了段的极值范围。",
+      "tags": ["突破检测", "段确认", "条件判断"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:CSegListComm.collect_first_seg",
+      "type": "function",
+      "name": "CSegListComm.collect_first_seg",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [100, 139],
+      "summary": "收集第一段，根据笔列表的极值方向确定首段方向，调用FindPeakBi查找极值笔并add_new_seg创建段。",
+      "tags": ["首段收集", "段初始化", "极值查找"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:CSegListComm.collect_left_seg_peak_method",
+      "type": "function",
+      "name": "CSegListComm.collect_left_seg_peak_method",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [141, 172],
+      "summary": "使用极值方法收集左侧剩余段，根据最后一段结束笔的方向查找极值笔并添加段，递归处理直到无法继续。",
+      "tags": ["左段收集", "极值方法", "递归"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:CSegListComm.collect_segs",
+      "type": "function",
+      "name": "CSegListComm.collect_segs",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [174, 209],
+      "summary": "收集段的主方法，根据左段算法配置选择不同的收集策略（极值方法或定义方法），处理段的方向判断和添加。",
+      "tags": ["段收集", "策略选择", "核心逻辑"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:CSegListComm.collect_left_seg",
+      "type": "function",
+      "name": "CSegListComm.collect_left_seg",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [211, 226],
+      "summary": "收集左侧剩余段的入口方法，根据段列表状态决定调用collect_first_seg收集首段还是collect_segs收集后续段。",
+      "tags": ["左段收集", "入口方法", "分发"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:CSegListComm.collect_left_as_seg",
+      "type": "function",
+      "name": "CSegListComm.collect_left_as_seg",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [228, 246],
+      "summary": "将剩余未处理的笔作为最后一个段处理，在无法继续收集段时，将剩余笔直接封装为段并添加到列表中。",
+      "tags": ["剩余处理", "段封装", "兜底逻辑"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:CSegListComm.try_add_new_seg",
+      "type": "function",
+      "name": "CSegListComm.try_add_new_seg",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [248, 285],
+      "summary": "尝试添加新段，验证极值笔是否满足段的条件（方向一致且价格突破），创建CSeg对象并更新笔列表关联。",
+      "tags": ["段创建", "条件验证", "段添加"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:CSegListComm.add_new_seg",
+      "type": "function",
+      "name": "CSegListComm.add_new_seg",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [287, 297],
+      "summary": "添加新段到列表的简化入口，调用try_add_new_seg执行实际添加，并检查添加后段列表长度变化。",
+      "tags": ["段添加", "入口方法"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListComm.py:CSegListComm.update",
+      "type": "function",
+      "name": "CSegListComm.update",
+      "filePath": "Seg/SegListComm.py",
+      "lineRange": [299, 307],
+      "summary": "段更新方法，调用do_init初始化后收集左侧段，子类可重写以实现不同的段计算逻辑。",
+      "tags": ["段更新", "模板方法"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Seg/SegListDYH.py",
+      "type": "file",
+      "name": "SegListDYH.py",
+      "filePath": "Seg/SegListDYH.py",
+      "summary": "都业华版段算法实现（已弃用），使用situation1/situation2判定逻辑替代特征序列分形法，通过相邻三笔的位置关系判断段是否成立。",
+      "tags": ["段算法", "已弃用", "都业华"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Seg/SegListDYH.py:CSegListDYH",
+      "type": "class",
+      "name": "CSegListDYH",
+      "filePath": "Seg/SegListDYH.py",
+      "lineRange": [84, 243],
+      "summary": "都业华版段算法类，继承自CSegListComm，使用situation1/situation2三笔关系判定逻辑来确定段，已弃用。",
+      "tags": ["段算法", "已弃用", "都业华", "三笔判定"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Seg/SegListDYH.py:situation1",
+      "type": "function",
+      "name": "situation1",
+      "filePath": "Seg/SegListDYH.py",
+      "lineRange": [21, 50],
+      "summary": "判定情况1：当前笔被前一笔和下一笔夹在中间，即cur_bi的高低点均在前一笔和下一笔的范围内，表示段延续。",
+      "tags": ["段判定", "情况1", "辅助函数"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Seg/SegListDYH.py:situation2",
+      "type": "function",
+      "name": "situation2",
+      "filePath": "Seg/SegListDYH.py",
+      "lineRange": [53, 81],
+      "summary": "判定情况2：前一笔和下一笔的高低点均在当前笔的范围内，即cur_bi包含前后两笔，表示段可能转折。",
+      "tags": ["段判定", "情况2", "辅助函数"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Seg/SegListDYH.py:CSegListDYH.__init__",
+      "type": "function",
+      "name": "CSegListDYH.__init__",
+      "filePath": "Seg/SegListDYH.py",
+      "lineRange": [84, 105],
+      "summary": "初始化都业华段列表，设置段配置并调用父类初始化。",
+      "tags": ["初始化", "构造函数"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListDYH.py:CSegListDYH.update",
+      "type": "function",
+      "name": "CSegListDYH.update",
+      "filePath": "Seg/SegListDYH.py",
+      "lineRange": [106, 127],
+      "summary": "段更新入口方法，依次执行数据初始化、确认段计算、最后段更新、左侧突破检查和未确认段计算。",
+      "tags": ["段更新", "入口方法"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_sure",
+      "type": "function",
+      "name": "CSegListDYH.cal_bi_sure",
+      "filePath": "Seg/SegListDYH.py",
+      "lineRange": [128, 180],
+      "summary": "计算确认笔对应的段，遍历笔列表，使用situation1/situation2判定三笔关系，满足条件时添加新段。",
+      "tags": ["段确认", "三笔判定", "核心逻辑"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_unsure",
+      "type": "function",
+      "name": "CSegListDYH.cal_bi_unsure",
+      "filePath": "Seg/SegListDYH.py",
+      "lineRange": [182, 213],
+      "summary": "计算未确认笔对应的段，处理剩余笔列表中无法通过situation1/situation2确认的笔，查找极值并添加段。",
+      "tags": ["未确认段", "剩余处理"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Seg/SegListDYH.py:CSegListDYH.try_update_last_seg",
+      "type": "function",
+      "name": "CSegListDYH.try_update_last_seg",
+      "filePath": "Seg/SegListDYH.py",
+      "lineRange": [215, 243],
+      "summary": "尝试更新最后一个段，检查最后一段结束笔之后的新笔是否突破了段的极值范围，若突破则更新段。",
+      "tags": ["段更新", "最后段", "突破检测"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Seg/SegListDef.py",
+      "type": "file",
+      "name": "SegListDef.py",
+      "filePath": "Seg/SegListDef.py",
+      "summary": "定义版段算法实现（已弃用），使用is_up_seg/is_down_seg简单判定逻辑，通过相邻笔的价格比较来判断段方向和创建段。",
+      "tags": ["段算法", "已弃用", "定义法"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Seg/SegListDef.py:CSegListDef",
+      "type": "class",
+      "name": "CSegListDef",
+      "filePath": "Seg/SegListDef.py",
+      "lineRange": [53, 170],
+      "summary": "定义版段算法类，继承自CSegListComm，使用最简单的价格比较逻辑（高点上移=向上段，低点下移=向下段）来判定和创建段，已弃用。",
+      "tags": ["段算法", "已弃用", "定义法", "价格比较"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Seg/SegListDef.py:is_up_seg",
+      "type": "function",
+      "name": "is_up_seg",
+      "filePath": "Seg/SegListDef.py",
+      "lineRange": [20, 36],
+      "summary": "判断是否为向上段，通过比较当前笔与前一笔的高点，若当前笔高点更高且满足方向条件则返回True。",
+      "tags": ["段判定", "向上段", "辅助函数"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListDef.py:is_down_seg",
+      "type": "function",
+      "name": "is_down_seg",
+      "filePath": "Seg/SegListDef.py",
+      "lineRange": [39, 50],
+      "summary": "判断是否为向下段，通过比较当前笔与前一笔的低点，若当前笔低点更低且满足方向条件则返回True。",
+      "tags": ["段判定", "向下段", "辅助函数"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListDef.py:CSegListDef.__init__",
+      "type": "function",
+      "name": "CSegListDef.__init__",
+      "filePath": "Seg/SegListDef.py",
+      "lineRange": [53, 71],
+      "summary": "初始化定义版段列表，设置段配置并调用父类初始化。",
+      "tags": ["初始化", "构造函数"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListDef.py:CSegListDef.update",
+      "type": "function",
+      "name": "CSegListDef.update",
+      "filePath": "Seg/SegListDef.py",
+      "lineRange": [72, 88],
+      "summary": "段更新入口方法，依次执行数据初始化、确认段计算和左侧段收集。",
+      "tags": ["段更新", "入口方法"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListDef.py:CSegListDef.update_last_end",
+      "type": "function",
+      "name": "CSegListDef.update_last_end",
+      "filePath": "Seg/SegListDef.py",
+      "lineRange": [89, 103],
+      "summary": "更新最后一个段的结束笔，将新的笔数据更新到最后一个段的笔列表中。",
+      "tags": ["段更新", "最后段", "笔列表"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Seg/SegListDef.py:CSegListDef.cal_bi_sure",
+      "type": "function",
+      "name": "CSegListDef.cal_bi_sure",
+      "filePath": "Seg/SegListDef.py",
+      "lineRange": [104, 170],
+      "summary": "计算确认笔对应的段，遍历笔列表，使用is_up_seg/is_down_seg判断段方向，保持极值笔并在方向改变或段成立时添加新段。",
+      "tags": ["段确认", "核心逻辑", "段方向"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:Bi/BiConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "file:KLine/KLine.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Seg/EigenFX.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Bi/Bi.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Common/ChanException.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Seg/Seg.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Bi/BiList.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Common/CEnum.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Seg/SegConfig.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "file:Seg/SegListComm.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "class:Bi/BiList.py:CBiList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "function:Bi/BiList.py:end_is_peak",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.try_create_first_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.update_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.can_update_peak",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.update_peak",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.update_bi_sure",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.delete_virtual_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.try_add_virtual_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.add_new_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.satisfy_bi_span",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.get_klc_span",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.can_make_bi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Bi/BiList.py:CBiList",
+      "target": "function:Bi/BiList.py:CBiList.try_update_end",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "class:Seg/SegConfig.py:CSegConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegConfig.py:CSegConfig",
+      "target": "function:Seg/SegConfig.py:CSegConfig.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "class:Seg/SegListChan.py:CSegListChan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "function:Seg/SegListChan.py:CSegListChan.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "function:Seg/SegListChan.py:CSegListChan.do_init",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "function:Seg/SegListChan.py:CSegListChan.update",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "function:Seg/SegListChan.py:CSegListChan.cal_seg_sure",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "function:Seg/SegListChan.py:CSegListChan.treat_fx_eigen",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "class:Seg/SegListComm.py:CSegListComm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "function:Seg/SegListComm.py:FindPeakBi",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.do_init",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.left_bi_break",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_first_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_left_seg_peak_method",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_segs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_left_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_left_as_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.try_add_new_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.add_new_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListComm.py:CSegListComm",
+      "target": "function:Seg/SegListComm.py:CSegListComm.update",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "class:Seg/SegListDYH.py:CSegListDYH",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "function:Seg/SegListDYH.py:situation1",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "function:Seg/SegListDYH.py:situation2",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "function:Seg/SegListDYH.py:CSegListDYH.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "function:Seg/SegListDYH.py:CSegListDYH.update",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_sure",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_unsure",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "function:Seg/SegListDYH.py:CSegListDYH.try_update_last_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "class:Seg/SegListDef.py:CSegListDef",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "function:Seg/SegListDef.py:is_up_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "function:Seg/SegListDef.py:is_down_seg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDef.py:CSegListDef",
+      "target": "function:Seg/SegListDef.py:CSegListDef.__init__",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDef.py:CSegListDef",
+      "target": "function:Seg/SegListDef.py:CSegListDef.update",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDef.py:CSegListDef",
+      "target": "function:Seg/SegListDef.py:CSegListDef.update_last_end",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:Seg/SegListDef.py:CSegListDef",
+      "target": "function:Seg/SegListDef.py:CSegListDef.cal_bi_sure",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "class:Bi/BiList.py:CBiList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Bi/BiList.py",
+      "target": "function:Bi/BiList.py:end_is_peak",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "class:Seg/SegConfig.py:CSegConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "class:Seg/SegListChan.py:CSegListChan",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "class:Seg/SegListComm.py:CSegListComm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "function:Seg/SegListComm.py:FindPeakBi",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "function:Seg/SegListDYH.py:situation1",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "function:Seg/SegListDYH.py:situation2",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDYH.py",
+      "target": "class:Seg/SegListDYH.py:CSegListDYH",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "function:Seg/SegListDef.py:is_up_seg",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "function:Seg/SegListDef.py:is_down_seg",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegListDef.py",
+      "target": "class:Seg/SegListDef.py:CSegListDef",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:Seg/SegListChan.py:CSegListChan",
+      "target": "class:Seg/SegListComm.py:CSegListComm",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:Seg/SegListDYH.py:CSegListDYH",
+      "target": "class:Seg/SegListComm.py:CSegListComm",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:Seg/SegListDef.py:CSegListDef",
+      "target": "class:Seg/SegListComm.py:CSegListComm",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "function:Bi/BiList.py:CBiList.add_new_bi",
+      "target": "class:Bi/Bi.py:CBi",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Bi/BiList.py:CBiList.__init__",
+      "target": "class:Bi/BiConfig.py:CBiConfig",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListChan.py:CSegListChan.cal_seg_sure",
+      "target": "class:Seg/EigenFX.py:CEigenFX",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListComm.py:CSegListComm.try_add_new_seg",
+      "target": "class:Seg/Seg.py:CSeg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDYH.py:CSegListDYH.update",
+      "target": "function:Seg/SegListComm.py:CSegListComm.do_init",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDYH.py:CSegListDYH.update",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_left_seg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDYH.py:CSegListDYH.update",
+      "target": "function:Seg/SegListComm.py:CSegListComm.left_bi_break",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDef.py:CSegListDef.update",
+      "target": "function:Seg/SegListComm.py:CSegListComm.do_init",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDef.py:CSegListDef.update",
+      "target": "function:Seg/SegListComm.py:CSegListComm.collect_left_seg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_sure",
+      "target": "function:Seg/SegListComm.py:CSegListComm.add_new_seg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDYH.py:CSegListDYH.cal_bi_unsure",
+      "target": "function:Seg/SegListComm.py:CSegListComm.add_new_seg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Seg/SegListDef.py:CSegListDef.cal_bi_sure",
+      "target": "function:Seg/SegListComm.py:CSegListComm.add_new_seg",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Seg/SegConfig.py",
+      "target": "file:Common/ChanException.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Common/ChanException.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Seg/SegListChan.py",
+      "target": "file:Seg/EigenFX.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Seg/SegListComm.py",
+      "target": "file:Seg/Seg.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}
