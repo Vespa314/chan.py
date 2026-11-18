@@ -13,7 +13,7 @@
 
 <p><a href="https://github.com/Vespa314/chan.py/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Vespa314/chan.py" /></a></p>
 
-- 讨论组：<a href="https://t.me/zen_python">Telegram</a>
+- 讨论组：<a href="https://t.me/zen_python">Telegram</a>(电报由于诈骗号泛滥，为了方便治理，当前加群为人工审批，可能有不及时；提交入群申请后可直接联系 <a href="https://t.me/kylen314">管理员</a>处理。)
 - [快速上手指南](./quick_guide.md)
 
 
