@@ -1,0 +1,82 @@
+{
+  "folds": [
+    {
+      "fold": "train2018_2021_val2022_test2023",
+      "n_train": 9721,
+      "n_val": 3468,
+      "n_test": 3971,
+      "threshold": {
+        "threshold": 0.7,
+        "mean_net_return": 0.004732723921739669,
+        "n": 105,
+        "min_count": 20
+      },
+      "status": "ok",
+      "test": {
+        "all_buys": {
+          "n": 3971,
+          "mean_net_return": -0.004375282205700871,
+          "win_rate": 0.38176781667086374,
+          "final_equity": 0.7981096428162917,
+          "max_drawdown": -0.2603271562273296,
+          "n_trades": 383
+        },
+        "strict_type1": {
+          "n": 631,
+          "mean_net_return": -0.003956784631168186,
+          "win_rate": 0.38351822503961963,
+          "final_equity": 0.8053163957975144,
+          "max_drawdown": -0.24546816203189314,
+          "n_trades": 276
+        },
+        "model": {
+          "n": 62,
+          "mean_net_return": -0.003298882515626576,
+          "win_rate": 0.3548387096774194,
+          "final_equity": 0.9758941323370511,
+          "max_drawdown": -0.06412592410941897,
+          "n_trades": 61
+        }
+      }
+    },
+    {
+      "fold": "train2018_2022_val2023_test2024",
+      "n_train": 13448,
+      "n_val": 3410,
+      "n_test": 3658,
+      "threshold": {
+        "threshold": 0.7,
+        "mean_net_return": 0.005258966362117834,
+        "n": 35,
+        "min_count": 20
+      },
+      "status": "ok",
+      "test": {
+        "all_buys": {
+          "n": 3658,
+          "mean_net_return": 0.0005937389053046205,
+          "win_rate": 0.41060688901038817,
+          "final_equity": 1.0551165898391581,
+          "max_drawdown": -0.21178891916589904,
+          "n_trades": 376
+        },
+        "strict_type1": {
+          "n": 543,
+          "mean_net_return": 0.0015039841442594133,
+          "win_rate": 0.4088397790055249,
+          "final_equity": 0.9939399212271014,
+          "max_drawdown": -0.21359096115793286,
+          "n_trades": 198
+        },
+        "model": {
+          "n": 57,
+          "mean_net_return": 0.03567284798505792,
+          "win_rate": 0.6666666666666666,
+          "final_equity": 1.0500648490472824,
+          "max_drawdown": -0.05395246382081931,
+          "n_trades": 35
+        }
+      }
+    }
+  ]
+}

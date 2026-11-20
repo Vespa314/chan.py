@@ -4,3 +4,5 @@ matplotlib>=3.5.3
 numpy>=1.23.3
 pandas>=1.4.2
 requests>=2.22.0
+pyqtgraph>=0.13.0
+PyQt5>=5.15.0
